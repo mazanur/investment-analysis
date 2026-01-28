@@ -36,7 +36,6 @@ author: AlmazNurmukhametov
 - [Транспорт](sectors/transport/)
 - [Агросектор](sectors/agro/)
 - [Медицина и фармацевтика](sectors/healthcare/)
-- [Девелопмент](sectors/realestate/)
 - [Машиностроение](sectors/manufacturing/)
 
 ## Статус обновлений
@@ -59,7 +58,6 @@ author: AlmazNurmukhametov
 | sectors/transport | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | sectors/agro | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | sectors/healthcare | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
-| sectors/realestate | редирект | 2026-01-28 | — | см. construction |
 | sectors/manufacturing | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | **Компании** | | | | |
 | companies/SBER.md | заглушка | 2025-01-25 | — | заполнить |
