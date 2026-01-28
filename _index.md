@@ -50,7 +50,7 @@ author: AlmazNurmukhametov
 | sectors/finance | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | sectors/retail | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | sectors/oil-gas | заглушка | 2025-01-25 | — | заполнить |
-| sectors/metals-mining | заглушка | 2025-01-25 | — | заполнить |
+| sectors/metals-mining | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | sectors/energy | заглушка | 2025-01-25 | — | заполнить |
 | sectors/construction | заглушка | 2025-01-25 | — | заполнить |
 | sectors/transport | заглушка | 2025-01-25 | — | заполнить |
