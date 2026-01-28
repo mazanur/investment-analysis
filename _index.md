@@ -63,3 +63,4 @@ author: AlmazNurmukhametov
 | companies/SBER.md | заглушка | 2025-01-25 | — | заполнить |
 | companies/X5.md | частично | 2026-01-28 | 2026-04-28 | ежеквартально |
 | companies/PHOR/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
+| companies/EUTR/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |

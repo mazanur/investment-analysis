@@ -36,6 +36,7 @@ updated: 2026-01-28
 | [MGNT](MGNT/) | Магнит | | watch | 4 |
 | [FIXP](FIXP/) | Fix Price | | watch | 6 |
 | [LENT](LENT/) | Лента | | watch | 2 |
+| [EUTR](EUTR/) | ЕвроТранс | neutral | watch | 0 |
 
 ### IT и Телеком
 | Тикер | Компания | Sentiment | Position | Мнений |
