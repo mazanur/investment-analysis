@@ -22,6 +22,9 @@ NC     := \033[0m
 
 TODAY := $(shell date +%Y-%m-%d)
 
+# Общие флаги для Claude в автоматическом режиме
+CLAUDE_FLAGS := --verbose --dangerously-skip-permissions
+
 help:
 	@echo "$(CYAN)Investment Analysis — команды$(NC)"
 	@echo ""
@@ -90,7 +93,11 @@ check:
 
 next:
 	@echo "$(CYAN)Запуск Claude для заполнения следующей компании-заглушки...$(NC)"
-	@claude -p "Прочитай companies/RESEARCH_GUIDE.md и _index.md. Найди первую компанию-заглушку (без sentiment в _index.md) и заполни её по инструкции. После заполнения запусти make trends."
+	@claude $(CLAUDE_FLAGS) -p "Прочитай companies/RESEARCH_GUIDE.md и _index.md. Найди первую компанию-заглушку (без sentiment в _index.md) и заполни её по инструкции. После заполнения запусти make trends."
+
+next1:
+	@echo "$(CYAN)Запуск Claude для заполнения следующей компании-заглушки...$(NC)"
+	@claude $(CLAUDE_FLAGS) -p "подумай как можно меня охарактеризовать, если смотреть на проект  "
 
 research:
 ifndef TICKER
@@ -99,7 +106,7 @@ ifndef TICKER
 	@exit 1
 endif
 	@echo "$(CYAN)Запуск Claude для исследования $(TICKER)...$(NC)"
-	@claude -p "Прочитай companies/RESEARCH_GUIDE.md. Исследуй компанию $(TICKER) и заполни companies/$(TICKER)/_index.md по инструкции. После заполнения запусти make trends."
+	@claude $(CLAUDE_FLAGS) -p "Прочитай companies/RESEARCH_GUIDE.md. Исследуй компанию $(TICKER) и заполни companies/$(TICKER)/_index.md по инструкции. После заполнения запусти make trends."
 
 sector:
 ifndef SECTOR
@@ -109,15 +116,15 @@ ifndef SECTOR
 	@exit 1
 endif
 	@echo "$(CYAN)Запуск Claude для исследования сектора $(SECTOR)...$(NC)"
-	@claude -p "Прочитай sectors/RESEARCH_GUIDE.md. Исследуй сектор $(SECTOR) и обнови sectors/$(SECTOR)/_index.md по инструкции."
+	@claude $(CLAUDE_FLAGS) -p "Прочитай sectors/RESEARCH_GUIDE.md. Исследуй сектор $(SECTOR) и обнови sectors/$(SECTOR)/_index.md по инструкции."
 
 speculative:
 	@echo "$(CYAN)Запуск Claude для поиска спекулятивных идей...$(NC)"
-	@claude -p "Прочитай companies/SPECULATIVE_GUIDE.md. Найди топ-3 спекулятивные идеи среди заполненных компаний (sentiment: bullish, position: buy/watch). Рассчитай Speculative Score и покажи результаты."
+	@claude $(CLAUDE_FLAGS) -p "Прочитай companies/SPECULATIVE_GUIDE.md. Найди топ-3 спекулятивные идеи среди заполненных компаний (sentiment: bullish, position: buy/watch). Рассчитай Speculative Score и покажи результаты."
 
 update-macro:
 	@echo "$(CYAN)Запуск Claude для обновления macro.md...$(NC)"
-	@claude -p "Обнови russia/macro.md после последнего заседания ЦБ. Найди актуальную информацию о ставке, инфляции, прогнозах. Обнови таблицу заседаний и обнови _index.md."
+	@claude $(CLAUDE_FLAGS) -p "Обнови russia/macro.md после последнего заседания ЦБ. Найди актуальную информацию о ставке, инфляции, прогнозах. Обнови таблицу заседаний и обнови _index.md."
 
 # ============================================================================
 # ГЕНЕРАЦИЯ (скрипты)
