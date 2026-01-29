@@ -56,7 +56,7 @@ updated: 2026-01-28
 | [NLMK](NLMK/) | НЛМК | | watch | 1 |
 | [CHMF](CHMF/) | Северсталь | | watch | 2 |
 | [MAGN](MAGN/) | ММК | | watch | 1 |
-| [ALRS](ALRS/) | Алроса | | watch | 3 |
+| [ALRS](ALRS/) | Алроса | bearish | watch | 3 |
 | [PLZL](PLZL/) | Полюс | | watch | 2 |
 | [POLY](POLY/) | Polymetal | | watch | 1 |
 | [RUAL](RUAL/) | Русал | | watch | 3 |
