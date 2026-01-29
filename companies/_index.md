@@ -23,10 +23,10 @@ updated: 2026-01-28
 ### Финансы
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
-| [SBER](SBER/) | Сбербанк | | watch | 16 |
+| [SBER](SBER/) | Сбербанк | bullish | buy | 16 |
 | [VTBR](VTBR/) | ВТБ | | watch | 6 |
 | [TCSG](TCSG/) | Т-Банк | bullish | buy | 19 |
-| [MOEX](MOEX/) | Мосбиржа | | watch | 13 |
+| [MOEX](MOEX/) | Мосбиржа | neutral | watch | 13 |
 
 ### Ритейл
 | Тикер | Компания | Sentiment | Position | Мнений |
@@ -46,7 +46,7 @@ updated: 2026-01-28
 | [MTSS](MTSS/) | МТС | | watch | 5 |
 | [OZON](OZON/) | Озон | | watch | 2 |
 | [HHRU](HHRU/) | HeadHunter | | watch | 2 |
-| [POSI](POSI/) | Positive Technologies | | watch | 65 |
+| [POSI](POSI/) | Positive Technologies | bearish | watch | 65 |
 | [RTKM](RTKM/) | Ростелеком | | watch | 2 |
 
 ### Металлы и добыча
