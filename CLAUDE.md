@@ -41,11 +41,13 @@ investment-analysis/
 ```
 companies/{TICKER}/
 ├── _index.md      # Наше исследование (заполняется вручную)
-└── opinions.md    # Внешние мнения (автогенерация из sources/)
+├── opinions.md    # Внешние мнения (автогенерация из sources/)
+└── trend.json     # Вероятности роста/падения для внешнего сервиса (автогенерация)
 ```
 
 - **_index.md** — основной документ с нашим анализом
 - **opinions.md** — агрегированные мнения из Telegram-каналов и других источников (генерируется скриптом)
+- **trend.json** — JSON с вероятностями роста/падения для внешнего сервиса (генерируется `scripts/generate_trend_json.py`)
 
 ## Формат ответа при анализе
 
@@ -129,6 +131,7 @@ companies/{TICKER}/
 | sectors/{sector} | ежеквартально | выход отраслевой статистики, крупные M&A, регуляторные изменения |
 | companies/{TICKER}/_index.md | ежеквартально | публикация отчётности (МСФО/РСБУ), дивидендные решения, корпоративные события |
 | companies/{TICKER}/opinions.md | автоматически | запуск `scripts/generate_opinions.py` после обновления sources/ |
+| companies/{TICKER}/trend.json | автоматически | запуск `scripts/generate_trend_json.py` после обновления _index.md |
 
 ### Как рассчитывать «След. обновление»
 - Для заполненных документов: дата последнего обновления + период частоты
@@ -161,8 +164,29 @@ python3 scripts/filter_russia.py
 
 # 3. Сгенерировать opinions.md для каждой компании
 python3 scripts/generate_opinions.py
+
+# 4. Обновить trend.json для всех компаний
+python3 scripts/generate_trend_json.py
 ```
 
 Рекомендуемая частота: раз в неделю или после важных событий (отчёты, дивиденды).
+
+### Формат trend.json
+
+Файл `trend.json` содержит вероятности роста/падения для внешнего сервиса:
+
+```json
+{
+  "ticker": "SBER",
+  "sentiment": "bullish",
+  "upside": 0.64,
+  "growth_probability": 0.70,
+  "decline_probability": 0.15,
+  "updated": "2026-01-29"
+}
+```
+
+Алгоритм расчёта вероятностей основан на `sentiment` и `upside` из `_index.md`.
+Схема API: `api/trend-schema.yaml`.
 
 Подробная инструкция: `scripts/README.md`

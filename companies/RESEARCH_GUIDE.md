@@ -316,6 +316,16 @@ Upside = (my_fair_value − current_price) / current_price × 100%
 - `_index.md` — обнови статус, дату, след. обновление (+3 мес.)
 - `sectors/{sector}/_index.md` — обнови sentiment компании в таблице «Компании сектора»
 
+### 9. Обнови trend.json
+
+После заполнения `_index.md` запусти скрипт для генерации `trend.json`:
+
+```bash
+python3 scripts/generate_trend_json.py
+```
+
+Скрипт создаст `companies/{TICKER}/trend.json` с вероятностями роста/падения на основе sentiment и upside из метаданных. Файл используется внешним сервисом для отображения прогнозов.
+
 ## Как использовать секторальный анализ
 
 Из `sectors/{sector}/_index.md` бери:
