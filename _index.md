@@ -80,3 +80,4 @@ author: AlmazNurmukhametov
 | companies/POSI/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/MOEX/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/GMKN/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
+| companies/LKOH/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
