@@ -75,3 +75,4 @@ author: AlmazNurmukhametov
 | companies/HNFG/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | companies/MSNG/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | companies/GAZP/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
+| companies/TCSG/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
