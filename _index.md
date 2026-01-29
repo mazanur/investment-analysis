@@ -82,3 +82,4 @@ author: AlmazNurmukhametov
 | companies/GMKN/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/LKOH/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/CHMF/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
+| companies/AKRN/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
