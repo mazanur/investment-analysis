@@ -5,3 +5,4 @@
 # Большие файлы данных (можно regenerate)
 *_posts.json
 subtitles*.vtt
+data/

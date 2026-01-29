@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions update-macro sector clean
+.PHONY: help status check next research speculative trends opinions update-macro sector clean portfolio top export validate
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -40,7 +40,13 @@ help:
 	@echo "  make trends        — сгенерировать trend.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
 	@echo ""
+	@echo "$(GREEN)Аналитика:$(NC)"
+	@echo "  make portfolio     — показать компании с position=buy"
+	@echo "  make top           — топ-10 компаний по upside"
+	@echo "  make export        — экспортировать данные в JSON"
+	@echo ""
 	@echo "$(GREEN)Прочее:$(NC)"
+	@echo "  make validate      — проверить валидность _index.md"
 	@echo "  make clean         — удалить временные файлы"
 
 # ============================================================================
@@ -131,6 +137,49 @@ opinions:
 # ============================================================================
 # ПРОЧЕЕ
 # ============================================================================
+
+# ============================================================================
+# АНАЛИТИКА
+# ============================================================================
+
+portfolio:
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo "$(CYAN)  Портфель (position: buy)$(NC)"
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo ""
+	@for f in companies/*/_index.md; do \
+		if grep -q "^position: buy" "$$f" 2>/dev/null; then \
+			ticker=$$(grep "^ticker:" "$$f" | cut -d: -f2 | tr -d ' '); \
+			sentiment=$$(grep "^sentiment:" "$$f" | cut -d: -f2 | tr -d ' '); \
+			upside=$$(grep "^upside:" "$$f" | cut -d: -f2 | tr -d ' '); \
+			price=$$(grep "^current_price:" "$$f" | cut -d: -f2 | tr -d ' '); \
+			target=$$(grep "^my_fair_value:" "$$f" | cut -d: -f2 | tr -d ' '); \
+			echo "  $(GREEN)$$ticker$(NC) — $$sentiment, upside: $$upside, цена: $$price → $$target"; \
+		fi \
+	done
+	@echo ""
+
+top:
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo "$(CYAN)  Топ-10 по upside$(NC)"
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo ""
+	@python3 scripts/top_upside.py
+	@echo ""
+
+export:
+	@echo "$(CYAN)Экспорт данных в data/export.json...$(NC)"
+	@mkdir -p data
+	@python3 scripts/export_data.py
+	@echo "$(GREEN)Готово: data/export.json$(NC)"
+
+# ============================================================================
+# ПРОЧЕЕ
+# ============================================================================
+
+validate:
+	@echo "$(CYAN)Проверка валидности _index.md...$(NC)"
+	@python3 scripts/validate_index.py
 
 clean:
 	@echo "$(CYAN)Очистка временных файлов...$(NC)"
