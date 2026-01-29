@@ -1,0 +1,139 @@
+# Investment Analysis Makefile
+# Автоматизация задач с Claude Code
+#
+# Использование:
+#   make help          — показать все команды
+#   make status        — статистика базы знаний
+#   make check         — проверить просроченные документы
+#   make next          — заполнить следующую компанию-заглушку
+#   make research TICKER=SBER  — исследовать компанию
+#   make speculative   — найти спекулятивные идеи
+#
+# Автор: AlmazNurmukhametov
+
+.PHONY: help status check next research speculative trends opinions update-macro sector clean
+
+# Цвета для вывода
+GREEN  := \033[0;32m
+YELLOW := \033[0;33m
+RED    := \033[0;31m
+CYAN   := \033[0;36m
+NC     := \033[0m
+
+TODAY := $(shell date +%Y-%m-%d)
+
+help:
+	@echo "$(CYAN)Investment Analysis — команды$(NC)"
+	@echo ""
+	@echo "$(GREEN)Информация:$(NC)"
+	@echo "  make status        — статистика базы знаний (заполнено/заглушки)"
+	@echo "  make check         — показать просроченные документы"
+	@echo ""
+	@echo "$(GREEN)Исследование (запускает Claude):$(NC)"
+	@echo "  make next          — заполнить следующую компанию-заглушку"
+	@echo "  make research TICKER=SBER  — исследовать конкретную компанию"
+	@echo "  make sector SECTOR=finance — исследовать сектор"
+	@echo "  make speculative   — найти спекулятивные идеи"
+	@echo "  make update-macro  — обновить macro.md после заседания ЦБ"
+	@echo ""
+	@echo "$(GREEN)Генерация (скрипты):$(NC)"
+	@echo "  make trends        — сгенерировать trend.json для всех компаний"
+	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
+	@echo ""
+	@echo "$(GREEN)Прочее:$(NC)"
+	@echo "  make clean         — удалить временные файлы"
+
+# ============================================================================
+# ИНФОРМАЦИЯ
+# ============================================================================
+
+status:
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo "$(CYAN)  Статус базы знаний ($(TODAY))$(NC)"
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo ""
+	@echo "$(GREEN)Компании:$(NC)"
+	@total=$$(ls -d companies/*/ 2>/dev/null | wc -l | tr -d ' '); \
+	filled=$$(grep -l "^sentiment:" companies/*/_index.md 2>/dev/null | wc -l | tr -d ' '); \
+	stubs=$$((total - filled)); \
+	echo "  Всего папок:    $$total"; \
+	echo "  Заполнено:      $(GREEN)$$filled$(NC)"; \
+	echo "  Заглушек:       $(YELLOW)$$stubs$(NC)"
+	@echo ""
+	@echo "$(GREEN)Секторы:$(NC)"
+	@total=$$(ls -d sectors/*/ 2>/dev/null | wc -l | tr -d ' '); \
+	filled=$$(grep -l "^sentiment:" sectors/*/_index.md 2>/dev/null | wc -l | tr -d ' '); \
+	echo "  Всего:          $$total"; \
+	echo "  Заполнено:      $(GREEN)$$filled$(NC)"
+	@echo ""
+	@echo "$(GREEN)trend.json:$(NC)"
+	@trends=$$(ls companies/*/trend.json 2>/dev/null | wc -l | tr -d ' '); \
+	echo "  Сгенерировано:  $$trends"
+	@echo ""
+
+check:
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo "$(CYAN)  Проверка обновлений ($(TODAY))$(NC)"
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo ""
+	@python3 scripts/check_updates.py
+
+# ============================================================================
+# ИССЛЕДОВАНИЕ (Claude)
+# ============================================================================
+
+next:
+	@echo "$(CYAN)Запуск Claude для заполнения следующей компании-заглушки...$(NC)"
+	@claude -p "Прочитай companies/RESEARCH_GUIDE.md и _index.md. Найди первую компанию-заглушку (без sentiment в _index.md) и заполни её по инструкции. После заполнения запусти make trends."
+
+research:
+ifndef TICKER
+	@echo "$(RED)Ошибка: укажи тикер$(NC)"
+	@echo "Использование: make research TICKER=SBER"
+	@exit 1
+endif
+	@echo "$(CYAN)Запуск Claude для исследования $(TICKER)...$(NC)"
+	@claude -p "Прочитай companies/RESEARCH_GUIDE.md. Исследуй компанию $(TICKER) и заполни companies/$(TICKER)/_index.md по инструкции. После заполнения запусти make trends."
+
+sector:
+ifndef SECTOR
+	@echo "$(RED)Ошибка: укажи сектор$(NC)"
+	@echo "Использование: make sector SECTOR=finance"
+	@echo "Доступные секторы: oil-gas, finance, it-telecom, retail, metals-mining, energy, construction, transport, agro, healthcare, manufacturing"
+	@exit 1
+endif
+	@echo "$(CYAN)Запуск Claude для исследования сектора $(SECTOR)...$(NC)"
+	@claude -p "Прочитай sectors/RESEARCH_GUIDE.md. Исследуй сектор $(SECTOR) и обнови sectors/$(SECTOR)/_index.md по инструкции."
+
+speculative:
+	@echo "$(CYAN)Запуск Claude для поиска спекулятивных идей...$(NC)"
+	@claude -p "Прочитай companies/SPECULATIVE_GUIDE.md. Найди топ-3 спекулятивные идеи среди заполненных компаний (sentiment: bullish, position: buy/watch). Рассчитай Speculative Score и покажи результаты."
+
+update-macro:
+	@echo "$(CYAN)Запуск Claude для обновления macro.md...$(NC)"
+	@claude -p "Обнови russia/macro.md после последнего заседания ЦБ. Найди актуальную информацию о ставке, инфляции, прогнозах. Обнови таблицу заседаний и обнови _index.md."
+
+# ============================================================================
+# ГЕНЕРАЦИЯ (скрипты)
+# ============================================================================
+
+trends:
+	@echo "$(CYAN)Генерация trend.json...$(NC)"
+	@python3 scripts/generate_trend_json.py
+
+opinions:
+	@echo "$(CYAN)Генерация opinions.md...$(NC)"
+	@echo "$(YELLOW)Для полной генерации сначала скачай посты:$(NC)"
+	@echo "  python3 scripts/telegram_scraper.py investopit investopit_posts.json"
+	@echo "  python3 scripts/filter_russia.py"
+	@python3 scripts/generate_opinions.py
+
+# ============================================================================
+# ПРОЧЕЕ
+# ============================================================================
+
+clean:
+	@echo "$(CYAN)Очистка временных файлов...$(NC)"
+	@find . -name "*.pyc" -delete
+	@find . -name "__pycache__" -delete
+	@echo "$(GREEN)Готово$(NC)"
