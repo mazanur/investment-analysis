@@ -41,8 +41,7 @@ updated: 2026-01-28
 ### IT и Телеком
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
-| [YNDX](YNDX/) | Яндекс | | watch | 4 |
-| [YDEX](YDEX/) | Яндекс (новый) | | watch | 4 |
+| [YDEX](YNDX/) | Яндекс | neutral | watch | 4 |
 | [VKCO](VKCO/) | VK | | watch | 4 |
 | [MTSS](MTSS/) | МТС | | watch | 5 |
 | [OZON](OZON/) | Озон | | watch | 2 |
