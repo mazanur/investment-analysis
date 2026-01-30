@@ -155,9 +155,9 @@
 - [x] Обновить индексные файлы
 
 ### Задача 9: IT — MTSS (МТС)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/MTSS/_index.md`
-- [ ] Обновить индексные файлы
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/MTSS/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 10: IT — RTKM (Ростелеком)
 - [ ] WebFetch: smart-lab данные
