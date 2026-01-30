@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Positive Technologies (POSI) — Инвестиционный дашборд</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #0d1117; color: #e6edf3;
+    line-height: 1.6;
+}
+a { color: #388bfd; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
+header h1 { font-size: 24px; font-weight: 600; }
+header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: #238636; }
+.stat-card .value.blue { color: #388bfd; }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: #e6edf3; }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
+tr:hover { background: #161b22; }
+tr.stub td { color: #484f58; }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: #238636; color: #fff; }
+.badge-neutral { background: #d29922; color: #000; }
+.badge-bearish { background: #da3633; color: #fff; }
+.badge-buy { background: #238636; color: #fff; }
+.badge-hold { background: #388bfd; color: #fff; }
+.badge-sell { background: #da3633; color: #fff; }
+.badge-watch { background: #484f58; color: #e6edf3; }
+.badge-avoid { background: #da3633; color: #fff; }
+.badge-stub { background: #30363d; color: #8b949e; }
+
+/* Положительный/отрицательный upside */
+.positive { color: #3fb950; }
+.negative { color: #f85149; }
+.muted { color: #8b949e; }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
+.back:hover { color: #e6edf3; }
+
+/* Карточка компании */
+.company-header {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: #8b949e; font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
+.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: #d29922;
+}
+
+/* Контент анализа */
+.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid #30363d; padding: 8px 16px;
+    color: #8b949e; margin: 12px 0;
+}
+.analysis code {
+    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
+.analysis strong { color: #f0f6fc; }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+
+<div class="company-header">
+<h1>Positive Technologies</h1>
+<div class="ticker">POSI &middot; IT и Телеком</div>
+<div class="badges">
+<span class="badge badge-bearish">bearish</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">1118</div></div><div class="metric"><div class="label">Цель</div><div class="value">847</div></div><div class="metric"><div class="label">Upside</div><div class="value">-24%</div></div><div class="metric"><div class="label">P/E</div><div class="value">25.0</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">28.5%</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">79.6 млрд</div></div><div class="metric"><div class="label">P/BV</div><div class="value">отриц.</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">12.2</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">2.61</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:20%">&#x25B2; 20%</div>
+<div class="flat" style="width:5%">5%</div>
+<div class="decline" style="width:75%">&#x25BC; 75%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>Positive Technologies (POSI)</h1>
+<h2>Бизнес-модель</h2>
+<p>Ведущий российский разработчик решений в сфере кибербезопасности. Основные продукты:</p>
+<ul><li><strong>MaxPatrol SIEM</strong> — система мониторинга безопасности, флагманский продукт</li><li><strong>PT Network Attack Discovery</strong> — анализ сетевого трафика</li><li><strong>PT Sandbox</strong> — защита от целевых атак</li><li><strong>PT NGFW</strong> — межсетевой экран нового поколения (запуск 2025)</li><li><strong>PT Application Inspector</strong> — анализ защищённости приложений</li></ul>
+<p><strong>Структура выручки:</strong></p>
+<ul><li>~70% — корпоративные клиенты (банки, телекомы, промышленность)</li><li>~30% — госсектор и критическая инфраструктура</li></ul>
+<p><strong>Модель монетизации:</strong></p>
+<ul><li>Лицензии на ПО (perpetual + подписка)</li><li>Техническая поддержка и обновления</li><li>Консалтинг и пентесты (bug bounty)</li></ul>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Лидер рынка ИБ в РФ</strong> — доля ~15-20% рынка кибербезопасности</li><li><strong>Бенефициар импортозамещения</strong> — уход западных вендоров (Palo Alto, Fortinet, Cisco) создал рынок</li><li><strong>R&D-интенсивность</strong> — инвестиции в R&D 9,1 млрд (2024), рост +80% YoY</li><li><strong>Сильный бренд</strong> — Positive Hack Days, bug bounty программы, репутация в сообществе</li><li><strong>Госзаказ</strong> — обязательная защита критической инфраструктуры до 2030</li></ul>
+<h2>Риски</h2>
+<h3>Операционные риски</h3>
+<ul><li><strong>Падение маржи EBITDA</strong> — с 49% (2022-2023) до 26% (2024), вызвано ростом R&D</li><li><strong>Отрицательный FCF</strong> — -6,2 млрд (LTM), бизнес не генерирует кэш</li><li><strong>Перенос PT NGFW</strong> — планировали 10 млрд выручки в 2024, сдвиг на 2025</li><li><strong>Дефицит кадров</strong> — конкуренция за ИБ-специалистов с Big Tech</li></ul>
+<h3>Макро-риски</h3>
+<ul><li><strong>Высокая ставка ЦБ</strong> — корпорации режут IT-бюджеты при ставке 16-21%</li><li><strong>Рост долговой нагрузки</strong> — Net Debt/EBITDA 2,61x (было 0,3x в 2023)</li><li><strong>Допэмиссия</strong> — акции размыты с 66 до 71 млн (+8% за 2024)</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>Зависимость от госзаказа</strong> — часть выручки привязана к бюджетным циклам</li><li><strong>Санкционный статус</strong> — ограничения на международную экспансию</li></ul>
+<h2>Финансовые показатели (МСФО, smart-lab)</h2>
+<h3>Годовая динамика</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>7.1</td><td>13.8</td><td>22.2</td><td>24.5</td><td>25.7</td></tr><tr><td>EBITDA, млрд ₽</td><td>2.7</td><td>6.8</td><td>10.8</td><td>6.5</td><td>8.3</td></tr><tr><td>Маржа EBITDA</td><td>38%</td><td>49%</td><td>49%</td><td>26%</td><td>32%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>1.9</td><td>6.1</td><td>9.7</td><td>3.7</td><td>3.2</td></tr><tr><td>FCF, млрд ₽</td><td>0.7</td><td>2.2</td><td>1.7</td><td>-5.8</td><td>-6.2</td></tr><tr><td>Net Debt/EBITDA</td><td>0.57</td><td>0.10</td><td>0.37</td><td>3.12</td><td>2.61</td></tr></tbody></table></div>
+<h3>Квартальная динамика</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2024Q4</th><th>2025Q1</th><th>2025Q2</th><th>2025Q3</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>14.7</td><td>2.3</td><td>4.4</td><td>4.2</td><td>25.7</td></tr><tr><td>EBITDA, млрд ₽</td><td>10.2</td><td>-1.6</td><td>-0.9</td><td>0.6</td><td>8.3</td></tr><tr><td>Маржа EBITDA</td><td>69%</td><td>-68%</td><td>-21%</td><td>14%</td><td>32%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>9.0</td><td>-2.8</td><td>-2.2</td><td>-0.7</td><td>3.2</td></tr></tbody></table></div>
+<p><strong>Ярко выраженная сезонность:</strong> Q4 = 57% годовой выручки (корпоративные контракты закрываются в конце года). Убытки Q1-Q3 — норма для бизнес-модели.</p>
+<h3>Мультипликаторы</h3>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>P/E</td><td>13.6</td><td>13.6</td><td>39.1</td><td>25.0</td></tr><tr><td>EV/EBITDA</td><td>12.3</td><td>12.6</td><td>25.3</td><td>12.2</td></tr><tr><td>ROE</td><td>73%</td><td>74%</td><td>22%</td><td>29%</td></tr><tr><td>P/BV</td><td>26.5</td><td>23.4</td><td>отр.</td><td>отр.</td></tr></tbody></table></div>
+<h3>Долговая нагрузка</h3>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Долг, млрд ₽</th><th>Net Debt/EBITDA</th></tr></thead><tbody><tr><td>2023</td><td>5.7</td><td>0.37</td></tr><tr><td>2024Q4</td><td>26.4</td><td>3.12</td></tr><tr><td>2025Q3</td><td>24.8</td><td>2.61</td></tr></tbody></table></div>
+<p>Рост долга связан с инвестициями в R&D и оборотный капитал. При ставке 16% процентные расходы ~4 млрд/год — существенная нагрузка.</p>
+<h2>Дивиденды</h2>
+<div class="table-wrap"><table><thead><tr><th>Период</th><th>DPS, ₽</th><th>Доходность</th></tr></thead><tbody><tr><td>2021</td><td>74</td><td>8.8%</td></tr><tr><td>2022</td><td>38</td><td>3.0%</td></tr><tr><td>2023</td><td>129</td><td>6.4%</td></tr><tr><td>2024</td><td>4.6</td><td>0.4%</td></tr><tr><td>2025 (ожид.)</td><td>0</td><td>0%</td></tr></tbody></table></div>
+<p>Дивидендная политика: 50-100% NIC (чистая прибыль без капитализируемых расходов). При отрицательном NIC (-2,7 млрд в 2024) дивидендов не будет. Возможно возобновление в 2026 при восстановлении прибыли.</p>
+<h2>Оценка</h2>
+<h3>Сравнение с сектором</h3>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>POSI (LTM)</th><th>IT-сектор</th></tr></thead><tbody><tr><td>P/E</td><td>25.0</td><td>10-15x</td></tr><tr><td>EV/EBITDA</td><td>12.2</td><td>8-12x</td></tr><tr><td>Рост выручки</td><td>+10%</td><td>+20-25%</td></tr><tr><td>Маржа EBITDA</td><td>32%</td><td>20-30%</td></tr><tr><td>Net Debt/EBITDA</td><td>2.61</td><td>0-1x</td></tr></tbody></table></div>
+<p>POSI торгуется с премией к сектору по P/E при худшей динамике роста и высоком долге. Премия не обоснована текущими показателями.</p>
+<h2>Мой тезис</h2>
+<p><strong>Bearish на LTM-данных, neutral на forward.</strong> Компания переоценена на 24% по текущим показателям. P/E 25x при падающей прибыли и отрицательном FCF — дорого. Маржа EBITDA обвалилась с 49% до 26%, долг вырос с 0,3x до 2,6x EBITDA.</p>
+<p><strong>Причины падения (2024):</strong></p>
+<ol><li>R&D выросли на 80% до 9,1 млрд — инвестиции в будущее</li><li>Перенос PT NGFW на 2025 (планировали 10 млрд выручки)</li><li>Высокая ставка ЦБ — корпорации режут IT-бюджеты</li><li>Провал прогнозов: обещали +75%, дали +10%</li></ol>
+<p><strong>Потенциал:</strong> если отгрузки 2025 достигнут 35 млрд (прогноз менеджмента) и маржа восстановится до 35%, forward P/E ≈ 13x — близко к справедливой оценке. Но это требует подтверждения в Q4 2025.</p>
+<p><strong>Verdict: watch.</strong> Ждать Q4 2025, подтверждения прогнозов по PT NGFW, стабилизации маржи. При падении цены до 700-800 ₽ — может стать интересной.</p>
+<h2>Целевая цена</h2>
+<h3>Допущения</h3>
+<ul><li><strong>EPS (LTM)</strong>: 44,8 ₽ (3,19 млрд / 71,2 млн акций)</li><li><strong>EBITDA (LTM)</strong>: 8,3 млрд</li><li><strong>Net Debt</strong>: 21,7 млрд</li><li><strong>Премия за риск акций (ERP)</strong>: 5%</li><li><strong>Устойчивый рост прибыли (g)</strong>: 10% (рынок ИБ +25%, но маржа под давлением)</li><li><strong>Основной метод</strong>: EV/EBITDA (Net Debt/EBITDA 2,6x > 2,0x)</li></ul>
+<h3>Поправка за качество</h3>
+<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Значение</th><th>vs сектор</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE</td><td>29%</td><td>> среднего (20%)</td><td>+10%</td></tr><tr><td>Рост выручки</td><td>+10%</td><td>< среднего (+25%)</td><td>0%</td></tr><tr><td>Net Debt/EBITDA</td><td>2.61</td><td>> 2,5x</td><td>-10%</td></tr><tr><td>Тренд маржи EBITDA</td><td>↓ 49% → 26%</td><td>падает</td><td>-10%</td></tr><tr><td>Лидер сектора ИБ</td><td>да</td><td></td><td>+10%</td></tr><tr><td>Бенефициар импортозамещения</td><td>да</td><td></td><td>+5%</td></tr><tr><td><strong>Итого</strong></td><td></td><td></td><td><strong>+5%</strong></td></tr></tbody></table></div>
+<h3>Сценарии (метод EV/EBITDA)</h3>
+<div class="table-wrap"><table><thead><tr><th></th><th>Пессимистичный</th><th>Базовый</th><th>Оптимистичный</th></tr></thead><tbody><tr><td>Ставка ЦБ (конец 2026)</td><td>16%</td><td>13%</td><td>10%</td></tr><tr><td>WACC</td><td>20%</td><td>18%</td><td>14%</td></tr><tr><td>g (рост)</td><td>8%</td><td>10%</td><td>10%</td></tr><tr><td>Базовый EV/EBITDA = (1−tax)/(WACC−g)</td><td>6.3x</td><td>9.4x</td><td>18.8x</td></tr><tr><td>Целевой EV/EBITDA (×1,05)</td><td>6.6x</td><td>9.9x</td><td>15.0x</td></tr><tr><td>Целевой EV, млрд</td><td>55</td><td>82</td><td>125</td></tr><tr><td>Equity = EV − Net Debt</td><td>33</td><td>60</td><td>103</td></tr><tr><td><strong>Целевая цена</strong></td><td><strong>463</strong></td><td><strong>847</strong></td><td><strong>1 447</strong></td></tr><tr><td><strong>Upside</strong></td><td><strong>-59%</strong></td><td><strong>-24%</strong></td><td><strong>+29%</strong></td></tr></tbody></table></div>
+<h3>Чувствительность к g (базовый сценарий)</h3>
+<div class="table-wrap"><table><thead><tr><th>g (рост)</th><th>Целевой EV/EBITDA</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>5%</td><td>6.3x</td><td>461</td><td>-59%</td></tr><tr><td>8%</td><td>7.9x</td><td>639</td><td>-43%</td></tr><tr><td><strong>10%</strong></td><td><strong>9.9x</strong></td><td><strong>847</strong></td><td><strong>-24%</strong></td></tr><tr><td>12%</td><td>13.1x</td><td>1 203</td><td>+8%</td></tr></tbody></table></div>
+<p>При g < 10% upside отрицательный в любом сценарии ставки.</p>
+<h3>Перекрёстная проверка (P/E)</h3>
+<div class="table-wrap"><table><thead><tr><th></th><th>Пессимистичный</th><th>Базовый</th><th>Оптимистичный</th></tr></thead><tbody><tr><td>r = ставка + ERP 5%</td><td>21%</td><td>18%</td><td>15%</td></tr><tr><td>Базовый P/E = 1/(r−g)</td><td>9.1x</td><td>12.5x</td><td>20.0x</td></tr><tr><td>Целевой P/E (×1,05)</td><td>9.5x</td><td>13.1x</td><td>21.0x</td></tr><tr><td><strong>Целевая цена = EPS × P/E</strong></td><td><strong>426</strong></td><td><strong>587</strong></td><td><strong>941</strong></td></tr><tr><td><strong>Upside</strong></td><td><strong>-62%</strong></td><td><strong>-47%</strong></td><td><strong>-16%</strong></td></tr></tbody></table></div>
+<p>P/E-метод даёт ещё более низкую оценку из-за высокой долговой нагрузки. Даже в оптимистичном сценарии акция переоценена.</p>
+<h3>Forward-оценка (если прогноз 2025 сбудется)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Прогноз 2025</th></tr></thead><tbody><tr><td>Отгрузки</td><td>35 млрд</td></tr><tr><td>Выручка (МСФО)</td><td>~30 млрд</td></tr><tr><td>EBITDA (при марже 35%)</td><td>10,5 млрд</td></tr><tr><td>Чистая прибыль</td><td>~6 млрд</td></tr><tr><td>Forward EPS</td><td>84 ₽</td></tr><tr><td>Forward P/E</td><td>13,3x</td></tr><tr><td>Forward EV/EBITDA</td><td>9,7x</td></tr></tbody></table></div>
+<p>При реализации прогноза компания оценена близко к справедливой на forward-показателях. Но прогноз требует подтверждения — менеджмент ранее обещал +75%, а дал +10%.</p>
+<p><strong>my_fair_value = 847 ₽</strong> (базовый сценарий: ставка ЦБ 13%, g=10%, EV/EBITDA метод)</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside > 30%</strong> — НЕТ (-24%)</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — ЧАСТИЧНО (PT NGFW, снижение ставки)</li><li><input type="checkbox" disabled> <strong>Тезис записан</strong> — ДА</li><li><input type="checkbox" disabled> <strong>Net Debt/EBITDA < 2.5x</strong> — ПОГРАНИЧНЫЙ (2,61x)</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — НЕТ (падает с 49% до 26%)</li><li><input type="checkbox" disabled> <strong>Ликвидность достаточна</strong> — ДА (ADV > 500 млн ₽)</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — ПЛОХО (FCF отрицательный)</li><li><input type="checkbox" disabled> <strong>Геополитика учтена</strong> — ДА (бенефициар)</li><li><input type="checkbox" disabled> <strong>Нет value trap признаков</strong> — ЧАСТИЧНО</li></ul>
+<p><strong>Результат: 3/9 выполнено — position = watch</strong></p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-29</td><td>Первичный анализ</td><td>1118</td><td>Переоценена на 24%, watch</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/POSI/f/y/MSFO/" target="_blank">Smart-lab: POSI финансовые показатели МСФО</a></li><li><a href="https://group.ptsecurity.com/ru/news/positive-technologies-finaliziruet-itogi-2024-goda-obem-otgruzok-klientam-kompanii-sostavil-24-1-mlrd-rublej" target="_blank">Positive Technologies: итоги 2024</a></li><li><a href="https://www.tbank.ru/invest/social/profile/TradeOfficial/cc97232d-8824-4a36-94b3-78102eef2fb2/" target="_blank">T-Bank: отчёт POSI за 9 мес. 2024</a></li><li><a href="https://www.tbank.ru/invest/social/profile/klggbb/69805c96-a380-4db4-8bfb-d3e3e79a78d2/" target="_blank">T-Bank: анализ POSI 2025</a></li><li><a href="https://www.tadviser.ru/index.php/%D0%A1%D1%82%D0%B0%D1%82%D1%8C%D1%8F:%D0%A4%D0%B8%D0%BD%D0%B0%D0%BD%D1%81%D0%BE%D0%B2%D1%8B%D0%B5_%D0%BF%D0%BE%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D0%B8_Positive_Technologies" target="_blank">TAdviser: расходы на НИОКР</a></li><li><a href="https://www.finversia.ru/publication/otchet-positive-technologies-ne-poradoval-uchastnikov-rynka-151822" target="_blank">Finversia: отчёт не порадовал</a></li></ul>
+</div>
+
+</div>
+</body>
+</html>
