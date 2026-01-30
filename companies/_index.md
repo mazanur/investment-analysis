@@ -77,7 +77,7 @@ updated: 2026-01-28
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [PIKK](PIKK/) | ПИК | bearish | watch | 6 |
-| [SMLT](SMLT/) | Самолёт | | watch | 5 |
+| [SMLT](SMLT/) | Самолёт | bearish | watch | 5 |
 
 ### Транспорт
 | Тикер | Компания | Sentiment | Position | Мнений |
