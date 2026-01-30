@@ -32,7 +32,7 @@ updated: 2026-01-28
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [X5](X5/) | X5 Group | neutral | watch | 5 |
-| [FIVE](FIVE/) | X5 Group (GDR) | | watch | 6 |
+| [FIVE](FIVE/) | X5 Group (GDR) | neutral | avoid (делистинг) | 6 |
 | [MGNT](MGNT/) | Магнит | bearish | watch | 4 |
 | [FIXP](FIXP/) | Fix Price | | watch | 6 |
 | [LENT](LENT/) | Лента | bullish | buy | 2 |
