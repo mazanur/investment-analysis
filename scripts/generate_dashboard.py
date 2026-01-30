@@ -331,6 +331,7 @@ def parse_ordered_list(lines: list, start: int) -> tuple:
 def read_all_companies(companies_dir: str) -> list:
     """Читает все компании из companies/*/."""
     companies = []
+    seen_tickers = set()  # dedup by ticker
 
     for name in sorted(os.listdir(companies_dir)):
         path = os.path.join(companies_dir, name)
@@ -353,6 +354,11 @@ def read_all_companies(companies_dir: str) -> list:
         company_name = meta.get('name') or meta.get('company') or name
         ticker = meta.get('ticker', name)
         is_stub = not meta.get('sentiment')
+
+        # Дедупликация: пропускаем если тикер уже встречался
+        if ticker in seen_tickers:
+            continue
+        seen_tickers.add(ticker)
 
         companies.append({
             'ticker': ticker,

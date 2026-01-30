@@ -150,6 +150,11 @@ def process_company(company_dir: str, company_name: str) -> Optional[dict]:
     ticker = metadata.get('ticker', company_name)
     sentiment = metadata.get('sentiment')
 
+    # Пропускаем делистингованные компании
+    if metadata.get('delisted') == 'true' or metadata.get('status') == 'delisted':
+        print(f"  [SKIP] {ticker}: делистингован")
+        return None
+
     if not sentiment or sentiment not in ('bullish', 'neutral', 'bearish'):
         print(f"  [SKIP] {ticker}: нет sentiment или некорректное значение ({sentiment})")
         return None
@@ -178,6 +183,7 @@ def main():
 
     processed = 0
     skipped = 0
+    seen_tickers = {}  # ticker -> directory name (dedup)
 
     print("Генерация trend.json для компаний...")
     print()
@@ -195,6 +201,16 @@ def main():
         trend_data = process_company(company_dir, company_name)
 
         if trend_data:
+            ticker = trend_data['ticker']
+
+            # Дедупликация: пропускаем если тикер уже обработан
+            if ticker in seen_tickers:
+                print(f"  [SKIP] {company_name}: тикер {ticker} "
+                      f"уже обработан из {seen_tickers[ticker]}")
+                skipped += 1
+                continue
+            seen_tickers[ticker] = company_name
+
             output_file = os.path.join(company_dir, 'trend.json')
             with open(output_file, 'w', encoding='utf-8') as f:
                 json.dump(trend_data, f, ensure_ascii=False, indent=2)

@@ -1,6 +1,8 @@
 .claude/
 .idea/
 .DS_Store
+__pycache__/
+*.pyc
 
 # Большие файлы данных (можно regenerate)
 *_posts.json
