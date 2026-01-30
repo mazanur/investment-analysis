@@ -107,3 +107,4 @@ author: AlmazNurmukhametov
 | companies/POLY/_index.md | заполнен | 2026-01-30 | — | делистинг, не требует обновления |
 | companies/PIKK/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/SMLT/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/SGZH/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |

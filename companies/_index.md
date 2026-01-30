@@ -92,7 +92,7 @@ updated: 2026-01-28
 ### Прочее
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
-| [SGZH](SGZH/) | Сегежа | | watch | 1 |
+| [SGZH](SGZH/) | Сегежа | bearish | avoid | 1 |
 
 ## Watchlist
 
