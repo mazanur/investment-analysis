@@ -47,7 +47,7 @@ updated: 2026-01-28
 | [OZON](OZON/) | Озон | neutral | watch | 2 |
 | [HHRU](HHRU/) | HeadHunter | | watch | 2 |
 | [POSI](POSI/) | Positive Technologies | bearish | watch | 65 |
-| [RTKM](RTKM/) | Ростелеком | | watch | 2 |
+| [RTKM](RTKM/) | Ростелеком | neutral | hold | 2 |
 
 ### Металлы и добыча
 | Тикер | Компания | Sentiment | Position | Мнений |

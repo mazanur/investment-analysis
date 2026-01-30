@@ -160,10 +160,10 @@
 - [x] Обновить индексные файлы
 
 ### Задача 10: IT — RTKM (Ростелеком)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/RTKM/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточки IT: YDEX, VKCO, MTSS, RTKM"
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/RTKM/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточки IT: YDEX, VKCO, MTSS, RTKM"
 
 ### Задача 11: Металлы — NLMK (НЛМК)
 - [ ] Прочитать `sectors/metals-mining/_index.md`
