@@ -112,8 +112,8 @@
 - Modify: `companies/MSNG/_index.md`
 - Read: `sectors/energy/_index.md`
 
-- [ ] Прочитать `sectors/energy/_index.md`
-- [ ] **MSNG**: WebFetch smart-lab, учесть отрицательный Net Debt и волатильность прибыли, EV/EBITDA + дивидендный метод, GOD-дисконт (Газпром >50%), три сценария
+- [x] Прочитать `sectors/energy/_index.md`
+- [x] **MSNG**: WebFetch smart-lab, учесть отрицательный Net Debt и волатильность прибыли, EV/EBITDA + дивидендный метод, GOD-дисконт (Газпром >50%), три сценария. Position changed: buy → watch (upside 24% < 30%). Маржа EBITDA сжимается, ROE 3,5%, дивиденды не утверждены ВОСА. Fair value 3,20 руб при цене 2,58 руб
 
 ### Task 6: Транспорт — FLOT
 
