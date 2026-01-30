@@ -94,8 +94,8 @@
 - Modify: `companies/LENT/_index.md`
 - Read: `sectors/retail/_index.md`
 
-- [ ] Прочитать `sectors/retail/_index.md`
-- [ ] **LENT**: WebFetch smart-lab, определить Net Debt/EBITDA → выбрать метод (P/E или EV/EBITDA), три сценария, чувствительность, перекрёстная проверка
+- [x] Прочитать `sectors/retail/_index.md`
+- [x] **LENT**: WebFetch smart-lab, определить Net Debt/EBITDA → выбрать метод (P/E или EV/EBITDA), три сценария, чувствительность, перекрёстная проверка
 
 ### Task 4: Удобрения — PHOR
 
