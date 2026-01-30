@@ -55,7 +55,7 @@ updated: 2026-01-28
 | [GMKN](GMKN/) | Норникель | | watch | 6 |
 | [NLMK](NLMK/) | НЛМК | neutral | hold | 1 |
 | [CHMF](CHMF/) | Северсталь | | watch | 2 |
-| [MAGN](MAGN/) | ММК | | watch | 1 |
+| [MAGN](MAGN/) | ММК | bearish | watch | 1 |
 | [ALRS](ALRS/) | Алроса | bearish | watch | 3 |
 | [PLZL](PLZL/) | Полюс | | watch | 2 |
 | [POLY](POLY/) | Polymetal | | watch | 1 |

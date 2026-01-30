@@ -172,9 +172,9 @@
 - [x] Обновить индексные файлы
 
 ### Задача 12: Металлы — MAGN (ММК)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/MAGN/_index.md`
-- [ ] Обновить индексные файлы
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/MAGN/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 13: Металлы — POLY (Polymetal)
 - [ ] WebFetch: smart-lab данные
