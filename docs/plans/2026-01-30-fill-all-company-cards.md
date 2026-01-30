@@ -105,11 +105,11 @@
 - [x] Прочитать `russia/currency.md` для валютных факторов
 
 ### Задача 1: Нефтегаз — ROSN (Роснефть)
-- [ ] Прочитать `sectors/oil-gas/_index.md`
-- [ ] WebFetch: smart-lab годовые + квартальные МСФО
-- [ ] Заполнить `companies/ROSN/_index.md` по шагам 2-7
-- [ ] Обновить `companies/_index.md` (sentiment, position)
-- [ ] Обновить `_index.md` (статус обновлений)
+- [x] Прочитать `sectors/oil-gas/_index.md`
+- [x] WebFetch: smart-lab годовые + квартальные МСФО
+- [x] Заполнить `companies/ROSN/_index.md` по шагам 2-7
+- [x] Обновить `companies/_index.md` (sentiment, position)
+- [x] Обновить `_index.md` (статус обновлений)
 
 ### Задача 2: Нефтегаз — NVTK (Новатэк)
 - [ ] WebFetch: smart-lab годовые + квартальные МСФО

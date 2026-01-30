@@ -15,7 +15,7 @@ updated: 2026-01-28
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [GAZP](GAZP/) | Газпром | bearish | watch | 14 |
-| [ROSN](ROSN/) | Роснефть | | watch | 1 |
+| [ROSN](ROSN/) | Роснефть | neutral | hold | 1 |
 | [LKOH](LKOH/) | Лукойл | | watch | 10 |
 | [NVTK](NVTK/) | Новатэк | | watch | 4 |
 | [SIBN](SIBN/) | Газпром нефть | | watch | 4 |
