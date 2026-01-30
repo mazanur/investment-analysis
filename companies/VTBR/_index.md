@@ -5,6 +5,7 @@ name: ВТБ
 sector: finance
 subsector: banking
 updated: 2026-01-30
+author: AlmazNurmukhametov
 sentiment: neutral
 market_cap_rub: 1 037 млрд
 p_e: 1.94

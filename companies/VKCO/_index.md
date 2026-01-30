@@ -6,6 +6,7 @@ sector: it-telecom
 sentiment: bearish
 position: avoid
 updated: 2026-01-30
+author: AlmazNurmukhametov
 my_fair_value: 155
 current_price: 303
 upside: -49%

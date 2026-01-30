@@ -5,6 +5,7 @@ name: МТС
 sector: it-telecom
 subsector: telecom
 updated: 2026-01-30
+author: AlmazNurmukhametov
 sentiment: neutral
 market_cap_rub: 414 млрд
 p_e: 30.1

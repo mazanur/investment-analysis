@@ -236,13 +236,19 @@ def _is_block_start(line: str) -> bool:
 
 
 def _safe_link(match) -> str:
-    """Создаёт ссылку, блокируя javascript: и data: URI."""
+    """Создаёт ссылку, блокируя javascript: и data: URI.
+
+    Вызывается из inline_format(), где текст уже прошёл через escape_html(),
+    поэтому URL и label здесь повторно НЕ экранируются.
+    """
     label = match.group(1)
     url = match.group(2)
-    url_lower = url.strip().lower()
+    # Декодируем HTML-сущности для проверки схемы, т.к. текст уже экранирован
+    url_decoded = url.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"')
+    url_lower = url_decoded.strip().lower()
     if url_lower.startswith(('javascript:', 'data:', 'vbscript:')):
-        return escape_html(label)
-    return f'<a href="{escape_html(url)}" target="_blank">{label}</a>'
+        return label
+    return f'<a href="{url}" target="_blank">{label}</a>'
 
 
 def inline_format(text: str) -> str:
@@ -774,9 +780,16 @@ const fSearch = document.getElementById('f-search');
 let sortCol = 'ticker';
 let sortAsc = true;
 
+function esc(s) {{
+    if (s === null || s === undefined) return '';
+    var d = document.createElement('div');
+    d.textContent = String(s);
+    return d.innerHTML;
+}}
+
 function badgeHTML(type, value) {{
     if (!value) return '<span class="badge badge-stub">\\u2014</span>';
-    return '<span class="badge badge-' + value + '">' + value + '</span>';
+    return '<span class="badge badge-' + esc(value) + '">' + esc(value) + '</span>';
 }}
 
 function upsideHTML(val) {{
@@ -816,17 +829,17 @@ function render() {{
         const c = filtered[i];
         const cls = c.isStub ? ' class="stub"' : '';
         html += '<tr' + cls + '>';
-        html += '<td><a href="companies/' + c.ticker + '.html">' + c.ticker + '</a></td>';
-        html += '<td>' + c.name + (c.isStub ? ' <span class="badge badge-stub">Заглушка</span>' : '') + '</td>';
-        html += '<td>' + (c.sectorName || '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td><a href="companies/' + esc(c.ticker) + '.html">' + esc(c.ticker) + '</a></td>';
+        html += '<td>' + esc(c.name) + (c.isStub ? ' <span class="badge badge-stub">Заглушка</span>' : '') + '</td>';
+        html += '<td>' + (c.sectorName ? esc(c.sectorName) : '<span class="muted">\\u2014</span>') + '</td>';
         html += '<td>' + badgeHTML('sentiment', c.sentiment) + '</td>';
         html += '<td>' + badgeHTML('position', c.position) + '</td>';
-        html += '<td>' + (c.price || '<span class="muted">\\u2014</span>') + '</td>';
-        html += '<td>' + (c.target || '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.price ? esc(c.price) : '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.target ? esc(c.target) : '<span class="muted">\\u2014</span>') + '</td>';
         html += '<td>' + upsideHTML(c.upside) + '</td>';
-        html += '<td>' + (c.pe !== null && c.pe !== undefined ? c.pe : '<span class="muted">\\u2014</span>') + '</td>';
-        html += '<td>' + (c.divYield || '<span class="muted">\\u2014</span>') + '</td>';
-        html += '<td>' + (c.updated || '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.pe !== null && c.pe !== undefined ? esc(c.pe) : '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.divYield ? esc(c.divYield) : '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.updated ? esc(c.updated) : '<span class="muted">\\u2014</span>') + '</td>';
         html += '</tr>';
     }}
     tbody.innerHTML = html;
@@ -888,6 +901,9 @@ render();
 def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir: str) -> str:
     """Генерирует docs/companies/{TICKER}.html."""
     ticker = company['ticker']
+    if not re.match(r'^[A-Za-z0-9]+$', ticker):
+        print(f"  {YELLOW}[WARN]{NC} Пропуск тикера с недопустимыми символами: {ticker}")
+        return ''
     name = company['name']
     sector_slug = company['sector']
     sector_name = sectors.get(sector_slug, {}).get('name', sector_slug) if sector_slug else ''

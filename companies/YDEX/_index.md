@@ -6,6 +6,7 @@ sector: it-telecom
 sentiment: neutral
 position: watch
 updated: 2026-01-30
+author: AlmazNurmukhametov
 my_fair_value: 4770
 current_price: 4759
 upside: 0%

@@ -5,6 +5,7 @@ name: Магнит
 sector: retail
 subsector: food-retail
 updated: 2026-01-30
+author: AlmazNurmukhametov
 sentiment: bearish
 market_cap_rub: ~331 млрд
 p_e: 13.6

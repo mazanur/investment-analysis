@@ -221,6 +221,11 @@ def main():
                   f"decline={trend_data['decline_probability']}")
             processed += 1
         else:
+            # Удаляем стale trend.json для пропущенных компаний (делистинг и т.д.)
+            stale_file = os.path.join(company_dir, 'trend.json')
+            if os.path.exists(stale_file):
+                os.remove(stale_file)
+                print(f"  [CLEANUP] {company_name}: удалён устаревший trend.json")
             skipped += 1
 
     print()
