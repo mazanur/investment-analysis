@@ -3,99 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Сегежа (SGZH) — Инвестиционный дашборд</title>
+<title>Сегежа Групп (SGZH) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,34 +194,131 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
-<h1>Сегежа</h1>
-<div class="ticker">SGZH</div>
+<h1>Сегежа Групп</h1>
+<div class="ticker">SGZH &middot; forestry</div>
 <div class="badges">
-<span class="badge badge-stub">—</span>
-<span class="badge badge-watch">watch</span>
+<span class="badge badge-bearish">bearish</span>
+<span class="badge badge-avoid">avoid</span>
 </div>
-<div class="metrics-grid"></div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">1.24</div></div><div class="metric"><div class="label">Цель</div><div class="value">0.90</div></div><div class="metric"><div class="label">Upside</div><div class="value">-27%</div></div><div class="metric"><div class="label">P/E</div><div class="value">н/п (убыток)</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">н/п (убыток)</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">97 млрд</div></div><div class="metric"><div class="label">P/BV</div><div class="value">1.9</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">70</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">27</div></div></div>
 </div>
 
-<div class="stub-banner">Анализ не завершён. Данные могут быть неполными.</div>
 
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:20%">&#x25B2; 20%</div>
+<div class="flat" style="width:5%">5%</div>
+<div class="decline" style="width:75%">&#x25BC; 75%</div>
+</div>
+</div>
 
 <div class="analysis">
-<h1>Сегежа (SGZH)</h1>
-<blockquote>Заглушка. Требуется исследование.</blockquote>
+<h1>Сегежа Групп (SGZH)</h1>
 <h2>Бизнес-модель</h2>
-<h2>Финансовые показатели</h2>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Значение</th></tr></thead><tbody><tr><td>Капитализация</td><td></td></tr><tr><td>P/E</td><td></td></tr><tr><td>EV/EBITDA</td><td></td></tr><tr><td>Див. доходность</td><td></td></tr></tbody></table></div>
-<h2>Инвестиционный тезис</h2>
+<p>Вертикально интегрированный лесопромышленный холдинг с полным циклом: от лесозаготовки до производства продукции с высокой добавленной стоимостью. Входит в группу АФК «Система» (контролирующий акционер).</p>
+<p><strong>Основные сегменты:</strong></p>
+<ul><li><strong>Бумага и упаковка</strong> (~35% выручки): крафтовая бумага, бумажные мешки. Сегежский ЦБК — один из крупнейших в Европе</li><li><strong>Деревообработка</strong> (~44% выручки): пиломатериалы, CLT-панели. Ключевые рынки сбыта — Китай, Ближний Восток</li><li><strong>Фанера и плиты</strong> (~15% выручки): берёзовая фанера, ДСП, МДФ</li><li><strong>Лесоуправление</strong> (~6%): лесозаготовка, 5,7 млн куб. м за 9М 2025, самообеспеченность &gt; 90%</li></ul>
+<p><strong>География продаж:</strong></p>
+<ul><li>Россия — ~50% выручки (внутренний рынок строительства и упаковки)</li><li>Экспорт — ~50%: Китай (пиломатериалы), Европа (бумага — ограничена санкциями), Ближний Восток, Африка</li><li>В 2026 году планируется создание кластера в Китае (производство упаковки, фанеры, пиломатериалов)</li></ul>
+<p><strong>Структура собственности (после допэмиссии июнь 2025):</strong></p>
+<ul><li>АФК «Система» — ~74% (выкупила всю допэмиссию 62,8 млрд акций за 113 млрд ₽)</li><li>Free float — ~5% (крайне низкий, до допэмиссии был ~15%)</li><li>Общее кол-во акций: 78 450 млн шт. (номинал 0,1 ₽)</li></ul>
+<p><strong>Ключевое событие 2025 года — допэмиссия:</strong> В июне 2025 «Сегежа» провела допэмиссию 62,8 млрд акций по цене 1,8 ₽ за акцию. Всю эмиссию выкупила АФК «Система» за 113 млрд ₽. Средства направлены на погашение долга, что сократило чистый долг втрое (со 153 до ~58 млрд ₽). Однако количество акций выросло в 5 раз, что катастрофически размыло миноритариев.</p>
+<p><strong>Драйверы роста (потенциальные):</strong></p>
+<ol><li>Снижение ставки ЦБ — снизит процентные расходы (средневзвешенная ставка по портфелю 15,3%)</li><li>Восстановление цен на пиломатериалы и бумагу на мировых рынках</li><li>Китайский кластер — новый канал сбыта без логистических ограничений</li><li>Рост внутреннего строительного рынка при снижении ставки</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Вертикальная интеграция</strong>: от леса до готовой продукции — контроль себестоимости, самообеспеченность &gt; 90% по древесине</li><li><strong>Крупнейший лесопромышленный холдинг РФ</strong>: масштаб и лесные участки — долгосрочный актив</li><li><strong>Диверсификация продукции</strong>: бумага, упаковка, пиломатериалы, фанера, CLT — не зависит от одного продукта</li><li><strong>Снижение долга</strong>: допэмиссия 2025 сократила чистый долг втрое — устраняет непосредственную угрозу дефолта</li></ul>
 <h2>Риски</h2>
-<p>-</p>
+<h3>Макро-риски</h3>
+<ul><li><strong>Ставка ЦБ 16%</strong>: при средневзвешенной ставке по долгу 15,3% процентные расходы продолжают съедать операционную прибыль. За 9М 2025 процентные расходы составили значительную часть выручки</li><li><strong>Укрепление рубля</strong>: негативно для экспорта (~50% выручки). Слабый рубль — необходимое условие для прибыльности экспортных продаж</li><li><strong>Слабый спрос в Китае</strong>: цены на пиломатериалы на исторических минимумах, строительный сектор Китая в стагнации</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Хронические убытки</strong>: 11+ кварталов подряд чистый убыток. Скорр. убыток за 9М 2025 = 19,5 млрд ₽ (хуже на 31% YoY)</li><li><strong>EBITDA коллапс</strong>: LTM EBITDA = 2,3 млрд ₽ (против 29 млрд в 2021). OIBDA margin 9М 2025 = 4,6% — бизнес работает практически в ноль</li><li><strong>Net Debt/EBITDA = 27x</strong>: даже после допэмиссии (чистый долг 61 млрд при EBITDA 2,3 млрд) — критический уровень. Долг обслуживается только за счёт поддержки АФК «Система»</li><li><strong>Отрицательный FCF</strong>: свободный денежный поток отрицательный 10+ кварталов подряд. За 9М 2025 FCF = -25,9 млрд ₽</li><li><strong>Падение выручки</strong>: 9М 2025 выручка -10% YoY (68,3 млрд ₽). Деревообработка (44% выручки) — под давлением</li></ul>
+<h3>Корпоративные риски</h3>
+<ul><li><strong>Размытие миноритариев</strong>: допэмиссия увеличила число акций в 5 раз (15,7 → 78,4 млрд). Доля миноритариев катастрофически размыта</li><li><strong>Free float = 5%</strong>: крайне низкая ликвидность. ADV достаточный (крупная база розничных инвесторов), но free float на грани stop-условия</li><li><strong>Зависимость от АФК «Система»</strong>: материнская компания — единственный источник капитала. Если «Система» откажется от дальнейшей поддержки — риск дефолта</li><li><strong>Потенциальная повторная допэмиссия</strong>: если операционные показатели не улучшатся, возможна ещё одна допэмиссия — дальнейшее размытие</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>69,0</td><td>92,4</td><td>96,9</td><td>88,5</td><td>101,9</td><td>94,2</td></tr><tr><td>EBITDA, млрд ₽</td><td>17,4</td><td>29,3</td><td>23,2</td><td>9,3</td><td>10,0</td><td>2,3</td></tr><tr><td>Маржа EBITDA, %</td><td>25,2%</td><td>31,7%</td><td>23,9%</td><td>10,5%</td><td>9,8%</td><td>2,4%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>-1,4</td><td>15,3</td><td>5,6</td><td>-16,7</td><td>-22,3</td><td>-39,5</td></tr><tr><td>Опер. прибыль, млрд ₽</td><td>11,2</td><td>22,4</td><td>9,0</td><td>-4,3</td><td>-4,2</td><td>-15,5</td></tr><tr><td>Долг, млрд ₽</td><td>53,3</td><td>73,7</td><td>123,8</td><td>133,2</td><td>152,4</td><td>73,9</td></tr><tr><td>Наличность, млрд ₽</td><td>3,7</td><td>12,6</td><td>22,9</td><td>10,7</td><td>4,6</td><td>12,6</td></tr><tr><td>Чистый долг, млрд ₽</td><td>49,6</td><td>61,1</td><td>100,9</td><td>122,5</td><td>147,8</td><td>61,2</td></tr><tr><td>Net Debt/EBITDA</td><td>2,9x</td><td>2,1x</td><td>4,3x</td><td>13,2x</td><td>14,8x</td><td>27,0x</td></tr><tr><td>ROE, %</td><td>-16%</td><td>33%</td><td>13%</td><td>-71%</td><td>н/п</td><td>н/п</td></tr><tr><td>EPS, ₽</td><td>-0,11</td><td>0,97</td><td>0,35</td><td>-1,06</td><td>-1,42</td><td>-0,50</td></tr></tbody></table></div>
+<p><strong>Ключевые наблюдения:</strong></p>
+<ul><li>Пик бизнеса — 2021 год (рекордные цены на пиломатериалы): EBITDA 29 млрд, маржа 32%, чистая прибыль 15 млрд</li><li>С 2022 года — непрерывная деградация: маржа EBITDA упала с 32% до 2,4%, чистый убыток нарастает</li><li>Долг вырос с 53 до 152 млрд к 2024, затем сокращён до 74 млрд допэмиссией — но EBITDA упала ещё сильнее</li><li>Net Debt/EBITDA вырос с 2,1x (2021) до 27x (LTM) — формально критический уровень</li><li>EPS до допэмиссии был -1,42 ₽ (2024), после размытия LTM EPS ~ -0,50 ₽</li></ul>
+<h3>Квартальные (МСФО, 2024-2025)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3 2024</th><th>Q4 2024</th><th>Q1 2025</th><th>Q2 2025</th><th>Q3 2025</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>27,1</td><td>25,9</td><td>24,6</td><td>20,3</td><td>23,5</td></tr><tr><td>EBITDA, млрд ₽</td><td>3,5</td><td>-0,9</td><td>2,1</td><td>0,5</td><td>0,5</td></tr><tr><td>Опер. прибыль, млрд ₽</td><td>-0,8</td><td>-2,1</td><td>-1,5</td><td>-8,8</td><td>-3,1</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>-5,4</td><td>-7,4</td><td>-6,8</td><td>-14,9</td><td>-10,4</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> выручка снижается (Q3 2024: 27 млрд → Q2 2025: 20 млрд, частичное восстановление в Q3). EBITDA близка к нулю или отрицательна. Чистый убыток стабильно 5-15 млрд ₽ за квартал — прежде всего из-за процентных расходов.</p>
+<h3>9 месяцев 2025 (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>9М 2025</th><th>9М 2024</th><th>Изм.</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>68,3</td><td>76,0</td><td>-10%</td></tr><tr><td>Скорр. OIBDA, млрд ₽</td><td>3,1</td><td>8,4</td><td>-63%</td></tr><tr><td>Маржа OIBDA, %</td><td>4,6%</td><td>11,0%</td><td>-6,4пп</td></tr><tr><td>Скорр. чистый убыток, млрд ₽</td><td>-19,5</td><td>-14,9</td><td>-31%</td></tr><tr><td>Чистый долг, млрд ₽</td><td>61,2</td><td>129,3</td><td>-53%</td></tr><tr><td>Капзатраты, млрд ₽</td><td>3,6</td><td>4,8</td><td>-25%</td></tr></tbody></table></div>
+<h2>Дивиденды</h2>
+<div class="table-wrap"><table><thead><tr><th>Год (за)</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2020</td><td>0</td><td>0%</td><td></td></tr><tr><td>2021</td><td>1,06</td><td>5,6%</td><td>Единственная выплата за всю историю</td></tr><tr><td>2022</td><td>0</td><td>0%</td><td>Ухудшение конъюнктуры</td></tr><tr><td>2023</td><td>0</td><td>0%</td><td>Убыток</td></tr><tr><td>2024</td><td>0</td><td>0%</td><td>Убыток, допэмиссия</td></tr></tbody></table></div>
+<p><strong>Дивидендная политика:</strong> формально — 50% чистой прибыли по МСФО. Фактически дивиденды заплачены только один раз (за 2021 год) при благоприятной конъюнктуре. При текущих убытках и долговой нагрузке возврат к дивидендам нереалистичен. Не ранее 2028-2029 при оптимистичном сценарии.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>н/п</td><td>Убыток</td></tr><tr><td>EV/EBITDA</td><td>70x</td><td>Экстремально высокий из-за коллапса EBITDA</td></tr><tr><td>P/BV</td><td>1,9x</td><td></td></tr><tr><td>P/S</td><td>1,0x</td><td></td></tr><tr><td>Div Yield</td><td>0%</td><td></td></tr><tr><td>ROE</td><td>н/п</td><td>Убыток</td></tr><tr><td>Net Debt/EBITDA</td><td>27x</td><td>Критический</td></tr></tbody></table></div>
+<p><strong>Особенности оценки:</strong></p>
+<ul><li>Мультипликаторы бессмысленны при текущих показателях: компания убыточна, EBITDA близка к нулю</li><li>EV/EBITDA = 70x отражает не «дороговизну», а коллапс операционной прибыли</li><li>Единственный осмысленный подход — оценка через нормализованную EBITDA и сценарный анализ</li><li>Рынок оценивает компанию как distressed asset с опционной стоимостью на восстановление</li></ul>
+<h2>Мой тезис</h2>
+<p>Сегежа — классический пример value trap и distressed asset. Крупнейший лесопромышленный холдинг России с вертикальной интеграцией, но бизнес в глубоком кризисе: 11+ кварталов убытков, EBITDA маржа упала с 32% до 2,4%, выручка снижается, FCF хронически отрицательный.</p>
+<p>Допэмиссия июня 2025 (113 млрд ₽) сняла непосредственную угрозу дефолта, сократив долг втрое. Но она же размыла миноритариев в 5 раз (акций стало 78,4 млрд вместо 15,7 млрд), а операционные проблемы не решены: выручка падает, маржа на нуле, убытки нарастают.</p>
+<p><strong>Почему avoid:</strong> free float = 5% — на грани stop-условия. Net Debt/EBITDA = 27x — формально критический. Компания полностью зависит от поддержки АФК «Система». Операционный бизнес не генерирует достаточно прибыли даже для обслуживания сокращённого долга. Нет видимого катализатора для переоценки: цены на продукцию слабые, экспорт в Китай стагнирует, внутренний рынок под давлением высокой ставки. Повторная допэмиссия — реальный риск.</p>
+<p>Даже при оптимистичном восстановлении EBITDA до 15-20 млрд ₽ (уровень 2022) и снижении ставки до 13%, fair value = ~0,90 ₽ при текущей цене 1,24 ₽ — акция переоценена. Это не инвестиция, а спекуляция на развороте бизнеса с высоким риском дальнейшего размытия.</p>
+<h2>Целевая цена</h2>
+<h3>Расчёт по методологии</h3>
+<p><strong>Исходные данные:</strong></p>
+<ul><li>LTM EBITDA: 2,3 млрд ₽ (не нормализуемая — слишком низкая)</li><li>Нормализованная EBITDA (среднее 2022-2024): (23,2 + 9,3 + 10,0) / 3 = 14,2 млрд ₽</li><li>Net Debt: 61,2 млрд ₽ (9М 2025)</li><li>Net Debt / Норм. EBITDA: 61,2 / 14,2 = 4,3x → основной метод: EV/EBITDA + стресс-тест</li><li>Кол-во акций: 78 450 млн</li><li>Текущая цена: 1,24 ₽</li><li>g = 0% (выручка стагнирует/падает, отрасль под давлением — устойчивый рост не обоснован)</li></ul>
+<p><strong>WACC (для текущей ставки 16%):</strong></p>
+<ul><li>r_equity = 16% + 5% = 21%</li><li>r_debt = 16% + 3% = 19% (повышенный спред за distressed-статус)</li><li>EV = Market Cap + Net Debt = 97 + 61,2 = 158,2 млрд</li><li>D/V = 61,2 / 158,2 = 39%, E/V = 97 / 158,2 = 61%</li><li>WACC = 21% × 0,61 + 19% × (1 − 0,22) × 0,39 = 12,8% + 5,8% = 18,6%</li><li>Tax = 22%</li></ul>
+<p><strong>Целевой EV/EBITDA:</strong></p>
+<p>Базовый = (1 − tax) / (WACC − g) = 0,78 / (0,186 − 0,00) = 0,78 / 0,186 = 4,2x</p>
+<p><strong>Поправки за качество:</strong></p>
+<ul><li>Вертикальная интеграция, крупнейший в отрасли: +10%</li><li>EBITDA коллапс (маржа 2,4%, убытки 11+ кварталов): -10%</li><li>Free float 5% (дисконт за неликвидность): -10%</li><li>Зависимость от одного акционера (АФК «Система»): -10%</li><li>Риск повторной допэмиссии (размытие): -10%</li><li>Итого поправка: -30%</li></ul>
+<p>Целевой EV/EBITDA = 4,2 × 0,70 = 2,9x</p>
+<h3>Три сценария (горизонт 12 мес., нормализованная EBITDA 14,2 млрд)</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>Целевой EV/EBITDA</th><th>Target EV, млрд</th><th>Target Equity, млрд</th><th>Цена, ₽</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>2,5x</td><td>35,5</td><td>-25,7</td><td>0 ₽ (equity = 0)</td><td>-100%</td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>3,5x</td><td>49,7</td><td>-11,5</td><td>0 ₽ (equity = 0)</td><td>-100%</td></tr><tr><td>Оптимистичный</td><td>11%</td><td>5,0x</td><td>71,0</td><td>9,8</td><td><strong>0,12 ₽</strong></td><td>-90%</td></tr></tbody></table></div>
+<p>При нормализованной EBITDA 14,2 млрд ₽ и долге 61,2 млрд — equity отрицательный во всех сценариях, кроме оптимистичного. Это подтверждает, что акция — спекуляция на кратном росте EBITDA.</p>
+<h3>Альтернативный сценарий: восстановление EBITDA</h3>
+<p>Если EBITDA восстановится до 20 млрд ₽ (уровень 2022, маржа ~20%):</p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>EBITDA</th><th>EV/EBITDA</th><th>Target EV, млрд</th><th>Target Equity, млрд</th><th>Цена, ₽</th><th>Upside</th></tr></thead><tbody><tr><td>EBITDA recovery + ставка 16%</td><td>20</td><td>2,9x</td><td>58</td><td>-3,2</td><td>0 ₽</td><td>-100%</td></tr><tr><td>EBITDA recovery + ставка 13%</td><td>20</td><td>3,5x</td><td>70</td><td>8,8</td><td><strong>0,11 ₽</strong></td><td>-91%</td></tr><tr><td><strong>EBITDA strong recovery + ставка 13%</strong></td><td>25</td><td>4,0x</td><td>100</td><td>38,8</td><td><strong>0,49 ₽</strong></td><td>-60%</td></tr><tr><td>EBITDA strong recovery + ставка 11%</td><td>25</td><td>5,0x</td><td>125</td><td>63,8</td><td><strong>0,81 ₽</strong></td><td>-35%</td></tr><tr><td>EBITDA full recovery (уровень 2021)</td><td>30</td><td>5,0x</td><td>150</td><td>88,8</td><td><strong>1,13 ₽</strong></td><td>-9%</td></tr></tbody></table></div>
+<p>Даже при полном восстановлении EBITDA до рекордных 30 млрд ₽ (уровень 2021) и EV/EBITDA 5x — акция торгуется выше справедливой стоимости.</p>
+<p><strong>my_fair_value = 0,90 ₽</strong> — вероятностно-взвешенная оценка: базовый сценарий (EBITDA 20 млрд, ставка 13%) с высоким весом сценария восстановления. Это generous оценка, предполагающая значительное улучшение.</p>
+<h3>Стресс-тест (обязателен при &gt; 3,5x)</h3>
+<p>Ставка ЦБ + 3пп = 19%:</p>
+<ul><li>Долг: 73,9 млрд ₽ (LTM)</li><li>Теоретические процентные расходы: 73,9 × 0,19 = 14,0 млрд ₽</li><li>LTM EBITDA: 2,3 млрд ₽</li><li><strong>Процентные расходы = 609% EBITDA</strong> → КРАСНЫЙ ФЛАГ (критический)</li></ul>
+<p>Даже при нормализованной EBITDA 14,2 млрд — процентные расходы 14,0 млрд = 99% EBITDA. Компания не в состоянии обслуживать долг из операционного потока.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>EV/EBITDA (норм., ставка 13%)</td><td>0 ₽</td><td>-100%</td><td>Equity отрицательный</td></tr><tr><td>EV/EBITDA (recovery, 25 млрд, ставка 13%)</td><td>0,49 ₽</td><td>-60%</td><td>Требует сильного восстановления</td></tr><tr><td>P/E</td><td>н/п</td><td>—</td><td>Убыток</td></tr><tr><td>Дивидендный</td><td>н/п</td><td>—</td><td>Дивиденды = 0</td></tr><tr><td><strong>my_fair_value</strong></td><td><strong>0,90 ₽</strong></td><td><strong>-27%</strong></td><td>Generous оценка с допущением восстановления</td></tr></tbody></table></div>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — нет, отрицательный upside (-27%)</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — нет чёткого катализатора. Снижение ставки ЦБ помогает, но недостаточно при текущей EBITDA</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — см. выше</li><li><input type="checkbox" disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — нет, 27x (LTM) / 4,3x (нормализованная). Стресс-тест провален</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — нет, EBITDA маржа упала с 32% до 2,4%</li><li><input type="checkbox" disabled> <strong>Ликвидность</strong> — free float 5%, на грани stop-условия</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — убыток, FCF отрицательный 10+ кварталов</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — санкции на экспорт в Европу, переориентация на Азию</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — формально частная (АФК «Система»), GOD не применяется</li><li><input type="checkbox" disabled> <strong>Нет value trap признаков</strong> — есть: падающая маржа, растущие убытки, зависимость от поддержки мажоритария, размытие миноритариев</li></ul>
+<p><strong>Результат: 3/10 — buy категорически не подтверждён. Position = avoid.</strong></p>
+<p>Stop-условие: free float 5% — на грани порога (&lt; 5% = stop). В сочетании с критическим Net Debt/EBITDA, хроническими убытками и риском повторной допэмиссии — position = avoid.</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-30</td><td><strong>AVOID</strong></td><td>1,24 ₽</td><td>Distressed asset: EBITDA коллапс (маржа 2,4%), Net Debt/EBITDA 27x, 11+ кварталов убытков, FCF -25,9 млрд за 9М 2025. Free float 5% — на грани stop. Допэмиссия 2025 размыла акции в 5 раз. Нет катализатора восстановления, переоценена даже при generous оценке (fair value 0,90 ₽ = -27% downside)</td></tr></tbody></table></div>
 <h2>Источники</h2>
-<ul><li><a href="https://smart-lab.ru/q/SGZH/" target="_blank">Smart-lab</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+<ul><li><a href="https://smart-lab.ru/q/SGZH/f/y/MSFO/" target="_blank">Smart-lab: SGZH финансы МСФО (годовые)</a></li><li><a href="https://smart-lab.ru/q/SGZH/f/q/MSFO/" target="_blank">Smart-lab: SGZH финансы МСФО (квартальные)</a></li><li><a href="https://smart-lab.ru/blog/news/1235616.php" target="_blank">Smart-lab: SGZH 9М 2025 результаты</a></li><li><a href="https://smart-lab.ru/blog/news/1198300.php" target="_blank">Smart-lab: SGZH H1 2025 результаты</a></li><li><a href="https://smart-lab.ru/blog/1177143.php" target="_blank">Smart-lab: SGZH Q1 2025 отчёт</a></li><li><a href="https://www.rbc.ru/quote/news/article/670926439a79472a9335db93" target="_blank">РБК: Допэмиссия Сегежи — параметры</a></li><li><a href="https://finance.mail.ru/2025-06-02/segezha-grupp-privlekla-v-kapital-113-mlrd-v-ramkah-dopemissii-66405571/" target="_blank">Финансы Mail: Допэмиссия 113 млрд</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

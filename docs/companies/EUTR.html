@@ -5,97 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ЕвроТранс (EUTR) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,7 +194,10 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>ЕвроТранс</h1>
@@ -186,7 +231,7 @@ tr.stub td { color: #484f58; }
 <p><strong>Откуда рост:</strong></p>
 <ul><li>Наращивание объёмов оптовой торговли топливом</li><li>Открытие новых АЗС и зарядных станций для электромобилей</li><li>Консолидация независимого топливного рынка региона</li></ul>
 <p><strong>Конкурентные преимущества:</strong></p>
-<ol><li><strong>Масштаб</strong> — ~15% независимого топливного рынка Московского региона, >1 млн тонн/год</li><li><strong>Вертикальная интеграция</strong> — собственный парк 200+ бензовозов и нефтебазы</li><li><strong>Локация</strong> — АЗС на ключевых трассах Московского региона</li><li><strong>Независимость</strong> — не зависит от одного поставщика (Роснефть, Лукойл)</li></ol>
+<ol><li><strong>Масштаб</strong> — ~15% независимого топливного рынка Московского региона, &gt;1 млн тонн/год</li><li><strong>Вертикальная интеграция</strong> — собственный парк 200+ бензовозов и нефтебазы</li><li><strong>Локация</strong> — АЗС на ключевых трассах Московского региона</li><li><strong>Независимость</strong> — не зависит от одного поставщика (Роснефть, Лукойл)</li></ol>
 <p><strong>Зависимости:</strong></p>
 <ul><li>Маржа нефтетрейдинга (крайне низкая, 1-2%)</li><li>Оптовые цены на топливо (волатильность)</li><li>Ставка ЦБ (высокий долг)</li><li>Ликвидность топливного рынка</li></ul>
 <h2>Финансовые показатели</h2>
@@ -214,14 +259,14 @@ tr.stub td { color: #484f58; }
 <div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка по долгу</th><th>Процентные расходы</th><th>% от EBITDA</th></tr></thead><tbody><tr><td>Текущий</td><td>18%</td><td>11.0 млрд</td><td><strong>53%</strong></td></tr><tr><td>Ставка ЦБ +3%</td><td>21%</td><td>12.8 млрд</td><td><strong>62%</strong></td></tr><tr><td>Ставка ЦБ +5%</td><td>23%</td><td>14.1 млрд</td><td><strong>68%</strong></td></tr></tbody></table></div>
 <p><strong>Вывод:</strong> процентные расходы уже превышают 50% EBITDA — это красный флаг. При росте ставки компания окажется в критической ситуации.</p>
 <h2>Риски</h2>
-<ol><li><strong>Бизнес-модель нефтетрейдера</strong> — 90% выручки от оптовых продаж с маржой 1-2%. В секторе были банкротства (Нафтатранс, Магнум Ойл). Это не стабильный бизнес АЗС, а волатильный трейдинг</li><li><strong>Отрицательный FCF</strong> — компания не генерирует свободный денежный поток (-15.6 млрд LTM). Дивиденды платятся за счёт заимствований — неустойчивая модель</li><li><strong>Высокий долг</strong> — Net Debt/EBITDA 2.97x при ставке 16%. Процентные расходы ~53% EBITDA</li><li><strong>ICR ~1.8x</strong> — покрытие процентов на грани комфортного уровня (норма >2.5x)</li><li><strong>Конкуренция с облигациями</strong> — облигации EUTR дают 20-24% с меньшим риском, чем акции с дивдоходностью 17%</li></ol>
+<ol><li><strong>Бизнес-модель нефтетрейдера</strong> — 90% выручки от оптовых продаж с маржой 1-2%. В секторе были банкротства (Нафтатранс, Магнум Ойл). Это не стабильный бизнес АЗС, а волатильный трейдинг</li><li><strong>Отрицательный FCF</strong> — компания не генерирует свободный денежный поток (-15.6 млрд LTM). Дивиденды платятся за счёт заимствований — неустойчивая модель</li><li><strong>Высокий долг</strong> — Net Debt/EBITDA 2.97x при ставке 16%. Процентные расходы ~53% EBITDA</li><li><strong>ICR ~1.8x</strong> — покрытие процентов на грани комфортного уровня (норма &gt;2.5x)</li><li><strong>Конкуренция с облигациями</strong> — облигации EUTR дают 20-24% с меньшим риском, чем акции с дивдоходностью 17%</li></ol>
 <h2>Оценка справедливой стоимости</h2>
 <h3>Выбор метода</h3>
-<p>Net Debt/EBITDA = 2.97x > 2.5x → используем <strong>EV/EBITDA</strong> как основной метод (согласно RESEARCH_GUIDE).</p>
+<p>Net Debt/EBITDA = 2.97x &gt; 2.5x → используем <strong>EV/EBITDA</strong> как основной метод (согласно RESEARCH_GUIDE).</p>
 <h3>Параметры модели</h3>
 <div class="table-wrap"><table><thead><tr><th>Параметр</th><th>Значение</th><th>Обоснование</th></tr></thead><tbody><tr><td>EBITDA LTM</td><td>20.6 млрд ₽</td><td>С smart-lab</td></tr><tr><td>Net Debt</td><td>61.1 млрд ₽</td><td>С smart-lab</td></tr><tr><td>Акций</td><td>159.1 млн</td><td>С smart-lab</td></tr><tr><td>Ставка ЦБ (прогноз)</td><td>13%</td><td>Прогноз на конец 2026</td></tr><tr><td>r_equity</td><td>18%</td><td>Ставка 13% + ERP 5%</td></tr><tr><td>r_debt</td><td>17%</td><td>Ставка + спред 4% (рейтинг A-)</td></tr><tr><td>D/(D+E)</td><td>72%</td><td>Долг / EV</td></tr><tr><td>WACC</td><td>14.8%</td><td>Средневзвешенная</td></tr><tr><td>g</td><td>5%</td><td>Консервативно (рынок закладывает)</td></tr></tbody></table></div>
 <h3>Поправки за качество</h3>
-<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Критерий</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE 19.5% > среднего</td><td>Выше рынка</td><td>+10%</td></tr><tr><td>Рост выручки 48%</td><td>Лучший на рынке</td><td>+10%</td></tr><tr><td>FCF отрицательный 2+ года</td><td>Красный флаг</td><td>-10%</td></tr><tr><td>Net Debt/EBITDA 2.97x</td><td>Высокий долг</td><td>-25%</td></tr><tr><td>Бизнес нефтетрейдера</td><td>Низкая маржа, риски банкротств</td><td>-10%</td></tr><tr><td>ICR ~1.8x</td><td>На грани</td><td>-10%</td></tr><tr><td><strong>Итого</strong></td><td></td><td><strong>-35%</strong></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Критерий</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE 19.5% &gt; среднего</td><td>Выше рынка</td><td>+10%</td></tr><tr><td>Рост выручки 48%</td><td>Лучший на рынке</td><td>+10%</td></tr><tr><td>FCF отрицательный 2+ года</td><td>Красный флаг</td><td>-10%</td></tr><tr><td>Net Debt/EBITDA 2.97x</td><td>Высокий долг</td><td>-25%</td></tr><tr><td>Бизнес нефтетрейдера</td><td>Низкая маржа, риски банкротств</td><td>-10%</td></tr><tr><td>ICR ~1.8x</td><td>На грани</td><td>-10%</td></tr><tr><td><strong>Итого</strong></td><td></td><td><strong>-35%</strong></td></tr></tbody></table></div>
 <p>Поправочный множитель: <strong>0.65</strong></p>
 <h3>Расчёт целевого EV/EBITDA</h3>
 <p>``<code> Базовый EV/EBITDA = (1 - tax) / (WACC - g) = 0.8 / (0.148 - 0.05) = 8.2x Целевой EV/EBITDA = 8.2 × 0.65 = 5.3x </code>``</p>
@@ -241,9 +286,9 @@ tr.stub td { color: #484f58; }
 <p><strong>Watch.</strong> ЕвроТранс — спекулятивная идея с высоким риском. Формально мультипликаторы выглядят дёшево (P/E 3.6x, EV/EBITDA 4.1x, дивдоходность 17%), но за этим скрываются существенные проблемы:</p>
 <ol><li><strong>Это не АЗС, а нефтетрейдер</strong> — 90% выручки от оптовых продаж с маржой 1-2%</li><li><strong>FCF отрицательный</strong> — дивиденды платятся за счёт заимствований</li><li><strong>Долг опасно высок</strong> — процентные расходы 53% EBITDA, ICR 1.8x</li><li><strong>Облигации интереснее</strong> — 20-24% с меньшим риском vs акции 17%</li></ol>
 <p><strong>Катализаторы для пересмотра:</strong></p>
-<ul><li>Снижение ставки ЦБ ниже 14% → существенное облегчение долговой нагрузки</li><li>Выход FCF в плюс → подтверждение устойчивости дивидендов</li><li>Снижение Net Debt/EBITDA < 2x → снижение рисков</li></ul>
+<ul><li>Снижение ставки ЦБ ниже 14% → существенное облегчение долговой нагрузки</li><li>Выход FCF в плюс → подтверждение устойчивости дивидендов</li><li>Снижение Net Debt/EBITDA &lt; 2x → снижение рисков</li></ul>
 <p><strong>Когда покупать:</strong></p>
-<ul><li>При цене < 120 ₽ (дивдоходность > 25%, margin of safety)</li><li>При подтверждении позитивного FCF</li></ul>
+<ul><li>При цене &lt; 120 ₽ (дивдоходность &gt; 25%, margin of safety)</li><li>При подтверждении позитивного FCF</li></ul>
 <p><strong>Риск тезиса:</strong> компания может не дождаться снижения ставки — при сохранении 16%+ возможно сокращение дивидендов или реструктуризация долга.</p>
 <h2>История решений</h2>
 <div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-28</td><td>Первичный анализ</td><td>147 ₽</td><td>Position: watch, target 190 ₽, риски высокие</td></tr></tbody></table></div>
@@ -252,5 +297,25 @@ tr.stub td { color: #484f58; }
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

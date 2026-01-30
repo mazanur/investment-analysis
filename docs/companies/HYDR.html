@@ -5,97 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>РусГидро (HYDR) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,7 +194,10 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>РусГидро</h1>
@@ -200,21 +245,21 @@ tr.stub td { color: #484f58; }
 <div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, руб</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2020</td><td>0.053</td><td>6.8%</td><td></td></tr><tr><td>2021</td><td>0.053</td><td>7.1%</td><td></td></tr><tr><td>2022</td><td>0.050</td><td>6.6%</td><td></td></tr><tr><td>2023</td><td>—</td><td>—</td><td>Не выплачены</td></tr><tr><td>2024</td><td>—</td><td>—</td><td>Не выплачены</td></tr><tr><td>2025E</td><td>—</td><td>—</td><td>Мораторий, не будут выплачены</td></tr><tr><td>2026-2028E</td><td>—</td><td>—</td><td>Мораторий одобрен правительством</td></tr></tbody></table></div>
 <p>Дивидендная политика: 50% от чистой прибыли по МСФО. Фактически заморожена: мораторий на дивиденды до 2028-2029 года, средства направляются на инвестпрограмму Дальнего Востока.</p>
 <h2>Оценка</h2>
-<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>HYDR (LTM)</th><th>Сектор (IRAO)</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>2.55x</td><td>~3.5x</td><td>Дёшево, но прибыль под давлением процентов</td></tr><tr><td>EV/EBITDA</td><td>4.74x</td><td>~3.0x</td><td>Премия к сектору из-за долга</td></tr><tr><td>P/BV</td><td>0.31x</td><td>~0.5x</td><td>Глубокий дисконт к балансу</td></tr><tr><td>Net Debt/EBITDA</td><td>3.64x</td><td><0 (IRAO)</td><td>Критический уровень долга</td></tr><tr><td>ROE</td><td>12.2%</td><td>~20%</td><td>Ниже среднего по сектору</td></tr><tr><td>Div Yield</td><td>0%</td><td>~12%</td><td>Мораторий на дивиденды</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>HYDR (LTM)</th><th>Сектор (IRAO)</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>2.55x</td><td>~3.5x</td><td>Дёшево, но прибыль под давлением процентов</td></tr><tr><td>EV/EBITDA</td><td>4.74x</td><td>~3.0x</td><td>Премия к сектору из-за долга</td></tr><tr><td>P/BV</td><td>0.31x</td><td>~0.5x</td><td>Глубокий дисконт к балансу</td></tr><tr><td>Net Debt/EBITDA</td><td>3.64x</td><td>&lt;0 (IRAO)</td><td>Критический уровень долга</td></tr><tr><td>ROE</td><td>12.2%</td><td>~20%</td><td>Ниже среднего по сектору</td></tr><tr><td>Div Yield</td><td>0%</td><td>~12%</td><td>Мораторий на дивиденды</td></tr></tbody></table></div>
 <h2>Мой тезис</h2>
 <p>HYDR — стратегически важный государственный актив с низкими мультипликаторами (P/E 2.55x, P/BV 0.31x), но с серьёзными структурными проблемами:</p>
-<ol><li><strong>Net Debt/EBITDA 3.64x</strong> — критический уровень долга, который продолжает расти из-за масштабной инвестпрограммы (~320 млрд/год)</li><li><strong>FCF отрицательный 4 года подряд</strong> (с 2022), ухудшается: от -57 до -182 млрд руб</li><li><strong>Мораторий на дивиденды до 2028-2029</strong> — нет возврата акционерам на несколько лет</li><li><strong>Стресс-тест не пройден</strong>: при ставке 19% процентные расходы = ~81% от EBITDA (>50%, красный флаг)</li></ol>
+<ol><li><strong>Net Debt/EBITDA 3.64x</strong> — критический уровень долга, который продолжает расти из-за масштабной инвестпрограммы (~320 млрд/год)</li><li><strong>FCF отрицательный 4 года подряд</strong> (с 2022), ухудшается: от -57 до -182 млрд руб</li><li><strong>Мораторий на дивиденды до 2028-2029</strong> — нет возврата акционерам на несколько лет</li><li><strong>Стресс-тест не пройден</strong>: при ставке 19% процентные расходы = ~81% от EBITDA (&gt;50%, красный флаг)</li></ol>
 <p>Потенциал: при снижении ставки до 13% (базовый прогноз ЦБ на конец 2026) долговое бремя существенно снизится, и acценка может вырасти в 2-3 раза. Либерализация рынка Дальнего Востока к 2030 добавит до 145 млрд выручки. Но до реализации этих катализаторов — годы жёсткой финансовой дисциплины.</p>
 <p><strong>Sentiment: bearish</strong> — стресс-тест не пройден, FCF отрицательный, дивидендов нет. <strong>Position: watch</strong> — формальный upside 66% в пессимистичном сценарии, но он полностью зависит от снижения ставки и реализации инвестпрограммы без допэмиссии.</p>
 <h2>Целевая цена</h2>
-<p><strong>Метод EV/EBITDA (основной, т.к. Net Debt/EBITDA > 2.5x):</strong></p>
+<p><strong>Метод EV/EBITDA (основной, т.к. Net Debt/EBITDA &gt; 2.5x):</strong></p>
 <p>Параметры:</p>
 <ul><li>g = 5% (инфляционный рост выручки, зрелый бизнес)</li><li>tax = 20%</li><li>EBITDA LTM = 171.3 млрд руб</li><li>Net Debt = 623.1 млрд руб</li><li>Число акций = 444.793 млрд шт</li></ul>
-<p>Поправка за качество: -25% (долг > 3.5x). Итого множитель 0.75.</p>
+<p>Поправка за качество: -25% (долг &gt; 3.5x). Итого множитель 0.75.</p>
 <div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>WACC</th><th>Базовый EV/EBITDA</th><th>Целевой (x0.75)</th><th>EV</th><th>Equity</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>15.9%</td><td>7.31x</td><td>5.48x</td><td>938.7</td><td>315.6</td><td><strong>0.71</strong></td><td>+66%</td></tr><tr><td>Базовый</td><td>13%</td><td>13.4%</td><td>9.52x</td><td>7.14x</td><td>1223</td><td>600.0</td><td><strong>1.35</strong></td><td>+216%</td></tr><tr><td>Оптимистичный</td><td>10%</td><td>10.9%</td><td>13.6x</td><td>10.2x</td><td>1747</td><td>1124</td><td><strong>2.53</strong></td><td>+492%</td></tr></tbody></table></div>
 <p><strong>my_fair_value = 0.71 руб</strong> (пессимистичный сценарий как основной из-за bearish sentiment и непройденного стресс-теста).</p>
-<p><strong>Стресс-тест (ставка ЦБ 19%, обязателен при > 3.5x):</strong></p>
-<ul><li>Процентные расходы = 730 × 0.19 = 138.7 млрд руб</li><li>Доля от EBITDA: 138.7 / 171.3 = <strong>81%</strong> — КРАСНЫЙ ФЛАГ (>50%)</li><li>При ужесточении ДКП компания теряет практически всю прибыль</li></ul>
+<p><strong>Стресс-тест (ставка ЦБ 19%, обязателен при &gt; 3.5x):</strong></p>
+<ul><li>Процентные расходы = 730 × 0.19 = 138.7 млрд руб</li><li>Доля от EBITDA: 138.7 / 171.3 = <strong>81%</strong> — КРАСНЫЙ ФЛАГ (&gt;50%)</li><li>При ужесточении ДКП компания теряет практически всю прибыль</li></ul>
 <p><strong>Чувствительность к g (при ставке 16%):</strong></p>
 <div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой EV/EBITDA</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>2%</td><td>4.29x</td><td>0.25</td><td>-41%</td></tr><tr><td><strong>5% (базовый)</strong></td><td>5.48x</td><td>0.71</td><td>+66%</td></tr><tr><td>7%</td><td>6.71x</td><td>1.07</td><td>+150%</td></tr></tbody></table></div>
 <p>Тезис хрупкий: при g = 2% upside уходит в минус.</p>
@@ -227,5 +272,25 @@ tr.stub td { color: #484f58; }
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

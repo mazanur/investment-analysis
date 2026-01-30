@@ -5,97 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Газпром (GAZP) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,7 +194,10 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>Газпром</h1>
@@ -184,7 +229,7 @@ tr.stub td { color: #484f58; }
 <p><strong>Структурная трансформация после 2022:</strong></p>
 <ul><li><strong>Потеря европейского рынка</strong>: экспорт в Европу упал с ~150 млрд куб. м (2021) до 17,8 млрд куб. м (2025) — только через Турецкий поток</li><li><strong>Переориентация на Китай</strong>: экспорт по Силе Сибири вырос до 38,8 млрд куб. м (2025), впервые превысив поставки в Европу</li><li><strong>Зависимость от «Силы Сибири-2»</strong>: меморандум подписан в сентябре 2025, контракт ожидается в 2026. Мощность — до 50 млрд куб. м/год</li></ul>
 <p><strong>Ключевые зависимости:</strong></p>
-<ul><li>Цены на газ (TTF, внутренний рынок, китайские контракты)</li><li>Курс рубля (экспортная выручка в валюте)</li><li>Государство как мажоритарный акционер (>50%) — влияет на дивидендную политику</li></ul>
+<ul><li>Цены на газ (TTF, внутренний рынок, китайские контракты)</li><li>Курс рубля (экспортная выручка в валюте)</li><li>Государство как мажоритарный акционер (&gt;50%) — влияет на дивидендную политику</li></ul>
 <h2>Конкурентные преимущества</h2>
 <ol><li><strong>Монополия на транспортировку газа в РФ</strong> — единственный оператор магистральных газопроводов</li><li><strong>Крупнейшие запасы газа в мире</strong> — 15% мировых запасов</li><li><strong>Действующая инфраструктура</strong> — Сила Сибири, Турецкий поток</li><li><strong>Низкая себестоимость добычи</strong> — зрелые месторождения, амортизированная инфраструктура</li></ol>
 <h2>Риски</h2>
@@ -203,7 +248,7 @@ tr.stub td { color: #484f58; }
 <h3>Квартальные (МСФО, 2024-2025)</h3>
 <div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3 2024</th><th>Q4 2024</th><th>Q1 2025</th><th>Q2 2025</th><th>Q3 2025</th><th>Тренд</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>2 412</td><td>3 215</td><td>2 809</td><td>2 181</td><td>2 175</td><td>↓</td></tr><tr><td>EBITDA, млрд ₽</td><td>682</td><td>966</td><td>844</td><td>702</td><td>635</td><td>↓</td></tr><tr><td>Маржа EBITDA</td><td>28%</td><td>30%</td><td>30%</td><td>32%</td><td>29%</td><td>→</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>61</td><td>629</td><td>239</td><td>188</td><td>210</td><td>↓</td></tr><tr><td>OCF, млрд ₽</td><td>1 140</td><td>926</td><td>946</td><td>484</td><td>560</td><td>↓</td></tr></tbody></table></div>
 <p><strong>Тренды:</strong></p>
-<ul><li>Выручка и EBITDA снижаются последние 4 квартала</li><li>Q4 2024 аномально сильный (43% годовой прибыли в одном квартале)</li><li>OCF/Net Income > 1 — качество прибыли хорошее, но весь кэш уходит на капекс</li></ul>
+<ul><li>Выручка и EBITDA снижаются последние 4 квартала</li><li>Q4 2024 аномально сильный (43% годовой прибыли в одном квартале)</li><li>OCF/Net Income &gt; 1 — качество прибыли хорошее, но весь кэш уходит на капекс</li></ul>
 <h3>Ключевые метрики (LTM)</h3>
 <div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Значение</th><th>Оценка</th></tr></thead><tbody><tr><td>Кол-во акций</td><td>23,674 млрд</td><td></td></tr><tr><td>Цена акции</td><td>132.4 ₽</td><td></td></tr><tr><td>Капитализация</td><td>3 135 млрд ₽</td><td></td></tr><tr><td>EPS (LTM)</td><td>53.5 ₽</td><td></td></tr><tr><td>P/E (LTM)</td><td>2.5x</td><td>Очень низкий</td></tr><tr><td>EV/EBITDA (LTM)</td><td>2.9x</td><td>Очень низкий</td></tr><tr><td>P/BV</td><td>0.19x</td><td>Ниже капитала</td></tr><tr><td>Net Debt/EBITDA</td><td>1.84x</td><td>Умеренный</td></tr><tr><td>ROE</td><td>8.7%</td><td>Ниже стоимости капитала</td></tr><tr><td>FCF Yield</td><td>-22%</td><td>Отрицательный</td></tr><tr><td>Дивидендная доходность</td><td>0%</td><td>Нет дивидендов</td></tr></tbody></table></div>
 <h2>Дивиденды</h2>
@@ -238,12 +283,12 @@ tr.stub td { color: #484f58; }
 <ol><li><strong>Отсутствие катализатора:</strong></li></ol>
 <ul><li>«Сила Сибири-2» — меморандум подписан, но контракт не заключён</li><li>Нет ясности по срокам и условиям</li><li>Даже при подписании — выход на мощность через 5-7 лет</li></ul>
 <ol><li><strong>Государство как риск:</strong></li></ol>
-<ul><li>Правительство блокирует дивиденды, забирая деньги через НДПИ</li><li>Мажоритарий (>50% у государства) не заинтересован в возврате капитала миноритариям</li></ul>
+<ul><li>Правительство блокирует дивиденды, забирая деньги через НДПИ</li><li>Мажоритарий (&gt;50% у государства) не заинтересован в возврате капитала миноритариям</li></ul>
 <p><strong>Что изменит оценку на buy:</strong></p>
 <ul><li>Подписание контракта по «Силе Сибири-2» на приемлемых условиях</li><li>Возврат к положительному FCF</li><li>Возобновление дивидендов</li></ul>
 <p><strong>Вывод:</strong> дешевизна Газпрома — не недооценка, а отражение структурных проблем бизнеса. Инвесторы предпочитают платящие дивиденды нефтегазовые компании (LKOH, TATN). Позиция watch до появления катализатора.</p>
 <h2>Чеклист перед buy</h2>
-<ul><li><input type="checkbox" checked disabled> Upside > 30% — да (+93%)</li><li><input type="checkbox" disabled> Катализатор есть — нет (Сила Сибири-2 не подписана)</li><li><input type="checkbox" checked disabled> Тезис записан — да</li><li><input type="checkbox" checked disabled> Net Debt/EBITDA < 2.5x — да (1.84x)</li><li><input type="checkbox" checked disabled> Маржа стабильна — да (~29-30%)</li><li><input type="checkbox" checked disabled> Ликвидность достаточна — да (голубая фишка)</li><li><input type="checkbox" checked disabled> Качество прибыли OCF/NI > 0.5 — да (>1)</li><li><input type="checkbox" checked disabled> Геополитика учтена — да (-25% в поправках)</li><li><input type="checkbox" disabled> Нет value trap признаков — <strong>нет</strong> (FCF отрицательный 2 года, дивиденды 0)</li></ul>
+<ul><li><input type="checkbox" checked disabled> Upside &gt; 30% — да (+93%)</li><li><input type="checkbox" disabled> Катализатор есть — нет (Сила Сибири-2 не подписана)</li><li><input type="checkbox" checked disabled> Тезис записан — да</li><li><input type="checkbox" checked disabled> Net Debt/EBITDA &lt; 2.5x — да (1.84x)</li><li><input type="checkbox" checked disabled> Маржа стабильна — да (~29-30%)</li><li><input type="checkbox" checked disabled> Ликвидность достаточна — да (голубая фишка)</li><li><input type="checkbox" checked disabled> Качество прибыли OCF/NI &gt; 0.5 — да (&gt;1)</li><li><input type="checkbox" checked disabled> Геополитика учтена — да (-25% в поправках)</li><li><input type="checkbox" disabled> Нет value trap признаков — <strong>нет</strong> (FCF отрицательный 2 года, дивиденды 0)</li></ul>
 <p><strong>Не выполнено 2 пункта → position = watch</strong></p>
 <h2>История решений</h2>
 <div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-29</td><td>watch</td><td>132.4 ₽</td><td>Первичный анализ. Value trap признаки, ждём катализатор</td></tr></tbody></table></div>
@@ -252,5 +297,25 @@ tr.stub td { color: #484f58; }
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

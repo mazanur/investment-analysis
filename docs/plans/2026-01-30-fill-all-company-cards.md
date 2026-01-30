@@ -112,99 +112,99 @@
 - [x] Обновить `_index.md` (статус обновлений)
 
 ### Задача 2: Нефтегаз — NVTK (Новатэк)
-- [ ] WebFetch: smart-lab годовые + квартальные МСФО
-- [ ] Заполнить `companies/NVTK/_index.md` по шагам 2-7
-- [ ] Обновить `companies/_index.md`
-- [ ] Обновить `_index.md`
+- [x] WebFetch: smart-lab годовые + квартальные МСФО
+- [x] Заполнить `companies/NVTK/_index.md` по шагам 2-7
+- [x] Обновить `companies/_index.md`
+- [x] Обновить `_index.md`
 
 ### Задача 3: Нефтегаз — SIBN (Газпром нефть)
-- [ ] WebFetch: smart-lab годовые + квартальные МСФО
-- [ ] Заполнить `companies/SIBN/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточки нефтегаз: ROSN, NVTK, SIBN"
+- [x] WebFetch: smart-lab годовые + квартальные МСФО
+- [x] Заполнить `companies/SIBN/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточки нефтегаз: ROSN, NVTK, SIBN"
 
 ### Задача 4: Финансы — VTBR (ВТБ)
-- [ ] Прочитать `sectors/finance/_index.md`
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/VTBR/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточку ВТБ (VTBR)"
+- [x] Прочитать `sectors/finance/_index.md`
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/VTBR/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточку ВТБ (VTBR)"
 
 ### Задача 5: Ритейл — MGNT (Магнит)
-- [ ] Прочитать `sectors/retail/_index.md`
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/MGNT/_index.md`
-- [ ] Обновить индексные файлы
+- [x] Прочитать `sectors/retail/_index.md`
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/MGNT/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 6: Ритейл — FIVE (X5 GDR)
-- [ ] Прочитать заполненную `companies/X5/_index.md` как базу
-- [ ] Заполнить `companies/FIVE/_index.md` (краткая карточка, ссылка на X5)
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточки ритейл: MGNT, FIVE"
+- [x] Прочитать заполненную `companies/X5/_index.md` как базу
+- [x] Заполнить `companies/FIVE/_index.md` (краткая карточка, ссылка на X5)
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточки ритейл: MGNT, FIVE"
 
 ### Задача 7: IT — YDEX (Яндекс)
-- [ ] Прочитать `sectors/it-telecom/_index.md`
-- [ ] Прочитать заполненную `companies/YNDX/_index.md` как базу (старый тикер)
-- [ ] WebFetch: smart-lab данные для YDEX
-- [ ] Заполнить `companies/YDEX/_index.md`
-- [ ] Обновить индексные файлы
+- [x] Прочитать `sectors/it-telecom/_index.md`
+- [x] Прочитать заполненную `companies/YNDX/_index.md` как базу (старый тикер)
+- [x] WebFetch: smart-lab данные для YDEX
+- [x] Заполнить `companies/YDEX/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 8: IT — VKCO (VK)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/VKCO/_index.md`
-- [ ] Обновить индексные файлы
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/VKCO/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 9: IT — MTSS (МТС)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/MTSS/_index.md`
-- [ ] Обновить индексные файлы
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/MTSS/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 10: IT — RTKM (Ростелеком)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/RTKM/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточки IT: YDEX, VKCO, MTSS, RTKM"
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/RTKM/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточки IT: YDEX, VKCO, MTSS, RTKM"
 
 ### Задача 11: Металлы — NLMK (НЛМК)
-- [ ] Прочитать `sectors/metals-mining/_index.md`
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/NLMK/_index.md`
-- [ ] Обновить индексные файлы
+- [x] Прочитать `sectors/metals-mining/_index.md`
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/NLMK/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 12: Металлы — MAGN (ММК)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/MAGN/_index.md`
-- [ ] Обновить индексные файлы
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/MAGN/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 13: Металлы — POLY (Polymetal)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/POLY/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточки металлы: NLMK, MAGN, POLY"
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/POLY/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточки металлы: NLMK, MAGN, POLY"
 
 ### Задача 14: Строительство — PIKK (ПИК)
-- [ ] Прочитать `sectors/construction/_index.md`
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/PIKK/_index.md`
-- [ ] Обновить индексные файлы
+- [x] Прочитать `sectors/construction/_index.md`
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/PIKK/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 15: Строительство — SMLT (Самолёт)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/SMLT/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточки строительство: PIKK, SMLT"
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/SMLT/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточки строительство: PIKK, SMLT"
 
 ### Задача 16: Прочее — SGZH (Сегежа)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/SGZH/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточку Сегежа (SGZH)"
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/SGZH/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточку Сегежа (SGZH)"
 
 ### Задача 17: Финализация
-- [ ] Запустить `python3 scripts/generate_trend_json.py` для всех компаний
-- [ ] Проверить, что все 16 компаний добавлены в `_index.md` таблицу статуса
-- [ ] Проверить, что `companies/_index.md` имеет sentiment и position для всех компаний
-- [ ] Финальный коммит + push: "Генерация trend.json для всех компаний"
+- [x] Запустить `python3 scripts/generate_trend_json.py` для всех компаний
+- [x] Проверить, что все 16 компаний добавлены в `_index.md` таблицу статуса
+- [x] Проверить, что `companies/_index.md` имеет sentiment и position для всех компаний
+- [x] Финальный коммит + push: "Генерация trend.json для всех компаний"
 
 ## Порядок заполнения по секторам
 
@@ -227,9 +227,9 @@
 
 ## Верификация
 
-- [ ] Все 16 stub-файлов заполнены (нет строки "Заглушка. Требуется исследование.")
-- [ ] Все 16 компаний имеют YAML с sentiment, position, my_fair_value, current_price, upside
-- [ ] `companies/_index.md` — все ячейки sentiment и position заполнены
-- [ ] `_index.md` — все 16 компаний добавлены в таблицу «Статус обновлений» со статусом «заполнен»
-- [ ] `trend.json` сгенерирован для всех компаний
-- [ ] Все изменения закоммичены и запушены
+- [x] Все 16 stub-файлов заполнены (нет строки "Заглушка. Требуется исследование.")
+- [x] Все 16 компаний имеют YAML с sentiment, position, my_fair_value, current_price, upside
+- [x] `companies/_index.md` — все ячейки sentiment и position заполнены
+- [x] `_index.md` — все 16 компаний добавлены в таблицу «Статус обновлений» со статусом «заполнен»
+- [x] `trend.json` сгенерирован для всех компаний
+- [x] Все изменения закоммичены и запушены

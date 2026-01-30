@@ -1,0 +1,8 @@
+{
+  "ticker": "PIKK",
+  "sentiment": "bearish",
+  "upside": 0.1,
+  "growth_probability": 0.2,
+  "decline_probability": 0.65,
+  "updated": "2026-01-30"
+}

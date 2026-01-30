@@ -1,6 +1,6 @@
 ---
 type: companies-index
-updated: 2026-01-28
+updated: 2026-01-30
 ---
 
 # Компании
@@ -17,14 +17,14 @@ updated: 2026-01-28
 | [GAZP](GAZP/) | Газпром | bearish | watch | 14 |
 | [ROSN](ROSN/) | Роснефть | neutral | hold | 1 |
 | [LKOH](LKOH/) | Лукойл | | watch | 10 |
-| [NVTK](NVTK/) | Новатэк | | watch | 4 |
-| [SIBN](SIBN/) | Газпром нефть | | watch | 4 |
+| [NVTK](NVTK/) | Новатэк | neutral | hold | 4 |
+| [SIBN](SIBN/) | Газпром нефть | neutral | hold | 4 |
 
 ### Финансы
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [SBER](SBER/) | Сбербанк | bullish | buy | 16 |
-| [VTBR](VTBR/) | ВТБ | | watch | 6 |
+| [VTBR](VTBR/) | ВТБ | neutral | watch | 6 |
 | [TCSG](TCSG/) | Т-Банк | bullish | buy | 19 |
 | [MOEX](MOEX/) | Мосбиржа | neutral | watch | 13 |
 
@@ -32,8 +32,8 @@ updated: 2026-01-28
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [X5](X5/) | X5 Group | neutral | watch | 5 |
-| [FIVE](FIVE/) | X5 Group (GDR) | | watch | 6 |
-| [MGNT](MGNT/) | Магнит | | watch | 4 |
+| [FIVE](FIVE/) | X5 Group (GDR) | neutral | avoid (делистинг) | 6 |
+| [MGNT](MGNT/) | Магнит | bearish | watch | 4 |
 | [FIXP](FIXP/) | Fix Price | | watch | 6 |
 | [LENT](LENT/) | Лента | bullish | buy | 2 |
 | [EUTR](EUTR/) | ЕвроТранс | neutral | watch | 0 |
@@ -41,24 +41,24 @@ updated: 2026-01-28
 ### IT и Телеком
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
-| [YDEX](YNDX/) | Яндекс | neutral | watch | 4 |
-| [VKCO](VKCO/) | VK | | watch | 4 |
-| [MTSS](MTSS/) | МТС | | watch | 5 |
+| [YDEX](YDEX/) | Яндекс | neutral | watch | 4 |
+| [VKCO](VKCO/) | VK | bearish | avoid | 4 |
+| [MTSS](MTSS/) | МТС | neutral | watch | 5 |
 | [OZON](OZON/) | Озон | neutral | watch | 2 |
 | [HHRU](HHRU/) | HeadHunter | | watch | 2 |
 | [POSI](POSI/) | Positive Technologies | bearish | watch | 65 |
-| [RTKM](RTKM/) | Ростелеком | | watch | 2 |
+| [RTKM](RTKM/) | Ростелеком | neutral | hold | 2 |
 
 ### Металлы и добыча
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [GMKN](GMKN/) | Норникель | | watch | 6 |
-| [NLMK](NLMK/) | НЛМК | | watch | 1 |
+| [NLMK](NLMK/) | НЛМК | neutral | hold | 1 |
 | [CHMF](CHMF/) | Северсталь | | watch | 2 |
-| [MAGN](MAGN/) | ММК | | watch | 1 |
+| [MAGN](MAGN/) | ММК | bearish | watch | 1 |
 | [ALRS](ALRS/) | Алроса | bearish | watch | 3 |
 | [PLZL](PLZL/) | Полюс | | watch | 2 |
-| [POLY](POLY/) | Polymetal | | watch | 1 |
+| [POLY](POLY/) | Polymetal (Solidcore) | bearish | avoid (делистинг) | 1 |
 | [RUAL](RUAL/) | Русал | | watch | 3 |
 
 ### Удобрения
@@ -76,8 +76,8 @@ updated: 2026-01-28
 ### Строительство
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
-| [PIKK](PIKK/) | ПИК | | watch | 6 |
-| [SMLT](SMLT/) | Самолёт | | watch | 5 |
+| [PIKK](PIKK/) | ПИК | bearish | watch | 6 |
+| [SMLT](SMLT/) | Самолёт | bearish | watch | 5 |
 
 ### Транспорт
 | Тикер | Компания | Sentiment | Position | Мнений |
@@ -92,7 +92,7 @@ updated: 2026-01-28
 ### Прочее
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
-| [SGZH](SGZH/) | Сегежа | | watch | 1 |
+| [SGZH](SGZH/) | Сегежа | bearish | avoid | 1 |
 
 ## Watchlist
 

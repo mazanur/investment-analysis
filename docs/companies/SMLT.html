@@ -5,97 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Самолёт (SMLT) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,34 +194,139 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>Самолёт</h1>
-<div class="ticker">SMLT</div>
+<div class="ticker">SMLT &middot; Строительство</div>
 <div class="badges">
-<span class="badge badge-stub">—</span>
+<span class="badge badge-bearish">bearish</span>
 <span class="badge badge-watch">watch</span>
 </div>
-<div class="metrics-grid"></div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">995</div></div><div class="metric"><div class="label">Цель</div><div class="value">1400</div></div><div class="metric"><div class="label">Upside</div><div class="value">+41%</div></div><div class="metric"><div class="label">P/E</div><div class="value">14.6</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">13.9%</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">61 млрд</div></div><div class="metric"><div class="label">P/BV</div><div class="value">н/п (отрицательный капитал)</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">3.6</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">3.1</div></div></div>
 </div>
 
-<div class="stub-banner">Анализ не завершён. Данные могут быть неполными.</div>
 
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:25%">&#x25B2; 25%</div>
+<div class="flat" style="width:10%">10%</div>
+<div class="decline" style="width:65%">&#x25BC; 65%</div>
+</div>
+</div>
 
 <div class="analysis">
 <h1>Самолёт (SMLT)</h1>
-<blockquote>Заглушка. Требуется исследование.</blockquote>
 <h2>Бизнес-модель</h2>
-<h2>Финансовые показатели</h2>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Значение</th></tr></thead><tbody><tr><td>Капитализация</td><td></td></tr><tr><td>P/E</td><td></td></tr><tr><td>EV/EBITDA</td><td></td></tr><tr><td>Див. доходность</td><td></td></tr></tbody></table></div>
-<h2>Инвестиционный тезис</h2>
+<p>Крупнейший девелопер России по объёму текущего строительства (~4,7 млн кв. м). Специализируется на комфорт-классе, работает в модели полного цикла: от покупки земли до управления построенными объектами. PropTech-составляющая: цифровые сервисы продаж, «Самолёт Плюс» (экосистема для жителей), собственный банк (с февраля 2024).</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Девелопмент жилья</strong> (~95% выручки): строительство многоквартирных домов комфорт-класса. Средняя цена — масс-маркет / комфорт, основной покупатель — семьи с ипотекой</li><li><strong>Сервисы и экосистема</strong> (~5%): «Самолёт Плюс» (управляющая компания, маркетплейс услуг для жителей), «Самолёт Банк»</li></ul>
+<p><strong>География:</strong></p>
+<ul><li>Московский регион — основной рынок (~60% продаж)</li><li>Региональная экспансия 2024-2025: Казань, Уфа, Екатеринбург, Ростов-на-Дону, Нижний Новгород, Санкт-Петербург</li><li>Новые проекты в Москве в 2025 году не запускались — ставка на диверсификацию</li></ul>
+<p><strong>Земельный банк:</strong></p>
+<ul><li>46,5 млн кв. м (крупнейший в России)</li><li>В денежном эквиваленте ~848 млрд ₽ (2024)</li><li>Обеспечивает пайплайн на 8-10 лет</li><li>В 2025 году началась частичная монетизация (продажа участков для снижения долга)</li></ul>
+<p><strong>Структура собственности:</strong></p>
+<ul><li>Михаил Кенин — 29,19% (снизил долю в июле 2025, искал покупателя на пакет)</li><li>Павел Голубков — 24,32%</li><li>Игорь Евтушевский — 5,85%</li><li>Дмитрий Голубков — 2,18%</li><li>Free float — ~9% (низкий, ограничивает ликвидность)</li><li>Частная компания (GOD-дисконт не применяется)</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Снижение ставки ЦБ — главный триггер. Самолёт — компания с максимальной бетой к ставке среди девелоперов. При ставке &lt; 14% оживёт рыночная ипотека, процентные расходы снизятся, маржа восстановится</li><li>Крупнейший земельный банк в РФ (46,5 млн кв. м) — стратегический актив при восстановлении рынка</li><li>Региональная диверсификация — снижает зависимость от московского рынка</li><li>Семейная ипотека 6% до 2030 — поддерживает базовый спрос</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Масштаб</strong>: крупнейший девелопер РФ по текущему строительству (4,7 млн кв. м), №2 по объёмам ввода после ПИК</li><li><strong>Земельный банк</strong>: 46,5 млн кв. м — крупнейший в стране, обеспечивает пайплайн на 8-10 лет и возможность монетизации в трудные времена</li><li><strong>PropTech-экосистема</strong>: «Самолёт Плюс», собственный банк, цифровые продажи — потенциальный источник дополнительной маржи</li><li><strong>Региональная экспансия</strong>: диверсификация за пределы Москвы в 2024-2025, выход в крупные города-миллионники</li><li><strong>Агрессивный рост</strong>: выручка CAGR 2021-2024 = +54% в год (с 93 до 339 млрд ₽)</li></ul>
 <h2>Риски</h2>
-<p>-</p>
+<h3>Макро-риски</h3>
+<ul><li><strong>Ставка ЦБ 16%</strong>: критически высокая для закредитованного девелопера. Процентные расходы LTM 45,6 млрд ₽ — в 11 раз больше чистой прибыли (4 млрд ₽). При сохранении ставки на текущем уровне прибыль может уйти в убыток</li><li><strong>Рыночная ипотека недоступна</strong> (25-28%): спрос держится только на льготных программах (79% от всей ипотеки)</li><li><strong>Ужесточение семейной ипотеки</strong> с 01.02.2026: одна ипотека на семью — может снизить спрос на 10-15%</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Отрицательный собственный капитал</strong>: BV/share = -93 ₽. Компания технически имеет отрицательную чистую стоимость — долги превышают активы по МСФО</li><li><strong>Экстремальная долговая нагрузка</strong>: Net Debt/EBITDA = 3,1x (LTM, smart-lab). Общий долг 704 млрд ₽ при капитализации 61 млрд. 78% долга — краткосрочный</li><li><strong>Стресс-тест провален</strong>: при ставке +3пп (19%) теоретические процентные расходы на весь долг (704 * 0.19 = 134 млрд) превышают EBITDA (113 млрд). Реальные расходы ниже (45,6 млрд) благодаря проектному финансированию с привязкой к эскроу, но зависимость от наполнения эскроу создаёт дополнительный риск</li><li><strong>Отрицательный OCF и FCF</strong>: OCF LTM = -229,4 млрд ₽, FCF LTM = -248,2 млрд ₽. Бизнес не генерирует кэш — типично для растущих девелоперов, но критично при высоких ставках</li><li><strong>Задержки сдачи объектов</strong>: ЖК «Остафьево», «Новое Колпино», «Курортный квартал» — протесты дольщиков, задержки ввода</li></ul>
+<h3>Регуляторные и корпоративные риски</h3>
+<ul><li><strong>Уголовные дела</strong>: в августе 2025 СК возбудил дела о мошенничестве по ЖК «Новое Колпино» и «Курортный Квартал» (отменены прокуратурой в течение суток). В октябре 2025 — новое поручение Бастрыкина по ЖК «Квартал Лаголово»</li><li><strong>Нестабильность акционерной структуры</strong>: крупнейший акционер Михаил Кенин продаёт акции, снизил долю, ищет покупателя на пакет. Forbes связывает продажу с финансовыми проблемами</li><li><strong>Понижение рейтинга</strong>: АКРА понизила рейтинг до А-(RU) со стабильным прогнозом</li><li><strong>Низкий free float</strong> (~9%): ограниченная ликвидность, дисконт за неликвидность</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>93,0</td><td>172,2</td><td>256,1</td><td>339,1</td><td>339,3</td></tr><tr><td>EBITDA, млрд ₽</td><td>23,1</td><td>48,2</td><td>91,5</td><td>109,2</td><td>113,2</td></tr><tr><td>Маржа EBITDA, %</td><td>24,9%</td><td>28,0%</td><td>35,7%</td><td>32,2%</td><td>33,4%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>6,50</td><td>11,4</td><td>16,4</td><td>5,41</td><td>4,04</td></tr><tr><td>Чистая маржа, %</td><td>7,0%</td><td>6,6%</td><td>6,4%</td><td>1,6%</td><td>1,2%</td></tr><tr><td>Процентные расходы, млрд ₽</td><td>3,83</td><td>20,8</td><td>14,9</td><td>41,1</td><td>45,6</td></tr><tr><td>OCF, млрд ₽</td><td>-97,3</td><td>-105,3</td><td>-136,0</td><td>-271,7</td><td>-229,4</td></tr><tr><td>FCF, млрд ₽</td><td>-0,9</td><td>-125,8</td><td>-145,5</td><td>-291,1</td><td>-248,2</td></tr><tr><td>Долг, млрд ₽</td><td>133,2</td><td>282,6</td><td>512,5</td><td>641,1</td><td>703,9</td></tr><tr><td>Наличность, млрд ₽</td><td>141,4</td><td>262,4</td><td>312,5</td><td>349,9</td><td>353,0</td></tr><tr><td>Чистый долг, млрд ₽</td><td>-8,1</td><td>20,3</td><td>200,0</td><td>291,2</td><td>350,9</td></tr><tr><td>Net Debt/EBITDA</td><td>-0,35x</td><td>0,42x</td><td>2,19x</td><td>2,67x</td><td>3,10x</td></tr><tr><td>ROE, %</td><td>61,3%</td><td>64,4%</td><td>95,0%</td><td>18,6%</td><td>13,9%</td></tr><tr><td>EPS, ₽</td><td>105,6</td><td>185,0</td><td>265,7</td><td>87,9</td><td>65,7</td></tr><tr><td>BV/акцию, ₽</td><td>155,6</td><td>-79,6</td><td>-165,2</td><td>-80,2</td><td>-93,2</td></tr></tbody></table></div>
+<p><strong>Ключевые наблюдения:</strong></p>
+<ul><li>Выручка за 3 года выросла в 3,6 раза (93 → 339 млрд ₽) — агрессивный рост</li><li>EBITDA маржа высокая и стабильная (28-35%), но чистая маржа коллапсирует (7% → 1,2%) из-за роста процентных расходов</li><li>Процентные расходы выросли в 12 раз (3,8 → 45,6 млрд ₽) — основная причина падения прибыли</li><li>Долг вырос в 5,3 раза (133 → 704 млрд ₽), собственный капитал стал отрицательным</li><li>OCF и FCF хронически отрицательные — бизнес поглощает кэш в фазе активного роста</li></ul>
+<h3>Полугодовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>H2 2024 (прибл.)</th><th>H1 2025 (прибл.)</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>~171</td><td>~168</td><td>339,3</td></tr><tr><td>EBITDA, млрд ₽</td><td>~57,5</td><td>~55,7</td><td>113,2</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>~0,5</td><td>~3,5</td><td>4,04</td></tr><tr><td>Процентные расходы, млрд ₽</td><td>~20,5</td><td>~25,2</td><td>45,6</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> EBITDA маржа остаётся высокой на операционном уровне, но процентные расходы съедают почти всю прибыль. В H1 2025 процентные расходы (25,2 млрд) составили 45% от EBITDA (55,7 млрд). Чистая прибыль минимальна — компания работает на грани безубыточности.</p>
+<h2>Дивиденды</h2>
+<div class="table-wrap"><table><thead><tr><th>Год (за)</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2020</td><td>41</td><td>0,8%</td><td>Предшествовавший IPO период</td></tr><tr><td>2021</td><td>82</td><td>3,4%</td><td>Последний крупный дивиденд</td></tr><tr><td>2022</td><td>0</td><td>0%</td><td>Приоритет — рост и инвестиции</td></tr><tr><td>2023</td><td>0</td><td>0%</td><td>Рост долговой нагрузки</td></tr><tr><td>2024</td><td>0</td><td>0%</td><td>Нет дивидендов</td></tr></tbody></table></div>
+<p><strong>Дивидендная политика:</strong> формально предусматривает payout не менее 50% чистой прибыли по МСФО. Фактически заморожена с 2022 года из-за агрессивного роста и нарастающего долга. Возврат к дивидендам нереалистичен до существенного снижения ставки ЦБ и восстановления чистой прибыли — вероятно не ранее 2027-2028 года.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>2024</th><th>2023</th><th>Среднее</th></tr></thead><tbody><tr><td>P/E</td><td>14,6x</td><td>11,7x</td><td>14,7x</td><td>13,7x</td></tr><tr><td>EV/EBITDA</td><td>3,6x</td><td>3,3x</td><td>4,8x</td><td>3,9x</td></tr><tr><td>P/BV</td><td>н/п</td><td>н/п</td><td>н/п</td><td>н/п</td></tr><tr><td>P/S</td><td>0,17x</td><td>0,19x</td><td>0,94x</td><td>0,43x</td></tr><tr><td>Div Yield</td><td>0%</td><td>0%</td><td>0%</td><td>1,4%</td></tr><tr><td>ROE</td><td>13,9%</td><td>18,6%</td><td>95,0%</td><td>42,6%</td></tr></tbody></table></div>
+<p><strong>Особенности оценки:</strong></p>
+<ul><li>P/BV не применим — собственный капитал отрицательный (-5,7 млрд ₽). Это означает, что долги компании превышают её активы по МСФО</li><li>P/E выглядит высоким (14,6x) несмотря на низкую цену — потому что чистая прибыль коллапсировала из-за процентных расходов</li><li>EV/EBITDA (3,6x) — единственный адекватный мультипликатор, показывает, что операционный бизнес оценён дёшево</li><li>P/S (0,17x) — экстремально низкий, отражает страхи рынка по поводу долга</li></ul>
+<h2>Мой тезис</h2>
+<p>Самолёт — крупнейший застройщик России по текущему строительству, с мощным земельным банком (46,5 млн кв. м) и высокой EBITDA маржой (33%). Однако компания находится в критически уязвимом финансовом положении: отрицательный собственный капитал, Net Debt/EBITDA 3,1x и растущий, процентные расходы (45,6 млрд ₽) в 11 раз превышают чистую прибыль (4 млрд ₽), OCF и FCF хронически отрицательные.</p>
+<p>Это компания с максимальной бетой к ставке ЦБ среди публичных девелоперов: при снижении ставки до 13% (прогноз ЦБ на конец 2026) потенциал переоценки огромен (upside 41%+), но при сохранении текущей ставки компания балансирует на грани убытков. Дополнительные риски: уголовные расследования, продажа акций крупнейшим акционером, понижение рейтинга АКРА, низкий free float (~9%).</p>
+<p><strong>Почему bearish/watch, а не buy:</strong> несмотря на формальный upside 41%, риски слишком высоки — отрицательный капитал, стресс-тест по долгу не пройден, уголовные дела, нестабильная акционерная структура. Это ставка «всё или ничего» на снижение ставки ЦБ. Предпочтительнее ждать подтверждения разворота (снижение ставки ниже 14%, стабилизация долга, прекращение уголовных рисков).</p>
+<h2>Целевая цена</h2>
+<h3>Расчёт по методологии</h3>
+<p><strong>Исходные данные:</strong></p>
+<ul><li>EBITDA LTM: 113,2 млрд ₽</li><li>Net Debt: 350,9 млрд ₽</li><li>Net Debt/EBITDA: 3,1x → <strong>основной метод: EV/EBITDA</strong> (&gt; 2,5x)</li><li>Кол-во акций: 61,6 млн</li><li>Текущая цена: 995 ₽</li><li>g = 5% (циклическая компания, средний рост за цикл ≈ номинальный ВВП)</li></ul>
+<p><strong>WACC (для текущей ставки 16%):</strong></p>
+<ul><li>r_equity = 16% + 5% = 21%</li><li>r_debt = 16% + 2% = 18% (спред за рейтинг А-)</li><li>EV = Market Cap + Net Debt = 61 + 351 = 412 млрд</li><li>D/V = 351/412 = 85%, E/V = 61/412 = 15%</li><li>WACC = 21% × 0,15 + 18% × (1 − 0,22) × 0,85 = 3,15% + 11,93% = 15,1%</li><li>Tax = 22% (с учётом повышения НДС)</li></ul>
+<p><strong>Целевой EV/EBITDA:</strong></p>
+<p>Базовый EV/EBITDA = (1 − tax) / (WACC − g) = 0,78 / (0,151 − 0,05) = 0,78 / 0,101 = 7,7x</p>
+<p><strong>Поправки за качество:</strong></p>
+<ul><li>Крупнейший девелопер по объёму строительства: +10%</li><li>Отрицательный собственный капитал: -10%</li><li>Уголовные расследования, нестабильная акционерная структура: -10%</li><li>Дисконт за неликвидность (free float ~9%): -10%</li><li>Итого поправка: -20%</li></ul>
+<p>Целевой EV/EBITDA = 7,7 × 0,80 = 6,2x</p>
+<p><strong>Целевая цена (текущая ставка 16%):</strong></p>
+<ul><li>Target EV = 113,2 × 6,2 = 701,8 млрд</li><li>Target Equity = 701,8 − 350,9 = 350,9 млрд</li><li>Цена = 350,9 / 0,0616 = 5 697 ₽</li></ul>
+<p>Примечание: формульный расчёт даёт завышенный результат из-за эффекта рычага (85% долга) и низкого WACC. Рынок обоснованно применяет более высокую дисконтную ставку к экстремально закредитованным компаниям. Для корректировки используем рыночные бенчмарки.</p>
+<p><strong>Рыночный подход (секторальные бенчмарки):</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Компания</th><th>EV/EBITDA</th><th>Net Debt/EBITDA</th><th>Комментарий</th></tr></thead><tbody><tr><td>ПИК (PIKK)</td><td>2,3x</td><td>-0,3x</td><td>Нет долга, но санкции, нет дивидендов</td></tr><tr><td>ЛСР (LSRG)</td><td>~3,5x</td><td>~1,5x</td><td>Умеренный долг, дивиденды</td></tr><tr><td><strong>Самолёт (SMLT)</strong></td><td><strong>3,6x</strong></td><td><strong>3,1x</strong></td><td>Экстремальный долг, нет дивидендов</td></tr></tbody></table></div>
+<p>При текущих условиях рыночный EV/EBITDA для Самолёта обоснованно ниже из-за долга. Используем сценарный подход с рыночными мультипликаторами:</p>
+<h3>Три сценария (горизонт 12 мес.)</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>Целевой EV/EBITDA</th><th>Target EV, млрд</th><th>Target Equity, млрд</th><th>Цена, ₽</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>3,5x</td><td>396</td><td>45</td><td>731 ₽</td><td>-27%</td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>5,0x</td><td>566</td><td>215</td><td><strong>3 492 ₽</strong></td><td><strong>+251%</strong></td></tr><tr><td>Оптимистичный</td><td>11%</td><td>6,5x</td><td>736</td><td>385</td><td>6 250 ₽</td><td>+528%</td></tr></tbody></table></div>
+<p><strong>Эффект рычага:</strong> из-за экстремальной долговой нагрузки (Net Debt = 350,9 млрд при капитализации 61 млрд) даже небольшое изменение EV/EBITDA приводит к кратной переоценке equity. Это делает акцию сверхволатильной и похожей на опцион на снижение ставки.</p>
+<h3>Корректировка my_fair_value</h3>
+<p>Базовый сценарий даёт нереалистично высокий upside из-за эффекта рычага. Для my_fair_value применяем вероятностно-взвешенный подход:</p>
+<ul><li>Пессимистичный (30%): 731 ₽ → вклад 219 ₽</li><li>Базовый (50%): 3 492 ₽ → вклад 1 746 ₽</li><li>Оптимистичный (20%): 6 250 ₽ → вклад 1 250 ₽</li><li>Взвешенная: 3 215 ₽</li></ul>
+<p>С учётом дисконта за исполнительные риски (уголовные дела, продажа акций основателем, отрицательный капитал) применяем haircut -55%:</p>
+<p><strong>my_fair_value = 1 400 ₽</strong> (округлённо)</p>
+<h3>Чувствительность к ставке ЦБ</h3>
+<div class="table-wrap"><table><thead><tr><th>Ставка ЦБ</th><th>EV/EBITDA</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>16% (без снижения)</td><td>3,5x</td><td>731 ₽</td><td>-27%</td></tr><tr><td>14%</td><td>4,3x</td><td>1 483 ₽</td><td>+49%</td></tr><tr><td><strong>13% (базовый прогноз)</strong></td><td><strong>5,0x</strong></td><td><strong>3 492 ₽</strong></td><td><strong>+251%</strong></td></tr><tr><td>11%</td><td>6,5x</td><td>6 250 ₽</td><td>+528%</td></tr></tbody></table></div>
+<p>При текущей ставке 16% акция переоценена — upside отрицательный. Весь инвестиционный тезис = ставка на снижение ставки ЦБ.</p>
+<h3>Стресс-тест (обязателен при &gt; 3,5x)</h3>
+<p>Ставка ЦБ + 3пп = 19%:</p>
+<ul><li>Теоретические процентные расходы: 704 × 0,19 = 133,8 млрд ₽</li><li>EBITDA LTM: 113,2 млрд ₽</li><li><strong>Процентные расходы &gt; EBITDA</strong> → КРАСНЫЙ ФЛАГ</li></ul>
+<p>Фактические процентные расходы ниже (45,6 млрд LTM), т.к. значительная часть долга — проектное финансирование с привязкой к наполнению эскроу. Но при ухудшении продаж и снижении наполнения эскроу ставка по проектному финансированию вырастет, увеличивая реальные расходы.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>EV/EBITDA (текущая ставка)</td><td>731 ₽</td><td>-27%</td><td>EV/EBITDA 3,5x</td></tr><tr><td>EV/EBITDA (базовый, ставка 13%)</td><td>3 492 ₽</td><td>+251%</td><td>Эффект рычага</td></tr><tr><td>P/E (нормализованный)</td><td>~1 200 ₽</td><td>+21%</td><td>EPS норм. 120 ₽ × P/E 10x (при 13%)</td></tr><tr><td>Дивидендный</td><td>н/п</td><td>—</td><td>Дивиденды = 0</td></tr><tr><td>P/BV</td><td>н/п</td><td>—</td><td>Собственный капитал отрицательный</td></tr><tr><td><strong>my_fair_value</strong></td><td><strong>1 400 ₽</strong></td><td><strong>+41%</strong></td><td>Вероятностно-взвешенная оценка с haircut за риски</td></tr></tbody></table></div>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" checked disabled> <strong>Upside &gt; 30%</strong> — да (+41% к 1 400, но крайне неопределённый)</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ; но без дивидендов, с отрицательным капиталом и уголовными рисками катализатор ненадёжный</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — см. выше</li><li><input type="checkbox" disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — нет, 3,1x и растёт. Стресс-тест провален</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — EBITDA маржа ок (33%), но чистая маржа коллапсирует (7% → 1,2%)</li><li><input type="checkbox" disabled> <strong>Ликвидность</strong> — free float ~9%, ограниченная ликвидность</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — OCF хронически отрицательный, FCF = -248 млрд ₽</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — нет санкций, но есть внутренние юридические риски (уголовные дела)</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — частная компания, GOD не применяется</li><li><input type="checkbox" disabled> <strong>Нет value trap признаков</strong> — есть признаки: высокий долг + высокая ставка (классический value trap паттерн для застройщиков)</li></ul>
+<p><strong>Результат: 4/10 — buy не подтверждён. Position = watch.</strong></p>
+<p>Для перехода в buy необходимо:</p>
+<ol><li>Снижение ставки ЦБ ниже 14%</li><li>Net Debt/EBITDA &lt; 2,5x (снижение долга или рост EBITDA)</li><li>Прекращение уголовных расследований</li><li>Стабилизация акционерной структуры</li><li>Возвращение к положительному собственному капиталу</li></ol>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-30</td><td><strong>WATCH</strong></td><td>995 ₽</td><td>Экстремальная долговая нагрузка (Net Debt/EBITDA 3,1x, BV &lt; 0), стресс-тест провален, уголовные расследования, продажа акций основателем. Upside 41% — но это ставка на ставку ЦБ, а не на бизнес. Ждём снижения ставки &lt; 14% и стабилизации долга</td></tr></tbody></table></div>
 <h2>Источники</h2>
-<ul><li><a href="https://smart-lab.ru/q/SMLT/" target="_blank">Smart-lab</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+<ul><li><a href="https://smart-lab.ru/q/SMLT/f/y/MSFO/" target="_blank">Smart-lab: SMLT финансы МСФО (годовые)</a></li><li><a href="https://smart-lab.ru/q/SMLT/f/q/MSFO/" target="_blank">Smart-lab: SMLT финансы МСФО (квартальные)</a></li><li><a href="https://www.interfax.ru/business/1022695" target="_blank">Interfax: Самолёт EBITDA за 2024</a></li><li><a href="https://www.forbes.ru/biznes/524673-krupnejsij-sovladelec-zastrojsika-gk-samolet-prodaet-svoj-paket-akcij" target="_blank">Forbes: Продажа акций Кенина</a></li><li><a href="https://www.forbes.ru/biznes/544439-prokuratura-otmenila-ugolovnye-dela-v-otnosenii-zastrojsika-samolet" target="_blank">Forbes: Отмена уголовных дел</a></li><li><a href="../../sectors/construction/_index.md" target="_blank">Секторальный анализ: Строительство</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

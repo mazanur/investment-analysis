@@ -5,97 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Яндекс (YDEX) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,16 +194,19 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>Яндекс</h1>
-<div class="ticker">YDEX &middot; IT-Telecom</div>
+<div class="ticker">YDEX &middot; IT и Телеком</div>
 <div class="badges">
 <span class="badge badge-neutral">neutral</span>
 <span class="badge badge-watch">watch</span>
 </div>
-<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">4761</div></div><div class="metric"><div class="label">Цель</div><div class="value">4770</div></div><div class="metric"><div class="label">Upside</div><div class="value">0%</div></div><div class="metric"><div class="label">P/E</div><div class="value">15.6</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">3.4%</div></div><div class="metric"><div class="label">ROE</div><div class="value">39.0%</div></div><div class="metric"><div class="label">P/BV</div><div class="value">15.3</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">8.3</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">0.61</div></div></div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">4759</div></div><div class="metric"><div class="label">Цель</div><div class="value">4770</div></div><div class="metric"><div class="label">Upside</div><div class="value">0%</div></div><div class="metric"><div class="label">P/E</div><div class="value">15.6</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">3.4%</div></div><div class="metric"><div class="label">ROE</div><div class="value">39.0%</div></div><div class="metric"><div class="label">P/BV</div><div class="value">15.2</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">8.3</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">0.61</div></div></div>
 </div>
 
 
@@ -177,66 +222,87 @@ tr.stub td { color: #484f58; }
 
 <div class="analysis">
 <h1>Яндекс (YDEX)</h1>
-<blockquote>После реструктуризации 2024 года тикер изменился с YNDX на YDEX.</blockquote>
+<blockquote>После реструктуризации 2024 года тикер изменился с YNDX на YDEX. Полный анализ под текущим тикером. Историческая карточка: <a href="../YNDX/_index.md" target="_blank">YNDX</a>.</blockquote>
 <h2>Бизнес-модель</h2>
-<p>Крупнейший технологический холдинг России. После реструктуризации 2024 года (выкуп иностранных акционеров) — полностью российская компания.</p>
+<p>Крупнейший технологический холдинг России. После реструктуризации 2024 года (выкуп иностранных акционеров с дисконтом ~50%) — полностью российская компания. Экосистема объединяет поиск, рекламу, e-commerce, такси, подписки, облако и финтех.</p>
 <p><strong>Сегменты:</strong></p>
 <div class="table-wrap"><table><thead><tr><th>Сегмент</th><th>Описание</th><th>Доля выручки</th></tr></thead><tbody><tr><td>Поиск и Портал</td><td>Контекстная реклама, Яндекс.Директ</td><td>~45%</td></tr><tr><td>E-commerce</td><td>Яндекс Маркет, Лавка</td><td>~25%</td></tr><tr><td>Райдтех</td><td>Такси, Доставка, Самокаты</td><td>~20%</td></tr><tr><td>Плюс и развлечения</td><td>Подписка, Кинопоиск, Музыка</td><td>~7%</td></tr><tr><td>Прочее</td><td>Облако, Образование, Финтех</td><td>~3%</td></tr></tbody></table></div>
 <p><strong>Драйверы роста:</strong></p>
-<ul><li><strong>Реклама</strong>: ~70% рынка интернет-рекламы с VK. Рынок растёт на 10-15% YoY</li><li><strong>E-commerce</strong>: Яндекс Маркет — 3-й игрок после Wildberries и Ozon. Убыточен, но растёт на 40%+ YoY</li><li><strong>Подписки</strong>: Яндекс Плюс — 35+ млн подписчиков, ARPU растёт</li><li><strong>Райдтех</strong>: лидер в такси и доставке, высокая маржинальность</li></ul>
+<ul><li><strong>Реклама</strong>: ~70% рынка интернет-рекламы совместно с VK. Рынок растет на 10-15% YoY</li><li><strong>E-commerce</strong>: Яндекс Маркет — 3-й игрок после Wildberries и Ozon. Убыточен, но растет на 40%+ YoY</li><li><strong>Подписки</strong>: Яндекс Плюс — 35+ млн подписчиков, ARPU растет</li><li><strong>Райдтех</strong>: лидер в такси и доставке, высокая маржинальность</li><li><strong>AI/ML</strong>: YandexGPT, Нейро-поиск — технологическое лидерство в РФ</li></ul>
 <h2>Конкурентные преимущества</h2>
-<ol><li><strong>Монополия в поиске</strong> — 65% поискового рынка РФ (Google ~30%)</li><li><strong>Экосистема</strong> — подписка Плюс связывает все сервисы, высокий retention</li><li><strong>Технологии</strong> — собственные ML-модели, YandexGPT, облачная инфраструктура</li><li><strong>Масштаб</strong> — крупнейший IT-работодатель РФ, ~25 тыс. сотрудников</li><li><strong>Бренд</strong> — узнаваемость и доверие на уровне Google в РФ</li></ol>
+<ol><li><strong>Монополия в поиске</strong> — 65% поискового рынка РФ (Google ~30%), устойчивое доминирование</li><li><strong>Экосистема</strong> — подписка Плюс связывает все сервисы, высокий retention и switching cost</li><li><strong>Технологии</strong> — собственные ML-модели, YandexGPT, облачная инфраструктура</li><li><strong>Масштаб</strong> — крупнейший IT-работодатель РФ (~25 тыс. сотрудников)</li><li><strong>Бренд</strong> — узнаваемость и доверие на уровне Google в РФ</li></ol>
 <h2>Риски</h2>
-<ol><li><strong>Регуляторное давление</strong>: закон о маркетплейсах, маркировка рекламы, ограничения контента</li><li><strong>Конкуренция с VK</strong>: борьба за рекламный бюджет, пересечение в соцсетях</li><li><strong>Отрицательный FCF</strong>: инвестиции в e-commerce и облако съедают кэш</li><li><strong>Концентрация на РФ</strong>: после реструктуризации — 100% внутренний рынок</li><li><strong>Высокие мультипликаторы</strong>: P/BV 15x — дорого относительно балансовой стоимости</li></ol>
+<ol><li><strong>Регуляторное давление</strong>: закон о маркетплейсах, маркировка рекламы (ЕРИР), ограничения контента</li><li><strong>Конкуренция с VK</strong>: борьба за рекламные бюджеты, пересечение в соцсетях и контенте</li><li><strong>Отрицательный FCF</strong>: инвестиции в e-commerce и облако съедают кэш (FCF LTM = -24.5 млрд)</li><li><strong>Концентрация на внутреннем рынке</strong>: после реструктуризации — 100% РФ, нет международной диверсификации</li><li><strong>Высокие мультипликаторы</strong>: P/BV 15x — дорого относительно балансовой стоимости, мало места для ошибки</li></ol>
 <h2>Финансовые показатели</h2>
-<h3>Годовые данные (МСФО, млрд ₽)</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка</td><td>356</td><td>522</td><td>798</td><td>1,095</td><td>1,346</td></tr><tr><td>EBITDA</td><td>32</td><td>64</td><td>121</td><td>189</td><td>242</td></tr><tr><td>Маржа EBITDA</td><td>9.0%</td><td>12.3%</td><td>15.1%</td><td>17.2%</td><td>18.0%</td></tr><tr><td>Чистая прибыль</td><td>8</td><td>11</td><td>52</td><td>101</td><td>119</td></tr><tr><td>FCF</td><td>-44</td><td>-11</td><td>-38</td><td>41</td><td>-25</td></tr><tr><td>Net Debt</td><td>-21</td><td>-32</td><td>44</td><td>84</td><td>146</td></tr></tbody></table></div>
+<h3>Годовые данные (МСФО, млрд руб)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка</td><td>218</td><td>356</td><td>522</td><td>798</td><td>1,095</td><td>1,346</td></tr><tr><td>EBITDA</td><td>45</td><td>32</td><td>64</td><td>121</td><td>189</td><td>242</td></tr><tr><td>Маржа EBITDA</td><td>20.7%</td><td>9.0%</td><td>12.3%</td><td>15.1%</td><td>17.2%</td><td>18.0%</td></tr><tr><td>Чистая прибыль</td><td>20</td><td>8</td><td>11</td><td>52</td><td>101</td><td>119</td></tr><tr><td>FCF</td><td>8</td><td>-44</td><td>-11</td><td>-38</td><td>41</td><td>-25</td></tr><tr><td>Net Debt</td><td>-155</td><td>-21</td><td>-32</td><td>44</td><td>84</td><td>146</td></tr></tbody></table></div>
+<p>CAGR выручки (2020-2024): ~50% в год. Маржа EBITDA восстановилась с 9% (2021, пик инвестиций) до 18% (LTM).</p>
 <h3>Квартальные данные 2025 (МСФО)</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q4'24</th><th>Q1'25</th><th>Q2'25</th><th>Q3'25</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>341</td><td>307</td><td>333</td><td>366</td></tr><tr><td>EBITDA, млрд ₽</td><td>49</td><td>49</td><td>66</td><td>78</td></tr><tr><td>Маржа EBITDA</td><td>14.3%</td><td>16.0%</td><td>19.8%</td><td>21.3%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>32</td><td>13</td><td>30</td><td>45</td></tr></tbody></table></div>
-<p><strong>Тренд маржи EBITDA: ↑</strong> — рост с 14% до 21% за год. Операционная эффективность улучшается.</p>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q4&#x27;24</th><th>Q1&#x27;25</th><th>Q2&#x27;25</th><th>Q3&#x27;25</th></tr></thead><tbody><tr><td>Выручка, млрд руб</td><td>341</td><td>307</td><td>333</td><td>366</td></tr><tr><td>EBITDA, млрд руб</td><td>49</td><td>49</td><td>66</td><td>78</td></tr><tr><td>Маржа EBITDA</td><td>14.3%</td><td>16.0%</td><td>19.8%</td><td>21.3%</td></tr><tr><td>Чистая прибыль, млрд руб</td><td>32</td><td>13</td><td>30</td><td>45</td></tr></tbody></table></div>
+<p><strong>Тренд маржи EBITDA: стабильный рост</strong> — с 14.3% до 21.3% за четыре квартала. Операционная эффективность улучшается по мере масштабирования бизнеса.</p>
 <h3>Ключевые мультипликаторы</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Яндекс</th><th>Сектор IT</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>15.6x</td><td>10-15x</td><td>На уровне сектора</td></tr><tr><td>EV/EBITDA</td><td>8.3x</td><td>6-10x</td><td>Норма для растущей компании</td></tr><tr><td>P/BV</td><td>15.3x</td><td>3-5x</td><td>Высоко — премия за качество</td></tr><tr><td>ROE</td><td>39%</td><td>15-20%</td><td>Существенно выше сектора</td></tr><tr><td>Net Debt/EBITDA</td><td>0.61x</td><td>—</td><td>Низкий долг</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Яндекс</th><th>Сектор IT</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>15.6x</td><td>10-15x</td><td>На верхней границе сектора</td></tr><tr><td>EV/EBITDA</td><td>8.3x</td><td>6-10x</td><td>Норма для растущей компании</td></tr><tr><td>P/BV</td><td>15.2x</td><td>3-5x</td><td>Высоко — премия за качество бизнеса</td></tr><tr><td>ROE</td><td>39%</td><td>15-20%</td><td>Существенно выше сектора</td></tr><tr><td>Net Debt/EBITDA</td><td>0.61x</td><td>—</td><td>Низкий долг</td></tr></tbody></table></div>
 <h2>Дивиденды</h2>
-<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2024</td><td>160</td><td>3.4%</td><td>Первые дивиденды после реструктуризации</td></tr></tbody></table></div>
-<p><strong>Политика</strong>: Компания начала платить дивиденды в 2024 году после завершения реструктуризации. Дивидендная политика пока не формализована, но менеджмент заявил о намерении направлять на выплаты 30-50% чистой прибыли.</p>
-<p><strong>Прогноз 2025</strong>: При ЧП ~130 млрд и payout 40% → DPS ~130 ₽ (доходность ~2.7%)</p>
+<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, руб</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2024</td><td>160</td><td>3.4%</td><td>Первые дивиденды после реструктуризации</td></tr></tbody></table></div>
+<p><strong>Политика</strong>: Компания начала платить дивиденды в 2024 году после завершения реструктуризации. Дивидендная политика пока не формализована, менеджмент заявил о намерении направлять на выплаты 30-50% чистой прибыли.</p>
+<p><strong>Прогноз 2025</strong>: При ЧП ~130 млрд и payout 40% -&gt; DPS ~130 руб (доходность ~2.7%)</p>
 <h2>Оценка</h2>
-<h3>Расчёт целевой цены по P/E</h3>
+<h3>Расчет целевой цены по P/E</h3>
 <p><strong>Шаг 1: Базовые метрики</strong></p>
-<ul><li>Чистая прибыль (LTM): 119.4 млрд ₽</li><li>Кол-во акций: 390.5 млн</li><li>EPS = 305.8 ₽</li><li>Текущая цена: 4,761 ₽</li></ul>
+<ul><li>Чистая прибыль (LTM): 119.4 млрд руб</li><li>Кол-во акций: 390.5 млн</li><li>EPS = 305.8 руб</li><li>Текущая цена: 4,759 руб</li></ul>
 <p><strong>Шаг 2: Целевой P/E</strong></p>
-<ul><li>Ставка ЦБ (базовый сценарий, конец 2026): 13%</li><li>ERP: 5%</li><li>r = 18%</li><li>g = 10% (высокий рост, ограничен потолком 12%)</li><li>Спред r − g = 8% ✓</li></ul>
-<p>``<code> Базовый P/E = 1 / (0.18 − 0.10) = 12.5x </code>``</p>
+<ul><li>Ставка ЦБ (базовый сценарий, конец 2026): 13%</li><li>ERP: 5%</li><li>r = 18%</li><li>g = 10% (высокий рост, ограничен потолком 12%)</li><li>Спред r - g = 8% (&gt;5%)</li></ul>
+<p>Базовый P/E = 1 / (0.18 - 0.10) = 12.5x</p>
 <p><strong>Шаг 3: Поправка за качество</strong></p>
-<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE 39% > сектора (20%)</td><td>+10%</td></tr><tr><td>Рост выручки 50% > сектора (15-20%)</td><td>+10%</td></tr><tr><td>Лидер сектора по масштабу</td><td>+10%</td></tr><tr><td>FCF отрицательный</td><td>-10%</td></tr><tr><td>Внутренний рынок, импортозамещение</td><td>+5%</td></tr><tr><td><strong>Итого</strong></td><td><strong>+25%</strong></td></tr></tbody></table></div>
-<p>``<code> Целевой P/E = 12.5 × 1.25 = 15.6x </code>``</p>
-<p><strong>Шаг 4: Целевая цена</strong> ``<code> Целевая цена = 305.8 × 15.6 = 4,770 ₽ Upside = (4,770 − 4,761) / 4,761 = 0% </code>``</p>
+<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE 39% &gt; сектора (20%)</td><td>+10%</td></tr><tr><td>Рост выручки 50% &gt; сектора (15-20%)</td><td>+10%</td></tr><tr><td>Лидер сектора по масштабу</td><td>+10%</td></tr><tr><td>FCF отрицательный</td><td>-10%</td></tr><tr><td>Внутренний рынок, импортозамещение</td><td>+5%</td></tr><tr><td><strong>Итого</strong></td><td><strong>+25%</strong></td></tr></tbody></table></div>
+<p>Целевой P/E = 12.5 x 1.25 = 15.6x</p>
+<p><strong>Шаг 4: Целевая цена</strong> Целевая цена = 305.8 x 15.6 = 4,770 руб Upside = (4,770 - 4,759) / 4,759 = 0%</p>
 <h3>Сценарии по ставке ЦБ</h3>
-<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>11.4x</td><td>3,486 ₽</td><td>-27%</td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>18%</td><td>15.6x</td><td>4,770 ₽</td><td>0%</td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>25.0x</td><td>7,645 ₽</td><td>+61%</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>11.4x</td><td>3,486 руб</td><td>-27%</td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>18%</td><td>15.6x</td><td>4,770 руб</td><td>0%</td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>25.0x</td><td>7,645 руб</td><td>+61%</td></tr></tbody></table></div>
 <h3>Чувствительность к g</h3>
-<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>7%</td><td>11.4x</td><td>3,486 ₽</td><td>-27%</td></tr><tr><td><strong>10%</strong></td><td>15.6x</td><td>4,770 ₽</td><td>0%</td></tr><tr><td>12%</td><td>20.8x</td><td>6,361 ₽</td><td>+34%</td></tr></tbody></table></div>
-<h3>Перекрёстная проверка: EV/EBITDA</h3>
-<ul><li>EBITDA (LTM): 242 млрд ₽</li><li>EV = Капитализация + Net Debt = 1,859 + 146 = 2,005 млрд ₽</li><li>EV/EBITDA = 8.3x</li></ul>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>7%</td><td>11.4x</td><td>3,486 руб</td><td>-27%</td></tr><tr><td><strong>10%</strong></td><td>15.6x</td><td>4,770 руб</td><td>0%</td></tr><tr><td>12%</td><td>20.8x</td><td>6,361 руб</td><td>+34%</td></tr></tbody></table></div>
+<h3>Перекрестная проверка: EV/EBITDA</h3>
+<ul><li>EBITDA (LTM): 242 млрд руб</li><li>EV = Капитализация + Net Debt = 1,858 + 146 = 2,004 млрд руб</li><li>EV/EBITDA = 8.3x</li></ul>
 <p>При целевом EV/EBITDA 8x (норма для растущего IT):</p>
-<ul><li>Целевая EV = 242 × 8 = 1,936 млрд ₽</li><li>Целевая капитализация = 1,936 − 146 = 1,790 млрд ₽</li><li>Целевая цена = 1,790 / 390.5 = 4,584 ₽</li></ul>
+<ul><li>Целевая EV = 242 x 8 = 1,936 млрд руб</li><li>Целевая капитализация = 1,936 - 146 = 1,790 млрд руб</li><li>Целевая цена = 1,790 / 390.5 = 4,584 руб</li></ul>
 <p>Результаты P/E и EV/EBITDA близки (4,770 vs 4,584) — оценка устойчива.</p>
 <h2>Чеклист перед покупкой</h2>
-<ul><li><input type="checkbox" disabled> <strong>Upside > 30%</strong> — НЕТ (0% в базовом сценарии)</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ, рост маржи</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA < 2.5x</strong> — 0.61x ✓</li><li><input type="checkbox" checked disabled> <strong>Маржа стабильна или растёт</strong> — растёт с 14% до 21%</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — высокая, голубая фишка</li><li><input type="checkbox" disabled> <strong>OCF/Net Income > 0.5</strong> — FCF отрицательный</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — внутренний рынок, низкий риск</li></ul>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — НЕТ (0% в базовом сценарии)</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ, рост маржи</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA &lt; 2.5x</strong> — 0.61x</li><li><input type="checkbox" checked disabled> <strong>Маржа стабильна или растет</strong> — растет с 14% до 21%</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — высокая, голубая фишка</li><li><input type="checkbox" disabled> <strong>OCF/Net Income &gt; 0.5</strong> — FCF отрицательный</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — внутренний рынок, низкий риск</li></ul>
 <p><strong>Результат: 5/8</strong> — недостаточно для buy, но качественный актив для watch.</p>
 <h2>Инвестиционный тезис</h2>
-<p>Яндекс — качественный актив с высоким ROE (39%), растущей маржой EBITDA и монопольным положением в поиске. Однако при текущей цене ~4,760 ₽ компания <strong>справедливо оценена</strong> — upside в базовом сценарии близок к нулю.</p>
+<p>Яндекс — качественный актив с высоким ROE (39%), растущей маржой EBITDA (14% -&gt; 21%) и монопольным положением в поиске (65% рынка). Экосистема (Плюс, Маркет, Такси, Облако) создает switching cost и рекуррентную выручку. Однако при текущей цене ~4,760 руб компания <strong>справедливо оценена</strong> — upside в базовом сценарии близок к нулю.</p>
 <p><strong>Почему watch, а не buy:</strong></p>
 <ol><li>Нет запаса безопасности (margin of safety) — цена = fair value</li><li>Отрицательный FCF из-за инвестиций в e-commerce и облако</li><li>Высокий P/BV (15x) оставляет мало места для ошибки</li></ol>
 <p><strong>Когда покупать:</strong></p>
-<ul><li>При коррекции до 3,500-4,000 ₽ (upside 20-35%)</li><li>При ускорении снижения ставки ЦБ (до 10% вместо 13%)</li><li>При выходе FCF в плюс (подтверждение качества прибыли)</li></ul>
+<ul><li>При коррекции до 3,500-4,000 руб (upside 20-35%)</li><li>При ускорении снижения ставки ЦБ (до 10% вместо 13%)</li><li>При выходе FCF в плюс (подтверждение качества прибыли)</li></ul>
 <p><strong>Катализаторы:</strong></p>
-<ol><li>Снижение ставки ЦБ — переоценка всех tech-компаний</li><li>Квартальные результаты с ростом маржи EBITDA</li><li>Повышение дивидендов</li><li>Выход e-commerce в безубыточность</li></ol>
+<ol><li>Снижение ставки ЦБ — переоценка всех tech-компаний</li><li>Квартальные результаты с ростом маржи EBITDA &gt;20%</li><li>Повышение дивидендов или формализация дивидендной политики</li><li>Выход e-commerce в безубыточность</li></ol>
 <h2>История решений</h2>
-<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-29</td><td>Анализ</td><td>4,761 ₽</td><td>Справедливо оценена, position: watch</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-30</td><td>Анализ</td><td>4,759 руб</td><td>Справедливо оценена, position: watch</td></tr></tbody></table></div>
 <h2>Источники</h2>
-<ul><li><a href="https://smart-lab.ru/q/YDEX/f/y/MSFO/" target="_blank">Smart-lab: YDEX годовые</a></li><li><a href="https://smart-lab.ru/q/YDEX/f/q/MSFO/" target="_blank">Smart-lab: YDEX квартальные</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=YDEX" target="_blank">MOEX: карточка YDEX</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+<ul><li><a href="https://smart-lab.ru/q/YDEX/f/y/MSFO/" target="_blank">Smart-lab: YDEX годовые</a></li><li><a href="https://smart-lab.ru/q/YDEX/f/q/MSFO/" target="_blank">Smart-lab: YDEX квартальные</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=YDEX" target="_blank">MOEX: карточка YDEX</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li><li><a href="../YNDX/_index.md" target="_blank">Историческая карточка YNDX</a></li></ul>
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

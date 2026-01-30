@@ -5,97 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Интер РАО (IRAO) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,7 +194,10 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>Интер РАО</h1>
@@ -190,7 +235,7 @@ tr.stub td { color: #484f58; }
 <h3>Операционные риски</h3>
 <ul><li>FCF отрицательный 3 квартала подряд (-14.5, -10.9, -21.0 млрд ₽) — масштабный капекс по ДПМ-2</li><li>Маржа EBITDA снижается: 14,9% (2021) → 11,2% (LTM) — давление себестоимости</li><li>Потеря европейских рынков экспорта электроэнергии</li></ul>
 <h3>Корпоративные риски</h3>
-<ul><li>Консервативная дивидендная политика (25% от прибыли по МСФО) — рынок не верит в unlock value кубышки</li><li>Казначейский пакет 29,56% — неопределённость по использованию (гашение, продажа, M&A)</li><li>Минэнерго обсуждало ограничение дивидендов энергокомпаний при крупных инвестициях</li></ul>
+<ul><li>Консервативная дивидендная политика (25% от прибыли по МСФО) — рынок не верит в unlock value кубышки</li><li>Казначейский пакет 29,56% — неопределённость по использованию (гашение, продажа, M&amp;A)</li><li>Минэнерго обсуждало ограничение дивидендов энергокомпаний при крупных инвестициях</li></ul>
 <h3>Геополитические риски</h3>
 <ul><li>Внутренний рынок — минимальная экспозиция. Поправка: <strong>0%</strong></li></ul>
 <h2>Финансовые показатели</h2>
@@ -200,12 +245,12 @@ tr.stub td { color: #484f58; }
 <div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3 2024</th><th>Q4 2024</th><th>Q1 2025</th><th>Q2 2025</th><th>Q3 2025</th></tr></thead><tbody><tr><td>Выручка</td><td>362</td><td>458</td><td>441</td><td>377</td><td>424</td></tr><tr><td>EBITDA</td><td>35,0</td><td>58,6</td><td>54,6</td><td>38,7</td><td>37,9</td></tr><tr><td>Чистая прибыль</td><td>31,3</td><td>36,6</td><td>46,7</td><td>35,1</td><td>30,2</td></tr><tr><td>FCF</td><td>12,9</td><td>32,2</td><td>-14,5</td><td>-10,9</td><td>-21,0</td></tr></tbody></table></div>
 <h3>Оценка финансового здоровья</h3>
 <p><strong>Зелёные флаги:</strong></p>
-<ul><li>Стабильный рост выручки > инфляции (CAGR ~12% за 4 года)</li><li>Net Debt глубоко отрицательный (-432 млрд) — нулевой риск долга</li><li>Чистая прибыль стабильно растёт (CAGR ~18% за 4 года)</li></ul>
+<ul><li>Стабильный рост выручки &gt; инфляции (CAGR ~12% за 4 года)</li><li>Net Debt глубоко отрицательный (-432 млрд) — нулевой риск долга</li><li>Чистая прибыль стабильно растёт (CAGR ~18% за 4 года)</li></ul>
 <p><strong>Жёлтые флаги:</strong></p>
 <ul><li>OCF/NI снижается: 1,51 (2021) → 0,51 (LTM) — качество прибыли ухудшается</li><li>FCF стал отрицательным (LTM: -14 млрд) — капекс по ДПМ-2 съедает денежный поток</li><li>Маржа EBITDA снижается 4 года подряд: 14,9% → 11,2%</li></ul>
 <p><strong>Вывод:</strong> финансовое здоровье в целом сильное благодаря денежной подушке, но операционные метрики ухудшаются из-за масштабной инвестиционной программы.</p>
 <h3>Ликвидность</h3>
-<div class="table-wrap"><table><thead><tr><th>Параметр</th><th>Значение</th><th>Минимум</th><th>Статус</th></tr></thead><tbody><tr><td>Среднедневной объём (ADV)</td><td>~1,5 млрд ₽</td><td>> 10 млн ₽</td><td>✅</td></tr><tr><td>Free-float</td><td>~33%</td><td>> 10%</td><td>✅</td></tr><tr><td>Спред bid-ask</td><td>< 0,1%</td><td>< 1%</td><td>✅</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Параметр</th><th>Значение</th><th>Минимум</th><th>Статус</th></tr></thead><tbody><tr><td>Среднедневной объём (ADV)</td><td>~1,5 млрд ₽</td><td>&gt; 10 млн ₽</td><td>✅</td></tr><tr><td>Free-float</td><td>~33%</td><td>&gt; 10%</td><td>✅</td></tr><tr><td>Спред bid-ask</td><td>&lt; 0,1%</td><td>&lt; 1%</td><td>✅</td></tr></tbody></table></div>
 <p>IRAO входит в индекс MOEX — одна из самых ликвидных бумаг на Мосбирже. Дисконт за неликвидность не применяется.</p>
 <h2>Дивиденды</h2>
 <div class="table-wrap"><table><thead><tr><th>Год (за)</th><th>DPS, ₽</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td>2020</td><td>0,1807</td><td>3,4%</td><td>~25%</td></tr><tr><td>2021</td><td>0,2360</td><td>5,5%</td><td>~25%</td></tr><tr><td>2022</td><td>0,2837</td><td>8,3%</td><td>~25%</td></tr><tr><td>2023</td><td>0,3260</td><td>8,3%</td><td>~25%</td></tr><tr><td>2024</td><td>0,3538</td><td>10,1%</td><td>~25%</td></tr></tbody></table></div>
@@ -218,14 +263,14 @@ tr.stub td { color: #484f58; }
 <ul><li>Капитализация: 366,7 млрд ₽</li><li>Кэш на балансе: ~431 млрд ₽</li><li><strong>Кэш превышает капитализацию на 18%</strong> — рынок оценивает бизнес Интер РАО в отрицательную стоимость</li></ul>
 <h2>Мой тезис</h2>
 <p>Интер РАО — экстремально недооценённый энергетический холдинг:</p>
-<ol><li><strong>Кэш > капитализации</strong> — 431 млрд ₽ на балансе при капитализации 367 млрд. Рынок оценивает операционный бизнес (крупнейшую тепловую генерацию страны) в ноль или отрицательно</li><li><strong>P/E 2,5x при стабильно растущей прибыли</strong> — прибыль выросла вдвое за 4 года (75 → 149 млрд)</li><li><strong>Дивидендная доходность ~10%</strong> при консервативном payout 25% — при повышении до 50% доходность удвоится</li><li><strong>Бенефициар текущей высокой ставки ЦБ</strong> — процентный доход с кубышки составляет ~2/3 прибыли</li><li><strong>29,56% казначейских акций</strong> — потенциальное гашение увеличит EPS на 42%</li></ol>
-<p><strong>Катализаторы:</strong> улучшение дивидендной политики (рост payout), гашение казначейского пакета, M&A с использованием кубышки, снижение ставки ЦБ → переоценка генерирующих активов.</p>
+<ol><li><strong>Кэш &gt; капитализации</strong> — 431 млрд ₽ на балансе при капитализации 367 млрд. Рынок оценивает операционный бизнес (крупнейшую тепловую генерацию страны) в ноль или отрицательно</li><li><strong>P/E 2,5x при стабильно растущей прибыли</strong> — прибыль выросла вдвое за 4 года (75 → 149 млрд)</li><li><strong>Дивидендная доходность ~10%</strong> при консервативном payout 25% — при повышении до 50% доходность удвоится</li><li><strong>Бенефициар текущей высокой ставки ЦБ</strong> — процентный доход с кубышки составляет ~2/3 прибыли</li><li><strong>29,56% казначейских акций</strong> — потенциальное гашение увеличит EPS на 42%</li></ol>
+<p><strong>Катализаторы:</strong> улучшение дивидендной политики (рост payout), гашение казначейского пакета, M&amp;A с использованием кубышки, снижение ставки ЦБ → переоценка генерирующих активов.</p>
 <p><strong>Главный риск:</strong> менеджмент продолжает накапливать кэш без понятной стратегии unlock value → «сжатая пружина» может не разжаться. Снижение ставки ЦБ сократит процентный доход.</p>
-<p><strong>Дисконт за госуправление (GOD):</strong> гос. владение ~60% (Роснефтегаз + ФСК), payout 25% → базовый дисконт <strong>-30%</strong>; казначейские акции 29,5% без плана гашения → <strong>-5%</strong>; стабильный рост дивидендов >3 лет → <strong>+5%</strong>. Итого: <strong>-30%</strong>. Скорректированная fair value: 7,0 × 0,70 = <strong>4,9 ₽</strong>. Upside: (4,9 − 3,51) / 3,51 = <strong>+40%</strong>.</p>
-<p><strong>Position: WATCH</strong> — upside 40% формально выше порога buy (>30%), но тезис хрупок: unlock value зависит от решений госменеджмента (рост payout, гашение казначейских акций), что исторически ненадёжно для госкомпаний. При появлении конкретных катализаторов (объявление нового payout, план гашения казначейских акций) — пересмотр на buy.</p>
+<p><strong>Дисконт за госуправление (GOD):</strong> гос. владение ~60% (Роснефтегаз + ФСК), payout 25% → базовый дисконт <strong>-30%</strong>; казначейские акции 29,5% без плана гашения → <strong>-5%</strong>; стабильный рост дивидендов &gt;3 лет → <strong>+5%</strong>. Итого: <strong>-30%</strong>. Скорректированная fair value: 7,0 × 0,70 = <strong>4,9 ₽</strong>. Upside: (4,9 − 3,51) / 3,51 = <strong>+40%</strong>.</p>
+<p><strong>Position: WATCH</strong> — upside 40% формально выше порога buy (&gt;30%), но тезис хрупок: unlock value зависит от решений госменеджмента (рост payout, гашение казначейских акций), что исторически ненадёжно для госкомпаний. При появлении конкретных катализаторов (объявление нового payout, план гашения казначейских акций) — пересмотр на buy.</p>
 <h2>Чеклист перед buy</h2>
-<div class="table-wrap"><table><thead><tr><th>Критерий</th><th>Статус</th><th>Комментарий</th></tr></thead><tbody><tr><td>Upside > 30%</td><td>✅</td><td>40% в базовом сценарии (после GOD)</td></tr><tr><td>Катализатор есть</td><td>✅</td><td>Улучшение дивполитики, гашение казначейского пакета, M&A</td></tr><tr><td>Тезис записан</td><td>✅</td><td>Кэш > капитализации, P/E 2,5x</td></tr><tr><td>Net Debt/EBITDA < 2,5x</td><td>✅</td><td>-2,27x (отрицательный чистый долг)</td></tr><tr><td>Маржа стабильна или растёт</td><td>⚠️</td><td>Падает 4 года: 14,9% → 11,2%. Компенсируется ростом процентного дохода</td></tr><tr><td>ADV > 10 млн ₽</td><td>✅</td><td>~1,5 млрд ₽</td></tr><tr><td>OCF/NI > 0,5</td><td>⚠️</td><td>LTM: 0,51 — на границе. Причина: повышенный капекс ДПМ-2</td></tr><tr><td>Геополитика учтена</td><td>✅</td><td>Внутренний рынок, поправка 0%</td></tr><tr><td>Нет признаков value trap</td><td>✅</td><td>Прибыль растёт, долга нет, сектор стабилен</td></tr><tr><td>Госуправление учтено (GOD)</td><td>✅</td><td>GOD -30% применён: гос. владение ~60%, payout 25%</td></tr></tbody></table></div>
-<p><strong>Итог: 8/10 выполнены, 2 на границе.</strong> Оба жёлтых флага имеют структурное объяснение: масштабный капекс по ДПМ-2 давит на маржу EBITDA и OCF, но это временный фактор (горизонт 5-7 лет). Чистая прибыль при этом стабильно растёт благодаря процентному доходу с кубышки. Однако GOD-дисконт -30% снижает fair value до 4,9 ₽ (upside 40%) — формально порог buy (>30%) пройден, но тезис зависит от решений госменеджмента по unlock value, что ненадёжно. Position <strong>watch</strong> до появления конкретных катализаторов (рост payout, план гашения казначейских акций).</p>
+<div class="table-wrap"><table><thead><tr><th>Критерий</th><th>Статус</th><th>Комментарий</th></tr></thead><tbody><tr><td>Upside &gt; 30%</td><td>✅</td><td>40% в базовом сценарии (после GOD)</td></tr><tr><td>Катализатор есть</td><td>✅</td><td>Улучшение дивполитики, гашение казначейского пакета, M&amp;A</td></tr><tr><td>Тезис записан</td><td>✅</td><td>Кэш &gt; капитализации, P/E 2,5x</td></tr><tr><td>Net Debt/EBITDA &lt; 2,5x</td><td>✅</td><td>-2,27x (отрицательный чистый долг)</td></tr><tr><td>Маржа стабильна или растёт</td><td>⚠️</td><td>Падает 4 года: 14,9% → 11,2%. Компенсируется ростом процентного дохода</td></tr><tr><td>ADV &gt; 10 млн ₽</td><td>✅</td><td>~1,5 млрд ₽</td></tr><tr><td>OCF/NI &gt; 0,5</td><td>⚠️</td><td>LTM: 0,51 — на границе. Причина: повышенный капекс ДПМ-2</td></tr><tr><td>Геополитика учтена</td><td>✅</td><td>Внутренний рынок, поправка 0%</td></tr><tr><td>Нет признаков value trap</td><td>✅</td><td>Прибыль растёт, долга нет, сектор стабилен</td></tr><tr><td>Госуправление учтено (GOD)</td><td>✅</td><td>GOD -30% применён: гос. владение ~60%, payout 25%</td></tr></tbody></table></div>
+<p><strong>Итог: 8/10 выполнены, 2 на границе.</strong> Оба жёлтых флага имеют структурное объяснение: масштабный капекс по ДПМ-2 давит на маржу EBITDA и OCF, но это временный фактор (горизонт 5-7 лет). Чистая прибыль при этом стабильно растёт благодаря процентному доходу с кубышки. Однако GOD-дисконт -30% снижает fair value до 4,9 ₽ (upside 40%) — формально порог buy (&gt;30%) пройден, но тезис зависит от решений госменеджмента по unlock value, что ненадёжно. Position <strong>watch</strong> до появления конкретных катализаторов (рост payout, план гашения казначейских акций).</p>
 <h2>Целевая цена</h2>
 <h3>Метод P/E (основной)</h3>
 <p><strong>Параметры:</strong></p>
@@ -244,21 +289,41 @@ tr.stub td { color: #484f58; }
 <p>Стоимость на акцию = 659 / 104,5 = <strong>6,31 ₽</strong> (upside +80%)</p>
 <blockquote>FCF включает процентный доход с кубышки, поэтому кэш не добавляется к стоимости отдельно.</blockquote>
 <h3>Расхождение методов и выбор my_fair_value</h3>
-<p><strong>Разброс:</strong> методы дают от 2,72 до 12,07 ₽ (расхождение > 30% — требует пересмотра допущений по RESEARCH_GUIDE).</p>
+<p><strong>Разброс:</strong> методы дают от 2,72 до 12,07 ₽ (расхождение &gt; 30% — требует пересмотра допущений по RESEARCH_GUIDE).</p>
 <p>Причина расхождения — уникальная структура IRAO: ~2/3 прибыли формируется процентным доходом с кубышки 431 млрд ₽. Метод P/E завышает оценку, т.к. при снижении ставки ЦБ (базовый сценарий 13%) EPS снизится вместе со ставкой, а формула этого не учитывает. Дивидендный метод занижает оценку при текущем низком payout 25%.</p>
 <p>Три метода, устойчивых к этой проблеме, дают схожие оценки:</p>
 <ul><li>DCF: 6,31 ₽</li><li>Кэш + бизнес: 7,48 ₽</li><li>Дивидендный (payout 50%): 5,46 ₽</li></ul>
 <p><strong>Fair value (до GOD) = 7,0 ₽</strong> — среднее между DCF (6,31), методом «кэш + бизнес» (7,48) и дивидендным с улучшенным payout (5,46). Отклонение от стандартной методологии (базовый P/E сценарий = 12,07) обосновано тем, что P/E не учитывает обратную связь ставки ЦБ и EPS для компаний с доминирующим процентным доходом.</p>
 <h3>Дисконт за госуправление (GOD)</h3>
-<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Значение</th><th>Дисконт</th></tr></thead><tbody><tr><td>Гос. владение ~60% (Роснефтегаз + ФСК), payout 25%</td><td>базовый</td><td><strong>-30%</strong></td></tr><tr><td>Казначейские акции 29,5% без плана гашения</td><td>отягчающий</td><td><strong>-5%</strong></td></tr><tr><td>Стабильный рост дивидендов >3 лет</td><td>смягчающий</td><td><strong>+5%</strong></td></tr><tr><td><strong>Итого GOD</strong></td><td></td><td><strong>-30%</strong></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Значение</th><th>Дисконт</th></tr></thead><tbody><tr><td>Гос. владение ~60% (Роснефтегаз + ФСК), payout 25%</td><td>базовый</td><td><strong>-30%</strong></td></tr><tr><td>Казначейские акции 29,5% без плана гашения</td><td>отягчающий</td><td><strong>-5%</strong></td></tr><tr><td>Стабильный рост дивидендов &gt;3 лет</td><td>смягчающий</td><td><strong>+5%</strong></td></tr><tr><td><strong>Итого GOD</strong></td><td></td><td><strong>-30%</strong></td></tr></tbody></table></div>
 <p>``<code> my_fair_value = 7,0 × (1 − 0,30) = 4,9 ₽ Upside = (4,9 − 3,51) / 3,51 = +40% </code>``</p>
 <p><strong>my_fair_value = 4,9 ₽</strong> (с учётом GOD -30%).</p>
 <h2>История решений</h2>
-<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-30</td><td>Анализ</td><td>3,51</td><td>Первичное исследование. BUY — кэш > капитализации, P/E 2,5x</td></tr><tr><td>2026-01-30</td><td>Пересмотр</td><td>3,51</td><td>GOD -30% (гос. владение 60%, payout 25%). Fair value: 7,0 → 4,9 ₽. Upside: 99% → 40%. BUY → WATCH</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-30</td><td>Анализ</td><td>3,51</td><td>Первичное исследование. BUY — кэш &gt; капитализации, P/E 2,5x</td></tr><tr><td>2026-01-30</td><td>Пересмотр</td><td>3,51</td><td>GOD -30% (гос. владение 60%, payout 25%). Fair value: 7,0 → 4,9 ₽. Upside: 99% → 40%. BUY → WATCH</td></tr></tbody></table></div>
 <h2>Источники</h2>
 <ul><li><a href="https://smart-lab.ru/q/IRAO/f/y/MSFO/" target="_blank">Smart-lab IRAO годовые МСФО</a></li><li><a href="https://smart-lab.ru/q/IRAO/f/q/MSFO/" target="_blank">Smart-lab IRAO квартальные МСФО</a></li><li><a href="https://www.dohod.ru/ik/analytics/dividend/irao" target="_blank">Дивиденды Интер РАО — ДОХОДЪ</a></li><li><a href="https://www.rbc.ru/quote/ticker/59272" target="_blank">РБК Инвестиции — Интер РАО</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=IRAO" target="_blank">MOEX — карточка IRAO</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

@@ -5,97 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Полюс (PLZL) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,7 +194,10 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>Полюс</h1>
@@ -186,7 +231,7 @@ tr.stub td { color: #484f58; }
 <p><strong>Драйверы роста:</strong></p>
 <ol><li>Рекордные цены на золото ($5 000+/oz) — напрямую увеличивают выручку и прибыль</li><li>Запуск Сухой Лог удвоит добычу к 2030 (с 3 до 6 млн унций)</li><li>Низкая себестоимость (AISC $383/oz в 2024 vs средняя по отрасли $1200-1400)</li><li>Ослабление рубля — большая часть выручки в долларах, издержки в рублях</li></ol>
 <h2>Конкурентные преимущества</h2>
-<ul><li><strong>Масштаб</strong>: №1 в России, топ-5 в мире по добыче золота</li><li><strong>Низкая себестоимость</strong>: AISC ~$383/oz — один из самых низких показателей в отрасли (среднемировой ~$1 200-1 400/oz). Обеспечивает маржу EBITDA >70% даже при падении цен</li><li><strong>Запасы роста</strong>: Сухой Лог — крупнейшее неразработанное месторождение в мире. Удвоение добычи к 2030 без существенных рисков разведки</li><li><strong>Качество активов</strong>: высокое содержание золота в руде, открытая добыча (дешевле подземной)</li><li><strong>Защитный актив</strong>: золото растёт при геополитической нестабильности и инфляции</li></ul>
+<ul><li><strong>Масштаб</strong>: №1 в России, топ-5 в мире по добыче золота</li><li><strong>Низкая себестоимость</strong>: AISC ~$383/oz — один из самых низких показателей в отрасли (среднемировой ~$1 200-1 400/oz). Обеспечивает маржу EBITDA &gt;70% даже при падении цен</li><li><strong>Запасы роста</strong>: Сухой Лог — крупнейшее неразработанное месторождение в мире. Удвоение добычи к 2030 без существенных рисков разведки</li><li><strong>Качество активов</strong>: высокое содержание золота в руде, открытая добыча (дешевле подземной)</li><li><strong>Защитный актив</strong>: золото растёт при геополитической нестабильности и инфляции</li></ul>
 <h2>Риски</h2>
 <h3>Операционные риски</h3>
 <ul><li><strong>Снижение производства 2025-2027</strong>: прогноз 2,5-2,6 млн унций vs 3 млн в 2024 из-за снижения содержания на Олимпиаде (карьер Восточный). Временное явление до запуска Сухой Лог</li><li><strong>Исполнение Сухой Лог</strong>: capex $6 млрд, риски задержки и перерасхода</li><li><strong>Концентрация добычи</strong>: ~50% на одном активе (Олимпиада)</li></ul>
@@ -201,17 +246,17 @@ tr.stub td { color: #484f58; }
 <div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>364</td><td>361</td><td>289</td><td>470</td><td>695</td></tr><tr><td>EBITDA, млрд ₽</td><td>270</td><td>260</td><td>183</td><td>336</td><td>539</td></tr><tr><td>Маржа EBITDA</td><td>74%</td><td>72%</td><td>63%</td><td>72%</td><td>78%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>119</td><td>167</td><td>112</td><td>151</td><td>306</td></tr><tr><td>FCF, млрд ₽</td><td>148</td><td>121</td><td>24</td><td>99</td><td>116</td></tr><tr><td>Net Debt, млрд ₽</td><td>156</td><td>143</td><td>155</td><td>623</td><td>625</td></tr><tr><td>Net Debt/EBITDA</td><td>0,58</td><td>0,55</td><td>0,85</td><td>1,85</td><td>1,16</td></tr><tr><td>Добыча, тыс. унций</td><td>2 766</td><td>2 717</td><td>2 541</td><td>2 902</td><td>3 002</td></tr><tr><td>AISC, $/oz</td><td>~700</td><td>~650</td><td>~750</td><td>~450</td><td>383</td></tr></tbody></table></div>
 <p><strong>Тренд:</strong> выручка и прибыль на исторических максимумах благодаря рекордным ценам на золото. Маржа EBITDA 78% — исключительный показатель. Долг вырос из-за buyback 2023, но снижается по ND/EBITDA.</p>
 <h3>Квартальные (2024-2025)</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q4'24</th><th>Q2'25</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>447</td><td>310</td></tr><tr><td>EBITDA, млрд ₽</td><td>355</td><td>224</td></tr><tr><td>Маржа EBITDA</td><td>80%</td><td>72%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>175</td><td>173</td></tr><tr><td>FCF, млрд ₽</td><td>74</td><td>117</td></tr></tbody></table></div>
-<p>Q4'24 — рекордный квартал на фоне роста цены золота. Q2'25 — нормализация (сезонность), но маржа остаётся высокой.</p>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q4&#x27;24</th><th>Q2&#x27;25</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>447</td><td>310</td></tr><tr><td>EBITDA, млрд ₽</td><td>355</td><td>224</td></tr><tr><td>Маржа EBITDA</td><td>80%</td><td>72%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>175</td><td>173</td></tr><tr><td>FCF, млрд ₽</td><td>74</td><td>117</td></tr></tbody></table></div>
+<p>Q4&#x27;24 — рекордный квартал на фоне роста цены золота. Q2&#x27;25 — нормализация (сезонность), но маржа остаётся высокой.</p>
 <h2>Дивиденды</h2>
 <h3>История выплат</h3>
-<div class="table-wrap"><table><thead><tr><th>Период</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2020</td><td>267</td><td>2,5%</td><td>Дивполитика 30% EBITDA</td></tr><tr><td>2021</td><td>553</td><td>4,0%</td><td></td></tr><tr><td>2022</td><td>0</td><td>0%</td><td>Приостановка из-за buyback</td></tr><tr><td>2023</td><td>0</td><td>0%</td><td></td></tr><tr><td>2024</td><td>203*</td><td>6,6%</td><td>Возобновление выплат</td></tr><tr><td>Q4'24 (рек.)</td><td>730**</td><td>3,8%</td><td>После сплита = 73 ₽</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Период</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2020</td><td>267</td><td>2,5%</td><td>Дивполитика 30% EBITDA</td></tr><tr><td>2021</td><td>553</td><td>4,0%</td><td></td></tr><tr><td>2022</td><td>0</td><td>0%</td><td>Приостановка из-за buyback</td></tr><tr><td>2023</td><td>0</td><td>0%</td><td></td></tr><tr><td>2024</td><td>203*</td><td>6,6%</td><td>Возобновление выплат</td></tr><tr><td>Q4&#x27;24 (рек.)</td><td>730**</td><td>3,8%</td><td>После сплита = 73 ₽</td></tr></tbody></table></div>
 <p><em>После сплита 1:10 в марте 2025 </em>*До сплита, финальные за 2024</p>
 <h3>Дивидендная политика</h3>
 <p>С 05.03.2025 — новая политика:</p>
-<ul><li><strong>30% EBITDA</strong> при Net Debt/EBITDA < 2,5x</li><li>Выплаты могут быть <strong>ежеквартальными</strong></li><li>При ND/EBITDA > 2,5x — на усмотрение СД</li></ul>
+<ul><li><strong>30% EBITDA</strong> при Net Debt/EBITDA &lt; 2,5x</li><li>Выплаты могут быть <strong>ежеквартальными</strong></li><li>При ND/EBITDA &gt; 2,5x — на усмотрение СД</li></ul>
 <p><strong>Прогноз на 2025:</strong></p>
-<ul><li>За Q4'24 + 1H'25: ~1 300 ₽ до сплита (130 ₽ после) — оценка Т-Инвестиций</li><li>Дивидендная доходность ~7%</li></ul>
+<ul><li>За Q4&#x27;24 + 1H&#x27;25: ~1 300 ₽ до сплита (130 ₽ после) — оценка Т-Инвестиций</li><li>Дивидендная доходность ~7%</li></ul>
 <h2>Оценка</h2>
 <h3>Текущие мультипликаторы</h3>
 <div class="table-wrap"><table><thead><tr><th>Метрика</th><th>Текущее</th><th>История 3Y</th><th>Сектор (золото)</th></tr></thead><tbody><tr><td>P/E</td><td>8,4x</td><td>12-15x</td><td>10-12x</td></tr><tr><td>EV/EBITDA</td><td>5,9x</td><td>7-9x</td><td>6-8x</td></tr><tr><td>P/BV</td><td>21,8x</td><td>5-10x</td><td>2-4x</td></tr><tr><td>Div Yield</td><td>6,6%</td><td>2-4%</td><td>3-5%</td></tr><tr><td>EBITDA margin</td><td>78%</td><td>65-75%</td><td>40-50%</td></tr></tbody></table></div>
@@ -227,11 +272,11 @@ tr.stub td { color: #484f58; }
 <ul><li>Коррекция акций на 20-30% (цена ~2 000-2 200 ₽)</li><li>Позитивные новости по Сухой Лог (начало строительства, подтверждение сроков)</li><li>Рост цены золота выше $6 000/oz</li></ul>
 <h2>Целевая цена</h2>
 <h3>Параметры оценки</h3>
-<ul><li>Ставка ЦБ (базовый сценарий): 13%</li><li>r = 13% + 5% (ERP) = 18%</li><li>g = 10% (рост добычи ~7% + инфляция, ограничен 12%)</li><li>Спред r − g = 8% ✓ (> 5%)</li></ul>
+<ul><li>Ставка ЦБ (базовый сценарий): 13%</li><li>r = 13% + 5% (ERP) = 18%</li><li>g = 10% (рост добычи ~7% + инфляция, ограничен 12%)</li><li>Спред r − g = 8% ✓ (&gt; 5%)</li></ul>
 <h3>Базовый P/E</h3>
 <p>``<code> Базовый P/E = 1 / (0,18 − 0,10) = 12,5x </code>``</p>
 <h3>Поправка за качество</h3>
-<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE >> сектора</td><td>+10%</td></tr><tr><td>Лидер сектора</td><td>+10%</td></tr><tr><td>Рост выручки > сектора</td><td>+10%</td></tr><tr><td>Net Debt/EBITDA 1,16x (<1,5x)</td><td>0%</td></tr><tr><td>Санкционный риск (бенефициар в SDN)</td><td>-10%</td></tr><tr><td><strong>Итого</strong></td><td><strong>+20%</strong></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE &gt;&gt; сектора</td><td>+10%</td></tr><tr><td>Лидер сектора</td><td>+10%</td></tr><tr><td>Рост выручки &gt; сектора</td><td>+10%</td></tr><tr><td>Net Debt/EBITDA 1,16x (&lt;1,5x)</td><td>0%</td></tr><tr><td>Санкционный риск (бенефициар в SDN)</td><td>-10%</td></tr><tr><td><strong>Итого</strong></td><td><strong>+20%</strong></td></tr></tbody></table></div>
 <p>``<code> Целевой P/E = 12,5 × 1,20 = 15x </code>``</p>
 <h3>Расчёт целевой цены</h3>
 <div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (базовый, ставка 13%)</td><td>3 400 ₽</td><td>+25%</td><td>EPS ~227 ₽ × P/E 15x</td></tr><tr><td>P/E (пессимист., ставка 16%)</td><td>2 840 ₽</td><td>+4%</td><td>P/E 12,5x</td></tr><tr><td>P/E (оптимист., ставка 10%)</td><td>4 540 ₽</td><td>+67%</td><td>P/E 20x</td></tr><tr><td>EV/EBITDA (целевой 7x)</td><td>3 100 ₽</td><td>+14%</td><td></td></tr><tr><td>Консенсус аналитиков</td><td>3 400 ₽</td><td>+25%</td><td>Солид Брокер</td></tr></tbody></table></div>
@@ -241,14 +286,34 @@ tr.stub td { color: #484f58; }
 <h3>Чувствительность к g</h3>
 <div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>7%</td><td>11x</td><td>2 500 ₽</td><td>-8%</td></tr><tr><td><strong>10%</strong></td><td><strong>15x</strong></td><td><strong>3 400 ₽</strong></td><td><strong>+25%</strong></td></tr><tr><td>12%</td><td>20x</td><td>4 540 ₽</td><td>+67%</td></tr></tbody></table></div>
 <h2>Чеклист перед buy</h2>
-<ul><li><input type="checkbox" checked disabled> <strong>Upside > 30%</strong> — нет, только 25%</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — Сухой Лог, дивиденды</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA < 2,5x</strong> — да, 1,16x</li><li><input type="checkbox" checked disabled> <strong>Маржа стабильна</strong> — да, 72-78%</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — отличная, ADV > 1 млрд ₽</li><li><input type="checkbox" checked disabled> <strong>Качество прибыли</strong> — да, FCF положительный</li><li><input type="checkbox" disabled> <strong>Нет value trap</strong> — риск buyback в ущерб миноритариям</li></ul>
+<ul><li><input type="checkbox" checked disabled> <strong>Upside &gt; 30%</strong> — нет, только 25%</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — Сухой Лог, дивиденды</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — да, 1,16x</li><li><input type="checkbox" checked disabled> <strong>Маржа стабильна</strong> — да, 72-78%</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — отличная, ADV &gt; 1 млрд ₽</li><li><input type="checkbox" checked disabled> <strong>Качество прибыли</strong> — да, FCF положительный</li><li><input type="checkbox" disabled> <strong>Нет value trap</strong> — риск buyback в ущерб миноритариям</li></ul>
 <p><strong>Результат: 7/8 — watch (upside недостаточен для buy)</strong></p>
 <h2>История решений</h2>
 <div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-29</td><td><strong>WATCH</strong></td><td>2 720 ₽</td><td>Качественный актив, но ралли уже состоялось. Ждём коррекции до 2 000-2 200 ₽</td></tr></tbody></table></div>
 <h2>Источники</h2>
-<ul><li><a href="https://smart-lab.ru/q/PLZL/f/y/MSFO/" target="_blank">Smart-lab: PLZL финансы годовые</a></li><li><a href="https://smart-lab.ru/q/PLZL/f/q/MSFO/" target="_blank">Smart-lab: PLZL финансы квартальные</a></li><li><a href="https://polyus.com/ru/investors/proekty-rosta/" target="_blank">Полюс: проекты роста</a></li><li><a href="https://polyus.com/ru/investors/shares/dividends/" target="_blank">Полюс: дивиденды</a></li><li><a href="https://www.interfax.ru/business/1012027" target="_blank">Интерфакс: результаты 2024</a></li><li><a href="https://vc.ru/invest/2216630-polyus-rost-pribyli-na-fone-rekordov-zolota-i-budushchee-sukhogo-loga" target="_blank">vc.ru: анализ Полюс и Сухой Лог</a></li><li><a href="https://www.rbc.ru/quote/news/article/67cebbd89a794733d19d0afd" target="_blank">РБК: дивиденды Q4'24</a></li><li><a href="../../sectors/metals-mining/_index.md" target="_blank">Секторальный анализ: Металлы и добыча</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+<ul><li><a href="https://smart-lab.ru/q/PLZL/f/y/MSFO/" target="_blank">Smart-lab: PLZL финансы годовые</a></li><li><a href="https://smart-lab.ru/q/PLZL/f/q/MSFO/" target="_blank">Smart-lab: PLZL финансы квартальные</a></li><li><a href="https://polyus.com/ru/investors/proekty-rosta/" target="_blank">Полюс: проекты роста</a></li><li><a href="https://polyus.com/ru/investors/shares/dividends/" target="_blank">Полюс: дивиденды</a></li><li><a href="https://www.interfax.ru/business/1012027" target="_blank">Интерфакс: результаты 2024</a></li><li><a href="https://vc.ru/invest/2216630-polyus-rost-pribyli-na-fone-rekordov-zolota-i-budushchee-sukhogo-loga" target="_blank">vc.ru: анализ Полюс и Сухой Лог</a></li><li><a href="https://www.rbc.ru/quote/news/article/67cebbd89a794733d19d0afd" target="_blank">РБК: дивиденды Q4&#x27;24</a></li><li><a href="../../sectors/metals-mining/_index.md" target="_blank">Секторальный анализ: Металлы и добыча</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

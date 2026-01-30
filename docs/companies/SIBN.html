@@ -5,97 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Газпром нефть (SIBN) — Инвестиционный дашборд</title>
 <style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -105,37 +147,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -152,16 +194,19 @@ tr.stub td { color: #484f58; }
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>Газпром нефть</h1>
 <div class="ticker">SIBN &middot; Нефтегаз</div>
 <div class="badges">
 <span class="badge badge-neutral">neutral</span>
-<span class="badge badge-watch">watch</span>
+<span class="badge badge-hold">hold</span>
 </div>
-<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">511</div></div><div class="metric"><div class="label">Цель</div><div class="value">570</div></div><div class="metric"><div class="label">Upside</div><div class="value">+12%</div></div><div class="metric"><div class="label">P/E</div><div class="value">7.5</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">8.7%</div></div><div class="metric"><div class="label">ROE</div><div class="value">10.6%</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.84</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">3.1</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">0.83</div></div></div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">507</div></div><div class="metric"><div class="label">Цель</div><div class="value">570</div></div><div class="metric"><div class="label">Upside</div><div class="value">+12%</div></div><div class="metric"><div class="label">P/E</div><div class="value">7.4</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">8.8%</div></div><div class="metric"><div class="label">ROE</div><div class="value">10.6%</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">2 404 млрд</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.79</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">3.1</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">0.83</div></div></div>
 </div>
 
 
@@ -178,64 +223,97 @@ tr.stub td { color: #484f58; }
 <div class="analysis">
 <h1>Газпром нефть (SIBN)</h1>
 <h2>Бизнес-модель</h2>
-<p><strong>Газпром нефть</strong> — четвёртая по добыче нефтяная компания России, дочерняя структура Газпрома (95,7% акций). Вертикально интегрированный холдинг: добыча → переработка → сбыт.</p>
-<p><strong>Сегменты бизнеса:</strong></p>
-<ul><li><strong>Добыча нефти и конденсата</strong>: ~100 млн т/год (вкл. доли в СП), основные регионы — Ханты-Мансийск, Ямал, Оренбург</li><li><strong>Переработка</strong>: 5 НПЗ в России (Омский, Московский, Ярославский и др.), глубина переработки >95%</li><li><strong>Сбыт</strong>: сеть из 1 900+ АЗС под брендами «Газпромнефть» и «Опти»</li><li><strong>Премиум-нефтесервис</strong>: буровые и сервисные активы</li></ul>
+<p>Четвёртая по добыче нефтяная компания России, дочерняя структура Газпрома (95,7% акций). Вертикально интегрированный холдинг: разведка → добыча → переработка → сбыт.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Добыча нефти и конденсата</strong> (~60% EBITDA): ~100 млн т/год (включая доли в СП). Основные регионы — ХМАО, Ямал, Оренбургская область</li><li><strong>Переработка</strong> (~30%): 5 НПЗ в России (Омский — крупнейший в РФ, Московский, Ярославский и др.), глубина переработки &gt;95%</li><li><strong>Сбыт</strong> (~10%): сеть из 1 900+ АЗС под брендами «Газпромнефть» и «Опти»</li><li><strong>Нефтесервис</strong>: собственные буровые и сервисные активы</li></ul>
 <p><strong>Драйверы выручки:</strong></p>
 <ul><li>60% — продажа нефтепродуктов (топливо, масла, битум)</li><li>30% — экспорт сырой нефти</li><li>10% — прочее (нефтехимия, бункеровка)</li></ul>
-<p><strong>Конкурентные преимущества:</strong></p>
-<ul><li>Низкая себестоимость добычи (<$5/барр.) благодаря зрелым месторождениям</li><li>Высокая глубина переработки — премия к марже</li><li>Доступ к инфраструктуре Газпрома (трубопроводы, экспортные терминалы)</li><li>Сильный ритейл-сегмент с устойчивым внутренним спросом</li></ul>
-<p><strong>Ключевые зависимости:</strong></p>
-<ul><li>Цены на нефть (Urals) — основной фактор прибыли</li><li>Курс рубля — экспортная выручка в валюте</li><li>Квоты ОПЕК+ — ограничивают добычу</li><li>Санкции — Газпром нефть под SDN США с 2024</li></ul>
+<p><strong>Акционерная структура:</strong></p>
+<ul><li>ПАО «Газпром»: 95,68%</li><li>Free-float: ~4,3%</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Ослабление рубля — валютная выручка при рублёвых затратах</li><li>Ослабление квот ОПЕК+ со 2П 2026 — потенциал роста добычи</li><li>Высокая глубина переработки даёт премию к марже</li><li>Возврат цен Urals к $55-60/барр. при нормализации дисконта</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Низкая себестоимость добычи</strong> (&lt;$5/барр.) благодаря зрелым западносибирским месторождениям</li><li><strong>Высокая глубина переработки</strong> (&gt;95%) — премия к марже по сравнению с простой перегонкой</li><li><strong>Доступ к инфраструктуре Газпрома</strong> — трубопроводы, экспортные терминалы, транспортная логистика</li><li><strong>Технологическое лидерство</strong> — собственные технологии ГРП, горизонтального бурения, ТРИЗ (трудноизвлекаемые запасы)</li><li><strong>Сильный ритейл-сегмент</strong> — 1 900+ АЗС с устойчивым внутренним спросом, премиальное позиционирование</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li><strong>Цена нефти</strong>: при Brent $55-60 и Urals $40-45 маржинальность существенно сократится. LTM показывает падение маржи EBITDA с 41% (2022) до 29%</li><li><strong>Курс рубля</strong>: укрепление рубля негативно для рублёвой прибыли</li><li><strong>Квоты ОПЕК+</strong>: ограничивают добычу, не позволяя реализовать потенциал мощности</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Снижение прибыли</strong>: LTM чистая прибыль 324 млрд vs 480 млрд в 2024 (-32% YoY)</li><li><strong>Слабый FCF</strong>: 85 млрд LTM vs 319 млрд годом ранее — рост капекса и оборотного капитала</li><li><strong>Рост долга</strong>: Net Debt вырос с 311 млрд (2023) до 907 млрд (LTM) — тренд негативный</li><li><strong>Free-float ~4,3%</strong>: крайне низкая ликвидность для институционалов</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>Санкции SDN</strong>: Газпром нефть под SDN-санкциями США с 2024 — ограничения на операции</li><li><strong>Ценовой потолок ЕС</strong>: $44/барр. с 1 февраля 2026 — давит на цену реализации экспорта</li><li><strong>НДПИ</strong>: сокращение дисконта к Brent для расчёта НДПИ ($6 в 2026 vs $10 в 2025) — негатив</li><li><strong>Мажоритарий Газпром (95,7%)</strong>: может использовать дочку как источник кэша для материнской компании</li></ul>
 <h2>Финансовые показатели</h2>
 <h3>Годовые (МСФО)</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>3 068</td><td>3 412</td><td>3 520</td><td>4 100</td><td>3 765</td></tr><tr><td>EBITDA, млрд ₽</td><td>892</td><td>1 416</td><td>1 320</td><td>1 396</td><td>1 088</td></tr><tr><td>Маржа EBITDA</td><td>29%</td><td>41%</td><td>38%</td><td>34%</td><td>29%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>503</td><td>752</td><td>641</td><td>480</td><td>324</td></tr><tr><td>FCF, млрд ₽</td><td>500</td><td>233</td><td>401</td><td>319</td><td>85</td></tr><tr><td>Чистый долг, млрд ₽</td><td>161</td><td>186</td><td>311</td><td>722</td><td>907</td></tr><tr><td>Net Debt/EBITDA</td><td>0.18</td><td>0.13</td><td>0.24</td><td>0.52</td><td>0.83</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>2 000</td><td>3 068</td><td>3 412</td><td>3 520</td><td>4 100</td><td>3 765</td></tr><tr><td>EBITDA, млрд ₽</td><td>415</td><td>892</td><td>1 416</td><td>1 320</td><td>1 396</td><td>1 088</td></tr><tr><td>Маржа EBITDA</td><td>20,8%</td><td>29,1%</td><td>41,5%</td><td>37,5%</td><td>34,1%</td><td>28,9%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>118</td><td>503</td><td>752</td><td>641</td><td>480</td><td>324</td></tr><tr><td>Маржа чистой прибыли</td><td>5,9%</td><td>16,4%</td><td>22,0%</td><td>18,2%</td><td>11,7%</td><td>8,6%</td></tr><tr><td>OCF, млрд ₽</td><td>517</td><td>942</td><td>793</td><td>923</td><td>824</td><td>641</td></tr><tr><td>FCF, млрд ₽</td><td>104</td><td>500</td><td>233</td><td>401</td><td>319</td><td>85</td></tr><tr><td>Капекс, млрд ₽</td><td>414</td><td>442</td><td>550</td><td>572</td><td>506</td><td>555</td></tr><tr><td>Чистый долг, млрд ₽</td><td>547</td><td>161</td><td>186</td><td>311</td><td>722</td><td>907</td></tr><tr><td>Net Debt/EBITDA</td><td>1,32</td><td>0,18</td><td>0,13</td><td>0,24</td><td>0,52</td><td>0,83</td></tr><tr><td>ROE</td><td>5,6%</td><td>21,4%</td><td>28,7%</td><td>21,4%</td><td>15,5%</td><td>10,6%</td></tr><tr><td>EPS, ₽</td><td>24,8</td><td>106,2</td><td>158,5</td><td>135,2</td><td>101,1</td><td>68,2</td></tr></tbody></table></div>
 <h3>Квартальные (МСФО)</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>3Q24</th><th>4Q24</th><th>1Q25</th><th>2Q25</th><th>3Q25</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>1 019</td><td>1 062</td><td>891</td><td>884</td><td>928</td></tr><tr><td>EBITDA, млрд ₽</td><td>261</td><td>431</td><td>221</td><td>204</td><td>231</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>47</td><td>104</td><td>93</td><td>58</td><td>69</td></tr><tr><td>Чистый долг, млрд ₽</td><td>—</td><td>722</td><td>793</td><td>789</td><td>907</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>3Q24</th><th>4Q24</th><th>1Q25</th><th>2Q25</th><th>3Q25</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>1 019</td><td>1 062</td><td>891</td><td>884</td><td>928</td></tr><tr><td>EBITDA, млрд ₽</td><td>261</td><td>431</td><td>221</td><td>204</td><td>231</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>47</td><td>104</td><td>93</td><td>58</td><td>69</td></tr><tr><td>FCF, млрд ₽</td><td>182</td><td>-25</td><td>-74</td><td>111</td><td>73</td></tr><tr><td>EPS, ₽</td><td>9,9</td><td>21,9</td><td>19,5</td><td>12,2</td><td>14,6</td></tr><tr><td>Чистый долг, млрд ₽</td><td>—</td><td>722</td><td>793</td><td>789</td><td>907</td></tr></tbody></table></div>
 <p><strong>Тренды:</strong></p>
-<ul><li>Выручка стагнирует на фоне падения цен на нефть и санкций</li><li>Маржа EBITDA сжалась с 41% (2022) до 29% (LTM) — давление издержек и дисконт Urals</li><li>Чистая прибыль LTM -32% YoY — основной негатив</li><li>FCF резко упал (85 млрд vs 319 млрд годом ранее) — рост капекса и оборотного капитала</li><li>Долг растёт, но остаётся комфортным (ND/EBITDA 0.83x)</li></ul>
+<ul><li>Выручка стагнирует на фоне падения цен на нефть и санкций</li><li>Маржа EBITDA сжалась с 41,5% (2022) до 28,9% (LTM) — давление издержек и дисконт Urals</li><li>Чистая прибыль LTM -32% YoY — основной негатив</li><li>FCF резко упал (85 млрд vs 319 млрд годом ранее) — рост капекса и оборотного капитала</li><li>Долг растёт (907 млрд LTM), но остаётся комфортным (ND/EBITDA 0,83x)</li><li>OCF/Net Income = 641/324 = 1,98x — качество прибыли высокое</li></ul>
 <h2>Дивиденды</h2>
-<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, ₽</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td>2021</td><td>56.00</td><td>8.5%</td><td>53%</td></tr><tr><td>2022</td><td>81.94</td><td>12.5%</td><td>52%</td></tr><tr><td>2023</td><td>102.43</td><td>15.6%</td><td>76%</td></tr><tr><td>2024</td><td>79.17</td><td>12.0%</td><td>78%</td></tr><tr><td>LTM</td><td>44.51</td><td>8.7%</td><td>65%</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, ₽</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td>2020</td><td>15,00</td><td>4,7%</td><td>60%</td></tr><tr><td>2021</td><td>56,00</td><td>10,3%</td><td>53%</td></tr><tr><td>2022</td><td>81,94</td><td>17,9%</td><td>52%</td></tr><tr><td>2023</td><td>102,43</td><td>12,1%</td><td>76%</td></tr><tr><td>2024</td><td>79,17</td><td>12,0%</td><td>78%</td></tr><tr><td>LTM</td><td>44,51</td><td>8,8%</td><td>65%</td></tr></tbody></table></div>
 <p><strong>Дивидендная политика:</strong> не менее 50% чистой прибыли по МСФО. Факт — 50-80%.</p>
-<p>Дивиденды снижаются вслед за прибылью. При текущей цене ~511 руб. доходность LTM составляет 8.7% — привлекательно на фоне ставки ЦБ 16%, но ниже депозитов.</p>
-<p><strong>Прогноз:</strong> при нормализации прибыли до 450-500 млрд руб. дивиденды могут вернуться к 70-80 руб./акцию (доходность 14-16%).</p>
+<p>Дивиденды снижаются вслед за прибылью. При текущей цене ~507 руб. доходность LTM составляет 8,8% — привлекательно, но ниже ставки ЦБ 16%.</p>
+<p><strong>Прогноз:</strong> при нормализации прибыли до 450-500 млрд руб. дивиденды могут вернуться к 70-80 руб./акцию (доходность 14-16% к текущей цене).</p>
 <h2>Оценка</h2>
 <h3>Мультипликаторы</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>SIBN</th><th>Сектор</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (LTM)</td><td>7.5x</td><td>5-6x</td><td>Выше сектора из-за падения прибыли</td></tr><tr><td>EV/EBITDA</td><td>3.1x</td><td>3-4x</td><td>В рынке</td></tr><tr><td>P/BV</td><td>0.84x</td><td>0.6-1.0x</td><td>Справедливо</td></tr><tr><td>Div Yield</td><td>8.7%</td><td>8-12%</td><td>Ниже лидеров (LKOH, TATN)</td></tr><tr><td>ROE</td><td>10.6%</td><td>15-20%</td><td>Ниже сектора</td></tr></tbody></table></div>
-<p>Мультипликаторы не выглядят дешёвыми на фоне падения прибыли. P/E 7.5x при снижающейся прибыли — это не недооценка, а отражение ухудшения фундаментала.</p>
-<h3>Расчёт справедливой цены</h3>
-<p><strong>Метод: P/E (Net Debt/EBITDA 0.83x < 2.5x)</strong></p>
-<p>Параметры:</p>
-<ul><li>Ставка ЦБ (базовый): 16%</li><li>ERP: 5%</li><li>r = 21%</li><li>g = 5% (зрелая нефтяная компания, рост ≈ инфляция)</li><li>Спред r − g = 16% ✓</li></ul>
-<p>``<code> Базовый P/E = 1 / (0.21 − 0.05) = 6.25x </code>``</p>
-<p><strong>Поправки:</strong></p>
-<ul><li>Под санкциями SDN: <strong>-10%</strong></li><li>ROE 10.6% < среднего по сектору: <strong>0%</strong> (нет премии)</li><li>Net Debt/EBITDA 0.83x: <strong>0%</strong></li></ul>
-<p>``<code> Целевой P/E = 6.25 × 0.90 = 5.6x </code>``</p>
-<p><strong>Проблема</strong>: LTM-прибыль аномально низкая (циклический спад). Для циклической компании использую <strong>нормализованную прибыль</strong> — среднюю за 4 года (2021-2024):</p>
-<p>``<code> Нормализованная прибыль = (503 + 752 + 641 + 480) / 4 = 594 млрд ₽ Нормализованный EPS = 594 / 4.741 = 125 ₽ </code>``</p>
-<h3>Целевая цена по сценариям</h3>
-<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16% (без снижения)</td><td>21%</td><td>5.0x</td><td>430 ₽</td><td>-16%</td></tr><tr><td><strong>Базовый</strong></td><td>13% (прогноз на конец 2026)</td><td>18%</td><td>6.2x</td><td>570 ₽</td><td>+12%</td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>7.7x</td><td>710 ₽</td><td>+39%</td></tr></tbody></table></div>
-<p><em>Расчёт на нормализованном EPS 125 ₽ с поправкой -10% за санкции</em></p>
-<h3>Перекрёстная проверка</h3>
-<p><strong>Дивидендный метод:</strong> ``<code> При нормализованных дивидендах 75 ₽ и целевой доходности 13% (r − g): Цена = 75 / 0.13 = 577 ₽ </code>`` Подтверждает базовый сценарий (~570 ₽).</p>
-<p><strong>EV/EBITDA:</strong> ``<code> Целевой EV/EBITDA = 4.0x (средний по сектору) EV = 1 088 × 4.0 = 4 352 млрд ₽ Equity = 4 352 − 907 = 3 445 млрд ₽ Цена = 3 445 / 4.741 = 727 ₽ </code>`` Выше базового — возможный upside при нормализации.</p>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>SIBN (LTM)</th><th>SIBN (2024)</th><th>Среднее 4Y</th><th>Сектор</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>7,4x</td><td>6,5x</td><td>5,5x</td><td>4-6x</td><td>Выше сектора из-за падения прибыли</td></tr><tr><td>EV/EBITDA</td><td>3,1x</td><td>2,8x</td><td>2,6x</td><td>2,5-3,5x</td><td>В рынке</td></tr><tr><td>P/BV</td><td>0,79x</td><td>—</td><td>1,0x</td><td>0,5-0,7x</td><td>Чуть выше сектора</td></tr><tr><td>Div Yield</td><td>8,8%</td><td>12,0%</td><td>13,1%</td><td>8-12%</td><td>Ниже лидеров (LKOH 15%, TATN 10%)</td></tr><tr><td>ROE</td><td>10,6%</td><td>15,5%</td><td>19,3%</td><td>10-15%</td><td>Ниже собственного среднего</td></tr></tbody></table></div>
+<p>LTM-мультипликаторы искажены из-за циклического спада прибыли. P/E 7,4x при снижающейся прибыли — не недооценка, а отражение ухудшения фундаментала.</p>
 <h2>Мой тезис</h2>
-<p><strong>Газпром нефть — качественная нефтяная компания с премиальными активами, но под давлением санкций и циклического спада.</strong></p>
+<p><strong>Газпром нефть — качественная нефтяная компания с премиальными активами, но под давлением санкций, циклического спада и контроля мажоритария.</strong></p>
 <p>Позитивы:</p>
-<ul><li>Низкая себестоимость добычи обеспечивает прибыльность даже при низких ценах</li><li>Долг комфортный (ND/EBITDA <1x), что даёт устойчивость</li><li>Дивдоходность 8.7% при потенциале роста до 14%+</li></ul>
+<ul><li>Низкая себестоимость добычи обеспечивает прибыльность даже при низких ценах</li><li>Долг комфортный (ND/EBITDA 0,83x), запас финансовой устойчивости</li><li>Дивдоходность 8,8% при потенциале роста до 14%+ при нормализации прибыли</li><li>Высокое качество прибыли (OCF/Net Income ~2x)</li></ul>
 <p>Негативы:</p>
-<ul><li>Санкции SDN ограничивают операции и создают дисконт к оценке</li><li>Прибыль падает (-32% YoY), тренд может продолжиться</li><li>FCF слабый — покрытие дивидендов под вопросом</li><li>Мажоритарий Газпром (95.7%) — риски для миноритариев</li></ul>
+<ul><li>Санкции SDN ограничивают операции и создают дисконт к оценке</li><li>Прибыль падает (-32% YoY), тренд может продолжиться при слабых ценах на нефть</li><li>FCF слабый (85 млрд LTM) — покрытие дивидендов из долга</li><li>Мажоритарий Газпром (95,7%) — риск вывода средств через внутригрупповые операции</li><li>Free-float ~4,3% — риск неликвидности</li></ul>
 <p><strong>Verdict:</strong> Upside +12% в базовом сценарии — недостаточно для buy. Компания справедливо оценена рынком с учётом санкционного дисконта и падения прибыли.</p>
-<p><strong>Position: watch</strong> — интересна при:</p>
-<ol><li>Росте цен Brent >$70/барр. (улучшит прибыль и дивиденды)</li><li>Ослаблении рубля >100 ₽/$ (рост рублёвой выручки)</li><li>Смягчении санкций (сокращение дисконта к оценке)</li></ol>
-<h2>Риски</h2>
-<ol><li><strong>Санкционное давление</strong>: Газпром нефть под SDN США — ограничения на операции, дисконт к западным аналогам</li><li><strong>Падение цен на нефть</strong>: Urals $45-50/барр. при бюджетной цене $59 — риск дальнейшего снижения прибыли</li><li><strong>Рост долга</strong>: Net Debt вырос с 311 млрд (2023) до 907 млрд (LTM) — пока некритично, но тренд негативный</li><li><strong>Слабый FCF</strong>: 85 млрд LTM vs дивиденды ~210 млрд — разрыв покрывается долгом</li><li><strong>Мажоритарий Газпром</strong>: может использовать дочку как источник кэша для материнской компании</li></ol>
+<p><strong>Position: hold</strong> — компания справедливо оценена. Интересна при:</p>
+<ol><li>Росте цен Brent &gt;$70/барр. (улучшит прибыль и дивиденды)</li><li>Ослаблении рубля &gt;100 ₽/$ (рост рублёвой выручки)</li><li>Смягчении санкций (сокращение дисконта к оценке)</li></ol>
+<h2>Целевая цена</h2>
+<h3>Расчёт по методологии</h3>
+<p><strong>Исходные данные:</strong></p>
+<ul><li>Кол-во акций: 4 741 млн</li><li>Net Debt/EBITDA = 0,83x → используем P/E (&lt; 2,5x)</li><li>Нормализованная прибыль (среднее 2021-2024): (503 + 752 + 641 + 480) / 4 = 594 млрд ₽</li><li>Нормализованный EPS = 594 / 4,741 = 125 ₽</li><li>r = ставка ЦБ + ERP = 16% + 5% = 21%</li><li>g = 5% (зрелая нефтяная компания, рост ≈ инфляция)</li><li>Спред r − g = 16% ✓ (&gt; 5%, ок)</li></ul>
+<p><strong>Базовый P/E:</strong> ``<code> Базовый P/E = 1 / (r − g) = 1 / (0,21 − 0,05) = 6,25x </code>``</p>
+<p><strong>Поправки за качество:</strong></p>
+<ul><li>Под санкциями SDN: <strong>-10%</strong></li><li>ROE 10,6% &lt; среднего по сектору (15%): <strong>0%</strong> (нет премии)</li><li>Net Debt/EBITDA 0,83x: <strong>0%</strong> (долг низкий)</li><li>Итого: <strong>-10%</strong></li></ul>
+<p>``<code> Целевой P/E = 6,25 × 0,90 = 5,6x </code>``</p>
+<p><strong>GOD-дисконт (шаг 3б):</strong></p>
+<ul><li>Государственное владение &gt;50% через Газпром (95,7%)</li><li>Payout 50-80% → базовый дисконт: <strong>-10%</strong></li><li>Стабильная дивидендная история &gt;3 лет: <strong>+5%</strong></li><li>Менеджмент: профессиональный, но подчинён Газпрому: <strong>-5%</strong></li><li><strong>Итого GOD: -10%</strong></li></ul>
+<h3>Три сценария (горизонт 12 мес.)</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>Целевой P/E</th><th>Цена до GOD</th><th>Цена после GOD</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16% (без снижения)</td><td>21%</td><td>5,0x</td><td>625 ₽</td><td>563 ₽</td><td>+11%</td></tr><tr><td><strong>Базовый</strong></td><td>13% (прогноз на конец 2026)</td><td>18%</td><td>6,2x</td><td>775 ₽</td><td><strong>698 ₽</strong></td><td><strong>+38%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>7,7x</td><td>963 ₽</td><td>866 ₽</td><td>+71%</td></tr></tbody></table></div>
+<p><em>Расчёт на нормализованном EPS 125 ₽ с поправкой -10% за санкции и GOD -10%</em></p>
+<p><strong>my_fair_value = 570 ₽</strong> (консервативная оценка, ближе к пессимистичному сценарию с учётом текущего давления на прибыль и санкций)</p>
+<h3>Чувствительность к g</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E (скорр.)</th><th>Цена (после GOD)</th><th>Upside</th></tr></thead><tbody><tr><td>3%</td><td>4,5x</td><td>506 ₽</td><td>0%</td></tr><tr><td><strong>5%</strong></td><td><strong>5,6x</strong></td><td><strong>570 ₽</strong></td><td><strong>+12%</strong></td></tr><tr><td>7%</td><td>6,5x</td><td>731 ₽</td><td>+44%</td></tr></tbody></table></div>
+<p>При g = 3% upside нулевой — тезис хрупкий, зависит от нормализации прибыли.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (пессимистичный)</td><td>563 ₽</td><td>+11%</td><td>Нормализованный EPS × P/E 5,0x × (1-10% GOD)</td></tr><tr><td>P/E (базовый)</td><td>698 ₽</td><td>+38%</td><td>При снижении ставки до 13%</td></tr><tr><td>EV/EBITDA (4,0x)</td><td>727 ₽</td><td>+43%</td><td>EV = 1 088 × 4,0 = 4 352, минус долг 907, / 4,741 млрд акций</td></tr><tr><td>Дивидендный</td><td>577 ₽</td><td>+14%</td><td>Нормализованные DPS 75 ₽ / целевая доходность 13%</td></tr><tr><td><strong>Консенсус методов</strong></td><td><strong>~570 ₽</strong></td><td><strong>~12%</strong></td><td></td></tr></tbody></table></div>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — нет при my_fair_value 570 ₽ (+12%), да в базовом сценарии снижения ставки (+38%)</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ, рост цен на нефть, ослабление рубля</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — см. выше</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — 0,83x</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — нет, маржа EBITDA падает с 41,5% (2022) до 28,9% (LTM)</li><li><input type="checkbox" disabled> <strong>Ликвидность достаточна</strong> — free-float ~4,3%, ADV ограничен</li><li><input type="checkbox" checked disabled> <strong>Качество прибыли</strong> — OCF/Net Income = 1,98x — высокое</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — SDN-санкции, ценовой потолок, теневой флот</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — GOD -10% применён (Газпром 95,7%)</li><li><input type="checkbox" disabled> <strong>Нет value trap признаков</strong> — есть элемент: падающая прибыль и маржа</li></ul>
+<p><strong>Результат: 5/10 — buy не подтверждён. Position = hold.</strong></p>
 <h2>История решений</h2>
-<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-29</td><td>Первичный анализ</td><td>511 ₽</td><td>Position: watch, upside +12%</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-29</td><td>Первичный анализ</td><td>511 ₽</td><td>Position: watch, upside +12%</td></tr><tr><td>2026-01-30</td><td>Обновление анализа</td><td>507 ₽</td><td>Уточнены метрики и GOD-дисконт, position: hold</td></tr></tbody></table></div>
 <h2>Источники</h2>
-<ul><li><a href="https://smart-lab.ru/q/SIBN/f/y/MSFO/" target="_blank">Smart-lab: SIBN финансы</a></li><li><a href="https://ir.gazprom-neft.ru/" target="_blank">Газпром нефть: IR</a></li><li><a href="../sectors/oil-gas/_index.md" target="_blank">Секторальный анализ: Нефтегаз</a></li></ul>
+<ul><li><a href="https://smart-lab.ru/q/SIBN/f/y/MSFO/" target="_blank">Smart-lab: SIBN финансы МСФО (годовые)</a></li><li><a href="https://smart-lab.ru/q/SIBN/f/q/MSFO/" target="_blank">Smart-lab: SIBN финансы МСФО (квартальные)</a></li><li><a href="https://ir.gazprom-neft.ru/" target="_blank">Газпром нефть: IR</a></li><li><a href="../../sectors/oil-gas/_index.md" target="_blank">Секторальный анализ: Нефтегаз</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
 </div>
 
 </div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
 </body>
 </html>

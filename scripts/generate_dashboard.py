@@ -11,6 +11,7 @@
 Автор: AlmazNurmukhametov
 """
 
+import html as html_module
 import json
 import os
 import re
@@ -66,7 +67,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
             current_key = None
 
         # key: value
-        kv = re.match(r'^([a-z_]+):\s*(.*)$', stripped)
+        kv = re.match(r'^([a-zA-Z][a-zA-Z0-9_-]*):\s*(.*)$', stripped)
         if kv:
             key = kv.group(1)
             value = kv.group(2).strip()
@@ -100,12 +101,15 @@ def get_body(content: str) -> str:
 
 
 def parse_upside(value: str) -> Optional[float]:
-    """Парсит upside из '64%', '64', '-10%' → десятичная дробь."""
+    """Парсит upside из '64%', '64', '-10%', '+25%' → десятичная дробь."""
     if not value:
         return None
-    cleaned = value.replace('%', '').strip()
+    has_percent = '%' in value
+    cleaned = value.replace('%', '').replace('+', '').strip()
     try:
         num = float(cleaned)
+        if has_percent:
+            return num / 100.0
         if abs(num) > 1:
             return num / 100.0
         return num
@@ -144,8 +148,12 @@ def markdown_to_html(md: str) -> str:
 
         # HTML-комментарии — пропускаем
         if line.strip().startswith('<!--'):
+            start_i = i
             while i < len(lines) and '-->' not in lines[i]:
                 i += 1
+            if i >= len(lines):
+                # Незакрытый комментарий — выводим предупреждение
+                print(f"  {YELLOW}[WARN]{NC} Незакрытый HTML-комментарий (строка {start_i + 1})")
             i += 1
             continue
 
@@ -227,12 +235,33 @@ def _is_block_start(line: str) -> bool:
     return False
 
 
+def _safe_link(match) -> str:
+    """Создаёт ссылку, блокируя javascript: и data: URI.
+
+    Вызывается из inline_format(), где текст уже прошёл через escape_html(),
+    поэтому URL и label здесь повторно НЕ экранируются.
+    """
+    label = match.group(1)
+    url = match.group(2)
+    # Декодируем HTML-сущности для проверки схемы, т.к. текст уже экранирован
+    url_decoded = url.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"')
+    url_lower = url_decoded.strip().lower()
+    if url_lower.startswith(('javascript:', 'data:', 'vbscript:')):
+        return label
+    return f'<a href="{url}" target="_blank">{label}</a>'
+
+
 def inline_format(text: str) -> str:
-    """Форматирует inline-элементы: bold, italic, code, links, checkboxes."""
+    """Форматирует inline-элементы: bold, italic, code, links, checkboxes.
+
+    Сначала экранирует HTML, затем применяет markdown-разметку.
+    """
+    # Экранируем HTML-спецсимволы в исходном тексте
+    text = escape_html(text)
     # Код inline
     text = re.sub(r'`([^`]+)`', r'<code>\1</code>', text)
-    # Ссылки
-    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2" target="_blank">\1</a>', text)
+    # Ссылки (с проверкой URL-схемы)
+    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', _safe_link, text)
     # Bold
     text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', text)
     # Italic
@@ -308,6 +337,7 @@ def parse_ordered_list(lines: list, start: int) -> tuple:
 def read_all_companies(companies_dir: str) -> list:
     """Читает все компании из companies/*/."""
     companies = []
+    seen_tickers = set()  # dedup by ticker
 
     for name in sorted(os.listdir(companies_dir)):
         path = os.path.join(companies_dir, name)
@@ -330,6 +360,11 @@ def read_all_companies(companies_dir: str) -> list:
         company_name = meta.get('name') or meta.get('company') or name
         ticker = meta.get('ticker', name)
         is_stub = not meta.get('sentiment')
+
+        # Дедупликация: пропускаем если тикер уже встречался
+        if ticker in seen_tickers:
+            continue
+        seen_tickers.add(ticker)
 
         companies.append({
             'ticker': ticker,
@@ -408,99 +443,141 @@ def read_all_trends(companies_dir: str) -> dict:
 # ============================================================================
 
 def get_css() -> str:
-    """Возвращает CSS для дашборда (тёмная тема)."""
+    """Возвращает CSS с поддержкой тёмной и светлой тем через CSS-переменные."""
     return """
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
 }
-a { color: #388bfd; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .container { max-width: 1280px; margin: 0 auto; padding: 20px; }
 
 /* Шапка */
-header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
-header h1 { font-size: 24px; font-weight: 600; }
-header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
 
 /* Статистика */
 .stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .stat-card {
-    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
     padding: 16px 20px; flex: 1; min-width: 140px;
 }
-.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
-.stat-card .value.green { color: #238636; }
-.stat-card .value.blue { color: #388bfd; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
 
 /* Фильтры */
 .filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
 .filters select, .filters input {
-    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     border-radius: 6px; padding: 8px 12px; font-size: 14px;
     font-family: inherit;
 }
-.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
 .filters input { min-width: 200px; }
 
 /* Таблица */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th {
-    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
-    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
     cursor: pointer; user-select: none; white-space: nowrap;
 }
-th:hover { color: #e6edf3; }
+th:hover { color: var(--text); }
 th .sort-arrow { margin-left: 4px; font-size: 10px; }
-td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
-tr:hover { background: #161b22; }
-tr.stub td { color: #484f58; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
 
 /* Бейджи */
 .badge {
     display: inline-block; padding: 2px 8px; border-radius: 12px;
     font-size: 12px; font-weight: 500;
 }
-.badge-bullish { background: #238636; color: #fff; }
-.badge-neutral { background: #d29922; color: #000; }
-.badge-bearish { background: #da3633; color: #fff; }
-.badge-buy { background: #238636; color: #fff; }
-.badge-hold { background: #388bfd; color: #fff; }
-.badge-sell { background: #da3633; color: #fff; }
-.badge-watch { background: #484f58; color: #e6edf3; }
-.badge-avoid { background: #da3633; color: #fff; }
-.badge-stub { background: #30363d; color: #8b949e; }
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
 
 /* Положительный/отрицательный upside */
-.positive { color: #3fb950; }
-.negative { color: #f85149; }
-.muted { color: #8b949e; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
 
 /* Навигация */
-.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
-.back:hover { color: #e6edf3; }
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
 
 /* Карточка компании */
 .company-header {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
     padding: 24px; margin-bottom: 24px;
 }
 .company-header h1 { font-size: 28px; margin-bottom: 8px; }
-.company-header .ticker { color: #8b949e; font-size: 16px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
 .badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
 .metrics-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 12px; margin-top: 16px;
 }
 .metric {
-    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
     padding: 12px;
 }
-.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
 .metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
 
 /* Прогноз-бар */
@@ -510,37 +587,37 @@ tr.stub td { color: #484f58; }
     display: flex; height: 28px; border-radius: 6px; overflow: hidden;
     font-size: 12px; font-weight: 600;
 }
-.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
-.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
-.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
 
 /* Баннер заглушки */
 .stub-banner {
-    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
-    padding: 16px; margin-bottom: 24px; color: #d29922;
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
 }
 
 /* Контент анализа */
-.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
 .analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
-.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
-.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
 .analysis h3 { font-size: 16px; }
-.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
 .analysis p { margin-bottom: 12px; }
 .analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
 .analysis li { margin-bottom: 4px; }
 .analysis table { margin: 12px 0; }
 .analysis blockquote {
-    border-left: 3px solid #30363d; padding: 8px 16px;
-    color: #8b949e; margin: 12px 0;
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
 }
 .analysis code {
-    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
     font-size: 13px; font-family: ui-monospace, monospace;
 }
-.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
-.analysis strong { color: #f0f6fc; }
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
 /* Responsive */
@@ -559,18 +636,12 @@ tr.stub td { color: #484f58; }
 # ГЕНЕРАЦИЯ СТРАНИЦ
 # ============================================================================
 
-def sentiment_badge(sentiment: str) -> str:
-    """HTML-бейдж для sentiment."""
-    if not sentiment:
+def badge(value: str) -> str:
+    """HTML-бейдж для sentiment или position."""
+    if not value:
         return '<span class="badge badge-stub">—</span>'
-    return f'<span class="badge badge-{sentiment}">{sentiment}</span>'
-
-
-def position_badge(position: str) -> str:
-    """HTML-бейдж для position."""
-    if not position:
-        return '<span class="badge badge-stub">—</span>'
-    return f'<span class="badge badge-{position}">{position}</span>'
+    safe = escape_html(value)
+    return f'<span class="badge badge-{safe}">{safe}</span>'
 
 
 def format_upside(upside_str: str) -> str:
@@ -588,7 +659,7 @@ def format_upside(upside_str: str) -> str:
 
 def escape_html(s: str) -> str:
     """Экранирует HTML-спецсимволы."""
-    return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+    return html_module.escape(s, quote=True)
 
 
 def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir: str):
@@ -632,14 +703,14 @@ def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir
 
     # Опции фильтров
     sector_options = ''.join(
-        f'<option value="{s}">{sectors.get(s, {}).get("name", s)}</option>'
+        f'<option value="{escape_html(s)}">{escape_html(sectors.get(s, {}).get("name", s))}</option>'
         for s in all_sectors
     )
     sentiment_options = ''.join(
-        f'<option value="{s}">{s}</option>' for s in all_sentiments
+        f'<option value="{escape_html(s)}">{escape_html(s)}</option>' for s in all_sentiments
     )
     position_options = ''.join(
-        f'<option value="{s}">{s}</option>' for s in all_positions
+        f'<option value="{escape_html(s)}">{escape_html(s)}</option>' for s in all_positions
     )
 
     html = f"""<!DOCTYPE html>
@@ -654,8 +725,11 @@ def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir
 <div class="container">
 
 <header>
+<div class="header-left">
 <h1>Инвестиционный дашборд</h1>
 <div class="updated">Обновлено: {today}</div>
+</div>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
 </header>
 
 <div class="stats">
@@ -663,7 +737,7 @@ def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir
 <div class="stat-card"><div class="label">Заполнено</div><div class="value green">{filled}</div></div>
 <div class="stat-card"><div class="label">Bullish</div><div class="value green">{bullish}</div></div>
 <div class="stat-card"><div class="label">Buy</div><div class="value blue">{buy_count}</div></div>
-<div class="stat-card"><div class="label">Средний upside</div><div class="value green">+{avg_upside}%</div></div>
+<div class="stat-card"><div class="label">Средний upside</div><div class="value {'green' if avg_upside >= 0 else 'negative'}">{'+'if avg_upside >= 0 else ''}{avg_upside}%</div></div>
 </div>
 
 <div class="filters">
@@ -695,7 +769,7 @@ def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir
 </div>
 
 <script>
-const DATA = {json.dumps(js_data, ensure_ascii=False)};
+const DATA = {json.dumps(js_data, ensure_ascii=False).replace('</','<\\/')};
 
 const tbody = document.getElementById('tbody');
 const fSector = document.getElementById('f-sector');
@@ -706,9 +780,16 @@ const fSearch = document.getElementById('f-search');
 let sortCol = 'ticker';
 let sortAsc = true;
 
+function esc(s) {{
+    if (s === null || s === undefined) return '';
+    var d = document.createElement('div');
+    d.textContent = String(s);
+    return d.innerHTML;
+}}
+
 function badgeHTML(type, value) {{
     if (!value) return '<span class="badge badge-stub">\\u2014</span>';
-    return '<span class="badge badge-' + value + '">' + value + '</span>';
+    return '<span class="badge badge-' + esc(value) + '">' + esc(value) + '</span>';
 }}
 
 function upsideHTML(val) {{
@@ -748,17 +829,17 @@ function render() {{
         const c = filtered[i];
         const cls = c.isStub ? ' class="stub"' : '';
         html += '<tr' + cls + '>';
-        html += '<td><a href="companies/' + c.ticker + '.html">' + c.ticker + '</a></td>';
-        html += '<td>' + c.name + (c.isStub ? ' <span class="badge badge-stub">Заглушка</span>' : '') + '</td>';
-        html += '<td>' + (c.sectorName || '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td><a href="companies/' + esc(c.ticker) + '.html">' + esc(c.ticker) + '</a></td>';
+        html += '<td>' + esc(c.name) + (c.isStub ? ' <span class="badge badge-stub">Заглушка</span>' : '') + '</td>';
+        html += '<td>' + (c.sectorName ? esc(c.sectorName) : '<span class="muted">\\u2014</span>') + '</td>';
         html += '<td>' + badgeHTML('sentiment', c.sentiment) + '</td>';
         html += '<td>' + badgeHTML('position', c.position) + '</td>';
-        html += '<td>' + (c.price || '<span class="muted">\\u2014</span>') + '</td>';
-        html += '<td>' + (c.target || '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.price ? esc(c.price) : '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.target ? esc(c.target) : '<span class="muted">\\u2014</span>') + '</td>';
         html += '<td>' + upsideHTML(c.upside) + '</td>';
-        html += '<td>' + (c.pe !== null && c.pe !== undefined ? c.pe : '<span class="muted">\\u2014</span>') + '</td>';
-        html += '<td>' + (c.divYield || '<span class="muted">\\u2014</span>') + '</td>';
-        html += '<td>' + (c.updated || '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.pe !== null && c.pe !== undefined ? esc(c.pe) : '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.divYield ? esc(c.divYield) : '<span class="muted">\\u2014</span>') + '</td>';
+        html += '<td>' + (c.updated ? esc(c.updated) : '<span class="muted">\\u2014</span>') + '</td>';
         html += '</tr>';
     }}
     tbody.innerHTML = html;
@@ -785,6 +866,25 @@ fSentiment.addEventListener('change', render);
 fPosition.addEventListener('change', render);
 fSearch.addEventListener('input', render);
 
+// Тема
+(function() {{
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\\u2600' : '\\u263E';
+    btn.addEventListener('click', function() {{
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {{
+            document.documentElement.setAttribute('data-theme', 'light');
+        }} else {{
+            document.documentElement.removeAttribute('data-theme');
+        }}
+        btn.textContent = next === 'light' ? '\\u2600' : '\\u263E';
+        localStorage.setItem('theme', next);
+    }});
+}})();
+
 render();
 </script>
 </body>
@@ -801,6 +901,9 @@ render();
 def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir: str) -> str:
     """Генерирует docs/companies/{TICKER}.html."""
     ticker = company['ticker']
+    if not re.match(r'^[A-Za-z0-9]+$', ticker):
+        print(f"  {YELLOW}[WARN]{NC} Пропуск тикера с недопустимыми символами: {ticker}")
+        return ''
     name = company['name']
     sector_slug = company['sector']
     sector_name = sectors.get(sector_slug, {}).get('name', sector_slug) if sector_slug else ''
@@ -846,7 +949,7 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
             fp = 0
         gp_pct = round(gp * 100)
         dp_pct = round(dp * 100)
-        fp_pct = 100 - gp_pct - dp_pct
+        fp_pct = max(0, 100 - gp_pct - dp_pct)
         forecast_html = f"""
 <div class="forecast">
 <h3>Прогноз</h3>
@@ -876,14 +979,17 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
 <body>
 <div class="container">
 
-<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
 
 <div class="company-header">
 <h1>{escape_html(name)}</h1>
 <div class="ticker">{ticker}{(' &middot; ' + escape_html(sector_name)) if sector_name else ''}</div>
 <div class="badges">
-{sentiment_badge(company['sentiment'])}
-{position_badge(company['position'])}
+{badge(company['sentiment'])}
+{badge(company['position'])}
 </div>
 <div class="metrics-grid">{metrics_html}</div>
 </div>
@@ -896,6 +1002,26 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
 </div>
 
 </div>
+
+<script>
+(function() {{
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\\u2600' : '\\u263E';
+    btn.addEventListener('click', function() {{
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {{
+            document.documentElement.setAttribute('data-theme', 'light');
+        }} else {{
+            document.documentElement.removeAttribute('data-theme');
+        }}
+        btn.textContent = next === 'light' ? '\\u2600' : '\\u263E';
+        localStorage.setItem('theme', next);
+    }});
+}})();
+</script>
 </body>
 </html>"""
 
