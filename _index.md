@@ -94,3 +94,4 @@ author: AlmazNurmukhametov
 | companies/OZON/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/LENT/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/ROSN/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/NVTK/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |

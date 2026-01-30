@@ -112,10 +112,10 @@
 - [x] Обновить `_index.md` (статус обновлений)
 
 ### Задача 2: Нефтегаз — NVTK (Новатэк)
-- [ ] WebFetch: smart-lab годовые + квартальные МСФО
-- [ ] Заполнить `companies/NVTK/_index.md` по шагам 2-7
-- [ ] Обновить `companies/_index.md`
-- [ ] Обновить `_index.md`
+- [x] WebFetch: smart-lab годовые + квартальные МСФО
+- [x] Заполнить `companies/NVTK/_index.md` по шагам 2-7
+- [x] Обновить `companies/_index.md`
+- [x] Обновить `_index.md`
 
 ### Задача 3: Нефтегаз — SIBN (Газпром нефть)
 - [ ] WebFetch: smart-lab годовые + квартальные МСФО

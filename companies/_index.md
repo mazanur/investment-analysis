@@ -17,7 +17,7 @@ updated: 2026-01-28
 | [GAZP](GAZP/) | Газпром | bearish | watch | 14 |
 | [ROSN](ROSN/) | Роснефть | neutral | hold | 1 |
 | [LKOH](LKOH/) | Лукойл | | watch | 10 |
-| [NVTK](NVTK/) | Новатэк | | watch | 4 |
+| [NVTK](NVTK/) | Новатэк | neutral | hold | 4 |
 | [SIBN](SIBN/) | Газпром нефть | | watch | 4 |
 
 ### Финансы
