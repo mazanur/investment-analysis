@@ -18,7 +18,7 @@ updated: 2026-01-28
 | [ROSN](ROSN/) | Роснефть | neutral | hold | 1 |
 | [LKOH](LKOH/) | Лукойл | | watch | 10 |
 | [NVTK](NVTK/) | Новатэк | neutral | hold | 4 |
-| [SIBN](SIBN/) | Газпром нефть | | watch | 4 |
+| [SIBN](SIBN/) | Газпром нефть | neutral | hold | 4 |
 
 ### Финансы
 | Тикер | Компания | Sentiment | Position | Мнений |
