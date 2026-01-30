@@ -33,7 +33,7 @@ updated: 2026-01-28
 |-------|----------|-----------|----------|--------|
 | [X5](X5/) | X5 Group | neutral | watch | 5 |
 | [FIVE](FIVE/) | X5 Group (GDR) | | watch | 6 |
-| [MGNT](MGNT/) | Магнит | | watch | 4 |
+| [MGNT](MGNT/) | Магнит | bearish | watch | 4 |
 | [FIXP](FIXP/) | Fix Price | | watch | 6 |
 | [LENT](LENT/) | Лента | bullish | buy | 2 |
 | [EUTR](EUTR/) | ЕвроТранс | neutral | watch | 0 |

@@ -96,3 +96,4 @@ author: AlmazNurmukhametov
 | companies/ROSN/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/NVTK/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/VTBR/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/MGNT/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |

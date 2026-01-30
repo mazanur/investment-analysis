@@ -131,10 +131,10 @@
 - [x] Коммит + push: "Заполнить карточку ВТБ (VTBR)"
 
 ### Задача 5: Ритейл — MGNT (Магнит)
-- [ ] Прочитать `sectors/retail/_index.md`
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/MGNT/_index.md`
-- [ ] Обновить индексные файлы
+- [x] Прочитать `sectors/retail/_index.md`
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/MGNT/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 6: Ритейл — FIVE (X5 GDR)
 - [ ] Прочитать заполненную `companies/X5/_index.md` как базу
