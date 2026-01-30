@@ -150,9 +150,9 @@
 - [x] Обновить индексные файлы
 
 ### Задача 8: IT — VKCO (VK)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/VKCO/_index.md`
-- [ ] Обновить индексные файлы
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/VKCO/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 9: IT — MTSS (МТС)
 - [ ] WebFetch: smart-lab данные

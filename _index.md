@@ -99,3 +99,4 @@ author: AlmazNurmukhametov
 | companies/MGNT/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/FIVE/_index.md | заполнен | 2026-01-30 | — | делистинг, не требует обновления |
 | companies/YDEX/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/VKCO/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |

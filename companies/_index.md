@@ -42,7 +42,7 @@ updated: 2026-01-28
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [YDEX](YDEX/) | Яндекс | neutral | watch | 4 |
-| [VKCO](VKCO/) | VK | | watch | 4 |
+| [VKCO](VKCO/) | VK | bearish | avoid | 4 |
 | [MTSS](MTSS/) | МТС | | watch | 5 |
 | [OZON](OZON/) | Озон | neutral | watch | 2 |
 | [HHRU](HHRU/) | HeadHunter | | watch | 2 |
