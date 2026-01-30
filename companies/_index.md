@@ -58,7 +58,7 @@ updated: 2026-01-28
 | [MAGN](MAGN/) | ММК | bearish | watch | 1 |
 | [ALRS](ALRS/) | Алроса | bearish | watch | 3 |
 | [PLZL](PLZL/) | Полюс | | watch | 2 |
-| [POLY](POLY/) | Polymetal | | watch | 1 |
+| [POLY](POLY/) | Polymetal (Solidcore) | bearish | avoid (делистинг) | 1 |
 | [RUAL](RUAL/) | Русал | | watch | 3 |
 
 ### Удобрения

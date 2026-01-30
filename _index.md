@@ -104,3 +104,4 @@ author: AlmazNurmukhametov
 | companies/RTKM/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/NLMK/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/MAGN/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/POLY/_index.md | заполнен | 2026-01-30 | — | делистинг, не требует обновления |

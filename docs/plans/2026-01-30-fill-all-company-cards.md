@@ -177,10 +177,10 @@
 - [x] Обновить индексные файлы
 
 ### Задача 13: Металлы — POLY (Polymetal)
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/POLY/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточки металлы: NLMK, MAGN, POLY"
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/POLY/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточки металлы: NLMK, MAGN, POLY"
 
 ### Задача 14: Строительство — PIKK (ПИК)
 - [ ] Прочитать `sectors/construction/_index.md`
