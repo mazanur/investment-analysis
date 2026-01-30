@@ -1,6 +1,6 @@
 ---
 type: root
-updated: 2026-01-29
+updated: 2026-01-30
 author: AlmazNurmukhametov
 ---
 
@@ -91,3 +91,4 @@ author: AlmazNurmukhametov
 | companies/HHRU/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/IRAO/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/HYDR/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
+| companies/OZON/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
