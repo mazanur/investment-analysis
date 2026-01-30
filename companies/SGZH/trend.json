@@ -1,0 +1,8 @@
+{
+  "ticker": "SGZH",
+  "sentiment": "bearish",
+  "upside": -0.27,
+  "growth_probability": 0.2,
+  "decline_probability": 0.75,
+  "updated": "2026-01-30"
+}
