@@ -6,3 +6,6 @@
 *_posts.json
 subtitles*.vtt
 data/
+
+# ralphex progress logs
+progress*.txt

@@ -82,7 +82,7 @@ def validate_company(company_path: str, company_name: str) -> list:
 
     # Проверяем валидность position
     position = meta.get('position', '')
-    if position and position not in ('buy', 'hold', 'sell', 'watch'):
+    if position and position not in ('buy', 'hold', 'sell', 'watch', 'avoid'):
         errors.append(f"Некорректный position: {position}")
 
     # Проверяем HTML-комментарии (остатки от шаблона)
