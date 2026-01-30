@@ -103,8 +103,8 @@
 - Modify: `companies/PHOR/_index.md`
 - Read: `sectors/agro/_index.md` (или chemicals если есть)
 
-- [ ] Прочитать секторальный контекст
-- [ ] **PHOR**: WebFetch smart-lab, Net Debt/EBITDA > 2.5x → вероятно EV/EBITDA метод, WACC, три сценария, стресс-тест долга если нужно
+- [x] Прочитать секторальный контекст
+- [x] **PHOR**: WebFetch smart-lab, Net Debt/EBITDA 1.14x → P/E метод (долг низкий), три сценария, перекрёстная проверка (DCF + дивидендный). Position changed: buy → watch (upside 18% < 30%). Маржа EBITDA и ROE в тренде вниз, cash-flow методы не подтверждают P/E-оценку
 
 ### Task 5: Энергетика — MSNG
 
