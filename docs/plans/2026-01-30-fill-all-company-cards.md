@@ -124,11 +124,11 @@
 - [x] Коммит + push: "Заполнить карточки нефтегаз: ROSN, NVTK, SIBN"
 
 ### Задача 4: Финансы — VTBR (ВТБ)
-- [ ] Прочитать `sectors/finance/_index.md`
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/VTBR/_index.md`
-- [ ] Обновить индексные файлы
-- [ ] Коммит + push: "Заполнить карточку ВТБ (VTBR)"
+- [x] Прочитать `sectors/finance/_index.md`
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/VTBR/_index.md`
+- [x] Обновить индексные файлы
+- [x] Коммит + push: "Заполнить карточку ВТБ (VTBR)"
 
 ### Задача 5: Ритейл — MGNT (Магнит)
 - [ ] Прочитать `sectors/retail/_index.md`

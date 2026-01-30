@@ -24,7 +24,7 @@ updated: 2026-01-28
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [SBER](SBER/) | Сбербанк | bullish | buy | 16 |
-| [VTBR](VTBR/) | ВТБ | | watch | 6 |
+| [VTBR](VTBR/) | ВТБ | neutral | watch | 6 |
 | [TCSG](TCSG/) | Т-Банк | bullish | buy | 19 |
 | [MOEX](MOEX/) | Мосбиржа | neutral | watch | 13 |
 
