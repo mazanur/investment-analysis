@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ФосАгро (PHOR) — Инвестиционный дашборд</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #0d1117; color: #e6edf3;
+    line-height: 1.6;
+}
+a { color: #388bfd; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
+header h1 { font-size: 24px; font-weight: 600; }
+header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: #238636; }
+.stat-card .value.blue { color: #388bfd; }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: #e6edf3; }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
+tr:hover { background: #161b22; }
+tr.stub td { color: #484f58; }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: #238636; color: #fff; }
+.badge-neutral { background: #d29922; color: #000; }
+.badge-bearish { background: #da3633; color: #fff; }
+.badge-buy { background: #238636; color: #fff; }
+.badge-hold { background: #388bfd; color: #fff; }
+.badge-sell { background: #da3633; color: #fff; }
+.badge-watch { background: #484f58; color: #e6edf3; }
+.badge-avoid { background: #da3633; color: #fff; }
+.badge-stub { background: #30363d; color: #8b949e; }
+
+/* Положительный/отрицательный upside */
+.positive { color: #3fb950; }
+.negative { color: #f85149; }
+.muted { color: #8b949e; }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
+.back:hover { color: #e6edf3; }
+
+/* Карточка компании */
+.company-header {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: #8b949e; font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
+.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: #d29922;
+}
+
+/* Контент анализа */
+.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid #30363d; padding: 8px 16px;
+    color: #8b949e; margin: 12px 0;
+}
+.analysis code {
+    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
+.analysis strong { color: #f0f6fc; }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+
+<div class="company-header">
+<h1>ФосАгро</h1>
+<div class="ticker">PHOR &middot; Агросектор</div>
+<div class="badges">
+<span class="badge badge-bullish">bullish</span>
+<span class="badge badge-buy">buy</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">6500</div></div><div class="metric"><div class="label">Цель</div><div class="value">9500</div></div><div class="metric"><div class="label">Upside</div><div class="value">+46%</div></div><div class="metric"><div class="label">P/E</div><div class="value">6.8</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">5.5%</div></div><div class="metric"><div class="label">ROE</div><div class="value">61%</div></div><div class="metric"><div class="label">P/BV</div><div class="value">5.1</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">5.5</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">1.28</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:70%">&#x25B2; 70%</div>
+<div class="flat" style="width:10%">10%</div>
+<div class="decline" style="width:20%">&#x25BC; 20%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>ФосАгро (PHOR)</h1>
+<p>Крупнейший в Европе и один из ведущих мировых производителей фосфорных удобрений. Вертикально интегрированная компания с собственной сырьевой базой апатитового концентрата.</p>
+<h2>Бизнес-модель</h2>
+<p><strong>Что продаёт:</strong></p>
+<ul><li>Фосфорные удобрения (MAP, DAP, NP/NPK) — ~75% выручки</li><li>Азотные удобрения (аммиачная селитра, карбамид) — ~15% выручки</li><li>Апатитовый концентрат — ~10% выручки</li></ul>
+<p><strong>Кому продаёт:</strong></p>
+<ul><li>Экспорт — ~70% выручки (Латинская Америка, Индия, Европа, Африка)</li><li>Россия — ~30% выручки (приоритетные поставки по регулируемым ценам)</li></ul>
+<p><strong>Откуда рост:</strong></p>
+<ul><li>Органический рост производства (+4% в 2024, +4,3% в 9М 2025)</li><li>Рост цен на удобрения после нормализации мировых запасов</li><li>Расширение мощностей (инвестпрограмма 75 млрд ₽ в 2024)</li></ul>
+<p><strong>Конкурентные преимущества:</strong></p>
+<ol><li><strong>Вертикальная интеграция</strong> — собственные месторождения апатита (100% самообеспеченность), снижает себестоимость</li><li><strong>Масштаб</strong> — №1 в Европе, №3 в мире по фосфорным удобрениям</li><li><strong>Низкая себестоимость</strong> — одна из самых низких в мире благодаря доступу к сырью</li><li><strong>Высокое качество продукции</strong> — премия к ценам конкурентов</li><li><strong>Диверсификация экспорта</strong> — >75% поставок в дружественные страны</li></ol>
+<p><strong>Зависимости:</strong></p>
+<ul><li>Мировые цены на удобрения (циклический фактор)</li><li>Курс рубля (экспортёр — выигрывает от девальвации)</li><li>Регулирование (экспортные квоты, внутренние цены)</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>Тренд</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>254</td><td>421</td><td>570</td><td>440</td><td>508</td><td>Восстановление</td></tr><tr><td>EBITDA, млрд ₽</td><td>86</td><td>192</td><td>258</td><td>183</td><td>177</td><td>Снижение</td></tr><tr><td>Маржа EBITDA, %</td><td>34%</td><td>46%</td><td>45%</td><td>42%</td><td>35%</td><td>Нормализация</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>43</td><td>130</td><td>182</td><td>104</td><td>100</td><td>Стабильно</td></tr><tr><td>FCF, млрд ₽</td><td>43</td><td>78</td><td>104</td><td>70</td><td>29</td><td>Давление капекса</td></tr><tr><td>Net Debt/EBITDA</td><td>1,8</td><td>0,8</td><td>0,7</td><td>1,2</td><td>1,8</td><td>Рост долга</td></tr><tr><td>ROE, %</td><td>40%</td><td>79%</td><td>92%</td><td>69%</td><td>61%</td><td>Высокий</td></tr><tr><td>DPS, ₽</td><td>297</td><td>885</td><td>1173</td><td>849</td><td>345</td><td>Снижение</td></tr></tbody></table></div>
+<h3>Результаты за 9М 2025 (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>9М 2025</th><th>9М 2024</th><th>Изм.</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>441,7</td><td>370,9</td><td>+19%</td></tr><tr><td>EBITDA, млрд ₽</td><td>145,7</td><td>123,6</td><td>+18%</td></tr><tr><td>Маржа EBITDA, %</td><td>33%</td><td>33%</td><td>→</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>95,7</td><td>65,0</td><td>+47%</td></tr><tr><td>Net Debt/EBITDA</td><td>1,28</td><td>—</td><td>Снижение</td></tr><tr><td>Производство, млн т</td><td>9,15</td><td>8,77</td><td>+4%</td></tr></tbody></table></div>
+<h3>LTM-показатели (Q4'24 + 9М'25)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>LTM</th><th>Комментарий</th></tr></thead><tbody><tr><td>Выручка</td><td>578 млрд ₽</td><td>Рекорд</td></tr><tr><td>EBITDA</td><td>200 млрд ₽</td><td>Восстановление</td></tr><tr><td>Чистая прибыль</td><td>123 млрд ₽</td><td>Рост +47% г/г</td></tr><tr><td>EPS</td><td>951 ₽</td><td>Основа для оценки</td></tr></tbody></table></div>
+<h3>Мультипликаторы (на 28.01.2026)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>PHOR</th><th>Сектор (AKRN)</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E LTM</td><td>6,8x</td><td>~7x</td><td>На уровне сектора</td></tr><tr><td>EV/EBITDA</td><td>5,5x</td><td>~5x</td><td>Небольшая премия</td></tr><tr><td>P/BV</td><td>5,1x</td><td>~3x</td><td>Премия за качество</td></tr><tr><td>Div Yield</td><td>5,5%</td><td>~5%</td><td>Сопоставимо</td></tr><tr><td>ROE</td><td>61%</td><td>~50%</td><td>Выше сектора</td></tr></tbody></table></div>
+<h2>Дивиденды</h2>
+<h3>Дивидендная политика</h3>
+<p>Выплата зависит от уровня долговой нагрузки:</p>
+<ul><li><strong>Net Debt/EBITDA < 1x</strong>: не менее 75% FCF</li><li><strong>1x–1,5x</strong>: 50–75% FCF</li><li><strong>> 1,5x</strong>: не более 50% FCF</li></ul>
+<p>Текущий долг 1,28x → выплаты ограничены 50–75% FCF. Приоритет 2025 — снижение долга.</p>
+<h3>История дивидендов</h3>
+<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, ₽</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td>2020</td><td>297</td><td>9,5%</td><td>70%</td></tr><tr><td>2021</td><td>885</td><td>15%</td><td>70%</td></tr><tr><td>2022</td><td>1173</td><td>18%</td><td>66%</td></tr><tr><td>2023</td><td>849</td><td>13%</td><td>84%</td></tr><tr><td>2024</td><td>345</td><td>5%</td><td>45%</td></tr><tr><td>2025E</td><td>360</td><td>5,5%</td><td>~40%</td></tr></tbody></table></div>
+<h3>Прогноз</h3>
+<p>При снижении Net Debt/EBITDA до <1x (ожидается в 2026-2027) и выплате 75% FCF:</p>
+<ul><li>FCF нормализованный: ~80-100 млрд ₽/год</li><li>DPS потенциальный: 600-770 ₽/акцию</li><li>Дивдоходность: 9-12%</li></ul>
+<h2>Риски</h2>
+<ol><li><strong>Цены на удобрения</strong> — цикличный рынок, цены могут снизиться при росте мировых мощностей</li><li><strong>Экспортные ограничения ЕС</strong> — пошлины до 40%, потеря премиального рынка</li><li><strong>Внутреннее регулирование</strong> — заморозка цен для российских аграриев снижает маржу</li><li><strong>Капекс</strong> — высокие инвестиции (75 млрд в 2024) давят на FCF</li><li><strong>Долг</strong> — хотя 1,28x умеренный, при высокой ставке процентные расходы выросли в 2x</li></ol>
+<h2>Оценка справедливой стоимости</h2>
+<h3>Параметры модели</h3>
+<div class="table-wrap"><table><thead><tr><th>Параметр</th><th>Значение</th><th>Обоснование</th></tr></thead><tbody><tr><td>EPS LTM</td><td>951 ₽</td><td>Чистая прибыль LTM / кол-во акций</td></tr><tr><td>r (базовый)</td><td>18%</td><td>Ставка ЦБ 13% (прогноз) + ERP 5%</td></tr><tr><td>g</td><td>6%</td><td>CAGR выручки с учётом цикличности</td></tr><tr><td>Поправка</td><td>+20%</td><td>ROE выше сектора, лидер, рост; минус снижение маржи</td></tr></tbody></table></div>
+<h3>Расчёт целевого P/E</h3>
+<p>Базовый P/E = 1 / (r − g) = 1 / (18% − 6%) = 8,3x</p>
+<p>Целевой P/E = 8,3 × 1,20 = <strong>10,0x</strong></p>
+<h3>Сценарный анализ</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16% (текущая)</td><td>21%</td><td>8,0x</td><td>7 608 ₽</td><td>+17%</td></tr><tr><td><strong>Базовый</strong></td><td>13% (прогноз)</td><td>18%</td><td>10,0x</td><td><strong>9 510 ₽</strong></td><td><strong>+46%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>13,3x</td><td>12 648 ₽</td><td>+95%</td></tr></tbody></table></div>
+<h3>Чувствительность к g (базовый r = 18%)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>3% (консервативный)</td><td>8,0x</td><td>7 608 ₽</td><td>+17%</td></tr><tr><td><strong>6% (базовый)</strong></td><td>10,0x</td><td>9 510 ₽</td><td>+46%</td></tr><tr><td>8% (оптимистичный)</td><td>12,0x</td><td>11 412 ₽</td><td>+76%</td></tr></tbody></table></div>
+<p>При консервативном g = 3% upside всё ещё положительный (+17%) → тезис устойчив.</p>
+<h3>Перекрёстная проверка</h3>
+<p><strong>Дивидендный метод:</strong></p>
+<ul><li>DPS прогноз (УК ДОХОДЪ): 432 ₽</li><li>Целевая дивдоходность = r − g = 12%</li><li>Цена = 432 / 0,12 = 3 600 ₽ — существенно ниже</li></ul>
+<p>Расхождение объясняется: дивиденды ограничены долгом (50-75% FCF вместо 75%+). При нормализации долга и выплате 75% FCF (~600 ₽):</p>
+<ul><li>Цена = 600 / 0,12 = 5 000 ₽ — ближе к текущей</li></ul>
+<p><strong>Вывод:</strong> текущая цена закладывает сценарий умеренных дивидендов. P/E метод показывает потенциал переоценки при снижении ставки.</p>
+<h3>Итоговая оценка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Целевая цена</th><th>Вес</th></tr></thead><tbody><tr><td>P/E (базовый)</td><td>9 510 ₽</td><td>70%</td></tr><tr><td>Дивидендный (нормализованный)</td><td>5 000 ₽</td><td>30%</td></tr><tr><td><strong>Взвешенная</strong></td><td><strong>8 157 ₽</strong></td><td>—</td></tr></tbody></table></div>
+<p><strong>my_fair_value = 9 500 ₽</strong> (округлённо, P/E метод как основной)</p>
+<h2>Мой тезис</h2>
+<p><strong>Покупать.</strong> ФосАгро — качественный бизнес (ROE 61%, вертикальная интеграция, лидер рынка) по умеренной цене (P/E 6,8x). Ключевой катализатор — снижение ставки ЦБ с 16% до 13% в 2026 году, что переоценит мультипликаторы на 20-30%. Дополнительный драйвер — снижение долга до <1x EBITDA, после чего компания вернётся к выплате 75% FCF (дивдоходность 9-12%).</p>
+<p><strong>Катализаторы:</strong></p>
+<ol><li>Заседания ЦБ (февраль, март, апрель 2026) — каждое снижение ставки позитивно</li><li>Публикация годового отчёта за 2025 (февраль 2026) — сильные результаты</li><li>Рекомендация дивидендов за 2025 год — потенциально выше ожиданий при снижении долга</li></ol>
+<p><strong>Риск тезиса:</strong> падение цен на удобрения при рецессии или росте мировых мощностей может снизить прибыль и оправдать текущий низкий P/E.</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-28</td><td>Первичный анализ</td><td>6500 ₽</td><td>Position: buy, target 9500 ₽</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/PHOR/f/y/MSFO/" target="_blank">Smart-lab: PHOR годовые МСФО</a></li><li><a href="https://smart-lab.ru/q/PHOR/f/q/MSFO/" target="_blank">Smart-lab: PHOR квартальные МСФО</a></li><li><a href="https://www.phosagro.ru/investors/reports_and_results/" target="_blank">ФосАгро IR: отчёты и результаты</a></li><li><a href="https://www.phosagro.ru/investors/dividends/" target="_blank">ФосАгро: дивидендная политика</a></li><li><a href="https://www.dohod.ru/ik/analytics/dividend/phor" target="_blank">УК ДОХОДЪ: дивиденды ФосАгро</a></li><li><a href="https://www.kommersant.ru/doc/8213932" target="_blank">Коммерсант: результаты 9М 2025</a></li><li><a href="https://bcs.ru/markets/phor/tqbr/dividends" target="_blank">BCS: прогнозы аналитиков</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+</div>
+
+</div>
+</body>
+</html>

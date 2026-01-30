@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лукойл (LKOH) — Инвестиционный дашборд</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #0d1117; color: #e6edf3;
+    line-height: 1.6;
+}
+a { color: #388bfd; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
+header h1 { font-size: 24px; font-weight: 600; }
+header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: #238636; }
+.stat-card .value.blue { color: #388bfd; }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: #e6edf3; }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
+tr:hover { background: #161b22; }
+tr.stub td { color: #484f58; }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: #238636; color: #fff; }
+.badge-neutral { background: #d29922; color: #000; }
+.badge-bearish { background: #da3633; color: #fff; }
+.badge-buy { background: #238636; color: #fff; }
+.badge-hold { background: #388bfd; color: #fff; }
+.badge-sell { background: #da3633; color: #fff; }
+.badge-watch { background: #484f58; color: #e6edf3; }
+.badge-avoid { background: #da3633; color: #fff; }
+.badge-stub { background: #30363d; color: #8b949e; }
+
+/* Положительный/отрицательный upside */
+.positive { color: #3fb950; }
+.negative { color: #f85149; }
+.muted { color: #8b949e; }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
+.back:hover { color: #e6edf3; }
+
+/* Карточка компании */
+.company-header {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: #8b949e; font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
+.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: #d29922;
+}
+
+/* Контент анализа */
+.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid #30363d; padding: 8px 16px;
+    color: #8b949e; margin: 12px 0;
+}
+.analysis code {
+    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
+.analysis strong { color: #f0f6fc; }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+
+<div class="company-header">
+<h1>Лукойл</h1>
+<div class="ticker">LKOH &middot; Нефтегаз</div>
+<div class="badges">
+<span class="badge badge-bullish">bullish</span>
+<span class="badge badge-buy">buy</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">5250</div></div><div class="metric"><div class="label">Цель</div><div class="value">7700</div></div><div class="metric"><div class="label">Upside</div><div class="value">+47%</div></div><div class="metric"><div class="label">P/E</div><div class="value">3.8</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">15%</div></div><div class="metric"><div class="label">ROE</div><div class="value">12%</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">3 230 млрд</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.65</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">2.3</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">-0.1</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:70%">&#x25B2; 70%</div>
+<div class="flat" style="width:10%">10%</div>
+<div class="decline" style="width:20%">&#x25BC; 20%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>Лукойл (LKOH)</h1>
+<h2>Бизнес-модель</h2>
+<p>Вторая по размеру нефтяная компания России после Роснефти. Вертикально интегрированный холдинг: разведка, добыча, переработка и сбыт нефти и нефтепродуктов.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Добыча нефти</strong> (~70% EBITDA): добыча ~85 млн т/год. Западная Сибирь, Тимано-Печора, Каспий</li><li><strong>Переработка</strong> (~25%): 4 НПЗ в России + зарубежные активы (Болгария, Румыния, Италия — под вопросом из-за санкций)</li><li><strong>Сбыт</strong> (~5%): АЗС под брендом «ЛУКОЙЛ» (>5 000 станций)</li></ul>
+<p><strong>География добычи:</strong></p>
+<ul><li>Россия: ~90% добычи</li><li>Зарубежье: Ирак, Узбекистан, Казахстан (~10%)</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Байбек и погашение акций — EPS растёт при стабильной прибыли (погашено 76 млн акций, 11% от капитала)</li><li>Слабый рубль — валютная выручка при рублёвых затратах</li><li>Дивидендная политика 100% FCF — высокая доходность</li><li>Отрицательный чистый долг — финансовая устойчивость при любом сценарии</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Низкая себестоимость добычи</strong>: lifting cost ~$3-4/барр. — выживает при любых ценах</li><li><strong>Отрицательный чистый долг</strong>: чистая денежная позиция ~140 млрд руб. после байбека</li><li><strong>Диверсификация</strong>: добыча в нескольких регионах, переработка, сбыт</li><li><strong>Качество управления</strong>: консервативный менеджмент, прозрачная дивидендная политика</li><li><strong>Санкции</strong>: под давлением, но меньше, чем Роснефть/Газпром нефть — частная компания без госучастия</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li><strong>Цена нефти</strong>: при Brent $55/барр. и Urals $40 маржинальность сократится на 30-40%</li><li><strong>Курс рубля</strong>: укрепление до 85 руб./$ негативно для рублёвой прибыли</li><li><strong>Квоты ОПЕК+</strong>: ограничивают добычу (~9,5 млн б/с для России)</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Зарубежные НПЗ</strong>: риск национализации/принудительной продажи в Европе</li><li><strong>Теневой флот</strong>: логистика дороже из-за санкций</li><li><strong>Дисконт Urals</strong>: $15-27 к Brent — рекордный спред</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>Санкции США</strong>: LKOH в SDN-списке с ограничениями</li><li><strong>Ценовой потолок ЕС</strong>: $44/барр. с февраля 2026</li><li><strong>НДПИ</strong>: сокращение дисконта к Brent для расчёта НДПИ ($6 в 2026 vs $10 в 2025)</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>5 639</td><td>9 431</td><td>7 928</td><td>8 622</td><td>7 890</td></tr><tr><td>EBITDA, млрд ₽</td><td>687</td><td>1 404</td><td>2 005</td><td>1 785</td><td>1 406</td></tr><tr><td>Маржа EBITDA, %</td><td>12,2%</td><td>14,9%</td><td>25,3%</td><td>20,7%</td><td>17,8%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>15</td><td>773</td><td>790</td><td>1 155</td><td>849</td></tr><tr><td>FCF, млрд ₽</td><td>281</td><td>694</td><td>964</td><td>979</td><td>847</td></tr><tr><td>Net Debt, млрд ₽</td><td>—</td><td>—</td><td>—</td><td>-1 046</td><td>-140</td></tr><tr><td>Net Debt/EBITDA</td><td>—</td><td>—</td><td>—</td><td>-0,6x</td><td>-0,1x</td></tr><tr><td>ROE, %</td><td>0,3%</td><td>12,4%</td><td>13,3%</td><td>17,1%</td><td>12,0%</td></tr><tr><td>EPS, ₽</td><td>22</td><td>1 116</td><td>1 140</td><td>1 667</td><td>1 382</td></tr></tbody></table></div>
+<h3>Квартальные (2024)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3'24</th><th>Q4'24</th><th>Комментарий</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>4 288</td><td>3 602</td><td>-16% QoQ (сезонность)</td></tr><tr><td>EBITDA, млрд ₽</td><td>800</td><td>606</td><td>-24% QoQ</td></tr><tr><td>Маржа EBITDA, %</td><td>18,7%</td><td>16,8%</td><td>Сжатие из-за падения цен</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>258</td><td>287</td><td>+11% QoQ</td></tr><tr><td>FCF, млрд ₽</td><td>537</td><td>309</td><td>-42% QoQ</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> выручка и EBITDA под давлением из-за падения цен на нефть. Прибыль относительно стабильна. FCF волатилен из-за сезонности капзатрат.</p>
+<h2>Дивиденды</h2>
+<div class="table-wrap"><table><thead><tr><th>Год (за)</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2020</td><td>259</td><td>4,3%</td><td>Пандемийный год</td></tr><tr><td>2021</td><td>877</td><td>12,8%</td><td>Восстановление</td></tr><tr><td>2022</td><td>694</td><td>9,3%</td><td>Без финальных</td></tr><tr><td>2023</td><td>945</td><td>14,2%</td><td>Рекорд</td></tr><tr><td>2024</td><td>1 055</td><td>14,6%</td><td>Промежуточные: 514 + 397 + финальные</td></tr><tr><td><strong>2025E</strong></td><td><strong>~800</strong></td><td><strong>~15%</strong></td><td>После байбека — меньше, но на акцию сопоставимо</td></tr></tbody></table></div>
+<p><strong>Дивидендная политика:</strong> 100% скорректированного FCF (минус проценты, аренда, buyback). Выплаты 2 раза в год.</p>
+<p><strong>Ближайшая выплата:</strong> за 9М 2025 — 397 руб./акцию, дата отсечки 23.01.2026 (уже прошла).</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>Текущее</th><th>Среднее 5Y</th><th>Сектор</th></tr></thead><tbody><tr><td>P/E</td><td>3,8x</td><td>6-7x</td><td>4-5x</td></tr><tr><td>EV/EBITDA</td><td>2,3x</td><td>3-4x</td><td>2,5-3,5x</td></tr><tr><td>P/BV</td><td>0,65x</td><td>0,8x</td><td>0,6x</td></tr><tr><td>Div Yield</td><td>15%</td><td>12%</td><td>8-10%</td></tr><tr><td>ROE</td><td>12%</td><td>11%</td><td>10-15%</td></tr></tbody></table></div>
+<p>Лукойл торгуется с дисконтом ~40% к историческим средним по P/E и с премией по дивидендной доходности.</p>
+<h2>Мой тезис</h2>
+<p>Лукойл — лучшая дивидендная история в нефтегазовом секторе. Компания генерирует 850+ млрд руб. FCF ежегодно, выплачивает 100% акционерам и имеет отрицательный чистый долг. После байбека на 654 млрд руб. количество акций сократилось на 11%, что повышает EPS и DPS при той же прибыли.</p>
+<p>При текущей цене 5 250 руб. P/E = 3,8x — рекордный дисконт к историческим 6-7x. Причина — общий негатив к нефтяному сектору (низкие цены, санкции). Но Лукойл защищён: низкая себестоимость, нулевой долг, валютная выручка.</p>
+<p><strong>Катализаторы:</strong></p>
+<ol><li>Девальвация рубля до 100+ руб./$ → рост рублёвой прибыли</li><li>Снижение ставки ЦБ → переоценка мультипликаторов</li><li>Дивиденды ~800 руб./акцию → доходность 15%</li><li>Стабилизация цен Brent выше $65</li></ol>
+<h2>Целевая цена</h2>
+<h3>Расчёт по методологии</h3>
+<p><strong>Исходные данные:</strong></p>
+<ul><li>EPS (2024): 1 382 руб. (с учётом погашения акций)</li><li>r = 21% (ставка ЦБ 16% + ERP 5%)</li><li>g = 5% (зрелая компания, рост ≈ инфляция)</li><li>Net Debt/EBITDA = -0,1x → используем P/E</li></ul>
+<p><strong>Базовый P/E:</strong> ``<code> Базовый P/E = 1 / (r - g) = 1 / (0,21 - 0,05) = 6,25x </code>``</p>
+<p><strong>Поправки за качество:</strong></p>
+<ul><li>ROE 12% ≈ среднему по сектору: 0%</li><li>Лидер сектора по качеству управления: +10%</li><li>Санкции (SDN, ценовой потолок): -10%</li><li><strong>Итого поправка: 0%</strong></li></ul>
+<p><strong>Целевой P/E = 6,25x</strong></p>
+<h3>Три сценария (горизонт 12 мес.)</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>18%</td><td>23%</td><td>5,6x</td><td>7 740 ₽</td><td>+47%</td></tr><tr><td><strong>Базовый</strong></td><td>14%</td><td>19%</td><td>7,1x</td><td><strong>9 800 ₽</strong></td><td><strong>+87%</strong></td></tr><tr><td>Оптимистичный</td><td>12%</td><td>17%</td><td>8,3x</td><td>11 470 ₽</td><td>+118%</td></tr></tbody></table></div>
+<h3>Чувствительность к g</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>3%</td><td>5,6x</td><td>7 740 ₽</td><td>+47%</td></tr><tr><td><strong>5%</strong></td><td><strong>6,25x</strong></td><td><strong>8 640 ₽</strong></td><td><strong>+65%</strong></td></tr><tr><td>7%</td><td>7,1x</td><td>9 810 ₽</td><td>+87%</td></tr></tbody></table></div>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (базовый)</td><td>8 640 ₽</td><td>+65%</td><td>Целевой P/E 6,25x</td></tr><tr><td>EV/EBITDA (3,5x)</td><td>8 100 ₽</td><td>+54%</td><td>EV = 3,5 × 1406 = 4920, минус долг</td></tr><tr><td>Дивидендный</td><td>8 000 ₽</td><td>+52%</td><td>DPS 800 / 10% yield</td></tr><tr><td>FCF yield (10%)</td><td>8 400 ₽</td><td>+60%</td><td>FCF 847 / 10% / 0.615 млрд акций</td></tr><tr><td><strong>Консенсус методов</strong></td><td><strong>~8 000 ₽</strong></td><td><strong>~52%</strong></td><td></td></tr></tbody></table></div>
+<p><strong>my_fair_value = 7 700 ₽</strong> (консервативно, с учётом нефтяного риска и санкций)</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" checked disabled> <strong>Upside > 30%</strong> — да, +47% в пессимистичном сценарии</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — дивиденды 15%, девальвация, снижение ставки</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — см. выше</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA < 2,5x</strong> — отрицательный (-0,1x)</li><li><input type="checkbox" checked disabled> <strong>Маржа стабильна</strong> — EBITDA маржа 17-20%, колебания из-за цен на нефть</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — отличная, ADV > 5 млрд ₽</li><li><input type="checkbox" checked disabled> <strong>Качество прибыли</strong> — FCF/Net Income > 1 (FCF 847 vs Profit 849)</li><li><input type="checkbox" checked disabled> <strong>Нет value trap</strong> — прибыль и FCF стабильны, нет падающего тренда</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — санкции, но меньше чем у госкомпаний</li></ul>
+<p><strong>Результат: 9/9 — buy подтверждён.</strong></p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-29</td><td><strong>BUY</strong></td><td>5 250 ₽</td><td>Недооценка P/E 3,8x, дивдоходность 15%, отрицательный долг</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/LKOH/f/y/MSFO/" target="_blank">Smart-lab: LKOH финансы МСФО</a></li><li><a href="https://www.investing.com/equities/lukoil_rts" target="_blank">Investing.com: LKOH</a></li><li><a href="https://lukoil.ru/InvestorAndShareholderCenter/Securities/Dividends" target="_blank">Лукойл IR: дивиденды</a></li><li><a href="https://www.tbank.ru/invest/stocks/LKOH/" target="_blank">T-Bank: LKOH</a></li><li><a href="https://www.dohod.ru/ik/analytics/dividend/lkoh" target="_blank">Dohod.ru: LKOH</a></li><li><a href="https://ru.investing.com/analysis/article-200324261" target="_blank">Forbes: buyback Лукойл</a></li><li><a href="../sectors/oil-gas/_index.md" target="_blank">Секторальный анализ: Нефтегаз</a></li></ul>
+</div>
+
+</div>
+</body>
+</html>

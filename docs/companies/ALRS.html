@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Алроса (ALRS) — Инвестиционный дашборд</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #0d1117; color: #e6edf3;
+    line-height: 1.6;
+}
+a { color: #388bfd; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
+header h1 { font-size: 24px; font-weight: 600; }
+header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: #238636; }
+.stat-card .value.blue { color: #388bfd; }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: #e6edf3; }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
+tr:hover { background: #161b22; }
+tr.stub td { color: #484f58; }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: #238636; color: #fff; }
+.badge-neutral { background: #d29922; color: #000; }
+.badge-bearish { background: #da3633; color: #fff; }
+.badge-buy { background: #238636; color: #fff; }
+.badge-hold { background: #388bfd; color: #fff; }
+.badge-sell { background: #da3633; color: #fff; }
+.badge-watch { background: #484f58; color: #e6edf3; }
+.badge-avoid { background: #da3633; color: #fff; }
+.badge-stub { background: #30363d; color: #8b949e; }
+
+/* Положительный/отрицательный upside */
+.positive { color: #3fb950; }
+.negative { color: #f85149; }
+.muted { color: #8b949e; }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
+.back:hover { color: #e6edf3; }
+
+/* Карточка компании */
+.company-header {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: #8b949e; font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
+.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: #d29922;
+}
+
+/* Контент анализа */
+.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid #30363d; padding: 8px 16px;
+    color: #8b949e; margin: 12px 0;
+}
+.analysis code {
+    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
+.analysis strong { color: #f0f6fc; }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+
+<div class="company-header">
+<h1>Алроса</h1>
+<div class="ticker">ALRS &middot; Металлы и добыча</div>
+<div class="badges">
+<span class="badge badge-bearish">bearish</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">42.2</div></div><div class="metric"><div class="label">Цель</div><div class="value">54</div></div><div class="metric"><div class="label">Upside</div><div class="value">+28%</div></div><div class="metric"><div class="label">P/E</div><div class="value">12.3</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">5.9%</div></div><div class="metric"><div class="label">ROE</div><div class="value">6.2%</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">311 млрд</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.77</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">6.96</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:20%">&#x25B2; 20%</div>
+<div class="flat" style="width:15%">15%</div>
+<div class="decline" style="width:65%">&#x25BC; 65%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>Алроса (ALRS)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейшая в мире алмазодобывающая компания (~30% мировой добычи), основной актив — кимберлитовые трубки в Якутии. Контролирующий акционер — Республика Саха (33%) и РФ (33%).</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Добыча алмазов</strong> (~95% выручки): открытые и подземные рудники в Якутии. Добыча 2024: 29 млн карат (2026 план: 25-26 млн карат — снижение на 14%)</li><li><strong>Огранка и продажа</strong>: продажа необработанных и огранённых алмазов. Основные рынки — Индия, ОАЭ, Бельгия (до санкций), Китай</li><li><strong>Диверсификация в золото</strong> (в перспективе): геологоразведка в Якутии, Забайкалье, Иркутской области и на Таймыре. Проект Дегдекан. Отдача не ранее 2028-2030</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Восстановление мирового спроса на алмазы (Индия, Китай) при нормализации запасов</li><li>Сокращение мирового предложения (добыча на многолетних минимумах ~95-105 млн карат)</li><li>Диверсификация в золотодобычу — долгосрочный опцион</li><li>Ослабление рубля — позитивно для экспортной выручки</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Масштаб</strong>: ~30% мировой добычи алмазов, крупнейший производитель</li><li><strong>Низкая себестоимость</strong>: одни из самых дешёвых в мире кимберлитовых трубок</li><li><strong>Богатые запасы</strong>: ресурсная база на 25+ лет добычи</li><li><strong>Господ держка</strong>: стратегическое предприятие, поддержка Якутии и федерального правительства</li></ul>
+<h2>Риски</h2>
+<h3>Структурные риски (главные)</h3>
+<ul><li><strong>Синтетические алмазы</strong>: доля выросла с ~1% до >20% ювелирного рынка за 10 лет. Цены на синтетику упали на 65% (2023-2025), делая их массовым товаром. Долгосрочная угроза для всей отрасли</li><li><strong>Санкции G7</strong>: запрет на импорт российских алмазов с 2024 года. Закрыты рынки ЕС и США (>50% мирового спроса). Вынужденная переориентация на Индию/ОАЭ/Китай с дисконтом</li></ul>
+<h3>Макро-риски</h3>
+<ul><li><strong>Кризис алмазного рынка</strong>: цены упали на 40% с пика 2022 года (индекс IDEX снизился на 13% в 2024). De Beers снизила цены в январе 2026</li><li><strong>Крепкий рубль</strong>: сжимает рублёвую маржу экспортёра</li><li><strong>Слабый спрос Китая</strong>: крупнейший рынок роскоши сокращает расходы</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Отрицательный FCF</strong>: -64 млрд ₽ (LTM). Бизнес не генерирует кэш</li><li><strong>Рост долга</strong>: Net Debt вырос с 9.5 млрд (2022) до 60.9 млрд (LTM)</li><li><strong>Затраты на Дегдекан</strong>: инвестиции в золотодобычу давят на FCF в 2026-2028</li><li><strong>Снижение добычи</strong>: 2026 план 25-26 млн карат (-14% к 2024)</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>217</td><td>327</td><td>295</td><td>323</td><td>239</td><td>194</td></tr><tr><td>EBITDA, млрд ₽</td><td>87.6</td><td>139.5</td><td>140.6</td><td>134.7</td><td>78.6</td><td>53.3</td></tr><tr><td>Маржа EBITDA</td><td>40.3%</td><td>42.7%</td><td>47.6%</td><td>41.8%</td><td>32.9%</td><td>27.5%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>32.2</td><td>91.3</td><td>100.4</td><td>85.1</td><td>21.2</td><td>25.3</td></tr><tr><td>FCF, млрд ₽</td><td>79.5</td><td>105.9</td><td>50.3</td><td>2.65</td><td>-17.6</td><td>-64.2</td></tr><tr><td>Чистый долг, млрд ₽</td><td>31.2</td><td>61.2</td><td>9.55</td><td>36.1</td><td>107.9</td><td>60.9</td></tr><tr><td>Net Debt/EBITDA</td><td>0.36</td><td>0.44</td><td>0.07</td><td>0.27</td><td>1.37</td><td>1.14</td></tr><tr><td>P/E</td><td>22.6</td><td>9.88</td><td>4.32</td><td>6.02</td><td>20.0</td><td>12.3</td></tr><tr><td>EV/EBITDA</td><td>8.66</td><td>6.91</td><td>3.15</td><td>4.07</td><td>6.76</td><td>6.96</td></tr><tr><td>P/BV</td><td>2.77</td><td>4.06</td><td>1.35</td><td>1.35</td><td>1.16</td><td>0.77</td></tr><tr><td>ROE</td><td>12.2%</td><td>40.8%</td><td>31.1%</td><td>22.3%</td><td>5.7%</td><td>6.2%</td></tr></tbody></table></div>
+<h3>Квартальные (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2023Q2</th><th>2023Q4</th><th>2024Q2</th><th>2024Q4</th><th>2025Q2</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>92.5</td><td>134.5</td><td>179.5</td><td>59.6</td><td>134.3</td><td>193.9</td></tr><tr><td>Маржа EBITDA</td><td>—</td><td>—</td><td>34.8%</td><td>27.2%</td><td>27.6%</td><td>27.5%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>27.1</td><td>29.6</td><td>36.5</td><td>-15.3</td><td>40.6</td><td>25.3</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> выручка и маржа устойчиво снижаются. EBITDA маржа упала с 47.6% (2022) до 27.5% (LTM) — потеря эффективности 4+ квартала подряд. FCF отрицательный. Прибыль нестабильна (убыток в Q4'24). Это циклический минимум, но с наложением структурных проблем (синтетика, санкции).</p>
+<p><strong>Красные флаги:</strong></p>
+<ul><li>Маржа EBITDA падает 3+ квартала подряд (с 47.6% до 27.5%)</li><li>FCF отрицательный 2-й год (-17.6 в 2024, -64.2 LTM)</li><li>ROE 6.2% << стоимость капитала (~21%)</li></ul>
+<p><strong>Число акций:</strong> 7 365 млн</p>
+<h2>Дивиденды</h2>
+<div class="table-wrap"><table><thead><tr><th>Год (за)</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2018</td><td>10.04</td><td>10.2%</td><td>Пик</td></tr><tr><td>2019</td><td>6.47</td><td>7.7%</td><td></td></tr><tr><td>2020</td><td>9.54</td><td>9.7%</td><td></td></tr><tr><td>2021</td><td>8.79</td><td>7.2%</td><td></td></tr><tr><td>2022</td><td>0</td><td>0%</td><td>Пропуск из-за санкций</td></tr><tr><td>2023</td><td>5.79</td><td>8.3%</td><td>Частичное восстановление</td></tr><tr><td>2024</td><td>2.49</td><td>4.3%</td><td>Только за 1П2024 (50% ЧП)</td></tr><tr><td><strong>2025E</strong></td><td><strong>3.72</strong></td><td><strong>8.8%</strong></td><td>Прогноз УК «Доходъ»</td></tr></tbody></table></div>
+<p><strong>Дивидендная политика:</strong> привязана к FCF и уровню долга. При ND/EBITDA < 1.0x: 70-100% FCF. При ND/EBITDA 1.0-1.5x: 50-70% FCF. При ND/EBITDA > 1.5x: 50% чистой прибыли (минимум).</p>
+<p><strong>Проблема:</strong> FCF отрицательный → дивиденды формально могут выплачиваться из чистой прибыли (50%), но при отсутствии свободного кэша это ведёт к наращиванию долга. Устойчивость выплат под вопросом.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>Текущее (LTM)</th><th>Среднее 5Y</th><th>Сектор (metals)</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>12.3x</td><td>7.0x</td><td>5-8x</td><td>Завышен из-за тrough-прибыли</td></tr><tr><td>EV/EBITDA</td><td>6.96x</td><td>5.0x</td><td>4-6x</td><td>Выше среднего</td></tr><tr><td>P/BV</td><td>0.77x</td><td>1.7x</td><td>0.8-1.5x</td><td>Ниже баланса — рынок не верит в recovery</td></tr><tr><td>Div Yield</td><td>5.9%</td><td>7.4%</td><td>5-10%</td><td>При текущей цене</td></tr><tr><td>ROE</td><td>6.2%</td><td>22%</td><td>15-25%</td><td>Резко упал с пиковых 40%</td></tr></tbody></table></div>
+<p>P/BV < 1 при ROE 6% — рынок закладывает, что бизнес разрушает стоимость (ROE < стоимости капитала). Это не дешевизна, а сигнал проблем.</p>
+<h2>Мой тезис</h2>
+<p>Алроса находится на пересечении циклического спада и структурного давления. <strong>Циклический фактор</strong> — алмазы на многолетних минимумах, мировая добыча сокращается, рано или поздно рынок перебалансируется. <strong>Структурный фактор</strong> — синтетические алмазы занимают >20% рынка и растут, санкции G7 закрыли 50%+ традиционных рынков. Даже при восстановлении цен на алмазы компания не вернётся к маржам 2021-2022 (47%) — новая норма ближе к 30-35%.</p>
+<p>При нормализованной прибыли (85 млрд — уровень 2023) и целевом P/E 4.67x (r=18%, g=3%, поправка -30% за падающую маржу, моноэкспозицию и санкции) справедливая цена составляет ~54 ₽. Upside 28% — интересно, но недостаточно для buy: нет ближайшего катализатора, FCF отрицательный, дивиденды нестабильны.</p>
+<p><strong>Position: watch.</strong> Покупать при: (1) развороте цен на алмазы (+15% от текущих), (2) возврате FCF в положительную зону, (3) цене акции < 35 ₽ (upside > 50%).</p>
+<h2>Целевая цена</h2>
+<h3>Основной метод: P/E (ND/EBITDA 1.14x < 2.5x)</h3>
+<p><strong>Параметры:</strong></p>
+<ul><li>Нормализованная ЧП: 85 млрд ₽ (уровень 2023 как mid-cycle)</li><li>EPS (norm): 85 / 7.365 = 11.54 ₽</li><li>r = ставка ЦБ + ERP (5%)</li><li>g = 3% (зрелая циклическая компания, структурные headwinds)</li></ul>
+<p><strong>Поправка за качество:</strong></p>
+<ul><li>ROE ниже среднего по сектору: 0%</li><li>Маржа падает 3+ квартала: -10%</li><li>Зависимость от одного commodity: -10%</li><li>Санкции G7 (потеря экспортных рынков): -10%</li><li>ND/EBITDA 1.14x: 0%</li><li>Итого: <strong>-30%</strong> (множитель 0.70)</li></ul>
+<h3>Три сценария</h3>
+<div class="table-wrap"><table><thead><tr><th></th><th>Пессимистичный</th><th>Базовый</th><th>Оптимистичный</th></tr></thead><tbody><tr><td>Ставка ЦБ (горизонт 12 мес.)</td><td>16% (без снижения)</td><td>13% (прогноз ЦБ)</td><td>10% (агрессивное снижение)</td></tr><tr><td>r = ставка + ERP</td><td>21%</td><td>18%</td><td>15%</td></tr><tr><td>Базовый P/E = 1/(r−g)</td><td>5.56x</td><td>6.67x</td><td>8.33x</td></tr><tr><td>Целевой P/E (×0.70)</td><td>3.89x</td><td>4.67x</td><td>5.83x</td></tr><tr><td><strong>Целевая цена = EPS × P/E</strong></td><td><strong>44.9 ₽</strong></td><td><strong>53.9 ₽</strong></td><td><strong>67.3 ₽</strong></td></tr><tr><td><strong>Upside</strong></td><td><strong>+6%</strong></td><td><strong>+28%</strong></td><td><strong>+59%</strong></td></tr></tbody></table></div>
+<h3>Чувствительность к g (базовый сценарий ставки 13%)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>0% (стагнация)</td><td>3.89x</td><td>44.9 ₽</td><td>+6%</td></tr><tr><td><strong>3% (базовый)</strong></td><td><strong>4.67x</strong></td><td><strong>53.9 ₽</strong></td><td><strong>+28%</strong></td></tr><tr><td>5% (оптимистичный)</td><td>5.38x</td><td>62.1 ₽</td><td>+47%</td></tr></tbody></table></div>
+<p>При g = 0% (стагнация прибыли) upside лишь 6% — тезис хрупкий.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (базовый, норм. прибыль)</td><td>53.9 ₽</td><td>+28%</td><td>Основной метод</td></tr><tr><td>P/E (LTM trough)</td><td>16.1 ₽</td><td>-62%</td><td>На тrough прибыли — не информативен</td></tr><tr><td>Дивидендный (DPS 3.72 ₽ / 15%)</td><td>24.8 ₽</td><td>-41%</td><td>FCF отрицательный, дивиденды ненадёжны</td></tr><tr><td>DCF (норм. FCF ~50 млрд)</td><td>~45 ₽</td><td>+7%</td><td>Грубая оценка</td></tr><tr><td><strong>Консенсус аналитиков</strong></td><td><strong>40-50 ₽</strong></td><td><strong>-5% — +19%</strong></td><td>БКС: негативный взгляд</td></tr></tbody></table></div>
+<p>DCF и дивидендный метод дают цены ниже P/E — это объясняется отрицательным FCF и ненадёжными дивидендами. Консенсус аналитиков также осторожен. Разброс велик, что типично для циклической компании на дне.</p>
+<p><strong>my_fair_value = 54 ₽</strong> — базовый сценарий при нормализации прибыли и снижении ставки до 13%.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" checked disabled> <strong>Upside > 30%</strong> — нет, +28% в базовом сценарии</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — нет ближайшего; разворот алмазного рынка неопределён по срокам</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — см. выше</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA < 2.5x</strong> — да, 1.14x</li><li><input type="checkbox" disabled> <strong>Маржа стабильна или растёт</strong> — нет, падает 4+ квартала (47.6% → 27.5%)</li><li><input type="checkbox" checked disabled> <strong>Ликвидность достаточна</strong> — да, blue chip Мосбиржи</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — нет, FCF отрицательный, OCF/NI < 0.5</li><li><input type="checkbox" checked disabled> <strong>Нет value trap</strong> — под вопросом: выручка и маржа падают, но это цикл, а не структурная деградация</li></ul>
+<p><strong>Результат: 4/8 — buy НЕ подтверждён. Position: watch.</strong></p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-29</td><td><strong>WATCH</strong></td><td>42.2 ₽</td><td>Кризис алмазного рынка, FCF отрицательный, нет катализатора. Upside 28% недостаточен</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/ALRS/f/y/MSFO/" target="_blank">Smart-lab: ALRS финансы (МСФО годовые)</a></li><li><a href="https://smart-lab.ru/q/ALRS/f/q/MSFO/" target="_blank">Smart-lab: ALRS финансы (МСФО квартальные)</a></li><li><a href="https://smart-lab.ru/q/ALRS/dividend/" target="_blank">Smart-lab: дивиденды ALRS</a></li><li><a href="https://www.alrosa.ru/press-center/news/" target="_blank">АЛРОСА IR</a></li><li><a href="https://www.finmarket.ru/analytics/6535934" target="_blank">БКС: оценка АЛРОСА</a></li><li><a href="https://www.tbank.ru/invest/stocks/ALRS/" target="_blank">Т-Банк: анализ АЛРОСА</a></li><li><a href="https://www.dohod.ru/ik/analytics/dividend/alrs" target="_blank">УК «Доходъ»: прогноз дивидендов</a></li><li><a href="https://www.forbes.ru/investicii/540347-analitiki-sprognozirovali-rost-cen-na-prirodnye-almazy-na-50-v-blizajsie-gody" target="_blank">Forbes: прогноз цен на алмазы</a></li><li><a href="https://www.vedomosti.ru/analytics/krupnyy_plan/articles/2025/02/26/1094791-dobicha-almazov-v-mire-v-2025-g-mozhet-snizitsya-do-mnogoletnih-minimumov" target="_blank">Ведомости: добыча алмазов 2025</a></li><li><a href="../../sectors/metals-mining/_index.md" target="_blank">Секторальный анализ: Металлы и добыча</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+</div>
+
+</div>
+</body>
+</html>

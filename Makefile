@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions update-macro sector clean portfolio top export validate
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -43,6 +43,7 @@ help:
 	@echo "$(GREEN)Генерация (скрипты):$(NC)"
 	@echo "  make trends        — сгенерировать trend.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
+	@echo "  make dashboard     — сгенерировать GitHub Pages дашборд"
 	@echo ""
 	@echo "$(GREEN)Аналитика:$(NC)"
 	@echo "  make portfolio     — показать компании с position=buy"
@@ -141,6 +142,11 @@ opinions:
 	@echo "  python3 scripts/telegram_scraper.py investopit investopit_posts.json"
 	@echo "  python3 scripts/filter_russia.py"
 	@python3 scripts/generate_opinions.py
+
+dashboard:
+	@echo "$(CYAN)Генерация дашборда в docs/...$(NC)"
+	@python3 scripts/generate_dashboard.py
+	@echo "$(GREEN)Готово: открой docs/index.html в браузере$(NC)"
 
 # ============================================================================
 # ПРОЧЕЕ

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Газпром (GAZP) — Инвестиционный дашборд</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #0d1117; color: #e6edf3;
+    line-height: 1.6;
+}
+a { color: #388bfd; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header { border-bottom: 1px solid #30363d; padding: 20px 0; margin-bottom: 24px; }
+header h1 { font-size: 24px; font-weight: 600; }
+header .updated { color: #8b949e; font-size: 14px; margin-top: 4px; }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: #238636; }
+.stat-card .value.blue { color: #388bfd; }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: #161b22; color: #e6edf3; border: 1px solid #30363d;
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: #388bfd; outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: #161b22; color: #8b949e; font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid #30363d;
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: #e6edf3; }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid #21262d; white-space: nowrap; }
+tr:hover { background: #161b22; }
+tr.stub td { color: #484f58; }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: #238636; color: #fff; }
+.badge-neutral { background: #d29922; color: #000; }
+.badge-bearish { background: #da3633; color: #fff; }
+.badge-buy { background: #238636; color: #fff; }
+.badge-hold { background: #388bfd; color: #fff; }
+.badge-sell { background: #da3633; color: #fff; }
+.badge-watch { background: #484f58; color: #e6edf3; }
+.badge-avoid { background: #da3633; color: #fff; }
+.badge-stub { background: #30363d; color: #8b949e; }
+
+/* Положительный/отрицательный upside */
+.positive { color: #3fb950; }
+.negative { color: #f85149; }
+.muted { color: #8b949e; }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: #8b949e; font-size: 14px; }
+.back:hover { color: #e6edf3; }
+
+/* Карточка компании */
+.company-header {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: #8b949e; font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: #8b949e; font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: #238636; display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: #30363d; display: flex; align-items: center; justify-content: center; color: #8b949e; }
+.forecast-bar .decline { background: #da3633; display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: #2d1b00; border: 1px solid #d29922; border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: #d29922;
+}
+
+/* Контент анализа */
+.analysis { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: #8b949e; }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid #30363d; padding: 8px 16px;
+    color: #8b949e; margin: 12px 0;
+}
+.analysis code {
+    background: #0d1117; padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid #30363d; margin: 20px 0; }
+.analysis strong { color: #f0f6fc; }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="../index.html" class="back">&larr; Назад к дашборду</a>
+
+<div class="company-header">
+<h1>Газпром</h1>
+<div class="ticker">GAZP &middot; Нефтегаз</div>
+<div class="badges">
+<span class="badge badge-bearish">bearish</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">132.4</div></div><div class="metric"><div class="label">Цель</div><div class="value">255</div></div><div class="metric"><div class="label">Upside</div><div class="value">+93%</div></div><div class="metric"><div class="label">P/E</div><div class="value">2.5</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">8.7%</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.19</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">2.85</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">1.84</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:30%">&#x25B2; 30%</div>
+<div class="flat" style="width:5%">5%</div>
+<div class="decline" style="width:65%">&#x25BC; 65%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>Газпром (GAZP)</h1>
+<h2>Бизнес-модель</h2>
+<p><strong>Газпром</strong> — крупнейший в мире производитель природного газа, вертикально интегрированная энергетическая компания. Контролирует ~15% мировых и ~65% российских запасов газа.</p>
+<p><strong>Сегменты бизнеса:</strong></p>
+<ul><li><strong>Добыча и продажа газа</strong> (~70% выручки): экспорт в Китай (Сила Сибири), Турцию, внутренний рынок</li><li><strong>Нефтедобыча</strong> (Газпром нефть): вертикально интегрированный нефтяной бизнес</li><li><strong>Электроэнергетика</strong>: генерация и сбыт электроэнергии</li><li><strong>Транспортировка</strong>: монополия на магистральные газопроводы в РФ</li></ul>
+<p><strong>Структурная трансформация после 2022:</strong></p>
+<ul><li><strong>Потеря европейского рынка</strong>: экспорт в Европу упал с ~150 млрд куб. м (2021) до 17,8 млрд куб. м (2025) — только через Турецкий поток</li><li><strong>Переориентация на Китай</strong>: экспорт по Силе Сибири вырос до 38,8 млрд куб. м (2025), впервые превысив поставки в Европу</li><li><strong>Зависимость от «Силы Сибири-2»</strong>: меморандум подписан в сентябре 2025, контракт ожидается в 2026. Мощность — до 50 млрд куб. м/год</li></ul>
+<p><strong>Ключевые зависимости:</strong></p>
+<ul><li>Цены на газ (TTF, внутренний рынок, китайские контракты)</li><li>Курс рубля (экспортная выручка в валюте)</li><li>Государство как мажоритарный акционер (>50%) — влияет на дивидендную политику</li></ul>
+<h2>Конкурентные преимущества</h2>
+<ol><li><strong>Монополия на транспортировку газа в РФ</strong> — единственный оператор магистральных газопроводов</li><li><strong>Крупнейшие запасы газа в мире</strong> — 15% мировых запасов</li><li><strong>Действующая инфраструктура</strong> — Сила Сибири, Турецкий поток</li><li><strong>Низкая себестоимость добычи</strong> — зрелые месторождения, амортизированная инфраструктура</li></ol>
+<h2>Риски</h2>
+<h3>Ключевые риски</h3>
+<ol><li><strong>Потеря европейского рынка без полного замещения</strong></li></ol>
+<ul><li>Европа была премиальным рынком (~$400-500/тыс. куб. м)</li><li>Китай платит значительно меньше (~$250-300/тыс. куб. м)</li><li>«Сила Сибири-2» не подписана — контракт может не состояться или быть на невыгодных условиях</li></ul>
+<ol><li><strong>Отрицательный FCF и отсутствие дивидендов</strong></li></ol>
+<ul><li>FCF отрицательный 2 года подряд: -213 млрд (2023), -701 млрд (2024)</li><li>Дивиденды не выплачиваются 3-й год подряд (2021, 2023, 2024)</li><li>Огромный капекс на «Силу Сибири-2» и другие проекты</li></ul>
+<ol><li><strong>Регуляторное давление</strong></li></ol>
+<ul><li>НДПИ на газ — государство изымает сверхдоходы</li><li>Правительство блокировало дивиденды за 2023 и 2024 год несмотря на наличие денег</li></ul>
+<h3>Дополнительные риски</h3>
+<ul><li>Санкции (частичные) — ограничения на финансирование, оборудование</li><li>Низкие цены на газ на азиатских рынках</li><li>Высокая ставка ЦБ (16%) — давит на оценку при отсутствии дивидендов</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>6 321</td><td>10 241</td><td>11 674</td><td>8 542</td><td>10 715</td></tr><tr><td>EBITDA, млрд ₽</td><td>1 466</td><td>3 687</td><td>3 638</td><td>1 765</td><td>3 108</td></tr><tr><td>Маржа EBITDA</td><td>23%</td><td>36%</td><td>31%</td><td>21%</td><td>29%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>135</td><td>2 093</td><td>1 226</td><td>726</td><td>1 461</td></tr><tr><td>FCF, млрд ₽</td><td>396</td><td>1 081</td><td>1</td><td>-213</td><td>-701</td></tr><tr><td>Чистый долг, млрд ₽</td><td>3 872</td><td>2 870</td><td>3 908</td><td>5 055</td><td>5 723</td></tr><tr><td>Net Debt/EBITDA</td><td>2.64</td><td>0.78</td><td>1.07</td><td>2.86</td><td>1.84</td></tr><tr><td>ROE</td><td>0.9%</td><td>12.9%</td><td>7.8%</td><td>4.6%</td><td>8.7%</td></tr><tr><td>P/E</td><td>37.3</td><td>3.9</td><td>3.1</td><td>5.2</td><td>2.2</td></tr><tr><td>EV/EBITDA</td><td>6.1</td><td>3.0</td><td>2.1</td><td>5.0</td><td>2.9</td></tr></tbody></table></div>
+<h3>Квартальные (МСФО, 2024-2025)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3 2024</th><th>Q4 2024</th><th>Q1 2025</th><th>Q2 2025</th><th>Q3 2025</th><th>Тренд</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>2 412</td><td>3 215</td><td>2 809</td><td>2 181</td><td>2 175</td><td>↓</td></tr><tr><td>EBITDA, млрд ₽</td><td>682</td><td>966</td><td>844</td><td>702</td><td>635</td><td>↓</td></tr><tr><td>Маржа EBITDA</td><td>28%</td><td>30%</td><td>30%</td><td>32%</td><td>29%</td><td>→</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>61</td><td>629</td><td>239</td><td>188</td><td>210</td><td>↓</td></tr><tr><td>OCF, млрд ₽</td><td>1 140</td><td>926</td><td>946</td><td>484</td><td>560</td><td>↓</td></tr></tbody></table></div>
+<p><strong>Тренды:</strong></p>
+<ul><li>Выручка и EBITDA снижаются последние 4 квартала</li><li>Q4 2024 аномально сильный (43% годовой прибыли в одном квартале)</li><li>OCF/Net Income > 1 — качество прибыли хорошее, но весь кэш уходит на капекс</li></ul>
+<h3>Ключевые метрики (LTM)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Значение</th><th>Оценка</th></tr></thead><tbody><tr><td>Кол-во акций</td><td>23,674 млрд</td><td></td></tr><tr><td>Цена акции</td><td>132.4 ₽</td><td></td></tr><tr><td>Капитализация</td><td>3 135 млрд ₽</td><td></td></tr><tr><td>EPS (LTM)</td><td>53.5 ₽</td><td></td></tr><tr><td>P/E (LTM)</td><td>2.5x</td><td>Очень низкий</td></tr><tr><td>EV/EBITDA (LTM)</td><td>2.9x</td><td>Очень низкий</td></tr><tr><td>P/BV</td><td>0.19x</td><td>Ниже капитала</td></tr><tr><td>Net Debt/EBITDA</td><td>1.84x</td><td>Умеренный</td></tr><tr><td>ROE</td><td>8.7%</td><td>Ниже стоимости капитала</td></tr><tr><td>FCF Yield</td><td>-22%</td><td>Отрицательный</td></tr><tr><td>Дивидендная доходность</td><td>0%</td><td>Нет дивидендов</td></tr></tbody></table></div>
+<h2>Дивиденды</h2>
+<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2020</td><td>12.55</td><td>~6%</td><td></td></tr><tr><td>2021</td><td>0</td><td>0%</td><td>Отменены</td></tr><tr><td>2022</td><td>51.03</td><td>~31%</td><td>Рекордные</td></tr><tr><td>2023</td><td>0</td><td>0%</td><td>Правительство заблокировало</td></tr><tr><td>2024</td><td>0</td><td>0%</td><td>СД рекомендовал отказ</td></tr></tbody></table></div>
+<p><strong>Дивидендная политика:</strong> формально 50% чистой прибыли по МСФО, но фактически государство (мажоритарий) блокирует выплаты, забирая деньги через НДПИ.</p>
+<p><strong>Прогноз 2025:</strong> вероятность выплаты низкая. FCF отрицательный, приоритет — капекс на «Силу Сибири-2».</p>
+<h2>Оценка</h2>
+<h3>Сравнение с сектором</h3>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>GAZP</th><th>Сектор (медиана)</th><th>vs сектор</th></tr></thead><tbody><tr><td>P/E</td><td>2.5x</td><td>5-6x</td><td>-50% дисконт</td></tr><tr><td>EV/EBITDA</td><td>2.9x</td><td>3-4x</td><td>-25% дисконт</td></tr><tr><td>ROE</td><td>8.7%</td><td>15-20%</td><td>Ниже</td></tr><tr><td>Дивдоходность</td><td>0%</td><td>7-10%</td><td>Нет</td></tr><tr><td>FCF Yield</td><td>-22%</td><td>15-20%</td><td>Отрицательный</td></tr></tbody></table></div>
+<p><strong>Почему дисконт:</strong></p>
+<ol><li>Отрицательный FCF — компания не генерирует кэш для акционеров</li><li>Отсутствие дивидендов 3 года</li><li>Потеря премиального европейского рынка</li><li>Риск непродления «Силы Сибири-2»</li></ol>
+<h3>Расчёт целевой цены</h3>
+<p><strong>Исходные данные:</strong></p>
+<ul><li>EPS LTM (нормализованный): 44.8 ₽ (без аномального Q4)</li><li>Ставка ЦБ (базовый, конец 2026): 13%</li><li>ERP: 5%</li><li>r = 18%</li><li>g = 3% (зрелая компания, выручка падает)</li></ul>
+<p><strong>Базовый P/E = 1 / (r − g) = 1 / 0.15 = 6.7x</strong></p>
+<p><strong>Поправки за качество:</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Поправка</th><th>Обоснование</th></tr></thead><tbody><tr><td>Лидер по масштабу</td><td>+10%</td><td>Крупнейший в мире производитель газа</td></tr><tr><td>Потеря экспортных рынков</td><td>-15%</td><td>Европа потеряна без полного замещения</td></tr><tr><td>Частичные санкции</td><td>-10%</td><td>Ограничения на финансирование и оборудование</td></tr><tr><td><strong>Итого</strong></td><td><strong>-15%</strong></td><td></td></tr></tbody></table></div>
+<p><strong>Целевой P/E = 6.7 × 0.85 = 5.7x</strong></p>
+<h3>Целевая цена по методам</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Целевая цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (базовый)</td><td>255 ₽</td><td>+93%</td><td>EPS 44.8 × P/E 5.7</td></tr><tr><td>P/E (пессимистичный, r=23%)</td><td>179 ₽</td><td>+35%</td><td>Ставка без снижения</td></tr><tr><td>P/E (оптимистичный, r=14%)</td><td>403 ₽</td><td>+204%</td><td>Ставка 9%</td></tr><tr><td>EV/EBITDA</td><td>~240 ₽</td><td>+81%</td><td>EV/EBITDA 4.5x</td></tr><tr><td>Дивидендный</td><td>н/п</td><td>—</td><td>Дивиденды = 0</td></tr></tbody></table></div>
+<h3>Сценарии по ставке ЦБ</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>18% (без снижения)</td><td>23%</td><td>4.3x</td><td>192 ₽</td><td>+45%</td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>18%</td><td>5.7x</td><td><strong>255 ₽</strong></td><td><strong>+93%</strong></td></tr><tr><td>Оптимистичный</td><td>9%</td><td>14%</td><td>7.7x</td><td>345 ₽</td><td>+160%</td></tr></tbody></table></div>
+<h3>Чувствительность к g</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>0% (стагнация)</td><td>4.7x</td><td>211 ₽</td><td>+59%</td></tr><tr><td><strong>3% (базовый)</strong></td><td>5.7x</td><td><strong>255 ₽</strong></td><td><strong>+93%</strong></td></tr><tr><td>5% (рост Китай)</td><td>6.5x</td><td>291 ₽</td><td>+120%</td></tr></tbody></table></div>
+<p>При g=0% (если «Сила Сибири-2» не состоится) upside всё ещё +59% — тезис устойчив к снижению g.</p>
+<h2>Мой тезис</h2>
+<p><strong>Position: watch</strong> (не buy)</p>
+<p>Газпром торгуется с рекордно низкими мультипликаторами (P/E 2.5x, EV/EBITDA 2.9x, P/BV 0.19x), что создаёт видимость экстремальной недооценки. Расчётный upside +93% по базовому сценарию.</p>
+<p><strong>Почему не buy:</strong></p>
+<ol><li><strong>Value trap признаки:</strong></li></ol>
+<ul><li>FCF отрицательный 2 года подряд (-213 и -701 млрд ₽)</li><li>Дивиденды не выплачиваются 3 года (2021, 2023, 2024)</li><li>Выручка и EBITDA падают в квартальной динамике</li></ul>
+<ol><li><strong>Отсутствие катализатора:</strong></li></ol>
+<ul><li>«Сила Сибири-2» — меморандум подписан, но контракт не заключён</li><li>Нет ясности по срокам и условиям</li><li>Даже при подписании — выход на мощность через 5-7 лет</li></ul>
+<ol><li><strong>Государство как риск:</strong></li></ol>
+<ul><li>Правительство блокирует дивиденды, забирая деньги через НДПИ</li><li>Мажоритарий (>50% у государства) не заинтересован в возврате капитала миноритариям</li></ul>
+<p><strong>Что изменит оценку на buy:</strong></p>
+<ul><li>Подписание контракта по «Силе Сибири-2» на приемлемых условиях</li><li>Возврат к положительному FCF</li><li>Возобновление дивидендов</li></ul>
+<p><strong>Вывод:</strong> дешевизна Газпрома — не недооценка, а отражение структурных проблем бизнеса. Инвесторы предпочитают платящие дивиденды нефтегазовые компании (LKOH, TATN). Позиция watch до появления катализатора.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" checked disabled> Upside > 30% — да (+93%)</li><li><input type="checkbox" disabled> Катализатор есть — нет (Сила Сибири-2 не подписана)</li><li><input type="checkbox" checked disabled> Тезис записан — да</li><li><input type="checkbox" checked disabled> Net Debt/EBITDA < 2.5x — да (1.84x)</li><li><input type="checkbox" checked disabled> Маржа стабильна — да (~29-30%)</li><li><input type="checkbox" checked disabled> Ликвидность достаточна — да (голубая фишка)</li><li><input type="checkbox" checked disabled> Качество прибыли OCF/NI > 0.5 — да (>1)</li><li><input type="checkbox" checked disabled> Геополитика учтена — да (-25% в поправках)</li><li><input type="checkbox" disabled> Нет value trap признаков — <strong>нет</strong> (FCF отрицательный 2 года, дивиденды 0)</li></ul>
+<p><strong>Не выполнено 2 пункта → position = watch</strong></p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-29</td><td>watch</td><td>132.4 ₽</td><td>Первичный анализ. Value trap признаки, ждём катализатор</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/GAZP/f/y/MSFO/" target="_blank">Smart-lab: GAZP годовые МСФО</a></li><li><a href="https://smart-lab.ru/q/GAZP/f/q/MSFO/" target="_blank">Smart-lab: GAZP квартальные МСФО</a></li><li><a href="https://www.gazprom.ru/investors/" target="_blank">Газпром IR</a></li><li><a href="../../sectors/oil-gas/_index.md" target="_blank">Секторальный анализ: Нефтегаз</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+</div>
+
+</div>
+</body>
+</html>
