@@ -183,10 +183,10 @@
 - [x] Коммит + push: "Заполнить карточки металлы: NLMK, MAGN, POLY"
 
 ### Задача 14: Строительство — PIKK (ПИК)
-- [ ] Прочитать `sectors/construction/_index.md`
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/PIKK/_index.md`
-- [ ] Обновить индексные файлы
+- [x] Прочитать `sectors/construction/_index.md`
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/PIKK/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 15: Строительство — SMLT (Самолёт)
 - [ ] WebFetch: smart-lab данные
