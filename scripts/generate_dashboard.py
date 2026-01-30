@@ -11,6 +11,7 @@
 Автор: AlmazNurmukhametov
 """
 
+import html as html_module
 import json
 import os
 import re
@@ -66,7 +67,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
             current_key = None
 
         # key: value
-        kv = re.match(r'^([a-z_]+):\s*(.*)$', stripped)
+        kv = re.match(r'^([a-zA-Z][a-zA-Z0-9_-]*):\s*(.*)$', stripped)
         if kv:
             key = kv.group(1)
             value = kv.group(2).strip()
@@ -100,12 +101,15 @@ def get_body(content: str) -> str:
 
 
 def parse_upside(value: str) -> Optional[float]:
-    """Парсит upside из '64%', '64', '-10%' → десятичная дробь."""
+    """Парсит upside из '64%', '64', '-10%', '+25%' → десятичная дробь."""
     if not value:
         return None
-    cleaned = value.replace('%', '').strip()
+    has_percent = '%' in value
+    cleaned = value.replace('%', '').replace('+', '').strip()
     try:
         num = float(cleaned)
+        if has_percent:
+            return num / 100.0
         if abs(num) > 1:
             return num / 100.0
         return num
@@ -144,8 +148,12 @@ def markdown_to_html(md: str) -> str:
 
         # HTML-комментарии — пропускаем
         if line.strip().startswith('<!--'):
+            start_i = i
             while i < len(lines) and '-->' not in lines[i]:
                 i += 1
+            if i >= len(lines):
+                # Незакрытый комментарий — выводим предупреждение
+                print(f"  {YELLOW}[WARN]{NC} Незакрытый HTML-комментарий (строка {start_i + 1})")
             i += 1
             continue
 
@@ -227,12 +235,27 @@ def _is_block_start(line: str) -> bool:
     return False
 
 
+def _safe_link(match) -> str:
+    """Создаёт ссылку, блокируя javascript: и data: URI."""
+    label = match.group(1)
+    url = match.group(2)
+    url_lower = url.strip().lower()
+    if url_lower.startswith(('javascript:', 'data:', 'vbscript:')):
+        return escape_html(label)
+    return f'<a href="{escape_html(url)}" target="_blank">{label}</a>'
+
+
 def inline_format(text: str) -> str:
-    """Форматирует inline-элементы: bold, italic, code, links, checkboxes."""
+    """Форматирует inline-элементы: bold, italic, code, links, checkboxes.
+
+    Сначала экранирует HTML, затем применяет markdown-разметку.
+    """
+    # Экранируем HTML-спецсимволы в исходном тексте
+    text = escape_html(text)
     # Код inline
     text = re.sub(r'`([^`]+)`', r'<code>\1</code>', text)
-    # Ссылки
-    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2" target="_blank">\1</a>', text)
+    # Ссылки (с проверкой URL-схемы)
+    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', _safe_link, text)
     # Bold
     text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', text)
     # Italic
@@ -601,18 +624,12 @@ tr.stub td { color: var(--stub-row-text); }
 # ГЕНЕРАЦИЯ СТРАНИЦ
 # ============================================================================
 
-def sentiment_badge(sentiment: str) -> str:
-    """HTML-бейдж для sentiment."""
-    if not sentiment:
+def badge(value: str) -> str:
+    """HTML-бейдж для sentiment или position."""
+    if not value:
         return '<span class="badge badge-stub">—</span>'
-    return f'<span class="badge badge-{sentiment}">{sentiment}</span>'
-
-
-def position_badge(position: str) -> str:
-    """HTML-бейдж для position."""
-    if not position:
-        return '<span class="badge badge-stub">—</span>'
-    return f'<span class="badge badge-{position}">{position}</span>'
+    safe = escape_html(value)
+    return f'<span class="badge badge-{safe}">{safe}</span>'
 
 
 def format_upside(upside_str: str) -> str:
@@ -630,7 +647,7 @@ def format_upside(upside_str: str) -> str:
 
 def escape_html(s: str) -> str:
     """Экранирует HTML-спецсимволы."""
-    return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+    return html_module.escape(s, quote=True)
 
 
 def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir: str):
@@ -674,14 +691,14 @@ def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir
 
     # Опции фильтров
     sector_options = ''.join(
-        f'<option value="{s}">{sectors.get(s, {}).get("name", s)}</option>'
+        f'<option value="{escape_html(s)}">{escape_html(sectors.get(s, {}).get("name", s))}</option>'
         for s in all_sectors
     )
     sentiment_options = ''.join(
-        f'<option value="{s}">{s}</option>' for s in all_sentiments
+        f'<option value="{escape_html(s)}">{escape_html(s)}</option>' for s in all_sentiments
     )
     position_options = ''.join(
-        f'<option value="{s}">{s}</option>' for s in all_positions
+        f'<option value="{escape_html(s)}">{escape_html(s)}</option>' for s in all_positions
     )
 
     html = f"""<!DOCTYPE html>
@@ -708,7 +725,7 @@ def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir
 <div class="stat-card"><div class="label">Заполнено</div><div class="value green">{filled}</div></div>
 <div class="stat-card"><div class="label">Bullish</div><div class="value green">{bullish}</div></div>
 <div class="stat-card"><div class="label">Buy</div><div class="value blue">{buy_count}</div></div>
-<div class="stat-card"><div class="label">Средний upside</div><div class="value green">+{avg_upside}%</div></div>
+<div class="stat-card"><div class="label">Средний upside</div><div class="value {'green' if avg_upside >= 0 else 'negative'}">{'+'if avg_upside >= 0 else ''}{avg_upside}%</div></div>
 </div>
 
 <div class="filters">
@@ -740,7 +757,7 @@ def generate_index_page(companies: list, sectors: dict, trends: dict, output_dir
 </div>
 
 <script>
-const DATA = {json.dumps(js_data, ensure_ascii=False)};
+const DATA = {json.dumps(js_data, ensure_ascii=False).replace('</','<\\/')};
 
 const tbody = document.getElementById('tbody');
 const fSector = document.getElementById('f-sector');
@@ -910,7 +927,7 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
             fp = 0
         gp_pct = round(gp * 100)
         dp_pct = round(dp * 100)
-        fp_pct = 100 - gp_pct - dp_pct
+        fp_pct = max(0, 100 - gp_pct - dp_pct)
         forecast_html = f"""
 <div class="forecast">
 <h3>Прогноз</h3>
@@ -949,8 +966,8 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
 <h1>{escape_html(name)}</h1>
 <div class="ticker">{ticker}{(' &middot; ' + escape_html(sector_name)) if sector_name else ''}</div>
 <div class="badges">
-{sentiment_badge(company['sentiment'])}
-{position_badge(company['position'])}
+{badge(company['sentiment'])}
+{badge(company['position'])}
 </div>
 <div class="metrics-grid">{metrics_html}</div>
 </div>

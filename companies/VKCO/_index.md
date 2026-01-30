@@ -1,7 +1,8 @@
 ---
+type: company
 ticker: VKCO
-company: VK
-sector: IT-Telecom
+name: VK
+sector: it-telecom
 sentiment: bearish
 position: avoid
 updated: 2026-01-30

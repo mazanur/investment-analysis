@@ -1,6 +1,7 @@
 ---
+type: company
 ticker: NLMK
-company: НЛМК
+name: НЛМК
 sector: metals-mining
 sentiment: neutral
 position: hold

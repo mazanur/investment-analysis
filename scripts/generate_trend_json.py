@@ -25,16 +25,20 @@ def clamp(value: float, min_val: float, max_val: float) -> float:
 
 def parse_upside(upside_value: str) -> Optional[float]:
     """
-    Парсит upside из разных форматов: "64%", "64", "-10%".
+    Парсит upside из разных форматов: "64%", "64", "-10%", "+25%".
     Возвращает значение как десятичную дробь (0.64 для 64%).
     """
     if not upside_value:
         return None
 
-    # Убираем % и пробелы
-    cleaned = upside_value.replace('%', '').strip()
+    has_percent = '%' in upside_value
+    # Убираем %, + и пробелы
+    cleaned = upside_value.replace('%', '').replace('+', '').strip()
     try:
         value = float(cleaned)
+        # Если есть знак %, всегда делим на 100
+        if has_percent:
+            return value / 100.0
         # Если число > 1 или < -1, считаем что это проценты
         if abs(value) > 1:
             return value / 100.0
@@ -61,7 +65,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
             continue
 
         # Ищем key: value
-        match = re.match(r'^([a-z_]+):\s*(.*)$', line)
+        match = re.match(r'^([a-zA-Z][a-zA-Z0-9_-]*):\s*(.*)$', line)
         if match:
             key = match.group(1)
             value = match.group(2).strip()
@@ -113,6 +117,12 @@ def calculate_probabilities(sentiment: str, upside: Optional[float]) -> tuple:
     # Ограничиваем в диапазоне [0.05, 0.90]
     growth = clamp(growth, 0.05, 0.90)
     decline = clamp(decline, 0.05, 0.90)
+
+    # Гарантируем, что сумма вероятностей не превышает 1.0
+    if growth + decline > 1.0:
+        total = growth + decline
+        growth = round(growth / total, 2)
+        decline = round(decline / total, 2)
 
     return round(growth, 2), round(decline, 2)
 
@@ -188,6 +198,7 @@ def main():
             output_file = os.path.join(company_dir, 'trend.json')
             with open(output_file, 'w', encoding='utf-8') as f:
                 json.dump(trend_data, f, ensure_ascii=False, indent=2)
+                f.write('\n')
 
             print(f"  [OK] {trend_data['ticker']}: "
                   f"growth={trend_data['growth_probability']}, "

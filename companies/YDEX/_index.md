@@ -1,7 +1,8 @@
 ---
+type: company
 ticker: YDEX
-company: Яндекс
-sector: IT-Telecom
+name: Яндекс
+sector: it-telecom
 sentiment: neutral
 position: watch
 updated: 2026-01-30

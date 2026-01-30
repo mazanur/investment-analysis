@@ -1,6 +1,6 @@
 ---
 type: companies-index
-updated: 2026-01-28
+updated: 2026-01-30
 ---
 
 # Компании

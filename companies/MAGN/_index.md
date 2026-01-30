@@ -1,6 +1,7 @@
 ---
+type: company
 ticker: MAGN
-company: ММК
+name: ММК
 sector: metals-mining
 sentiment: bearish
 position: watch
