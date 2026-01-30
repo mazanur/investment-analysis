@@ -143,11 +143,11 @@
 - [x] Коммит + push: "Заполнить карточки ритейл: MGNT, FIVE"
 
 ### Задача 7: IT — YDEX (Яндекс)
-- [ ] Прочитать `sectors/it-telecom/_index.md`
-- [ ] Прочитать заполненную `companies/YNDX/_index.md` как базу (старый тикер)
-- [ ] WebFetch: smart-lab данные для YDEX
-- [ ] Заполнить `companies/YDEX/_index.md`
-- [ ] Обновить индексные файлы
+- [x] Прочитать `sectors/it-telecom/_index.md`
+- [x] Прочитать заполненную `companies/YNDX/_index.md` как базу (старый тикер)
+- [x] WebFetch: smart-lab данные для YDEX
+- [x] Заполнить `companies/YDEX/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 8: IT — VKCO (VK)
 - [ ] WebFetch: smart-lab данные
