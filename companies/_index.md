@@ -53,7 +53,7 @@ updated: 2026-01-28
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [GMKN](GMKN/) | Норникель | | watch | 6 |
-| [NLMK](NLMK/) | НЛМК | | watch | 1 |
+| [NLMK](NLMK/) | НЛМК | neutral | hold | 1 |
 | [CHMF](CHMF/) | Северсталь | | watch | 2 |
 | [MAGN](MAGN/) | ММК | | watch | 1 |
 | [ALRS](ALRS/) | Алроса | bearish | watch | 3 |

@@ -102,3 +102,4 @@ author: AlmazNurmukhametov
 | companies/VKCO/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/MTSS/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/RTKM/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/NLMK/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |

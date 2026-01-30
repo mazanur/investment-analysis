@@ -166,10 +166,10 @@
 - [x] Коммит + push: "Заполнить карточки IT: YDEX, VKCO, MTSS, RTKM"
 
 ### Задача 11: Металлы — NLMK (НЛМК)
-- [ ] Прочитать `sectors/metals-mining/_index.md`
-- [ ] WebFetch: smart-lab данные
-- [ ] Заполнить `companies/NLMK/_index.md`
-- [ ] Обновить индексные файлы
+- [x] Прочитать `sectors/metals-mining/_index.md`
+- [x] WebFetch: smart-lab данные
+- [x] Заполнить `companies/NLMK/_index.md`
+- [x] Обновить индексные файлы
 
 ### Задача 12: Металлы — MAGN (ММК)
 - [ ] WebFetch: smart-lab данные
