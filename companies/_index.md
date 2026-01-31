@@ -27,6 +27,9 @@ updated: 2026-01-30
 | [VTBR](VTBR/) | ВТБ | neutral | watch | 6 |
 | [TCSG](TCSG/) | Т-Банк | bullish | buy | 19 |
 | [MOEX](MOEX/) | Мосбиржа | neutral | watch | 13 |
+| [BSPB](BSPB/) | Банк Санкт-Петербург | bullish | buy | 0 |
+| [RENI](RENI/) | Ренессанс Страхование | bullish | buy | 0 |
+| [SFIN](SFIN/) | SFI Holding | neutral | sell | 0 |
 
 ### Ритейл
 | Тикер | Компания | Sentiment | Position | Мнений |
@@ -112,5 +115,5 @@ updated: 2026-01-30
 
 ---
 
-*Обновлено: 2026-01-30*
+*Обновлено: 2026-01-31*
 *Источник мнений: [@investopit](https://t.me/investopit)*
