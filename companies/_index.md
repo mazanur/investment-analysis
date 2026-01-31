@@ -69,14 +69,14 @@ updated: 2026-01-31
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [PHOR](PHOR/) | ФосАгро | neutral | watch | 6 |
-| [AKRN](AKRN/) | Акрон | | watch | 6 |
+| [AKRN](AKRN/) | Акрон | neutral | watch | 6 |
 
 ### Энергетика
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [IRAO](IRAO/) | Интер РАО | bullish | watch | 1 |
 | [MSNG](MSNG/) | Мосэнерго | neutral | watch | 0 |
-| [HYDR](HYDR/) | РусГидро | | watch | 1 |
+| [HYDR](HYDR/) | РусГидро | bearish | watch | 1 |
 
 ### Строительство
 | Тикер | Компания | Sentiment | Position | Мнений |

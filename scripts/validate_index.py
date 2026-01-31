@@ -36,7 +36,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
         if not line or line.startswith('#'):
             continue
 
-        match = re.match(r'^([a-z_]+):\s*(.*)$', line)
+        match = re.match(r'^([a-zA-Z][a-zA-Z0-9_-]*):\s*(.*)$', line)
         if match:
             key = match.group(1)
             value = match.group(2).strip()
