@@ -138,8 +138,8 @@
 - Modify: `companies/MDMG/_index.md`
 - Read: `sectors/healthcare/_index.md`
 
-- [ ] Прочитать `sectors/healthcare/_index.md`
-- [ ] **MDMG**: WebFetch smart-lab, P/E метод (growth-компания, рост 10-15%), trailing vs forward P/E, три сценария, чувствительность
+- [x] Прочитать `sectors/healthcare/_index.md`
+- [x] **MDMG**: WebFetch smart-lab, P/E метод (growth-компания, рост 10-15%), trailing vs forward P/E, три сценария, чувствительность. Position: buy подтверждён (upside 44%). Trailing P/E 11,3x, forward P/E 9,1x. Fair value 2 170 ₽ при цене 1 503 ₽. Рост выручки +28% (9М25), +40% (Q3'25). ROE 30%, Net Debt отрицательный, налог 0%. Дивиденды 2025E ~88-100 ₽ (6-7%)
 
 ### Task 9: Обновление trend.json и сводных таблиц
 
