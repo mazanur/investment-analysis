@@ -137,6 +137,8 @@ def main():
     if with_errors:
         print(f"  {RED}✗ С ошибками: {with_errors}{NC}")
 
+    return 1 if with_errors > 0 else 0
+
 
 if __name__ == '__main__':
-    main()
+    exit(main())

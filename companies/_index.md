@@ -30,7 +30,7 @@ updated: 2026-01-31
 | [MOEX](MOEX/) | Мосбиржа | neutral | watch | 13 |
 | [BSPB](BSPB/) | Банк Санкт-Петербург | bullish | buy | 0 |
 | [RENI](RENI/) | Ренессанс Страхование | bullish | buy | 0 |
-| [SFIN](SFIN/) | SFI Holding | neutral | sell | 0 |
+| [SFIN](SFIN/) | SFI Holding | bearish | sell | 0 |
 
 ### Ритейл
 | Тикер | Компания | Sentiment | Position | Мнений |

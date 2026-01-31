@@ -6,15 +6,15 @@ sector: retail
 subsector: food-retail
 updated: 2026-01-30
 sentiment: bullish
-market_cap_rub: ~248 млрд
+market_cap_rub: 248
 p_e: 7.94
 p_bv: 1.81
 ev_ebitda: 4.02
-dividend_yield: 0%
-roe: 15.1%
+dividend_yield: 0
+roe: 15.1
 my_fair_value: 3230
 current_price: 2141
-upside: +51%
+upside: 51
 position: buy
 gov_ownership: 0
 gov_discount: 0

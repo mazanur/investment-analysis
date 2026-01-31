@@ -5,7 +5,7 @@ name: SFI Holding
 sector: finance
 subsector: investments
 updated: 2026-01-31
-sentiment: neutral
+sentiment: bearish
 shares_outstanding: 50.2
 free_float: 10.7
 adv_rub_mln: 100
@@ -199,7 +199,7 @@ ROE ВСК: 22,5%
 ```
 Выручка от Европлана: 50,79 млрд
 + Дивиденды Европлана: ~6,1 млрд
-- Дивиденд 902 руб × 48,6 млн акций ≈ 43,8 млрд
+- Дивиденд 902 руб × 50,2 млн акций ≈ 45,3 млрд
 - Buyback ~10,2 млрд
 - Оферта миноритариям по 1256,4 руб
 = Остаток: ~3-5 млрд

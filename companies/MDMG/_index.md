@@ -6,15 +6,15 @@ sector: healthcare
 subsector: private_clinics
 updated: 2026-01-31
 sentiment: bullish
-market_cap_rub: 113 млрд
+market_cap_rub: 113
 p_e: 11.3
 ev_ebitda: 9.57
 p_bv: 4.25
-dividend_yield: 4.3%
-roe: 29.5%
+dividend_yield: 4.3
+roe: 29.5
 my_fair_value: 2170
 current_price: 1503
-upside: 44%
+upside: 44
 position: buy
 ---
 

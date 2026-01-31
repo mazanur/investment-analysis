@@ -1,18 +1,18 @@
 ---
 ticker: PHOR
-company: ФосАгро
+name: ФосАгро
 sector: agro
 sentiment: neutral
 position: watch
 updated: 2026-01-31
 current_price: 6461
 my_fair_value: 8000
-upside: 24%
+upside: 24
 p_e: 7.15
 ev_ebitda: 4.95
 p_bv: 3.86
-dividend_yield: 6.8%
-roe: 53%
+dividend_yield: 6.8
+roe: 53
 net_debt_ebitda: 1.14
 key_risks:
   - Снижение мировых цен на удобрения при росте предложения
