@@ -39,10 +39,11 @@ def parse_upside(upside_value: str) -> Optional[float]:
         # Если есть знак %, всегда делим на 100
         if has_percent:
             return value / 100.0
-        # Если число > 1 или < -1, считаем что это проценты
-        if abs(value) > 1:
-            return value / 100.0
-        return value
+        # Значения >= 2 или <= -2 — точно проценты (2% и выше)
+        # Значения в (-2, 2) exclusive — неоднозначны, но по конвенции
+        # проекта upside всегда записывается как целое число процентов
+        # (например, 39 означает 39%), поэтому делим на 100 всегда
+        return value / 100.0
     except ValueError:
         return None
 
