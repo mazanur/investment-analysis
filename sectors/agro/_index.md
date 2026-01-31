@@ -2,7 +2,7 @@
 type: sector
 name: Агросектор
 parent: null
-updated: 2026-01-28
+updated: 2026-01-31
 sentiment: neutral
 market_size_rub: ~9 трлн
 yoy_growth: 2-5%

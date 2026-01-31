@@ -2,7 +2,7 @@
 type: sector
 name: Финансы
 parent: null
-updated: 2026-01-28
+updated: 2026-01-31
 sentiment: neutral
 market_size_rub: ~200 трлн (активы банков)
 yoy_growth: 5-10%

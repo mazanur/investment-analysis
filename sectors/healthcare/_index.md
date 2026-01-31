@@ -2,7 +2,7 @@
 type: sector
 name: Медицина и фармацевтика
 parent: null
-updated: 2026-01-28
+updated: 2026-01-31
 sentiment: bullish
 market_size_rub: ~4,5 трлн
 yoy_growth: 10-15%
