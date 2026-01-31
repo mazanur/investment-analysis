@@ -1,6 +1,6 @@
 ---
 ticker: GAZP
-company: Газпром
+name: Газпром
 sector: oil-gas
 sentiment: bearish
 position: watch

@@ -1,6 +1,6 @@
 ---
 ticker: EUTR
-company: ЕвроТранс
+name: ЕвроТранс
 sector: retail
 sentiment: neutral
 position: watch

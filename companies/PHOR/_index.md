@@ -1,4 +1,5 @@
 ---
+type: company
 ticker: PHOR
 name: ФосАгро
 sector: agro

@@ -1,6 +1,6 @@
 ---
 ticker: AKRN
-company: Акрон
+name: Акрон
 sector: agro
 sentiment: neutral
 position: watch

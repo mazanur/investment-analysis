@@ -1,6 +1,6 @@
 ---
 ticker: CHMF
-company: Северсталь
+name: Северсталь
 sector: metals-mining
 sentiment: bearish
 position: watch
