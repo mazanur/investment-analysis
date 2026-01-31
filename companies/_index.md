@@ -1,6 +1,6 @@
 ---
 type: companies-index
-updated: 2026-01-30
+updated: 2026-01-31
 ---
 
 # Компании
@@ -16,7 +16,8 @@ updated: 2026-01-30
 |-------|----------|-----------|----------|--------|
 | [GAZP](GAZP/) | Газпром | bearish | watch | 14 |
 | [ROSN](ROSN/) | Роснефть | neutral | hold | 1 |
-| [LKOH](LKOH/) | Лукойл | | watch | 10 |
+| [LKOH](LKOH/) | Лукойл | bullish | buy | 10 |
+| [BANEP](BANEP/) | Башнефть-преф | bullish | buy | 0 |
 | [NVTK](NVTK/) | Новатэк | neutral | hold | 4 |
 | [SIBN](SIBN/) | Газпром нефть | neutral | hold | 4 |
 
@@ -37,7 +38,7 @@ updated: 2026-01-30
 | [X5](X5/) | X5 Group | neutral | watch | 5 |
 | [FIVE](FIVE/) | X5 Group (GDR) | neutral | avoid (делистинг) | 6 |
 | [MGNT](MGNT/) | Магнит | bearish | watch | 4 |
-| [FIXP](FIXP/) | Fix Price | | watch | 6 |
+| [FIXP](FIXP/) | Fix Price | neutral | watch | 6 |
 | [LENT](LENT/) | Лента | bullish | buy | 2 |
 | [EUTR](EUTR/) | ЕвроТранс | neutral | watch | 0 |
 
@@ -48,19 +49,19 @@ updated: 2026-01-30
 | [VKCO](VKCO/) | VK | bearish | avoid | 4 |
 | [MTSS](MTSS/) | МТС | neutral | watch | 5 |
 | [OZON](OZON/) | Озон | neutral | watch | 2 |
-| [HHRU](HHRU/) | HeadHunter | | watch | 2 |
+| [HHRU](HHRU/) | HeadHunter | neutral | watch | 2 |
 | [POSI](POSI/) | Positive Technologies | bearish | watch | 65 |
 | [RTKM](RTKM/) | Ростелеком | neutral | hold | 2 |
 
 ### Металлы и добыча
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
-| [GMKN](GMKN/) | Норникель | | watch | 6 |
+| [GMKN](GMKN/) | Норникель | neutral | hold | 6 |
 | [NLMK](NLMK/) | НЛМК | neutral | hold | 1 |
-| [CHMF](CHMF/) | Северсталь | | watch | 2 |
+| [CHMF](CHMF/) | Северсталь | bearish | watch | 2 |
 | [MAGN](MAGN/) | ММК | bearish | watch | 1 |
 | [ALRS](ALRS/) | Алроса | bearish | watch | 3 |
-| [PLZL](PLZL/) | Полюс | | watch | 2 |
+| [PLZL](PLZL/) | Полюс | bullish | watch | 2 |
 | [POLY](POLY/) | Polymetal (Solidcore) | bearish | avoid (делистинг) | 1 |
 | [RUAL](RUAL/) | Русал | | watch | 3 |
 
@@ -73,7 +74,7 @@ updated: 2026-01-30
 ### Энергетика
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
-| [IRAO](IRAO/) | Интер РАО | bullish | buy | 1 |
+| [IRAO](IRAO/) | Интер РАО | bullish | watch | 1 |
 | [MSNG](MSNG/) | Мосэнерго | neutral | watch | 0 |
 | [HYDR](HYDR/) | РусГидро | | watch | 1 |
 

@@ -148,9 +148,9 @@
 - Modify: `companies/_index.md`
 - Modify: `_index.md`
 
-- [ ] Запустить `python3 scripts/generate_trend_json.py` для обновления всех trend.json
-- [ ] Обновить сводную таблицу в `companies/_index.md` — sentiment, position, upside для каждой компании
-- [ ] Обновить таблицу статуса в `_index.md` — даты обновления, след. обновление (+3 мес.)
+- [x] Запустить `python3 scripts/generate_trend_json.py` для обновления всех trend.json
+- [x] Обновить сводную таблицу в `companies/_index.md` — sentiment, position, upside для каждой компании
+- [x] Обновить таблицу статуса в `_index.md` — даты обновления, след. обновление (+3 мес.)
 
 ### Task 10: Коммит и пуш
 
