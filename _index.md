@@ -66,7 +66,7 @@ author: AlmazNurmukhametov
 | companies/PHOR/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/EUTR/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | companies/BSPB/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
-| companies/FLOT/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
+| companies/FLOT/_index.md | заполнен | 2026-01-31 | 2026-04-30 | ежеквартально |
 | companies/RENI/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/SFIN/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | companies/BELU/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
