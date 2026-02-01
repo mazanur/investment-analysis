@@ -7,7 +7,14 @@ __pycache__/
 # Большие файлы данных (можно regenerate)
 *_posts.json
 subtitles*.vtt
+
+# Экспорт и генерируемые данные
 data/
+
+# Smart-lab CSV (скачивается через make download)
+companies/*/data/*.csv
+# Но .gitkeep сохраняем
+!companies/*/data/.gitkeep
 
 # ralphex progress logs
 progress*.txt

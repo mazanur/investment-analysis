@@ -6,9 +6,16 @@
 
 ```
 scripts/
+├── download_smartlab.py  # Загрузка финансовых CSV со smart-lab
 ├── telegram_scraper.py   # Скачивание постов из Telegram
 ├── filter_russia.py      # Фильтрация постов о России
 ├── generate_opinions.py  # Генерация opinions.md для компаний
+├── generate_trend_json.py # Генерация trend.json
+├── check_updates.py      # Проверка просроченных документов
+├── validate_index.py     # Валидация _index.md
+├── top_upside.py         # Топ компаний по upside
+├── export_data.py        # Экспорт в JSON
+├── generate_dashboard.py # GitHub Pages дашборд
 └── README.md             # Эта инструкция
 ```
 
@@ -17,12 +24,41 @@ scripts/
 ```bash
 # Полное обновление (все шаги)
 cd /путь/к/investment-analysis
-python3 scripts/telegram_scraper.py investopit investopit_posts.json
-python3 scripts/filter_russia.py
-python3 scripts/generate_opinions.py
+make download                      # скачать финансы со smart-lab
+make opinions                      # обновить мнения из Telegram
+make trends                        # сгенерировать trend.json
+make dashboard                     # обновить дашборд
 ```
 
 ## Подробное описание
+
+### 0. download_smartlab.py
+
+Загружает финансовые данные (МСФО) со smart-lab.ru в формате CSV.
+
+```bash
+python3 scripts/download_smartlab.py              # все компании
+python3 scripts/download_smartlab.py SBER LKOH    # конкретные тикеры
+python3 scripts/download_smartlab.py --force       # перезаписать (даже если скачано сегодня)
+```
+
+**Выходные данные:** `companies/{TICKER}/data/smartlab_yearly.csv`, `companies/{TICKER}/data/smartlab_quarterly.csv`
+
+**Что делает:**
+- Скачивает годовые МСФО: `https://smart-lab.ru/q/{TICKER}/f/y/MSFO/download/`
+- Скачивает квартальные МСФО: `https://smart-lab.ru/q/{TICKER}/f/q/MSFO/download/`
+- Пропускает делистингованные компании и `_TEMPLATE`
+- Пропускает если файлы уже скачаны сегодня (без `--force`)
+- Пауза 1.5 сек между запросами
+
+**CSV-формат:** разделитель `;`, строки — финансовые показатели, столбцы — годы/кварталы. Содержит: выручку, EBITDA, ЧП, FCF, долг, EPS, ROE, P/E, EV/EBITDA, дивиденды, цену акции, капитализацию и др.
+
+**Makefile:**
+```bash
+make download                  # все компании
+make download TICKER=SBER      # одна компания
+make download-force            # принудительно перезаписать
+```
 
 ### 1. telegram_scraper.py
 

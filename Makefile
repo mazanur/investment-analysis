@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -40,7 +40,9 @@ help:
 	@echo "  make speculative   — найти спекулятивные идеи"
 	@echo "  make update-macro  — обновить macro.md после заседания ЦБ"
 	@echo ""
-	@echo "$(GREEN)Генерация (скрипты):$(NC)"
+	@echo "$(GREEN)Данные и генерация (скрипты):$(NC)"
+	@echo "  make download      — скачать финансы со smart-lab (все компании)"
+	@echo "  make download TICKER=SBER — скачать для конкретной компании"
 	@echo "  make trends        — сгенерировать trend.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
 	@echo "  make dashboard     — сгенерировать GitHub Pages дашборд"
@@ -129,8 +131,26 @@ update-macro:
 	@claude $(CLAUDE_FLAGS) -p "Обнови russia/macro.md после последнего заседания ЦБ. Найди актуальную информацию о ставке, инфляции, прогнозах. Обнови таблицу заседаний и обнови _index.md." | $(CLAUDE_LOG)
 
 # ============================================================================
-# ГЕНЕРАЦИЯ (скрипты)
+# ДАННЫЕ И ГЕНЕРАЦИЯ (скрипты)
 # ============================================================================
+
+download:
+ifdef TICKER
+	@echo "$(CYAN)Загрузка данных со smart-lab для $(TICKER)...$(NC)"
+	@python3 scripts/download_smartlab.py $(TICKER)
+else
+	@echo "$(CYAN)Загрузка данных со smart-lab для всех компаний...$(NC)"
+	@python3 scripts/download_smartlab.py
+endif
+
+download-force:
+ifdef TICKER
+	@echo "$(CYAN)Загрузка данных со smart-lab для $(TICKER) (принудительно)...$(NC)"
+	@python3 scripts/download_smartlab.py --force $(TICKER)
+else
+	@echo "$(CYAN)Загрузка данных со smart-lab (принудительно)...$(NC)"
+	@python3 scripts/download_smartlab.py --force
+endif
 
 trends:
 	@echo "$(CYAN)Генерация trend.json...$(NC)"
