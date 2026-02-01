@@ -29,6 +29,8 @@ cp companies/_TEMPLATE/governance.md companies/{TICKER}/governance.md
 cp companies/RESEARCH_CHECKLIST.md companies/{TICKER}/RESEARCH_CHECKLIST.md
 ```
 
+> **Порядок заполнения файлов:** сначала заполняются все вспомогательные файлы из шаблона (`data/`, `financials.md`, `market_snapshot.md`, `consensus.md`, `governance.md`, `events.md`) — через скрипты или через поиск в интеренте. Только после этого, на основе собранных данных, заполняется `_index.md`. Подробнее о том, кто и что заполняет: [_TEMPLATE/README.md](_TEMPLATE/README.md).
+
 ### 1. Прочитай контекст
 
 Перед исследованием конкретной компании прочитай **снизу вверх**:

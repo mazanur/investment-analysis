@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex download-all
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex download-events download-governance download-all fill-events fill-governance
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -45,6 +45,10 @@ help:
 	@echo "  make download      — скачать финансы со smart-lab"
 	@echo "  make download-moex — скачать рыночные данные с MOEX"
 	@echo "  make download TICKER=SBER — скачать для конкретной компании"
+	@echo "  make download-events — скачать события с MOEX IR-календаря"
+	@echo "  make download-governance — скачать данные для governance (санкции)"
+	@echo "  make fill-events     — сгенерировать events.md из скачанных данных"
+	@echo "  make fill-governance — сгенерировать governance.md из скачанных данных"
 	@echo "  make trends        — сгенерировать trend.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
 	@echo "  make dashboard     — сгенерировать GitHub Pages дашборд"
@@ -163,17 +167,61 @@ else
 	@python3 scripts/download_moex.py
 endif
 
+download-events:
+ifdef TICKER
+	@echo "$(CYAN)Загрузка событий с MOEX для $(TICKER)...$(NC)"
+	@python3 scripts/download_moex_events.py $(TICKER)
+else
+	@echo "$(CYAN)Загрузка событий с MOEX для всех компаний...$(NC)"
+	@python3 scripts/download_moex_events.py
+endif
+
 download-all:
-	@echo "$(CYAN)Загрузка всех данных (smart-lab + MOEX)...$(NC)"
+	@echo "$(CYAN)Загрузка всех данных (smart-lab + MOEX + события + санкции)...$(NC)"
 	@echo ""
 ifdef TICKER
 	@python3 scripts/download_smartlab.py $(TICKER)
 	@echo ""
 	@python3 scripts/download_moex.py $(TICKER)
+	@echo ""
+	@python3 scripts/download_moex_events.py $(TICKER)
+	@echo ""
+	@python3 scripts/download_governance.py $(TICKER)
 else
 	@python3 scripts/download_smartlab.py
 	@echo ""
 	@python3 scripts/download_moex.py
+	@echo ""
+	@python3 scripts/download_moex_events.py
+	@echo ""
+	@python3 scripts/download_governance.py
+endif
+
+fill-events:
+ifdef TICKER
+	@echo "$(CYAN)Генерация events.md для $(TICKER)...$(NC)"
+	@python3 scripts/fill_events.py $(TICKER)
+else
+	@echo "$(CYAN)Генерация events.md для всех компаний...$(NC)"
+	@python3 scripts/fill_events.py
+endif
+
+download-governance:
+ifdef TICKER
+	@echo "$(CYAN)Санкционный скрининг для $(TICKER)...$(NC)"
+	@python3 scripts/download_governance.py $(TICKER)
+else
+	@echo "$(CYAN)Санкционный скрининг для всех компаний...$(NC)"
+	@python3 scripts/download_governance.py
+endif
+
+fill-governance:
+ifdef TICKER
+	@echo "$(CYAN)Генерация governance.md для $(TICKER)...$(NC)"
+	@python3 scripts/fill_governance.py $(TICKER)
+else
+	@echo "$(CYAN)Генерация governance.md для всех компаний...$(NC)"
+	@python3 scripts/fill_governance.py
 endif
 
 trends:
