@@ -20,6 +20,7 @@ updated: 2026-01-31
 | [BANEP](BANEP/) | Башнефть-преф | bullish | buy | 0 |
 | [NVTK](NVTK/) | Новатэк | neutral | hold | 4 |
 | [SIBN](SIBN/) | Газпром нефть | neutral | hold | 4 |
+| [SNGS](SNGS/) | Сургутнефтегаз | neutral | watch | 0 |
 
 ### Финансы
 | Тикер | Компания | Sentiment | Position | Мнений |
@@ -116,5 +117,5 @@ updated: 2026-01-31
 
 ---
 
-*Обновлено: 2026-01-31*
+*Обновлено: 2026-02-01*
 *Источник мнений: [@investopit](https://t.me/investopit)*
