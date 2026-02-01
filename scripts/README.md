@@ -60,6 +60,33 @@ make download TICKER=SBER      # одна компания
 make download-force            # принудительно перезаписать
 ```
 
+### 0.1. download_moex.py
+
+Загружает рыночные данные с MOEX ISS API (публичный, без авторизации).
+
+```bash
+python3 scripts/download_moex.py              # все компании
+python3 scripts/download_moex.py SBER LKOH    # конкретные тикеры
+python3 scripts/download_moex.py --force       # перезаписать
+```
+
+**Выходные данные:** `companies/{TICKER}/data/moex_market.json`
+
+**Что содержит JSON:**
+- `price` — last, bid, offer, open, high, low, waprice, prev_close
+- `volume` — объём торгов за день (штуки, рубли, число сделок)
+- `liquidity` — ADV за 30 дней (рубли), bid-ask спред (%)
+- `capitalization` — рыночная капитализация, число акций
+- `range_52w` — 52-недельный high/low
+- `listing` — board, list_level, lot_size
+
+**Makefile:**
+```bash
+make download-moex             # все компании
+make download-moex TICKER=SBER # одна компания
+make download-all              # smart-lab + MOEX вместе
+```
+
 ### 1. telegram_scraper.py
 
 Скачивает все посты из публичного Telegram-канала через веб-превью.

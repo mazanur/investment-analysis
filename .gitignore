@@ -11,8 +11,9 @@ subtitles*.vtt
 # Экспорт и генерируемые данные
 data/
 
-# Smart-lab CSV (скачивается через make download)
+# Скачиваемые данные (make download-all)
 companies/*/data/*.csv
+companies/*/data/*.json
 # Но .gitkeep сохраняем
 !companies/*/data/.gitkeep
 

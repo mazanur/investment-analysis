@@ -9,8 +9,8 @@
 cp -r companies/_TEMPLATE companies/TICKER
 # Заменить TICKER на реальный тикер во всех файлах
 
-# Скачать финансовые данные со smart-lab
-make download TICKER=TICKER
+# Скачать все данные (smart-lab финансы + MOEX рыночные)
+make download-all TICKER=TICKER
 ```
 
 ## Структура файлов
@@ -19,34 +19,36 @@ make download TICKER=TICKER
 companies/{TICKER}/
 ├── _index.md          # Основной анализ (заполняет Claude)
 ├── financials.md      # Пометки о разовых статьях, корректировки
-├── market_snapshot.md # ADV, спред, казначейские акции (заполняет ПОЛЬЗОВАТЕЛЬ)
+├── market_snapshot.md # Казначейские акции, привилегированные (заполняет ПОЛЬЗОВАТЕЛЬ)
 ├── consensus.md       # Прогнозы аналитиков (заполняет ПОЛЬЗОВАТЕЛЬ)
 ├── governance.md      # Корпоративное управление (заполняет ПОЛЬЗОВАТЕЛЬ)
 ├── events.md          # События и катализаторы (заполняет ПОЛЬЗОВАТЕЛЬ)
-├── data/              # CSV со smart-lab (скачивается скриптом)
-│   ├── smartlab_yearly.csv
-│   └── smartlab_quarterly.csv
+├── data/              # Автоматически скачиваемые данные
+│   ├── smartlab_yearly.csv     # Годовые МСФО (smart-lab)
+│   ├── smartlab_quarterly.csv  # Квартальные МСФО (smart-lab)
+│   └── moex_market.json        # Цена, объём, ADV, спред (MOEX ISS)
 ├── opinions.md        # Внешние мнения (автогенерация скриптом)
 └── trend.json         # Вероятности для API (автогенерация скриптом)
 ```
 
 ## Кто что заполняет
 
-| Файл | Кто | Почему |
-|------|-----|--------|
-| `data/*.csv` | **Скрипт** (`make download`) | CSV со smart-lab: `/q/TICKER/f/y/MSFO/download/` |
-| `financials.md` | Пользователь (опц.) | Пометки о разовых статьях, корректировки |
-| `market_snapshot.md` | Пользователь | ADV и спред недоступны со smart-lab |
-| `consensus.md` | Пользователь | Прогнозы брокеров за пейволлом |
-| `governance.md` | Пользователь | PDF с IR-страниц, структура акционеров |
+| Файл | Кто | Источник |
+|------|-----|----------|
+| `data/smartlab_*.csv` | **Скрипт** (`make download`) | smart-lab.ru CSV |
+| `data/moex_market.json` | **Скрипт** (`make download-moex`) | MOEX ISS API |
+| `consensus.md` | Пользователь | Прогнозы брокеров (за пейволлом) |
+| `governance.md` | Пользователь | IR-страницы, годовые отчёты |
 | `events.md` | Пользователь | Пресс-релизы, IR-презентации, guidance |
-| `_index.md` | **Claude** (анализ) | Анализ на основе всех данных выше |
+| `market_snapshot.md` | Пользователь (опц.) | Только казначейские/преф. акции |
+| `financials.md` | Пользователь (опц.) | Только пометки о разовых статьях |
+| `_index.md` | **Claude** | Анализ на основе всех данных выше |
 | `opinions.md` | **Скрипт** | Генерируется из Telegram-каналов |
 | `trend.json` | **Скрипт** | Генерируется из _index.md |
 
-## Что Claude загружает автоматически со smart-lab
+## Что скачивается автоматически
 
-Годовые и квартальные МСФО через CSV-download:
+### Smart-lab CSV (`make download`)
 - Выручка, EBITDA, ЧП, FCF, OCF, CAPEX
 - Долг, чистый долг, Net Debt/EBITDA
 - EPS, ROE, ROA, P/E, EV/EBITDA, P/BV
@@ -54,29 +56,36 @@ companies/{TICKER}/
 - Цена акции, капитализация, free-float, число акций
 - Отраслевые метрики (добыча, число магазинов и т.д.)
 
+### MOEX ISS API (`make download-moex`)
+- Текущая цена (last, bid, offer)
+- Объём торгов (сегодня + ADV за 30 дней)
+- Bid-ask спред (%)
+- Капитализация и число акций
+- 52-недельный диапазон (high/low)
+- Уровень листинга
+
 ## Порядок работы
 
 1. Пользователь копирует `_TEMPLATE` → `companies/TICKER`
-2. `make download TICKER=TICKER` — скачать финансы со smart-lab в `data/`
-3. Пользователь заполняет `market_snapshot.md` (ADV, спред) — **минимум**
-4. По возможности заполняет `consensus.md`, `governance.md`, `events.md`
-5. Просит Claude провести анализ
-6. Claude читает CSV из `data/` и заполняет `_index.md`
-7. Скрипты генерируют `opinions.md` и `trend.json`
+2. `make download-all TICKER=TICKER` — скачать финансы + рыночные данные
+3. По возможности заполняет `consensus.md`, `governance.md`, `events.md`
+4. Просит Claude провести анализ
+5. Claude читает данные из `data/` и заполняет `_index.md`
+6. Скрипты генерируют `opinions.md` и `trend.json`
 
 ## Приоритет файлов для пользователя
 
 | Приоритет | Файл | Без него |
 |-----------|------|----------|
-| **1 (желателен)** | `market_snapshot.md` | ADV неизвестен — нельзя оценить ликвидность |
-| **2 (желателен)** | `consensus.md` | Нет forward-оценки, только trailing |
-| **3 (желателен)** | `governance.md` | GOD-дисконт будет приблизительным |
-| **4 (желателен)** | `events.md` | Нет катализаторов, сложно отличить buy от watch |
-| — | `data/*.csv` | Скачивается через `make download` |
+| **1 (желателен)** | `consensus.md` | Нет forward-оценки, только trailing |
+| **2 (желателен)** | `governance.md` | GOD-дисконт будет приблизительным |
+| **3 (желателен)** | `events.md` | Нет катализаторов, сложно отличить buy от watch |
+| — | `data/` | Скачивается через `make download-all` |
+| — | `market_snapshot.md` | Основное уже в moex_market.json |
 | — | `financials.md` | Только для пометок о разовых статьях |
 
 ## Минимальный набор для анализа
 
-**Без заполнения пользователем:** Claude может провести анализ только на данных smart-lab. Результат будет trailing-only, без forward-оценки, с приблизительной оценкой ликвидности и корпоративного управления.
+**Без заполнения пользователем** (только `make download-all`): Claude может провести полный trailing-анализ — финансы, мультипликаторы, ликвидность, текущая цена, upside. Не хватает forward-прогнозов, деталей корпоративного управления и катализаторов.
 
 **С полным заполнением:** точная forward-оценка, корректный GOD-дисконт, понятные катализаторы, обоснованный position (buy vs watch).
