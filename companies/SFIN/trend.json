@@ -1,8 +1,8 @@
 {
   "ticker": "SFIN",
-  "sentiment": "bullish",
-  "upside": 0.34,
-  "growth_probability": 0.7,
-  "decline_probability": 0.2,
-  "updated": "2026-01-30"
+  "sentiment": "bearish",
+  "upside": -0.3,
+  "growth_probability": 0.2,
+  "decline_probability": 0.75,
+  "updated": "2026-01-31"
 }

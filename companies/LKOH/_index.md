@@ -7,16 +7,16 @@ subsector: oil
 updated: 2026-01-30
 author: AlmazNurmukhametov
 sentiment: bullish
-market_cap_rub: 3 671 млрд
+market_cap_rub: 3671
 p_e: 6.7
 ev_ebitda: 2.5
 p_bv: 0.69
-dividend_yield: 18%
-roe: 10%
+dividend_yield: 18
+roe: 10
 net_debt_ebitda: -0.16
 my_fair_value: 7500
 current_price: 5299
-upside: 42%
+upside: 42
 position: buy
 ---
 

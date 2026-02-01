@@ -6,14 +6,14 @@ sector: finance
 subsector: banking
 updated: 2026-01-30
 sentiment: bullish
-market_cap_rub: 6 586 млрд
+market_cap_rub: 6586
 shares_outstanding: 21587
 free_float: 48
 adv_rub_mln: 10000
 p_e: 3.97
 p_bv: 0.84
-dividend_yield: 11.4%
-roe: 23.7%
+dividend_yield: 11.4
+roe: 23.7
 gov_ownership: 50
 gov_discount: -0.05
 my_fair_value: 500

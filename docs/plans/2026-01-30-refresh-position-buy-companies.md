@@ -1,5 +1,7 @@
 # Пересмотр всех компаний с position: buy по RESEARCH_GUIDE.md
 
+**Статус: завершён 2026-01-31**
+
 Полный пересмотр инвестиционных карточек 12 компаний с текущим position: buy. Для каждой компании заново выполняется полный цикл анализа по RESEARCH_GUIDE.md: сбор свежих финансовых данных со smart-lab, пересчёт справедливой цены с актуальной ставкой ЦБ (16%), обновление тезиса и position.
 
 ## Контекст
@@ -104,7 +106,7 @@
 - Read: `sectors/agro/_index.md` (или chemicals если есть)
 
 - [x] Прочитать секторальный контекст
-- [x] **PHOR**: WebFetch smart-lab, Net Debt/EBITDA 1.14x → P/E метод (долг низкий), три сценария, перекрёстная проверка (DCF + дивидендный). Position changed: buy → watch (upside 18% < 30%). Маржа EBITDA и ROE в тренде вниз, cash-flow методы не подтверждают P/E-оценку
+- [x] **PHOR**: WebFetch smart-lab, Net Debt/EBITDA 1.14x → P/E метод (долг низкий), три сценария, перекрёстная проверка (DCF + дивидендный). Position changed: buy → watch (upside 24% < 30% после коррекции на FX). Fair value 8 000 ₽ (скорректировано на консенсус USD/RUB 90). Cash-flow методы не подтверждают P/E-оценку
 
 ### Task 5: Энергетика — MSNG
 
@@ -121,15 +123,15 @@
 - Modify: `companies/FLOT/_index.md`
 - Read: `sectors/transport/_index.md`
 
-- [ ] Прочитать `sectors/transport/_index.md`
-- [ ] **FLOT**: WebFetch smart-lab, определить метод по долгу, учесть санкционные риски (теневой флот), три сценария, перекрёстная проверка
+- [x] Прочитать `sectors/transport/_index.md`
+- [x] **FLOT**: WebFetch smart-lab, определить метод по долгу, учесть санкционные риски (теневой флот), три сценария, перекрёстная проверка. Position changed: buy -> sell (upside -29%). Санкции разрушили бизнес-модель: убыток $398 млн за 9м2025, выручка -36%, ROE -8,2%. Fair value 55 руб при цене 78 руб. Акция торгуется на геополитических ожиданиях, а не на фундаментале
 
 ### Task 7: Холдинги — SFIN
 
 **Files:**
 - Modify: `companies/SFIN/_index.md`
 
-- [ ] **SFIN**: NAV метод — оценить дочерние компании (RENI и др.), вычесть долг холдинга, применить холдинговый дисконт (20-40%), три сценария
+- [x] **SFIN**: NAV метод — оценить дочерние компании (ВСК, М.Видео), вычесть долг холдинга, применить холдинговый дисконт (25-35%), три сценария. Кардинальное изменение: Европлан продан Альфа-Банку в декабре 2025 за 50,79 млрд, дивиденд 902 руб/акция выплачен. Остались: 49% ВСК (непубличная) + 10% М.Видео (токсичный). Position changed: buy -> sell (upside -19%). NAV с дисконтом 398 руб, спекулятивная оценка 880 руб при текущей цене 1090 руб
 
 ### Task 8: Медицина — MDMG
 
@@ -137,8 +139,8 @@
 - Modify: `companies/MDMG/_index.md`
 - Read: `sectors/healthcare/_index.md`
 
-- [ ] Прочитать `sectors/healthcare/_index.md`
-- [ ] **MDMG**: WebFetch smart-lab, P/E метод (growth-компания, рост 10-15%), trailing vs forward P/E, три сценария, чувствительность
+- [x] Прочитать `sectors/healthcare/_index.md`
+- [x] **MDMG**: WebFetch smart-lab, P/E метод (growth-компания, рост 10-15%), trailing vs forward P/E, три сценария, чувствительность. Position: buy подтверждён (upside 44%). Trailing P/E 11,3x, forward P/E 9,1x. Fair value 2 170 ₽ при цене 1 503 ₽. Рост выручки +28% (9М25), +40% (Q3'25). ROE 30%, Net Debt отрицательный, налог 0%. Дивиденды 2025E ~88-100 ₽ (6-7%)
 
 ### Task 9: Обновление trend.json и сводных таблиц
 
@@ -147,15 +149,15 @@
 - Modify: `companies/_index.md`
 - Modify: `_index.md`
 
-- [ ] Запустить `python3 scripts/generate_trend_json.py` для обновления всех trend.json
-- [ ] Обновить сводную таблицу в `companies/_index.md` — sentiment, position, upside для каждой компании
-- [ ] Обновить таблицу статуса в `_index.md` — даты обновления, след. обновление (+3 мес.)
+- [x] Запустить `python3 scripts/generate_trend_json.py` для обновления всех trend.json
+- [x] Обновить сводную таблицу в `companies/_index.md` — sentiment, position, upside для каждой компании
+- [x] Обновить таблицу статуса в `_index.md` — даты обновления, след. обновление (+3 мес.)
 
 ### Task 10: Коммит и пуш
 
-- [ ] `git add` изменённые файлы
-- [ ] `git commit` с описанием пересмотра
-- [ ] `git push`
+- [x] `git add` изменённые файлы
+- [x] `git commit` с описанием пересмотра
+- [x] `git push`
 
 ## Для каждой компании выполняется (чеклист из RESEARCH_GUIDE)
 

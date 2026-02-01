@@ -9,12 +9,12 @@ updated: 2026-01-30
 author: AlmazNurmukhametov
 my_fair_value: 4770
 current_price: 4759
-upside: 0%
+upside: 0
 p_e: 15.6
 ev_ebitda: 8.3
 p_bv: 15.2
-dividend_yield: 3.4%
-roe: 39.0%
+dividend_yield: 3.4
+roe: 39.0
 net_debt_ebitda: 0.61
 key_risks:
   - Отрицательный FCF из-за инвестиций в новые направления

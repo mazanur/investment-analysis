@@ -1,8 +1,8 @@
 ---
 ticker: RUAL
-company: Русал
-sector:
-sentiment:
+name: Русал
+sector: metals-mining
+sentiment: neutral
 position: watch
 updated: 2026-01-28
 ---

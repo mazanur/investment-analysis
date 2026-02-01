@@ -7,18 +7,18 @@ subsector: oil_refining
 updated: 2026-01-30
 author: AlmazNurmukhametov
 sentiment: bullish
-market_cap_rub: 260 млрд
+market_cap_rub: 260
 p_e: 1.3
 ev_ebitda: 1.38
 p_bv: 0.15
-dividend_yield: 15.7%
-roe: 11.7%
+dividend_yield: 15.7
+roe: 11.7
 net_debt_ebitda: 0
 gov_ownership: 57
 gov_discount: -0.30
 my_fair_value: 1300
 current_price: 936
-upside: 39%
+upside: 39
 position: buy
 ---
 

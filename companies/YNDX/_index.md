@@ -1,6 +1,6 @@
 ---
 ticker: YDEX
-company: Яндекс
+name: Яндекс
 sector: IT-Telecom
 sentiment: neutral
 position: watch
