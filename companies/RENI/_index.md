@@ -5,6 +5,7 @@ name: Ренессанс Страхование
 sector: finance
 subsector: insurance
 updated: 2026-01-30
+author: AlmazNurmukhametov
 sentiment: bullish
 market_cap_rub: 51.8
 shares_outstanding: 557
@@ -18,6 +19,17 @@ my_fair_value: 150
 current_price: 93
 upside: 61
 position: buy
+gov_ownership: 0
+gov_discount: 0
+key_risks:
+  - Снижение ставки ЦБ уменьшит инвестиционный доход от резервов (182 млрд ₽)
+  - Убыточность Non-Life сегмента (ОСАГО)
+  - Low free-float ~15% — ограниченная ликвидность
+key_opportunities:
+  - Float economics — инвестдоход от резервов при высокой ставке ЦБ
+  - Рост Life-сегмента +53% YoY в Q3 2025
+  - P/BV expansion при снижении ставки ЦБ
+  - Дивидендная доходность ~13% к текущей цене
 ---
 
 # Ренессанс Страхование (RENI)

@@ -5,6 +5,7 @@ name: Т-Технологии (Т-Банк)
 sector: finance
 subsector: banking
 updated: 2026-01-30
+author: AlmazNurmukhametov
 sentiment: bullish
 market_cap_rub: 894
 shares_outstanding: 268.3
@@ -18,6 +19,18 @@ my_fair_value: 5500
 current_price: 3329
 upside: 65
 position: buy
+gov_ownership: 0
+gov_discount: 0
+key_risks:
+  - Высокая ставка ЦБ сжимает NIM
+  - Интеграция Росбанка — риски исполнения, временное давление на ROE
+  - Высокая конкуренция с Сбером в брокерском бизнесе
+  - Высокий P/BV (1.4x) vs сектор — риск переоценки при разочаровании
+key_opportunities:
+  - ROE 29% при P/BV 1.4x — значительная недооценка для growth-банка
+  - Интеграция Росбанка — синергии ~20 млрд руб/год
+  - Байбэк до 5% капитала — поддерживает EPS и котировки
+  - Снижение ставки ЦБ → переоценка всего финансового сектора
 ---
 
 # Т-Технологии (TCSG)
