@@ -21,12 +21,14 @@ companies/{TICKER}/
 ├── financials.md      # Пометки о разовых статьях, корректировки
 ├── market_snapshot.md # Казначейские акции, привилегированные (заполняет ПОЛЬЗОВАТЕЛЬ)
 ├── consensus.md       # Прогнозы аналитиков (заполняет ПОЛЬЗОВАТЕЛЬ)
-├── governance.md      # Корпоративное управление (заполняет ПОЛЬЗОВАТЕЛЬ)
-├── events.md          # События и катализаторы (заполняет ПОЛЬЗОВАТЕЛЬ)
+├── governance.md      # Корпоративное управление (СКРИПТ + ПОЛЬЗОВАТЕЛЬ)
+├── events.md          # События и катализаторы (СКРИПТ + ПОЛЬЗОВАТЕЛЬ)
 ├── data/              # Автоматически скачиваемые данные
 │   ├── smartlab_yearly.csv     # Годовые МСФО (smart-lab)
 │   ├── smartlab_quarterly.csv  # Квартальные МСФО (smart-lab)
-│   └── moex_market.json        # Цена, объём, ADV, спред (MOEX ISS)
+│   ├── moex_market.json        # Цена, объём, ADV, спред (MOEX ISS)
+│   ├── moex_events.json        # Дивиденды, IR-календарь (MOEX ISS)
+│   └── sanctions.json          # Санкционный скрининг (OpenSanctions)
 ├── opinions.md        # Внешние мнения (автогенерация скриптом)
 └── trend.json         # Вероятности для API (автогенерация скриптом)
 ```
@@ -37,9 +39,11 @@ companies/{TICKER}/
 |------|-----|----------|
 | `data/smartlab_*.csv` | **Скрипт** (`make download`) | smart-lab.ru CSV |
 | `data/moex_market.json` | **Скрипт** (`make download-moex`) | MOEX ISS API |
+| `data/moex_events.json` | **Скрипт** (`make download-events`) | MOEX ISS API |
+| `data/sanctions.json` | **Скрипт** (`make download-governance`) | OpenSanctions API |
 | `consensus.md` | Пользователь | Прогнозы брокеров (за пейволлом) |
-| `governance.md` | Пользователь | IR-страницы, годовые отчёты |
-| `events.md` | Пользователь | Пресс-релизы, IR-презентации, guidance |
+| `governance.md` | **Скрипт** + Пользователь (`make fill-governance`) | Авто: дивидендная история, санкции. Вручную: акционеры, менеджмент, buyback |
+| `events.md` | **Скрипт** + Пользователь (`make fill-events`) | Авто: события MOEX. Вручную: guidance, IR-презентации |
 | `market_snapshot.md` | Пользователь (опц.) | Только казначейские/преф. акции |
 | `financials.md` | Пользователь (опц.) | Только пометки о разовых статьях |
 | `_index.md` | **Claude** | Анализ на основе всех данных выше |
@@ -67,19 +71,21 @@ companies/{TICKER}/
 ## Порядок работы
 
 1. Пользователь копирует `_TEMPLATE` → `companies/TICKER`
-2. `make download-all TICKER=TICKER` — скачать финансы + рыночные данные
-3. По возможности заполняет `consensus.md`, `governance.md`, `events.md`
-4. Просит Claude провести анализ
-5. Claude читает данные из `data/` и заполняет `_index.md`
-6. Скрипты генерируют `opinions.md` и `trend.json`
+2. `make download-all TICKER=TICKER` — скачать финансы + рыночные данные + санкции
+3. `make fill-events TICKER=TICKER` — сгенерировать events.md (авто-секции)
+4. `make fill-governance TICKER=TICKER` — сгенерировать governance.md (авто-секции)
+5. По возможности заполняет ручные секции: `consensus.md`, `governance.md`, `events.md`
+6. Просит Claude провести анализ
+7. Claude читает данные из `data/` и заполняет `_index.md`
+8. Скрипты генерируют `opinions.md` и `trend.json`
 
 ## Приоритет файлов для пользователя
 
 | Приоритет | Файл | Без него |
 |-----------|------|----------|
 | **1 (желателен)** | `consensus.md` | Нет forward-оценки, только trailing |
-| **2 (желателен)** | `governance.md` | GOD-дисконт будет приблизительным |
-| **3 (желателен)** | `events.md` | Нет катализаторов, сложно отличить buy от watch |
+| **2 (желателен)** | `governance.md` | Авто-часть через `make fill-governance`. Для точного GOD нужно заполнить акционеров и менеджмент вручную |
+| **3 (желателен)** | `events.md` | Авто-часть через `make fill-events`. Для катализаторов нужен guidance вручную |
 | — | `data/` | Скачивается через `make download-all` |
 | — | `market_snapshot.md` | Основное уже в moex_market.json |
 | — | `financials.md` | Только для пометок о разовых статьях |

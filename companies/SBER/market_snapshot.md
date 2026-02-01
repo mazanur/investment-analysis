@@ -1,14 +1,14 @@
 ---
-ticker: TICKER
-updated: 2026-01-01
+ticker: SBER
+updated: 2026-02-01
 ---
 
-# Рыночные данные: Название (TIтCKER)
+# Рыночные данные: Сбербанк (SBER)
 
 **Основные данные загружаются автоматически** с MOEX ISS API:
 
 ```bash
-make download-moex TICKER=TICKER     # скачать для одной компании
+make download-moex TICKER=SBER       # скачать для одной компании
 make download-moex                   # скачать для всех
 ```
 
@@ -23,10 +23,10 @@ make download-moex                   # скачать для всех
 
 ```yaml
 # Структура капитала (не доступно через API)
-shares_preferred_mln: 0       # млн шт, привилегированные (0 если нет)
+shares_preferred_mln: 1000     # млн шт, привилегированные (SBERP торгуется отдельно)
 
-# Индексы (опционально)
-moex_index_weight: 0           # %, вес в индексе МосБиржи (0 если не входит)
+# Индексы
+moex_index_weight: 14.5        # %, вес в индексе МосБиржи (крупнейший компонент)
 ```
 
 Казначейские акции — см. [governance.md](governance.md) (секция «Структура акционеров»).

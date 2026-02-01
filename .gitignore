@@ -11,10 +11,8 @@ subtitles*.vtt
 # Экспорт и генерируемые данные
 data/
 
-# Скачиваемые данные (make download-all)
-companies/*/data/*.csv
-companies/*/data/*.json
-# Но .gitkeep сохраняем
+# Структура data/ для новых компаний
+# Сами данные коммитим — используются в дашборде
 !companies/*/data/.gitkeep
 
 # ralphex progress logs
