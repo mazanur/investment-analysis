@@ -5,17 +5,34 @@ name: Мать и дитя (MD Medical Group)
 sector: healthcare
 subsector: private_clinics
 updated: 2026-01-31
+author: AlmazNurmukhametov
 sentiment: bullish
 market_cap_rub: 113
+shares_outstanding: 75.1
+free_float: 27
+adv_rub_mln: 200
 p_e: 11.3
 ev_ebitda: 9.57
 p_bv: 4.25
 dividend_yield: 4.3
 roe: 29.5
+net_debt_ebitda: -0.3
 my_fair_value: 2170
 current_price: 1503
 upside: 44
 position: buy
+gov_ownership: 0
+gov_discount: 0
+key_risks:
+  - Снижение реальных доходов населения → переход пациентов в госмедицину
+  - Дефицит медицинских кадров — конкуренция с госсектором
+  - Концентрация на нише женского здоровья — зависимость от демографии
+  - Trailing P/E 11.3x выше исторического среднего 7.3x
+key_opportunities:
+  - Рост рынка частной медицины +15% в год — структурный тренд
+  - M&A консолидация (сеть Эксперт — +21 учреждение, выручка ускоряется до +40%)
+  - Налоговая льгота: эффективная ставка налога 0% для медицины
+  - ROE 30% при нулевом долге — качественный рост
 ---
 
 # Мать и дитя (MDMG)

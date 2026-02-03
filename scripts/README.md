@@ -6,10 +6,22 @@
 
 ```
 scripts/
-├── telegram_scraper.py   # Скачивание постов из Telegram
-├── filter_russia.py      # Фильтрация постов о России
-├── generate_opinions.py  # Генерация opinions.md для компаний
-└── README.md             # Эта инструкция
+├── download_smartlab.py     # Загрузка финансовых CSV со smart-lab
+├── download_moex.py         # Загрузка рыночных данных с MOEX ISS
+├── download_moex_events.py  # Загрузка событий и дивидендов с MOEX ISS
+├── download_governance.py   # Санкционный скрининг (OpenSanctions API)
+├── fill_events.py           # Генерация events.md из скачанных данных
+├── fill_governance.py       # Генерация governance.md из скачанных данных
+├── telegram_scraper.py      # Скачивание постов из Telegram
+├── filter_russia.py         # Фильтрация постов о России
+├── generate_opinions.py     # Генерация opinions.md для компаний
+├── generate_trend_json.py   # Генерация trend.json
+├── check_updates.py         # Проверка просроченных документов
+├── validate_index.py        # Валидация _index.md
+├── top_upside.py            # Топ компаний по upside
+├── export_data.py           # Экспорт в JSON
+├── generate_dashboard.py    # GitHub Pages дашборд
+└── README.md                # Эта инструкция
 ```
 
 ## Быстрый старт
@@ -17,12 +29,175 @@ scripts/
 ```bash
 # Полное обновление (все шаги)
 cd /путь/к/investment-analysis
-python3 scripts/telegram_scraper.py investopit investopit_posts.json
-python3 scripts/filter_russia.py
-python3 scripts/generate_opinions.py
+make download-all                  # скачать финансы + рыночные + события + санкции
+make fill-events                   # сгенерировать events.md
+make fill-governance               # сгенерировать governance.md
+make opinions                      # обновить мнения из Telegram
+make trends                        # сгенерировать trend.json
+make dashboard                     # обновить дашборд
 ```
 
 ## Подробное описание
+
+### 0. download_smartlab.py
+
+Загружает финансовые данные (МСФО) со smart-lab.ru в формате CSV.
+
+```bash
+python3 scripts/download_smartlab.py              # все компании
+python3 scripts/download_smartlab.py SBER LKOH    # конкретные тикеры
+python3 scripts/download_smartlab.py --force       # перезаписать (даже если скачано сегодня)
+```
+
+**Выходные данные:** `companies/{TICKER}/data/smartlab_yearly.csv`, `companies/{TICKER}/data/smartlab_quarterly.csv`
+
+**Что делает:**
+- Скачивает годовые МСФО: `https://smart-lab.ru/q/{TICKER}/f/y/MSFO/download/`
+- Скачивает квартальные МСФО: `https://smart-lab.ru/q/{TICKER}/f/q/MSFO/download/`
+- Пропускает делистингованные компании и `_TEMPLATE`
+- Пропускает если файлы уже скачаны сегодня (без `--force`)
+- Пауза 1.5 сек между запросами
+
+**CSV-формат:** разделитель `;`, строки — финансовые показатели, столбцы — годы/кварталы. Содержит: выручку, EBITDA, ЧП, FCF, долг, EPS, ROE, P/E, EV/EBITDA, дивиденды, цену акции, капитализацию и др.
+
+**Makefile:**
+```bash
+make download                  # все компании
+make download TICKER=SBER      # одна компания
+make download-force            # принудительно перезаписать
+```
+
+### 0.1. download_moex.py
+
+Загружает рыночные данные с MOEX ISS API (публичный, без авторизации).
+
+```bash
+python3 scripts/download_moex.py              # все компании
+python3 scripts/download_moex.py SBER LKOH    # конкретные тикеры
+python3 scripts/download_moex.py --force       # перезаписать
+```
+
+**Выходные данные:** `companies/{TICKER}/data/moex_market.json`
+
+**Что содержит JSON:**
+- `price` — last, bid, offer, open, high, low, waprice, prev_close
+- `volume` — объём торгов за день (штуки, рубли, число сделок)
+- `liquidity` — ADV за 30 дней (рубли), bid-ask спред (%)
+- `capitalization` — рыночная капитализация, число акций
+- `range_52w` — 52-недельный high/low
+- `listing` — board, list_level, lot_size
+
+**Makefile:**
+```bash
+make download-moex             # все компании
+make download-moex TICKER=SBER # одна компания
+make download-all              # smart-lab + MOEX вместе
+```
+
+### 0.2. download_moex_events.py
+
+Загружает события и дивиденды с MOEX ISS API.
+
+```bash
+python3 scripts/download_moex_events.py              # все компании
+python3 scripts/download_moex_events.py SBER LKOH    # конкретные тикеры
+python3 scripts/download_moex_events.py --force       # перезаписать
+```
+
+**Выходные данные:** `companies/{TICKER}/data/moex_events.json`
+
+**Что содержит JSON:**
+- `dividends` — история дивидендов (дата закрытия реестра, сумма, валюта)
+- `ir_events` — IR-календарь (отчётность, конференц-звонки, ГОСА)
+
+**Makefile:**
+```bash
+make download-events               # все компании
+make download-events TICKER=SBER   # одна компания
+```
+
+### 0.3. download_governance.py
+
+Загружает данные о санкциях из OpenSanctions API (бесплатно для некоммерческого использования).
+
+```bash
+python3 scripts/download_governance.py              # все компании
+python3 scripts/download_governance.py SBER LKOH    # конкретные тикеры
+python3 scripts/download_governance.py --force       # перезаписать
+```
+
+**Выходные данные:** `companies/{TICKER}/data/sanctions.json`
+
+**Что содержит JSON:**
+- `query` — запрос (имя компании)
+- `results` — найденные совпадения (id, caption, schema, datasets, score)
+- `relevant_matches` — число совпадений со score > 0.7
+- `total` — общее число проверенных записей
+
+**Что делает:**
+- Берёт имя компании из `_index.md` (поле `name:`) или `moex_market.json`
+- Ищет в OpenSanctions: `GET /search/default?q={name}&limit=10`
+- Пропускает если уже обновлено сегодня (без `--force`)
+- Пауза 1 сек между запросами
+
+**Makefile:**
+```bash
+make download-governance               # все компании
+make download-governance TICKER=SBER   # одна компания
+make download-all                      # включает санкции
+```
+
+### 0.4. fill_events.py
+
+Генерирует `events.md` из скачанных данных MOEX ISS.
+
+```bash
+python3 scripts/fill_events.py              # все компании
+python3 scripts/fill_events.py SBER LKOH    # конкретные тикеры
+```
+
+**Входные данные:** `companies/{TICKER}/data/moex_events.json`
+**Выходные данные:** `companies/{TICKER}/events.md`
+
+**Что делает:**
+- Формирует таблицу последних событий (6 месяцев) и предстоящих катализаторов
+- Добавляет заседания ЦБ из `russia/macro.md`
+- Сохраняет ручные секции (Guidance, IR-презентации, Санкционный статус)
+
+**Makefile:**
+```bash
+make fill-events               # все компании
+make fill-events TICKER=SBER   # одна компания
+```
+
+### 0.5. fill_governance.py
+
+Генерирует `governance.md` из нескольких источников данных.
+
+```bash
+python3 scripts/fill_governance.py              # все компании
+python3 scripts/fill_governance.py SBER LKOH    # конкретные тикеры
+```
+
+**Входные данные:**
+- `companies/{TICKER}/data/moex_events.json` — дивиденды MOEX ISS
+- `companies/{TICKER}/data/smartlab_yearly.csv` — payout ratio (опционально)
+- `companies/{TICKER}/data/sanctions.json` — санкционный скрининг (опционально)
+
+**Выходные данные:** `companies/{TICKER}/governance.md`
+
+**Что делает:**
+- Анализирует историю дивидендов: периодичность, стабильность, суммы по годам
+- Читает payout ratio из smart-lab CSV (если скачан)
+- Читает результаты санкционного скрининга (если скачан)
+- Генерирует авто-секции: «Дивидендная история», «Санкционный скрининг»
+- Сохраняет ручные секции: «Структура акционеров», «Дивидендная политика», «Buyback», «Менеджмент», «Риски», «GOD-дисконт»
+
+**Makefile:**
+```bash
+make fill-governance               # все компании
+make fill-governance TICKER=SBER   # одна компания
+```
 
 ### 1. telegram_scraper.py
 

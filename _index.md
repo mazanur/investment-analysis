@@ -1,6 +1,6 @@
 ---
 type: root
-updated: 2026-01-31
+updated: 2026-02-01
 author: AlmazNurmukhametov
 ---
 
@@ -108,3 +108,16 @@ author: AlmazNurmukhametov
 | companies/PIKK/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/SMLT/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/SGZH/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| **Непокрытые из IMOEX** | | | | |
+| companies/TATN/_index.md | не покрыта | — | — | IMOEX 5.20% (ао+прив.), Татнефть |
+| companies/SNGS/_index.md | заполнен | 2026-02-01 | 2026-05-01 | ежеквартально |
+| companies/RUAL/_index.md | не покрыта | — | — | IMOEX 1.04%, РУСАЛ |
+| companies/AFLT/_index.md | не покрыта | — | — | IMOEX 0.63%, Аэрофлот |
+| companies/DOMRF/_index.md | не покрыта | — | — | IMOEX 0.52%, ДОМ.РФ |
+| companies/SVCB/_index.md | не покрыта | — | — | IMOEX 0.51%, Совкомбанк |
+| companies/TRNFP/_index.md | не покрыта | — | — | IMOEX 0.45%, Транснефть (прив.) |
+| companies/CBOM/_index.md | не покрыта | — | — | IMOEX 0.43%, МКБ |
+| companies/ENPG/_index.md | не покрыта | — | — | IMOEX 0.37%, ЭН+ Групп |
+| companies/AFKS/_index.md | не покрыта | — | — | IMOEX 0.35%, АФК Система |
+| companies/UGLD/_index.md | не покрыта | — | — | IMOEX 0.25%, ЮГК |
+| companies/CNRU/_index.md | не покрыта | — | — | IMOEX 0.23%, Циан |

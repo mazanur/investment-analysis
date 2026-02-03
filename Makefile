@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex download-events download-governance download-all fill-events fill-governance
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -40,7 +40,15 @@ help:
 	@echo "  make speculative   — найти спекулятивные идеи"
 	@echo "  make update-macro  — обновить macro.md после заседания ЦБ"
 	@echo ""
-	@echo "$(GREEN)Генерация (скрипты):$(NC)"
+	@echo "$(GREEN)Данные и генерация (скрипты):$(NC)"
+	@echo "  make download-all  — скачать всё (smart-lab + MOEX)"
+	@echo "  make download      — скачать финансы со smart-lab"
+	@echo "  make download-moex — скачать рыночные данные с MOEX"
+	@echo "  make download TICKER=SBER — скачать для конкретной компании"
+	@echo "  make download-events — скачать события с MOEX IR-календаря"
+	@echo "  make download-governance — скачать данные для governance (санкции)"
+	@echo "  make fill-events     — сгенерировать events.md из скачанных данных"
+	@echo "  make fill-governance — сгенерировать governance.md из скачанных данных"
 	@echo "  make trends        — сгенерировать trend.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
 	@echo "  make dashboard     — сгенерировать GitHub Pages дашборд"
@@ -129,8 +137,92 @@ update-macro:
 	@claude $(CLAUDE_FLAGS) -p "Обнови russia/macro.md после последнего заседания ЦБ. Найди актуальную информацию о ставке, инфляции, прогнозах. Обнови таблицу заседаний и обнови _index.md." | $(CLAUDE_LOG)
 
 # ============================================================================
-# ГЕНЕРАЦИЯ (скрипты)
+# ДАННЫЕ И ГЕНЕРАЦИЯ (скрипты)
 # ============================================================================
+
+download:
+ifdef TICKER
+	@echo "$(CYAN)Загрузка данных со smart-lab для $(TICKER)...$(NC)"
+	@python3 scripts/download_smartlab.py $(TICKER)
+else
+	@echo "$(CYAN)Загрузка данных со smart-lab для всех компаний...$(NC)"
+	@python3 scripts/download_smartlab.py
+endif
+
+download-force:
+ifdef TICKER
+	@echo "$(CYAN)Загрузка данных со smart-lab для $(TICKER) (принудительно)...$(NC)"
+	@python3 scripts/download_smartlab.py --force $(TICKER)
+else
+	@echo "$(CYAN)Загрузка данных со smart-lab (принудительно)...$(NC)"
+	@python3 scripts/download_smartlab.py --force
+endif
+
+download-moex:
+ifdef TICKER
+	@echo "$(CYAN)Загрузка рыночных данных с MOEX для $(TICKER)...$(NC)"
+	@python3 scripts/download_moex.py $(TICKER)
+else
+	@echo "$(CYAN)Загрузка рыночных данных с MOEX для всех компаний...$(NC)"
+	@python3 scripts/download_moex.py
+endif
+
+download-events:
+ifdef TICKER
+	@echo "$(CYAN)Загрузка событий с MOEX для $(TICKER)...$(NC)"
+	@python3 scripts/download_moex_events.py $(TICKER)
+else
+	@echo "$(CYAN)Загрузка событий с MOEX для всех компаний...$(NC)"
+	@python3 scripts/download_moex_events.py
+endif
+
+download-all:
+	@echo "$(CYAN)Загрузка всех данных (smart-lab + MOEX + события + санкции)...$(NC)"
+	@echo ""
+ifdef TICKER
+	@python3 scripts/download_smartlab.py $(TICKER)
+	@echo ""
+	@python3 scripts/download_moex.py $(TICKER)
+	@echo ""
+	@python3 scripts/download_moex_events.py $(TICKER)
+	@echo ""
+	@python3 scripts/download_governance.py $(TICKER)
+else
+	@python3 scripts/download_smartlab.py
+	@echo ""
+	@python3 scripts/download_moex.py
+	@echo ""
+	@python3 scripts/download_moex_events.py
+	@echo ""
+	@python3 scripts/download_governance.py
+endif
+
+fill-events:
+ifdef TICKER
+	@echo "$(CYAN)Генерация events.md для $(TICKER)...$(NC)"
+	@python3 scripts/fill_events.py $(TICKER)
+else
+	@echo "$(CYAN)Генерация events.md для всех компаний...$(NC)"
+	@python3 scripts/fill_events.py
+endif
+
+download-governance:
+ifdef TICKER
+	@echo "$(CYAN)Санкционный скрининг для $(TICKER)...$(NC)"
+	@python3 scripts/download_governance.py $(TICKER)
+else
+	@echo "$(CYAN)Санкционный скрининг для всех компаний...$(NC)"
+	@python3 scripts/download_governance.py
+endif
+
+fill-governance:
+ifdef TICKER
+	@echo "$(CYAN)Генерация governance.md для $(TICKER)...$(NC)"
+	@python3 scripts/fill_governance.py $(TICKER)
+else
+	@echo "$(CYAN)Генерация governance.md для всех компаний...$(NC)"
+	@python3 scripts/fill_governance.py
+endif
 
 trends:
 	@echo "$(CYAN)Генерация trend.json...$(NC)"

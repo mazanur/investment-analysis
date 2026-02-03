@@ -8,6 +8,9 @@ updated: 2026-01-30
 author: AlmazNurmukhametov
 sentiment: bullish
 market_cap_rub: 3671
+shares_outstanding: 692.9
+free_float: 55
+adv_rub_mln: 3000
 p_e: 6.7
 ev_ebitda: 2.5
 p_bv: 0.69
@@ -18,6 +21,18 @@ my_fair_value: 7500
 current_price: 5299
 upside: 42
 position: buy
+gov_ownership: 0
+gov_discount: 0
+key_risks:
+  - Цена нефти: при Brent $55 и Urals $40 маржинальность -30-40%
+  - Укрепление рубля негативно для рублёвой прибыли
+  - Зарубежные НПЗ — риск национализации в Европе
+  - Санкции: LKOH в SDN-списке, ценовой потолок ЕС $44/барр.
+key_opportunities:
+  - Байбек и погашение акций (+11% EPS) — EPS растёт при стабильной прибыли
+  - Дивидендная политика 100% FCF — доходность 18%
+  - Отрицательный чистый долг — финансовая устойчивость при любом сценарии
+  - Слабый рубль — валютная выручка при рублёвых затратах
 ---
 
 # Лукойл (LKOH)
