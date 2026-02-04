@@ -119,5 +119,5 @@ author: AlmazNurmukhametov
 | companies/CBOM/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/ENPG/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/AFKS/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
-| companies/UGLD/_index.md | не покрыта | — | — | IMOEX 0.25%, ЮГК |
+| companies/UGLD/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/CNRU/_index.md | не покрыта | — | — | IMOEX 0.23%, Циан |
