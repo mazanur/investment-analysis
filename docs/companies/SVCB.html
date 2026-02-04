@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Совкомбанк (SVCB) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>Совкомбанк</h1>
+<div class="ticker">SVCB &middot; Финансы</div>
+<div class="badges">
+<span class="badge badge-neutral">neutral</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">13.37</div></div><div class="metric"><div class="label">Цель</div><div class="value">20.0</div></div><div class="metric"><div class="label">Upside</div><div class="value">+50%</div></div><div class="metric"><div class="label">P/E</div><div class="value">5.64</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">2.6</div></div><div class="metric"><div class="label">ROE</div><div class="value">20.0</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">303200000000</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.77</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">0</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">0</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:40%">&#x25B2; 40%</div>
+<div class="flat" style="width:20%">20%</div>
+<div class="decline" style="width:40%">&#x25BC; 40%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>Совкомбанк (SVCB)</h1>
+<h2>Бизнес-модель</h2>
+<p>Совкомбанк — один из крупнейших частных банков России (7-е место по активам, ~4,3 трлн руб.). Основан в 2002 году братьями Хотимскими. IPO на Мосбирже — декабрь 2023 года. Стратегия — агрессивный рост через M&amp;A (25 сделок за 10 лет) и экспансия в высокомаржинальные ниши.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Кредитование юрлиц</strong> (~53% кредитного портфеля, 1 593 млрд руб.): корпоративные кредиты, проектное финансирование</li><li><strong>Кредитование физлиц</strong> (~47% кредитного портфеля, 1 408 млрд руб.): POS-кредитование (после покупки Хоум Банка), ипотека, потребительские кредиты</li><li><strong>Портфель ценных бумаг</strong> (~571 млрд руб.): облигации (процентный доход + переоценка)</li><li><strong>Страхование</strong> (через Инлайф): интегрирован с POS-кредитованием после присоединения Хоум Банка</li><li><strong>Комиссионный доход</strong> (48 млрд LTM): расчётные операции, карточный бизнес</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Цикл снижения ставки ЦБ (16% → 13% к концу 2026) — положительная переоценка портфеля облигаций (571 млрд), рост кредитования</li><li>Интеграция Хоум Банка (завершена 07.04.2025) — 10 млн клиентов, 1 995 офисов, 84 000 точек POS-кредитов</li><li>Восстановление NIM и ROE после провального Q2 2025 (Q3: NIM 5,7%, ROE 20%)</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Owner-operated</strong>: менеджмент и основатели владеют 82,8% акций — максимальная alignment с миноритариями</li><li><strong>M&amp;A track record</strong>: 25 успешных сделок за 10 лет, историческая ROE ~34% (средняя за 10 лет)</li><li><strong>Диверсифицированная бизнес-модель</strong>: корпоративное кредитование + POS + страхование + облигационный портфель</li><li><strong>Масштаб после M&amp;A</strong>: 7-е место по активам (4,3 трлн), 10 млн клиентов после Хоум Банка</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li>Если ставка ЦБ не снизится как прогнозируется — портфель облигаций продолжит генерировать убытки от переоценки</li><li>Рост просроченной задолженности на фоне высоких ставок (CoR уже 2,95%)</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Волатильность прибыли</strong>: ЧП зависит от переоценки портфеля облигаций и валютных позиций. Q2 2025: ROE 6% (убыток по FX ~14 млрд)</li><li><strong>Достаточность капитала</strong>: Н1.0 = 10,14% — ниже порога дивидендной политики (11,5%). Ограничивает дивиденды и рост</li><li><strong>CIR ухудшается</strong>: с 51% (2023) до 59,3% (LTM) — рост расходов на персонал после интеграции Хоум Банка</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>SDN-санкции OFAC</strong>: Совкомбанк в SDN-листе с февраля 2022, отключён от SWIFT. Ограничения на международные операции</li><li><strong>Допэмиссия</strong>: размытие 8,7% для покупки Хоум Банка (апрель 2025). Менеджмент заявил — новых SPO не планируется</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО, банк)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Чистый операц. доход, млрд руб.</td><td>123,2</td><td>67,7</td><td>248,0</td><td>289,7</td><td>313,6</td></tr><tr><td>Чист. проц. доходы, млрд руб.</td><td>84,5</td><td>49,1</td><td>138,9</td><td>158,1</td><td>161,3</td></tr><tr><td>Чист. комисс. доход, млрд руб.</td><td>35,5</td><td>24,8</td><td>26,8</td><td>39,5</td><td>48,0</td></tr><tr><td>Чистая прибыль, млрд руб.</td><td>50,4</td><td>-14,6</td><td>94,1</td><td>75,6</td><td>53,3</td></tr><tr><td>Капитал, млрд руб.</td><td>242,0</td><td>191,7</td><td>297,1</td><td>371,4</td><td>389,0</td></tr><tr><td>Активы, млрд руб.</td><td>—</td><td>2 185</td><td>3 189</td><td>4 046</td><td>4 312</td></tr><tr><td>Кредитный портфель, млрд руб.</td><td>1 177</td><td>1 387</td><td>1 895</td><td>2 780</td><td>3 001</td></tr><tr><td>ROE, %</td><td>—</td><td>—</td><td>45,0</td><td>26,0</td><td>20,0</td></tr><tr><td>NIM, %</td><td>7,5</td><td>5,9</td><td>6,5</td><td>5,4</td><td>4,95</td></tr><tr><td>CIR, %</td><td>—</td><td>—</td><td>51,0</td><td>55,0</td><td>59,3</td></tr><tr><td>CoR, %</td><td>—</td><td>—</td><td>1,8</td><td>2,6</td><td>2,95</td></tr><tr><td>EPS, руб.</td><td>2,56</td><td>-0,74</td><td>4,55</td><td>3,36</td><td>2,37</td></tr><tr><td>P/E</td><td>4,5</td><td>-15,5</td><td>3,0</td><td>4,2</td><td>5,64</td></tr><tr><td>P/BV</td><td>0,94</td><td>1,18</td><td>0,95</td><td>0,86</td><td>0,77</td></tr></tbody></table></div>
+<h3>Квартальные</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q4&#x27;24</th><th>Q1&#x27;25</th><th>Q2&#x27;25</th><th>Q3&#x27;25</th><th>LTM</th></tr></thead><tbody><tr><td>Чистая прибыль, млрд руб.</td><td>20,3</td><td>12,0</td><td>4,2</td><td>16,8</td><td>53,3</td></tr><tr><td>ROE, %</td><td>26,0</td><td>14,7</td><td>6,0</td><td>20,0</td><td>20,0</td></tr><tr><td>NIM, %</td><td>5,1</td><td>4,3</td><td>4,7</td><td>5,7</td><td>4,95</td></tr><tr><td>CIR, %</td><td>57,0</td><td>68,0</td><td>61,0</td><td>51,0</td><td>59,3</td></tr><tr><td>CoR, %</td><td>2,5</td><td>2,2</td><td>3,7</td><td>3,4</td><td>2,95</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> Q2 2025 был провальным (ROE 6%, убытки по FX и облигациям), но Q3 показал сильное восстановление: ROE 20%, NIM вырос до 5,7%, CIR улучшился до 51%. Менеджмент ожидает, что Q4 будет ещё сильнее Q3. Основной вопрос — устойчивость восстановления.</p>
+<h2>Дивиденды</h2>
+<p>Дивидендная политика и история выплат — см. <a href="governance.md" target="_blank">governance.md</a>.</p>
+<div class="table-wrap"><table><thead><tr><th>Прогноз</th><th>DPS, руб.</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td><strong>2025E</strong></td><td><strong>~0,59</strong></td><td><strong>~4,4%</strong></td><td><strong>~25%</strong></td></tr></tbody></table></div>
+<p><strong>Ближайшая выплата:</strong> ожидается июль 2026 (за 2025 год). Прогноз DPS: 0,59 руб. (УК «ДОХОД»).</p>
+<p><strong>Риск:</strong> если Н1.0 не восстановится выше 11,5%, дивиденды могут быть снова урезаны (как произошло с 2-м траншем за 2024 год).</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>Среднее 3Y</th><th>Сектор (банки)</th></tr></thead><tbody><tr><td>P/E</td><td>5,64</td><td>3,0-4,2</td><td>4-6</td></tr><tr><td>P/BV</td><td>0,77</td><td>0,86-1,18</td><td>0,7-1,5</td></tr><tr><td>Div Yield</td><td>2,6%</td><td>0-10%</td><td>5-12%</td></tr><tr><td>ROE</td><td>20,0%</td><td>26-45%</td><td>19-22%</td></tr><tr><td>NIM</td><td>4,95%</td><td>5,4-6,5%</td><td>4-6%</td></tr></tbody></table></div>
+<p>Торгуется с дисконтом к собственной истории (P/BV 0,77 vs среднее 0,86-1,18) и с дисконтом к Сберу (P/BV ~1,0). Дисконт объясняется: волатильной прибылью, SDN-санкциями, низкой достаточностью капитала, слабой дивидендной историей (IPO только в декабре 2023).</p>
+<h2>Мой тезис</h2>
+<p>Совкомбанк — качественный частный банк с сильным менеджментом (82,8% акций у основателей) и историей успешных M&amp;A. Торгуется ниже балансовой стоимости (0,77x P/BV) при нормализующемся ROE ~20%. Ключевой катализатор — снижение ставки ЦБ, которое обеспечит положительную переоценку портфеля облигаций (571 млрд) и восстановление прибыли в 2026. Однако SDN-санкции, низкая достаточность капитала (Н1.0 10,14% &lt; 11,5% порога дивидендов) и волатильная прибыль (Q2 2025: ROE всего 6%) не позволяют поставить buy. Position = watch до подтверждения устойчивого восстановления ROE и решения проблем с капиталом.</p>
+<p><strong>Ключевые катализаторы</strong> (полный список — <a href="events.md" target="_blank">events.md</a>):</p>
+<ol><li>Снижение ставки ЦБ (заседание 13.02.2026, далее 20.03, 24.04)</li><li>Годовой отчёт МСФО за 2025 (ожид. март 2026) — подтверждение восстановления Q3-Q4</li><li>Решение по дивидендам за 2025 (ожид. июнь 2026) — Н1.0 позволит платить?</li></ol>
+<h2>Целевая цена</h2>
+<h3>Исходные данные</h3>
+<p>``<code> BV per share = 389,0 / 22,516 = 17,28 руб. EPS (LTM) = 2,37 руб. Текущая цена = 13,37 руб. Ставка ЦБ текущая = 16%, прогноз на конец 2026 = 13% ERP = 5% g = 7% (номинальный рост, как у зрелого банка) ROE (нормализованный) = 18% (консервативно: 2024 = 26%, Q3&#x27;25 = 20%, forward ~20-25%) </code>``</p>
+<h3>Метод P/BV (основной для банков)</h3>
+<p>Justified P/BV = ROE / (r - g)</p>
+<p><strong>Базовый:</strong> P/BV = 0,18 / (0,18 - 0,07) = 0,18 / 0,11 = <strong>1,64x</strong></p>
+<p>Поправка за качество:</p>
+<ul><li>ROE &gt; среднего по сектору (20% &gt; 19%): +10%</li><li>M&amp;A track record, owner-operated: +10%</li><li>CIR ухудшается 3+ квартала (51% → 59%): -10%</li><li>Достаточность капитала ниже порога дивидендов: -10%</li><li>Волатильная прибыль (переоценка облигаций/FX): -10%</li><li>SDN-санкции: -10%</li><li><strong>Итого: -20%</strong> → множитель 0,80</li></ul>
+<p>GOD: 0% (частный банк)</p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>P/BV базовый</th><th>P/BV целевой</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>1,29</td><td>1,03</td><td>17,80</td><td>+33%</td></tr><tr><td><strong>Базовый</strong></td><td><strong>13%</strong></td><td><strong>18%</strong></td><td><strong>1,64</strong></td><td><strong>1,31</strong></td><td><strong>22,64</strong></td><td><strong>+69%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>2,25</td><td>1,80</td><td>31,10</td><td>+133%</td></tr></tbody></table></div>
+<h3>Чувствительность к g (базовый сценарий r = 18%)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Justified P/BV</th><th>Целевой P/BV</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>4% (g-3)</td><td>1,29</td><td>1,03</td><td>17,80</td><td>+33%</td></tr><tr><td><strong>7% (базовый)</strong></td><td><strong>1,64</strong></td><td><strong>1,31</strong></td><td><strong>22,64</strong></td><td><strong>+69%</strong></td></tr><tr><td>9% (g+2)</td><td>2,00</td><td>1,60</td><td>27,65</td><td>+107%</td></tr></tbody></table></div>
+<p>При g-3 п.п. upside = +33% — тезис устойчив даже при консервативных допущениях.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td><strong>P/BV (базовый)</strong></td><td><strong>22,64</strong></td><td><strong>+69%</strong></td><td>Основной метод для банков</td></tr><tr><td>P/E (forward 2026E)</td><td>24,21</td><td>+81%</td><td>EPS 2026E ~3,33 x P/E целевой 7,27</td></tr><tr><td>Дивидендный</td><td>5,36</td><td>-60%</td><td>Ненадёжен: payout ~10%, дивиденды нестабильны</td></tr><tr><td>Консенсус аналитиков</td><td>17,84</td><td>+33%</td><td>2 из 12 брокеров рекомендуют</td></tr></tbody></table></div>
+<p>P/BV и P/E дают близкие результаты (22,64 vs 24,21, расхождение 7%). Дивидендный метод неприменим из-за нестабильной выплатной политики. Принимаю <strong>my_fair_value = 20,0 руб.</strong> — с дисконтом к расчётному (22,64) из-за SDN-санкций и низкой уверенности в прогнозе ROE.</p>
+<p><strong>my_fair_value = 20,0 руб.</strong> — консервативная оценка, учитывающая SDN-риски и неопределённость с достаточностью капитала.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" checked disabled> <strong>Upside &gt; 30%</strong> — 50%, да (даже при консервативном fair value 20,0)</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ (ближайшее заседание 13.02.2026), годовой отчёт (март 2026)</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — не применимо (банк). Н1.0 = 10,14% (выше регуляторного минимума 8-9,25%)</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — CIR ухудшается: 51% → 59,3%. NIM волатилен. Нет</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — ADV 500,9 млн руб. (отлично)</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — высокая волатильность из-за переоценки облигаций/FX. Q2 2025: ROE 6%. Нет</li><li><input type="checkbox" disabled> <strong>Геополитика учтена</strong> — SDN-санкции OFAC. Существенные ограничения на международные операции. Риск</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — частный банк, GOD = 0%</li><li><input type="checkbox" checked disabled> <strong>Нет value trap</strong> — выручка растёт, ROE восстанавливается, не declining business</li></ul>
+<p><strong>Результат: 6/10</strong> — 4 пункта не выполнены (маржа, качество прибыли, геополитика). Position = <strong>watch</strong> (не buy).</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-02-04</td><td>Первичный анализ, position = watch</td><td>13,37</td><td>Upside 50% привлекателен, но SDN, слабый капитал, волатильная прибыль. Ждём подтверждения восстановления ROE и решения по дивидендам</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/SVCB/f/y/MSFO/" target="_blank">Smart-lab: SVCB финансы</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=SVCB" target="_blank">MOEX: SVCB</a></li><li><a href="../../sectors/finance/_index.md" target="_blank">Секторальный анализ: Финансы</a></li><li><a href="https://sanctionssearch.ofac.treas.gov/Details.aspx?id=34737" target="_blank">OFAC SDN List: Sovcombank</a></li><li><a href="https://www.opensanctions.org/entities/NK-Y2cRUeLzdU7urKuzLAebbE/" target="_blank">OpenSanctions: Sovcombank</a></li><li><a href="https://sovcombank.ru/about/info/investor-relations" target="_blank">Совкомбанк IR</a></li><li><a href="https://www.dohod.ru/ik/analytics/share/svcb" target="_blank">УК ДОХОД: прогноз дивидендов</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>
