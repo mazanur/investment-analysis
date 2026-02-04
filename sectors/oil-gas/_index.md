@@ -119,6 +119,7 @@ key_opportunities:
 | TATN | Татнефть | Нефть | neutral (watch) | Дивиденды 11,6%, ND/EBITDA 0,02x, но ЧП -40-64% в 2025, upside 19% |
 | SNGS | Сургутнефтегаз | Нефть | neutral (watch) | Кубышка $44 млрд, P/BV 0,16, value trap: нет катализатора, SDN |
 | SIBN | Газпром нефть | Нефть | neutral | Премиальные активы, но под санкциями |
+| TRNFP | Транснефть (прив.) | Трубопроводы | neutral (hold) | Монополия, div yield 14%, net cash, но налог 40% и ROE 9%, upside 10% |
 
 ## Инвестиционный вывод
 
