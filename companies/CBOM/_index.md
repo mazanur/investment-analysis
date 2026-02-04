@@ -12,9 +12,11 @@ shares_outstanding: 33430
 free_float: 44.6
 adv_rub_mln: 300
 p_e: 9.5
+ev_ebitda: 0
 p_bv: 0.54
 dividend_yield: 0
 roe: 7.0
+net_debt_ebitda: 0
 gov_ownership: 0
 gov_discount: 0
 my_fair_value: 5.0
@@ -233,4 +235,4 @@ Justified P/BV = ROE / (r - g)
 - [МКБ IR: отчётность МСФО](https://ir.mkb.ru/investor-relations/reports/ifrs/2024)
 - [Коммерсантъ: МКБ процентный убыток Q3 2025](https://www.kommersant.ru/doc/8249940)
 - [InvestFuture: акции МКБ проблемы](https://investfuture.ru/articles/aktsii-mkb-padayut-na-fone-rosta-problemnykh-kreditov-i-slukhov-o-sanatsii)
-- [Секторальный анализ: Финансы](../sectors/finance/_index.md)
+- [Секторальный анализ: Финансы](../../sectors/finance/_index.md)

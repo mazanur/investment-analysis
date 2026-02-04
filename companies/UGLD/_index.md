@@ -7,22 +7,32 @@ subsector: gold
 updated: 2026-02-05
 author: AlmazNurmukhametov
 sentiment: bearish
-market_cap_rub: 180 млрд
-shares_outstanding: 222 779 млн
-free_float: 10.1%
-adv_rub_mln: 15 646
+market_cap_rub: 180
+shares_outstanding: 222779
+free_float: 10.1
+adv_rub_mln: 15646
 p_e: 17.0
 ev_ebitda: 7.18
 p_bv: 3.28
-dividend_yield: 0%
-roe: 19.3%
+dividend_yield: 0
+roe: 19.3
 net_debt_ebitda: 2.2
-gov_ownership: 67.25%
-gov_discount: -25%
+gov_ownership: 67.25
+gov_discount: -25
 my_fair_value: 0.42
 current_price: 0.81
-upside: -48%
+upside: -48
 position: sell
+key_risks:
+  - AISC ~$1 100/oz — себестоимость в 2,5-3 раза выше Полюса, маржа критически зависит от цен на золото
+  - Отрицательный FCF пятый год подряд, инвестпрограмма поглощает весь OCF
+  - Национализация (июль 2025) — неопределённость по новому собственнику, возможна смена стратегии
+  - Высокая долговая нагрузка (ND/EBITDA 2,2x), 56% долга в валюте
+key_opportunities:
+  - Крупнейшие запасы золота в России (46 млн oz), обеспеченность на 30+ лет
+  - План утроения добычи к 2028 (10,6 → 29 т/год)
+  - Рост цен на золото выше $3 500/oz увеличит маржу даже при высоком AISC
+  - Потенциальная продажа стратегическому инвестору может дать оферту миноритариям
 ---
 
 # Южуралзолото Группа Компаний — ЮГК (UGLD)

@@ -15,6 +15,7 @@ key_players:
   - TATN
   - SNGS
   - SIBN
+  - TRNFP
 key_risks:
   - Снижение цен на нефть (Brent → $55-60)
   - Ужесточение санкций и ценового потолка ЕС

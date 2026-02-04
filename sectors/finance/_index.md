@@ -15,6 +15,8 @@ key_players:
   - CBOM
   - SVCB
   - RENI
+  - DOMRF
+  - AFKS
 key_risks:
   - Рост просроченной задолженности при высокой ставке
   - Санкции и отключение от SWIFT

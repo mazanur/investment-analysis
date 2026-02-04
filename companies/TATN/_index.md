@@ -231,7 +231,7 @@ P/E и EV/EBITDA дают близкие значения (675 vs 654). DCF вы
 
 - [Smart-lab: TATN финансы](https://smart-lab.ru/q/TATN/f/y/MSFO/)
 - [MOEX: TATN](https://www.moex.com/ru/issue.aspx?code=TATN)
-- [Секторальный анализ: Нефтегаз](../sectors/oil-gas/_index.md)
+- [Секторальный анализ: Нефтегаз](../../sectors/oil-gas/_index.md)
 - [Татнефть IR: структура акционеров](https://www.tatneft.ru/aktsioneram-i-investoram/equity_structure)
 - [Татнефть: Совет директоров](https://www.tatneft.ru/aktsioneram-i-investoram/sistema-upravleniya-i-kontrolya/sovet-direktorov)
 - [Moscow Times: UK sanctions Dec 2025](https://www.themoscowtimes.com/2025/12/18/)

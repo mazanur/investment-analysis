@@ -7,22 +7,32 @@ subsector: classifieds/proptech
 updated: 2026-02-05
 author: AlmazNurmukhametov
 sentiment: neutral
-market_cap_rub: 44.4 млрд
-shares_outstanding: 77.7 млн
-free_float: 43%
+market_cap_rub: 44.4
+shares_outstanding: 77.7
+free_float: 43
 adv_rub_mln: 200
 p_e: 15.8
 ev_ebitda: 9.7
 p_bv: 12.2
-dividend_yield: 18.2%
-roe: 41.4%
+dividend_yield: 18.2
+roe: 41.4
 net_debt_ebitda: -2.5
-gov_ownership: 0%
-gov_discount: 0%
+gov_ownership: 0
+gov_discount: 0
 my_fair_value: 660
 current_price: 572
-upside: 15%
+upside: 15
 position: watch
+key_risks:
+  - Высокая ставка ЦБ (16%) угнетает ипотечный рынок и лидогенерацию
+  - Конкуренция с Авито, ДомКлик (Сбер) и Яндекс Недвижимостью
+  - Зависимость от Москвы и СПб (~70% выручки)
+  - Спецдивиденд 104 ₽ истощил кэш-подушку, снизив запас прочности
+key_opportunities:
+  - Лидерство в нише с долей 57-69% в ключевых сегментах
+  - Asset-light модель с минимальным CAPEX и высокой конверсией в FCF
+  - Рост ARPU при стабильном трафике (+20-30% YoY)
+  - Потенциал роста маржинальности до 30-40% при масштабировании
 ---
 
 # МКПАО Циан (CNRU)

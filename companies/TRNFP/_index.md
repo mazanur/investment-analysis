@@ -265,7 +265,7 @@ P/E метод даёт 2 665 ₽ — значительно выше рынка
 
 - [Smart-lab: TRNFP финансы](https://smart-lab.ru/q/TRNFP/f/y/MSFO/)
 - [MOEX: TRNFP](https://www.moex.com/ru/issue.aspx?code=TRNFP)
-- [Секторальный анализ: Нефтегаз](../sectors/oil-gas/_index.md)
+- [Секторальный анализ: Нефтегаз](../../sectors/oil-gas/_index.md)
 - [GazpromBank: Транснефть — устойчивый бизнес](https://gazprombank.investments/ideas/transneft-ustoychivyy-biznes-dividendnyy-potentsial/)
 - [Smart-lab: разбор отчёта 9 мес 2025](https://smart-lab.ru/blog/1238117.php)
 - [ТАСС: налог 40%](https://tass.ru/ekonomika/22778691)
