@@ -32,6 +32,7 @@ updated: 2026-01-31
 | [BSPB](BSPB/) | Банк Санкт-Петербург | bullish | buy | 0 |
 | [RENI](RENI/) | Ренессанс Страхование | bullish | buy | 0 |
 | [SFIN](SFIN/) | SFI Holding | bearish | sell | 0 |
+| [SVCB](SVCB/) | Совкомбанк | neutral | watch | 0 |
 
 ### Ритейл
 | Тикер | Компания | Sentiment | Position | Мнений |

@@ -1,6 +1,6 @@
 ---
 type: root
-updated: 2026-02-01
+updated: 2026-02-04
 author: AlmazNurmukhametov
 ---
 
@@ -114,7 +114,7 @@ author: AlmazNurmukhametov
 | companies/RUAL/_index.md | не покрыта | — | — | IMOEX 1.04%, РУСАЛ |
 | companies/AFLT/_index.md | не покрыта | — | — | IMOEX 0.63%, Аэрофлот |
 | companies/DOMRF/_index.md | не покрыта | — | — | IMOEX 0.52%, ДОМ.РФ |
-| companies/SVCB/_index.md | не покрыта | — | — | IMOEX 0.51%, Совкомбанк |
+| companies/SVCB/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
 | companies/TRNFP/_index.md | не покрыта | — | — | IMOEX 0.45%, Транснефть (прив.) |
 | companies/CBOM/_index.md | не покрыта | — | — | IMOEX 0.43%, МКБ |
 | companies/ENPG/_index.md | не покрыта | — | — | IMOEX 0.37%, ЭН+ Групп |
