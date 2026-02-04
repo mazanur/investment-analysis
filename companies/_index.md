@@ -35,6 +35,9 @@ updated: 2026-01-31
 | [RENI](RENI/) | Ренессанс Страхование | bullish | buy | 0 |
 | [SFIN](SFIN/) | SFI Holding | bearish | sell | 0 |
 | [SVCB](SVCB/) | Совкомбанк | neutral | watch | 0 |
+| [CBOM](CBOM/) | МКБ | neutral | watch | 0 |
+| [DOMRF](DOMRF/) | ДОМ.РФ | neutral | watch | 0 |
+| [AFKS](AFKS/) | АФК Система | neutral | watch | 0 |
 
 ### Ритейл
 | Тикер | Компания | Sentiment | Position | Мнений |
