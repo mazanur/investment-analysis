@@ -66,7 +66,7 @@ updated: 2026-01-31
 | [ALRS](ALRS/) | Алроса | bearish | watch | 3 |
 | [PLZL](PLZL/) | Полюс | bullish | watch | 2 |
 | [POLY](POLY/) | Polymetal (Solidcore) | bearish | avoid (делистинг) | 1 |
-| [RUAL](RUAL/) | Русал | neutral | watch | 3 |
+| [RUAL](RUAL/) | Русал | bearish | sell | 3 |
 
 ### Удобрения
 | Тикер | Компания | Sentiment | Position | Мнений |

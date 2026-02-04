@@ -111,7 +111,7 @@ author: AlmazNurmukhametov
 | **Непокрытые из IMOEX** | | | | |
 | companies/TATN/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
 | companies/SNGS/_index.md | заполнен | 2026-02-01 | 2026-05-01 | ежеквартально |
-| companies/RUAL/_index.md | не покрыта | — | — | IMOEX 1.04%, РУСАЛ |
+| companies/RUAL/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
 | companies/AFLT/_index.md | не покрыта | — | — | IMOEX 0.63%, Аэрофлот |
 | companies/DOMRF/_index.md | не покрыта | — | — | IMOEX 0.52%, ДОМ.РФ |
 | companies/SVCB/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
