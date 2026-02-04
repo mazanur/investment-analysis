@@ -22,7 +22,7 @@ gov_discount: 0
 my_fair_value: 5.0
 current_price: 6.25
 upside: -20
-position: sell
+position: avoid
 key_risks:
   - NPL 28% кредитного портфеля — 668 млрд ₽ просрочки, рост в 8 раз за 2025 год
   - Чистый процентный убыток 127 млрд ₽ за 9М 2025, базовый бизнес глубоко убыточен

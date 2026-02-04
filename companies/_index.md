@@ -1,6 +1,6 @@
 ---
 type: companies-index
-updated: 2026-01-31
+updated: 2026-02-05
 ---
 
 # Компании
@@ -35,8 +35,8 @@ updated: 2026-01-31
 | [RENI](RENI/) | Ренессанс Страхование | bullish | buy | 0 |
 | [SFIN](SFIN/) | SFI Holding | bearish | sell | 0 |
 | [SVCB](SVCB/) | Совкомбанк | neutral | watch | 0 |
-| [CBOM](CBOM/) | МКБ | neutral | watch | 0 |
-| [DOMRF](DOMRF/) | ДОМ.РФ | neutral | watch | 0 |
+| [CBOM](CBOM/) | МКБ | bearish | avoid (SDN) | 0 |
+| [DOMRF](DOMRF/) | ДОМ.РФ | bullish | watch | 0 |
 | [AFKS](AFKS/) | АФК Система | neutral | watch | 0 |
 
 ### Ритейл
@@ -59,6 +59,7 @@ updated: 2026-01-31
 | [HHRU](HHRU/) | HeadHunter | neutral | watch | 2 |
 | [POSI](POSI/) | Positive Technologies | bearish | watch | 65 |
 | [RTKM](RTKM/) | Ростелеком | neutral | hold | 2 |
+| [CNRU](CNRU/) | Циан | neutral | watch | 0 |
 
 ### Металлы и добыча
 | Тикер | Компания | Sentiment | Position | Мнений |
@@ -71,6 +72,7 @@ updated: 2026-01-31
 | [PLZL](PLZL/) | Полюс | bullish | watch | 2 |
 | [POLY](POLY/) | Polymetal (Solidcore) | bearish | avoid (делистинг) | 1 |
 | [RUAL](RUAL/) | Русал | bearish | sell | 3 |
+| [UGLD](UGLD/) | ЮГК | bearish | sell | 0 |
 
 ### Удобрения
 | Тикер | Компания | Sentiment | Position | Мнений |
@@ -84,6 +86,7 @@ updated: 2026-01-31
 | [IRAO](IRAO/) | Интер РАО | bullish | watch | 1 |
 | [MSNG](MSNG/) | Мосэнерго | neutral | watch | 0 |
 | [HYDR](HYDR/) | РусГидро | bearish | watch | 1 |
+| [ENPG](ENPG/) | ЭН+ Групп | neutral | watch | 0 |
 
 ### Строительство
 | Тикер | Компания | Sentiment | Position | Мнений |
@@ -95,6 +98,7 @@ updated: 2026-01-31
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
 | [FLOT](FLOT/) | Совкомфлот | bearish | avoid (SDN) | 3 |
+| [AFLT](AFLT/) | Аэрофлот | neutral | watch | 0 |
 
 ### Медицина и фармацевтика
 | Тикер | Компания | Sentiment | Position | Мнений |
@@ -123,5 +127,5 @@ updated: 2026-01-31
 
 ---
 
-*Обновлено: 2026-02-01*
+*Обновлено: 2026-02-05*
 *Источник мнений: [@investopit](https://t.me/investopit)*
