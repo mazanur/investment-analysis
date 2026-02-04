@@ -197,11 +197,11 @@
 
 ## Verification
 
-- [ ] Все 10 компаний имеют заполненные _index.md с 23 полями в YAML и 10+ секциями
-- [ ] Все trend.json сгенерированы и валидны
-- [ ] Таблица статуса в корневом _index.md обновлена для всех 10 компаний
-- [ ] Все RESEARCH_CHECKLIST.md удалены
-- [ ] Финальный прогон `python3 scripts/generate_trend_json.py` без ошибок
+- [x] Все 10 компаний имеют заполненные _index.md с 23 полями в YAML и 10+ секциями
+- [x] Все trend.json сгенерированы и валидны
+- [x] Таблица статуса в корневом _index.md обновлена для всех 10 компаний
+- [x] Все RESEARCH_CHECKLIST.md удалены
+- [x] Финальный прогон `python3 scripts/generate_trend_json.py` без ошибок
 
 ## Post-completion
 
