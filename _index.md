@@ -117,7 +117,7 @@ author: AlmazNurmukhametov
 | companies/SVCB/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
 | companies/TRNFP/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/CBOM/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
-| companies/ENPG/_index.md | не покрыта | — | — | IMOEX 0.37%, ЭН+ Групп |
+| companies/ENPG/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/AFKS/_index.md | не покрыта | — | — | IMOEX 0.35%, АФК Система |
 | companies/UGLD/_index.md | не покрыта | — | — | IMOEX 0.25%, ЮГК |
 | companies/CNRU/_index.md | не покрыта | — | — | IMOEX 0.23%, Циан |
