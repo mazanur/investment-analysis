@@ -109,7 +109,7 @@ author: AlmazNurmukhametov
 | companies/SMLT/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/SGZH/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | **Непокрытые из IMOEX** | | | | |
-| companies/TATN/_index.md | не покрыта | — | — | IMOEX 5.20% (ао+прив.), Татнефть |
+| companies/TATN/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
 | companies/SNGS/_index.md | заполнен | 2026-02-01 | 2026-05-01 | ежеквартально |
 | companies/RUAL/_index.md | не покрыта | — | — | IMOEX 1.04%, РУСАЛ |
 | companies/AFLT/_index.md | не покрыта | — | — | IMOEX 0.63%, Аэрофлот |

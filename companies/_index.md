@@ -20,6 +20,7 @@ updated: 2026-01-31
 | [BANEP](BANEP/) | Башнефть-преф | bullish | buy | 0 |
 | [NVTK](NVTK/) | Новатэк | neutral | hold | 4 |
 | [SIBN](SIBN/) | Газпром нефть | neutral | hold | 4 |
+| [TATN](TATN/) | Татнефть | neutral | watch | 0 |
 | [SNGS](SNGS/) | Сургутнефтегаз | neutral | watch | 0 |
 
 ### Финансы
