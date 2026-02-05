@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЭН+ Групп (EN+ Group) (ENPG) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>ЭН+ Групп (EN+ Group)</h1>
+<div class="ticker">ENPG &middot; Энергетика</div>
+<div class="badges">
+<span class="badge badge-neutral">neutral</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">484</div></div><div class="metric"><div class="label">Цель</div><div class="value">570</div></div><div class="metric"><div class="label">Upside</div><div class="value">+18%</div></div><div class="metric"><div class="label">P/E</div><div class="value">5.23</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0</div></div><div class="metric"><div class="label">ROE</div><div class="value">7.5</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">309</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.52</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">4.48</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">3.30</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:40%">&#x25B2; 40%</div>
+<div class="flat" style="width:20%">20%</div>
+<div class="decline" style="width:40%">&#x25BC; 40%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>ЭН+ Групп — EN+ Group (ENPG)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейший в мире вертикально интегрированный производитель низкоуглеродного алюминия и гидроэлектроэнергии. Зарегистрирована как МКПАО, торгуется на Мосбирже (листинг 1-го уровня). Основана Олегом Дерипаской (под персональными санкциями SDN), санкции с самой компании сняты в 2019 году.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Энергетический сегмент</strong> (~50% выручки): 19,5 ГВт установленной мощности, из них 15,1 ГВт — ГЭС (крупнейший независимый гидрогенератор в мире). Ключевые станции: Братская ГЭС (4,5 ГВт), Красноярская ГЭС (6,0 ГВт), Усть-Илимская ГЭС (3,8 ГВт), Иркутская ГЭС. Также ТЭС (~4,4 ГВт). Выработка ~84-91 ТВт*ч/год. Продажа электроэнергии и тепла (~26 млн Гкал/год)</li><li><strong>Металлургический сегмент</strong> (~50% выручки): контрольная доля 56,88% в RUSAL — 2-м производителе алюминия в мире вне Китая (~4,0 млн т/год). Через RUSAL — косвенная доля 26,39% в Норникеле. Низкоуглеродный алюминий ALLOW (80% меньше выбросов vs угольные производители)</li><li><strong>Синергия</strong>: ~90% алюминия RUSAL производится на гидроэнергии EN+ → минимальный углеродный след, преимущество по себестоимости</li></ul>
+<p><strong>Структура владения:</strong></p>
+<ul><li>Олег Дерипаска (бенефициарный контроль): 35% голосующих акций</li><li>Glencore Group: ~10,55%</li><li>Квази-казначейские акции (дочерние структуры EN+): ~21,37%</li><li>Прочие акционеры: ~19%</li><li>Free float: ~14%</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Снижение ставки ЦБ 16% → 13% к концу 2026 → снижение процентных расходов на 20-25 млрд ₽/год</li><li>Рост тарифов на электроэнергию выше инфляции (Сибирь +24,7% в 2025)</li><li>Возобновление дивидендов Норникеля (2П 2026) → денежный поток через RUSAL</li><li>Завершение инвестцикла (Тайшетский завод RUSAL) → нормализация FCF</li><li>Раскрытие стоимости квази-казначейского пакета (~21%) → buyback или гашение</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Уникальная вертикальная интеграция</strong>: собственные ГЭС обеспечивают электроэнергию для алюминиевых заводов по себестоимости, создавая структурное преимущество по затратам</li><li><strong>Крупнейший независимый гидрогенератор</strong>: 15,1 ГВт ГЭС — актив с нулевой топливной себестоимостью и сроком службы 50-100 лет</li><li><strong>Масштаб алюминиевого бизнеса</strong>: через RUSAL — ~5,9% мирового производства, один из двух крупнейших вне Китая</li><li><strong>Низкоуглеродное производство</strong>: углеродный след в 5 раз ниже среднеотраслевого, сертификация ALLOW → ESG-премия</li><li><strong>Регулируемый энергетический бизнес</strong>: тарифы индексируются выше инфляции, механизм ДПМ гарантирует возврат инвестиций</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li>Высокая ставка ЦБ (16%): процентные расходы 101,4 млрд ₽ (LTM) = 39% EBITDA. Долг 1 011 млрд ₽ чувствителен к ставке</li><li>Укрепление рубля: выручка металлургического сегмента (RUSAL) привязана к USD, себестоимость в RUB</li><li>Цены на алюминий: LME $2 630/т — на среднем уровне. Маржа RUSAL сжимается из-за роста себестоимости глинозёма</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Отрицательный FCF</strong> (LTM -18 млрд ₽): масштабный CAPEX 193 млрд ₽ (13% от выручки), рост vs 82 млрд в 2020. Дивиденды невозможны при отрицательном FCF</li><li><strong>Долговая нагрузка</strong>: Net Debt/EBITDA 3,30x — на грани дискомфорта. Включает консолидацию долга RUSAL (642 млрд ₽, RUSAL отдельно 4,94x)</li><li><strong>Зависимость от RUSAL</strong>: металлургический сегмент генерирует значительную часть EBITDA, но RUSAL имеет собственные проблемы (потеря глинозёма, санкции ЕС)</li><li><strong>Снижение ROE</strong>: 36,8% (2021) → 7,5% (LTM) — доходность капитала ниже стоимости капитала (21%)</li><li><strong>Квази-казначейские акции</strong>: ~21% — замороженный капитал, нет ясности по гашению/распоряжению</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>Дерипаска под SDN-санкциями OFAC</strong>: бенефициар EN+ остаётся в санкционном списке, что ограничивает корпоративные действия, привлечение западного финансирования, потенциальные M&amp;A</li><li>EN+ и RUSAL сами сняты с SDN в 2019, но снятие условное — нарушение условий может привести к восстановлению</li><li>ЕС: запрет на импорт российского алюминия (16-й пакет, фев 2025) — давит на RUSAL</li><li>Конфликт акционеров RUSAL: SUAL Partners (Вексельберг, тоже под санкциями) vs EN+ — иски, споры по дивидендам</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>749</td><td>1 041</td><td>1 134</td><td>1 249</td><td>1 335</td><td>1 476</td></tr><tr><td>EBITDA, млрд ₽</td><td>134,6</td><td>294,1</td><td>213,8</td><td>183,9</td><td>266,7</td><td>263,4</td></tr><tr><td>Маржа EBITDA, %</td><td>18,0%</td><td>28,3%</td><td>18,8%</td><td>14,7%</td><td>20,0%</td><td>17,8%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>49,5</td><td>157,8</td><td>74,2</td><td>50,8</td><td>90,8</td><td>59,1</td></tr><tr><td>OCF, млрд ₽</td><td>136,7</td><td>159,7</td><td>39,2</td><td>232,0</td><td>151,1</td><td>266,2</td></tr><tr><td>FCF, млрд ₽</td><td>69,8</td><td>125,6</td><td>-39,1</td><td>58,0</td><td>-91,4</td><td>-18,3</td></tr><tr><td>CAPEX, млрд ₽</td><td>81,6</td><td>111,5</td><td>117,3</td><td>123,4</td><td>171,1</td><td>192,7</td></tr><tr><td>Net Debt, млрд ₽</td><td>725,9</td><td>637,5</td><td>712,1</td><td>781,8</td><td>808,8</td><td>870,4</td></tr><tr><td>Net Debt/EBITDA</td><td>5,39</td><td>2,17</td><td>3,33</td><td>4,25</td><td>3,03</td><td>3,30</td></tr><tr><td>EPS, ₽</td><td>77,4</td><td>247,0</td><td>116,2</td><td>79,5</td><td>142,1</td><td>92,4</td></tr><tr><td>ROE, %</td><td>21,2%</td><td>36,8%</td><td>14,1%</td><td>8,2%</td><td>13,2%</td><td>7,5%</td></tr><tr><td>Процентные расходы, млрд ₽</td><td>56,2</td><td>51,8</td><td>67,7</td><td>58,1</td><td>84,7</td><td>101,4</td></tr><tr><td>P/E</td><td>10,0</td><td>3,58</td><td>3,22</td><td>5,54</td><td>2,44</td><td>5,23</td></tr><tr><td>EV/EBITDA</td><td>9,07</td><td>4,09</td><td>4,45</td><td>5,78</td><td>3,86</td><td>4,48</td></tr><tr><td>P/BV</td><td>6,86</td><td>2,13</td><td>0,67</td><td>0,65</td><td>0,43</td><td>0,52</td></tr></tbody></table></div>
+<h3>Полугодовые (EN+ отчитывается по полугодиям)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2023</th><th>1П&#x27;24</th><th>2П&#x27;24</th><th>1П&#x27;25</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>1 249</td><td>637</td><td>698</td><td>778</td><td>1 476</td></tr><tr><td>EBITDA, млрд ₽</td><td>183,9</td><td>136,4</td><td>130,3</td><td>133,1</td><td>263,4</td></tr><tr><td>Маржа EBITDA, %</td><td>14,7%</td><td>21,4%</td><td>18,7%</td><td>17,1%</td><td>17,8%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>50,8</td><td>64,2</td><td>26,6</td><td>32,5</td><td>59,1</td></tr><tr><td>OCF, млрд ₽</td><td>232,0</td><td>16,0</td><td>135,1</td><td>131,1</td><td>266,2</td></tr><tr><td>FCF, млрд ₽</td><td>58,0</td><td>-77,9</td><td>-13,5</td><td>-4,8</td><td>-18,3</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> Выручка устойчиво растёт (CAGR 2020-2024: +15,6%), но маржинальность волатильна: пик 28,3% в 2021 (рост цен на алюминий), провал до 14,7% в 2023 (рост себестоимости глинозёма), восстановление до 17,8% LTM. Чистая прибыль LTM (59,1 млрд) значительно ниже 2024 (90,8 млрд) из-за роста процентных расходов (+20% г/г до 101 млрд). FCF отрицательный 2 из последних 3 лет из-за масштабного CAPEX (строительство Тайшетского завода RUSAL, модернизация ГЭС). OCF/NI = 4,5x — качество прибыли высокое (операционный бизнес генерирует кэш, проблема в CAPEX). Долг стабилен в абсолюте (~1 трлн ₽), Net Debt/EBITDA улучшился с 5,39x (2020) до 3,30x (LTM).</p>
+<h2>Дивиденды</h2>
+<p>Дивидендная политика и история выплат — см. <a href="governance.md" target="_blank">governance.md</a>.</p>
+<p>EN+ выплатила единственный дивиденд в 2017 году (39,4 ₽/акцию, ~4,9% доходности). С тех пор дивиденды не выплачивались.</p>
+<p>Дивидендная политика (формально): 100% полученных дивидендов от RUSAL + 75% FCF энергетического сегмента (не менее $250 млн/год). На практике: RUSAL не платит дивиденды с 2022, FCF группы отрицательный → выплаты невозможны.</p>
+<div class="table-wrap"><table><thead><tr><th>Прогноз</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td><strong>2025E</strong></td><td><strong>0</strong></td><td><strong>0%</strong></td><td>FCF отрицательный, RUSAL не платит дивиденды</td></tr><tr><td><strong>2026E</strong></td><td><strong>0</strong></td><td><strong>0%</strong></td><td>Маловероятно: зависит от FCF и дивидендов RUSAL/Норникеля</td></tr></tbody></table></div>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>Среднее 5Y</th><th>Сектор (энергетика)</th></tr></thead><tbody><tr><td>P/E</td><td>5,23x</td><td>5,3x</td><td>5-8x</td></tr><tr><td>EV/EBITDA</td><td>4,48x</td><td>4,53x</td><td>3-5x</td></tr><tr><td>P/BV</td><td>0,52x</td><td>1,78x</td><td>0,4-0,8x</td></tr><tr><td>Div Yield</td><td>0%</td><td>0%</td><td>5-10%</td></tr><tr><td>ROE</td><td>7,5%</td><td>18,7%</td><td>5-15%</td></tr></tbody></table></div>
+<p>EN+ торгуется с глубоким дисконтом по P/BV (0,52x vs среднее 5Y 1,78x). Формально «дёшево», но обосновано: (1) ROE 7,5% ниже стоимости капитала (21%), (2) FCF отрицательный, (3) дивидендов нет. EV/EBITDA 4,48x — на среднем уровне для энергетики, но включает огромный Net Debt (870 млрд ₽). P/E 5,2x привлекателен, но прибыль нестабильна и включает вклад RUSAL, который генерирует убытки на уровне stand-alone.</p>
+<h2>Мой тезис</h2>
+<p>EN+ — уникальный актив: крупнейший независимый гидрогенератор мира + контрольный пакет во 2-м производителе алюминия. Торгуется с дисконтом 48% к балансовой стоимости (P/BV 0,52x при BV/акцию 926 ₽). Однако для реализации стоимости нужны: (1) нормализация FCF (завершение инвестцикла), (2) снижение ставки ЦБ (процентные расходы 39% EBITDA), (3) возобновление дивидендных потоков от Норникеля через RUSAL. Все три фактора ожидаются в 2026-2027, но timing неопределённый. Upside 18% в базовом сценарии недостаточен для buy, учитывая долговые риски и отсутствие дивидендов. Position = watch: ждём подтверждения снижения ставки ЦБ и нормализации FCF.</p>
+<p><strong>Ключевые катализаторы</strong> (полный список — <a href="events.md" target="_blank">events.md</a>):</p>
+<ol><li>Снижение ставки ЦБ (ближайшее заседание 13 февраля 2026) — каждые -1пп экономят ~10 млрд ₽/год на процентах</li><li>Возобновление дивидендов Норникеля (ожидается 2П 2026) → денежный поток через RUSAL → EN+</li><li>Годовая отчётность МСФО за 2025 (март 2026) — подтверждение тренда EBITDA</li><li>Раскрытие плана по квази-казначейскому пакету (~21%) — buyback или гашение</li></ol>
+<h2>Целевая цена</h2>
+<h3>Исходные данные</h3>
+<p>``<code> EPS (LTM) = 92,4 ₽ EBITDA per share = 263,4 / 0,6388 = 412,3 ₽ Net Debt per share = 870,4 / 0,6388 = 1 362,7 ₽ BV per share = 926,0 ₽ Текущая цена = 484 ₽ Ставка ЦБ текущая = 16%, прогноз на конец 2026 = 13% ERP = 5% </code>``</p>
+<h3>Тип компании и метод оценки</h3>
+<p>EN+ — вертикально интегрированный холдинг (энергетика + металлы). Net Debt/EBITDA = 3,30x (в диапазоне 2,5-3,5x) → <strong>EV/EBITDA</strong> (основной метод).</p>
+<p>Дополнительно: NAV-подход (сумма частей) как перекрёстная проверка.</p>
+<h3>Метод EV/EBITDA (основной)</h3>
+<p>Параметры:</p>
+<ul><li>r_equity = 18% (ставка 13% + ERP 5%)</li><li>r_debt = 16% (ставка 13% + спред 3%)</li><li>Tax = 25%</li><li>D/(D+E) = 870,4 / (309 + 870,4) = 73,8%</li><li>E/(D+E) = 309 / 1 179,4 = 26,2%</li><li>WACC = 18% x 26,2% + 16% x 75% x 73,8% = 4,72% + 8,86% = 13,57%</li><li>g = 5% (через-цикловой рост: инфляция + рост тарифов)</li></ul>
+<p>Проверка ограничений: g (5%) &lt; r (18%), (WACC - g) = 8,57% &gt;= 5%.</p>
+<p>Базовый EV/EBITDA = (1 - 0,25) / (0,1357 - 0,05) = 0,75 / 0,0857 = 8,75x</p>
+<p>Поправка за качество:</p>
+<ul><li>ROE 7,5% &lt; среднего по сектору (~10%): -10%</li><li>Маржа EBITDA волатильна (от 14,7% до 28,3%): -5%</li><li>Уникальный актив (ГЭС + алюминий, вертикальная интеграция): +10%</li><li>Бенефициар под персональными санкциями SDN: -10%</li><li>Долговая нагрузка ND/EBITDA 2,5-3,5x: -25%</li><li>Итого: -40%, множитель = x0,60</li></ul>
+<p>Целевой EV/EBITDA = 8,75 x 0,60 = 5,25x</p>
+<h3>Три сценария по ставке ЦБ</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>WACC</th><th>EV/EBITDA баз.</th><th>EV/EBITDA цел.</th><th>EV, млрд</th><th>Equity, млрд</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>16,5%</td><td>6,52</td><td>3,91</td><td>1 030</td><td>160</td><td>250</td><td>-48%</td></tr><tr><td><strong>Базовый</strong></td><td><strong>13%</strong></td><td><strong>13,6%</strong></td><td><strong>8,75</strong></td><td><strong>5,25</strong></td><td><strong>1 383</strong></td><td><strong>513</strong></td><td><strong>803</strong></td><td><strong>+66%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>10,6%</td><td>13,39</td><td>8,04</td><td>2 117</td><td>1 247</td><td>1 952</td><td>+303%</td></tr></tbody></table></div>
+<p>Примечание: огромный разброс сценариев обусловлен высокой долей долга в структуре капитала (73,8%). Небольшое изменение WACC многократно усиливается на уровне equity. Это характерно для leveraged компаний.</p>
+<p>Однако базовый сценарий даёт нереалистично высокую цену (803 ₽), потому что модель не учитывает:</p>
+<ol><li>FCF отрицательный — компания не может реализовать теоретическую стоимость без FCF</li><li>RUSAL stand-alone генерирует убыток — часть EBITDA группы не конвертируется в equity value</li><li>Дисконт за холдинговую структуру</li></ol>
+<p>Корректировка: применяем дисконт за холдинговую структуру -30% (стандарт для непрозрачных холдингов без дивидендов):</p>
+<ul><li>Базовый скорректированный: 803 x 0,70 = <strong>562 ₽</strong></li><li>Пессимистичный скорректированный: 250 x 0,70 = 175 ₽</li></ul>
+<h3>NAV-подход (перекрёстная проверка)</h3>
+<p>Сумма частей:</p>
+<p>```</p>
+<ol><li>Доля в RUSAL (56,88%):</li></ol>
+<p>Капитализация RUSAL = 577 млрд ₽ (на фев 2026) Стоимость доли = 577 x 56,88% = 328 млрд ₽ (включает долю RUSAL в Норникеле 26,39%)</p>
+<ol><li>Энергетический сегмент:</li></ol>
+<p>EBITDA энергетики (оценка) ≈ 133 млрд ₽ (50% от группы) EV/EBITDA энергетики = 5x (сектор) EV энергетики = 665 млрд ₽ Долг энергетики (оценка) ≈ 230 млрд ₽ (из общего долга ~1 011 минус ~780 RUSAL) Equity энергетики = 665 - 230 = 435 млрд ₽</p>
+<ol><li>Квази-казначейские акции:</li></ol>
+<p>~21,37% от капитализации = 309 x 21,37% = 66 млрд ₽ (дисконт 50% из-за неопределённости использования) = 33 млрд ₽</p>
+<ol><li>Долг холдинга (корпоративный центр):</li></ol>
+<p>Оценочно ≈ 0 (основной долг на уровне RUSAL и энергосегмента)</p>
+<p>Итого NAV = 328 + 435 + 33 = 796 млрд ₽ Дисконт за холдинг -25%: 796 x 0,75 = 597 млрд ₽ NAV/акцию = 597 / 0,6388 = 934 ₽ С учётом ограниченного free-float (14%) → дополнительный дисконт -10%: 841 ₽ ```</p>
+<p>Однако рыночная оценка RUSAL (577 млрд ₽) уже включает рыночный дисконт за долг и проблемы. И RUSAL сам торгуется с downside. Используем fair value RUAL (25 ₽ x 15,193 = 380 млрд, наша оценка) вместо рыночной:</p>
+<p>``<code> Доля EN+ в RUSAL по fair value = 380 x 56,88% = 216 млрд ₽ NAV скорр. = 216 + 435 + 33 = 684 млрд ₽ С дисконтом -25%: 513 млрд ₽ NAV/акцию = 513 / 0,6388 = 803 ₽ С дисконтом за free-float -10%: 723 ₽ </code>``</p>
+<h3>Чувствительность к g (базовый сценарий, WACC=13,6%)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой EV/EBITDA</th><th>EV, млрд</th><th>Equity, млрд</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>2% (g-3)</td><td>3,95</td><td>1 040</td><td>170</td><td>266 x 0,70 = 186</td><td>-62%</td></tr><tr><td><strong>5% (базовый)</strong></td><td><strong>5,25</strong></td><td><strong>1 383</strong></td><td><strong>513</strong></td><td><strong>803 x 0,70 = 562</strong></td><td><strong>+16%</strong></td></tr><tr><td>7% (g+2)</td><td>6,82</td><td>1 797</td><td>927</td><td>1 451 x 0,70 = 1 016</td><td>+110%</td></tr></tbody></table></div>
+<p>При g-3пп upside глубоко отрицательный → тезис чувствителен к темпам роста. Учитываем при определении position.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>EV/EBITDA (базовый, с дисконтом)</td><td>562</td><td>+16%</td><td>Основной, скорректирован на холдинговый дисконт</td></tr><tr><td>NAV (по рыночной RUAL)</td><td>841</td><td>+74%</td><td>Завышен из-за рыночных цен RUAL</td></tr><tr><td>NAV (по fair value RUAL=25₽)</td><td>723</td><td>+49%</td><td>Более консервативный</td></tr><tr><td>P/E (P/E 6x на EPS 92,4)</td><td>554</td><td>+14%</td><td>Прибыль нестабильна</td></tr><tr><td>Дивидендный</td><td>N/A</td><td>N/A</td><td>Дивидендов нет</td></tr></tbody></table></div>
+<p>Методы дают разброс 554-841 ₽. EV/EBITDA и P/E сходятся (~560 ₽). NAV завышает из-за раздельной оценки частей. Принимаем взвешенную: 70% EV/EBITDA + 30% NAV (fair value) = 562 x 0,70 + 723 x 0,30 = 393 + 217 = 610 ₽.</p>
+<p>Округление: <strong>570 ₽</strong> — с учётом неопределённости по FCF и дивидендам, берём ближе к нижней границе.</p>
+<p><strong>my_fair_value = 570 ₽</strong> — обоснование: взвешенная оценка EV/EBITDA (с холдинговым дисконтом 30%) и NAV-подхода (с дисконтом 25% + 10% за free-float). Upside +18% — недостаточен для buy (порог 30%), но демонстрирует потенциал при снижении ставки ЦБ. Основной риск для оценки — сохранение отрицательного FCF и высокой ставки ЦБ.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — нет, +18% в базовом сценарии</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — частично: снижение ставки ЦБ (фев-апр 2026), дивиденды Норникеля (2П 2026)</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — нет, 3,30x</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — волатильна: 14,7% → 20,0% → 17,8%, но не падает 3+ квартала подряд</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — ADV 217 млн ₽, free-float 14%</li><li><input type="checkbox" checked disabled> <strong>Качество прибыли</strong> — OCF/NI = 4,5x (отлично)</li><li><input type="checkbox" disabled> <strong>Геополитика учтена</strong> — бенефициар Дерипаска под SDN, EN+ сама снята с SDN в 2019</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — частная компания, GOD не применим</li><li><input type="checkbox" disabled> <strong>Нет value trap</strong> — риск: FCF отрицательный 2+ года, дивидендов нет с 2017, ROE ниже стоимости капитала</li></ul>
+<p><strong>Результат: 4/10 — watch.</strong> 6 пунктов не выполнены, включая upside &lt; 30% и долговую нагрузку. Потенциал есть, но нужны подтверждения.</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-02-05</td><td>Открытие карточки, watch</td><td>484 ₽</td><td>Upside +18%, уникальный актив (ГЭС + RUSAL), но ND/EBITDA 3,3x, FCF отрицательный, нет дивидендов. Fair value 570 ₽. Ждём снижения ставки ЦБ и нормализации FCF</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/ENPG/f/y/MSFO/" target="_blank">Smart-lab: ENPG финансы</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=ENPG" target="_blank">MOEX: ENPG</a></li><li><a href="https://enplusgroup.com/ru/investors/results-and-disclosure/ifrs/" target="_blank">EN+ Group: отчёты МСФО</a></li><li><a href="https://enplusgroup.com/upload/iblock/7cc/rystb88pog5aev3en1qocg51mbsm7o0y/En_-Group-FY-2024-results_RUS.pdf" target="_blank">EN+ Group: результаты за 2024 год</a></li><li><a href="https://home.treasury.gov/news/press-releases/sm592" target="_blank">OFAC: снятие санкций с EN+ и RUSAL (2019)</a></li><li><a href="../../sectors/energy/_index.md" target="_blank">Секторальный анализ: Энергетика</a></li><li><a href="../../sectors/metals-mining/_index.md" target="_blank">Секторальный анализ: Металлы и добыча</a></li><li><a href="../RUAL/_index.md" target="_blank">RUSAL: наш анализ</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>

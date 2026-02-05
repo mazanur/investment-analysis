@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Московский кредитный банк (МКБ) (CBOM) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>Московский кредитный банк (МКБ)</h1>
+<div class="ticker">CBOM &middot; Финансы</div>
+<div class="badges">
+<span class="badge badge-bearish">bearish</span>
+<span class="badge badge-avoid">avoid</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">6.25</div></div><div class="metric"><div class="label">Цель</div><div class="value">5.0</div></div><div class="metric"><div class="label">Upside</div><div class="value">-20%</div></div><div class="metric"><div class="label">P/E</div><div class="value">9.5</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0</div></div><div class="metric"><div class="label">ROE</div><div class="value">7.0</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">209</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.54</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">0</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">0</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:20%">&#x25B2; 20%</div>
+<div class="flat" style="width:5%">5%</div>
+<div class="decline" style="width:75%">&#x25BC; 75%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>Московский кредитный банк — МКБ (CBOM)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейший негосударственный публичный банк России, входит в топ-10 по активам (~5,5 трлн ₽). Системно значимая кредитная организация (СЗКО). Основан в 1992 году, IPO в 2015 году на Мосбирже.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Корпоративное кредитование</strong> (~70% портфеля): обслуживание крупного бизнеса, в т.ч. тесные связи с Роснефтью (долгосрочные депозиты до 2066 г., обратное РЕПО на сотни млрд ₽)</li><li><strong>Розничный банкинг</strong> (~20%): кредиты, депозиты, карты — меньший масштаб vs системные банки</li><li><strong>Казначейство и операции на рынках</strong> (~10%): операции с ценными бумагами, валютные операции</li></ul>
+<p><strong>Особенности:</strong></p>
+<ul><li>Тесная финансовая связь с Роснефтью: депозиты и РЕПО-операции на сотни млрд ₽ составляют значительную часть баланса</li><li>В 2017 году банк находился на грани санации, стабилизирован при участии структур Роснефти</li><li>Контролируется Романом Авдеевым через концерн «Россиум» (55,4%)</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Снижение ставки ЦБ 16% → 13% к концу 2026 → снижение стоимости фондирования</li><li>Нормализация NPL и снижение резервирования — если качество активов стабилизируется</li><li>Статус СЗКО — де-факто поддержка государства при кризисе</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Масштаб</strong>: топ-10 банк по активам (5,5 трлн ₽), системно значимый (СЗКО)</li><li><strong>Стратегический партнёр Роснефти</strong>: долгосрочные депозиты и РЕПО-операции обеспечивают фондирование</li><li><strong>Негосударственный статус</strong>: формально частный банк, гибкость в принятии решений</li><li><strong>Развитая инфраструктура</strong>: широкая сеть обслуживания корпоративных клиентов</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li>Высокая ставка ЦБ (16%) давит на NIM, который и без того на исторических минимумах (1,8%)</li><li>Экономическое замедление → рост просрочки по корпоративным кредитам</li><li>Инфляционный всплеск января 2026 (НДС 22%) может замедлить снижение ставки ЦБ</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>NPL 28%</strong> — критический уровень просрочки, рост в 8 раз за 2025 год до 668 млрд ₽</li><li><strong>Чистый процентный убыток</strong> — за 9М 2025 составил 127 млрд ₽ (год назад: прибыль 63 млрд ₽)</li><li><strong>Качество прибыли</strong>: Q3 2025 показал прибыль 21,9 млрд ₽, но за счёт «прочих доходов» 195 млрд ₽ от операций с ценными бумагами, а не от основной банковской деятельности</li><li>Резервы под кредитные убытки: 199 млрд ₽, из них 188 млрд ₽ в Q3 2025</li><li>Достаточность капитала H1.0 = 13,2% — при снижении активов на 3% возникают проблемы</li><li>Концентрация на одном крупном контрагенте (Роснефть) — зависимость от одного клиента</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>Санкции</strong>: банк в SDN-листе OFAC с февраля 2023, отключён от SWIFT</li><li>Санкции включены по EO 14024 и EO 13662 (последний не может быть отменён президентом в одностороннем порядке)</li><li>Проверки ЦБ, недоначисленные ранее резервы → риск дорезервирования</li><li>Риск санации или принудительной смены менеджмента</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Чистая прибыль, млрд ₽</td><td>30,0</td><td>26,2</td><td>7,5</td><td>59,8</td><td>20,9</td><td>21,7</td></tr><tr><td>Чистые процентные доходы, млрд ₽</td><td>59,3</td><td>79,6</td><td>62,0</td><td>116,2</td><td>105,8</td><td>92,0</td></tr><tr><td>Активы, млрд ₽</td><td>2 916</td><td>3 420</td><td>3 973</td><td>4 667</td><td>5 009</td><td>5 455</td></tr><tr><td>Капитал, млрд ₽</td><td>234,5</td><td>281,4</td><td>273,8</td><td>347,9</td><td>349,3</td><td>379,4</td></tr><tr><td>ROE, %</td><td>16,9%</td><td>12,6%</td><td>3,7%</td><td>23,4%</td><td>7,0%</td><td>~6%</td></tr><tr><td>NIM, %</td><td>2,30%</td><td>2,60%</td><td>1,80%</td><td>2,80%</td><td>2,30%</td><td>1,80%</td></tr><tr><td>EPS, ₽</td><td>0,90</td><td>0,78</td><td>0,22</td><td>1,79</td><td>0,62</td><td>0,65</td></tr><tr><td>P/E</td><td>6,85</td><td>8,74</td><td>30,1</td><td>4,49</td><td>16,2</td><td>9,5</td></tr><tr><td>P/BV</td><td>0,88</td><td>0,81</td><td>0,82</td><td>0,77</td><td>0,97</td><td>0,54</td></tr></tbody></table></div>
+<h3>Квартальные (2024-2025)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3&#x27;24</th><th>Q4&#x27;24</th><th>Q1&#x27;25</th><th>Q2&#x27;25</th><th>Q3&#x27;25</th></tr></thead><tbody><tr><td>Чистая прибыль, млрд ₽</td><td>8,6</td><td>-7,2</td><td>2,3</td><td>4,6</td><td>21,9</td></tr><tr><td>Чистые процентные доходы, млрд ₽</td><td>26,5</td><td>19,9</td><td>21,3</td><td>20,7</td><td>30,1</td></tr><tr><td>NIM, %</td><td>2,50%</td><td>1,70%</td><td>1,90%</td><td>—</td><td>1,80%</td></tr><tr><td>EPS, ₽</td><td>0,26</td><td>-0,22</td><td>0,07</td><td>0,14</td><td>0,66</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> Базовый банковский бизнес глубоко убыточен — за 9М 2025 чистый процентный убыток (с учётом резервов) составил 127 млрд ₽ против прибыли 63 млрд ₽ годом ранее. Прибыль Q3 2025 (21,9 млрд ₽) достигнута за счёт разовых «прочих доходов» от операций с ценными бумагами (~195 млрд ₽), а не за счёт кредитования. NPL вырос до 28% (668 млрд ₽). Резервы под кредитные убытки — 199 млрд ₽ за 9М 2025. Нормализованная прибыль от основной деятельности — отрицательная.</p>
+<h2>Дивиденды</h2>
+<p>МКБ ни разу не выплачивал дивиденды за всю историю публичной компании (с IPO в 2015 году). Формальная дивидендная политика: не менее 25% прибыли по МСФО, но на практике payout = 0%.</p>
+<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, ₽</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td>2020</td><td>0</td><td>0%</td><td>0%</td></tr><tr><td>2021</td><td>0</td><td>0%</td><td>0%</td></tr><tr><td>2022</td><td>0</td><td>0%</td><td>0%</td></tr><tr><td>2023</td><td>0</td><td>0%</td><td>0%</td></tr><tr><td>2024</td><td>0</td><td>0%</td><td>0%</td></tr></tbody></table></div>
+<p><strong>Прогноз:</strong> дивиденды в обозримом будущем крайне маловероятны — при текущем уровне NPL (28%) и давлении на капитал банк направляет прибыль на формирование резервов.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>Среднее 5Y</th><th>Сектор</th></tr></thead><tbody><tr><td>P/E</td><td>9,5x</td><td>13,3x</td><td>4-5x</td></tr><tr><td>P/BV</td><td>0,54x</td><td>0,85x</td><td>0,8-1,2x</td></tr><tr><td>Div Yield</td><td>0%</td><td>0%</td><td>8-12%</td></tr><tr><td>ROE</td><td>~6%</td><td>12,7%</td><td>19-21%</td></tr></tbody></table></div>
+<p>МКБ торгуется с дисконтом по P/BV (0,54x vs 0,8-1,2x сектора), но это обосновано: ROE ~6% значительно ниже стоимости капитала (21% при ставке ЦБ 16% + ERP 5%), что означает разрушение стоимости. P/E 9,5x выше среднего по сектору (4-5x) из-за депрессивной прибыли. Дисконт по P/BV справедлив и может быть недостаточным с учётом NPL 28%.</p>
+<h2>Мой тезис</h2>
+<p>МКБ — банк с критическими проблемами качества активов: NPL 28%, чистый процентный убыток 127 млрд ₽ за 9М 2025, базовый бизнес кредитования глубоко убыточен. Прибыль Q3 2025 (21,9 млрд ₽) создана разовыми операциями с ценными бумагами (~195 млрд ₽ «прочих доходов»), а не устойчивым процентным доходом. Банк под полными блокирующими санкциями SDN, отключён от SWIFT, ни разу не платил дивиденды. Достаточность капитала на грани (H1.0 = 13,2%), при снижении активов на 3% возникает угроза нарушения нормативов. 0 из 12 брокеров рекомендуют акции. Вероятные сценарии: (1) затяжная санация с размытием миноритариев, (2) медленная расчистка баланса за 2-3 года при поддержке Роснефти. В обоих случаях upside для миноритариев ограничен.</p>
+<p><strong>Ключевые катализаторы:</strong></p>
+<ol><li>Отчётность 2025 года (МСФО) — подтверждение/опровержение тренда NPL (Q1 2026)</li><li>Решения ЦБ по капитальным буферам и проверка качества активов</li><li>Снижение ставки ЦБ (ближайшее заседание 13 февраля 2026) — потенциальное облегчение, но недостаточно при NPL 28%</li></ol>
+<h2>Целевая цена</h2>
+<h3>Исходные данные</h3>
+<p>``<code> EPS (LTM) = 0,65 ₽ (ненормализованный, включает разовые операции) EPS (нормализованный) ≈ 0 или отрицательный (базовый бизнес убыточен) BV/share = 379,4 млрд / 33 430 млн = 11,35 ₽ ROE (LTM) = ~6% (ненормализованный) ROE (нормализованный) = ~0-2% (без разовых операций) Текущая цена = 6,25 ₽ Ставка ЦБ текущая = 16%, прогноз = 13% ERP = 5%, g = 0% (банк с проблемами, рост не ожидается) </code>``</p>
+<h3>Метод P/BV (основной для банков)</h3>
+<p>Justified P/BV = ROE / (r - g)</p>
+<p>Поправка за качество:</p>
+<ul><li>ROE значительно ниже сектора (~6% vs 19-21%): -20%</li><li>NPL 28% — критическое качество активов: -20%</li><li>Под SDN-санкциями: -10%</li><li>СЗКО (системно значимый): +5%</li><li>Связь с Роснефтью (стабилизирующий фактор): +5%</li><li>Итого: x0.60</li></ul>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>ROE</th><th>P/BV justified</th><th>x поправка</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>2%</td><td>0,10x</td><td>0,06x</td><td>0,7 ₽</td><td>-89%</td></tr><tr><td><strong>Базовый</strong></td><td><strong>13%</strong></td><td><strong>18%</strong></td><td><strong>6%</strong></td><td><strong>0,33x</strong></td><td><strong>0,20x</strong></td><td><strong>2,3 ₽</strong></td><td><strong>-63%</strong></td></tr><tr><td>Оптимистичный</td><td>13%</td><td>18%</td><td>12%</td><td>0,67x</td><td>0,40x</td><td>4,5 ₽</td><td>-28%</td></tr><tr><td>Восстановление</td><td>10%</td><td>15%</td><td>15%</td><td>1,00x</td><td>0,60x</td><td>6,8 ₽</td><td>+9%</td></tr></tbody></table></div>
+<p>Сценарий «Восстановление» предполагает: ROE возвращается к 15%, ставка ЦБ снижается до 10%, NPL нормализуется — крайне оптимистичный вариант, не ожидаемый в 2026 году.</p>
+<h3>Чувствительность к ROE (базовый сценарий r=18%, g=0%)</h3>
+<div class="table-wrap"><table><thead><tr><th>ROE</th><th>Justified P/BV</th><th>Цена (с поправкой)</th><th>Upside</th></tr></thead><tbody><tr><td>2%</td><td>0,11x</td><td>0,7 ₽</td><td>-89%</td></tr><tr><td><strong>6%</strong></td><td><strong>0,33x</strong></td><td><strong>2,3 ₽</strong></td><td><strong>-63%</strong></td></tr><tr><td>10%</td><td>0,56x</td><td>3,8 ₽</td><td>-39%</td></tr><tr><td>15%</td><td>0,83x</td><td>5,7 ₽</td><td>-9%</td></tr><tr><td>20%</td><td>1,11x</td><td>7,5 ₽</td><td>+20%</td></tr></tbody></table></div>
+<p>Для выхода в положительный upside при текущей цене 6,25 ₽ банку необходимо восстановить ROE до 15%+ (уровень 2020 года), что требует нормализации NPL и существенного снижения ставки ЦБ.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/BV justified (базовый)</td><td>2,3 ₽</td><td>-63%</td><td>Основной для банков</td></tr><tr><td>P/E (P/E 5x на EPS 0,65)</td><td>3,3 ₽</td><td>-47%</td><td>EPS включает разовые доходы</td></tr><tr><td>P/BV = 0,5x (как сейчас)</td><td>5,7 ₽</td><td>-9%</td><td>Рыночная оценка</td></tr><tr><td>Дивидендный</td><td>N/A</td><td>N/A</td><td>Дивиденды не выплачиваются</td></tr><tr><td>Ликвидационная стоимость</td><td>~4 ₽</td><td>-36%</td><td>BV 11,35 × (1 - NPL haircut 65%)</td></tr></tbody></table></div>
+<p>Все методы дают downside. Текущая цена 6,25 ₽ подразумевает P/BV 0,54x — рынок оценивает банк с дисконтом, но при NPL 28% и базовом убытке кредитования даже этот дисконт может быть недостаточным.</p>
+<p><strong>my_fair_value = 5,0 ₽</strong> — промежуточная между P/BV justified (2,3 ₽) и ликвидационной стоимостью (4 ₽), с небольшой премией за статус СЗКО и поддержку Роснефти. Даже этот уровень требует стабилизации NPL.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — нет, downside -20%</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — нет чёткого катализатора для переоценки, NPL продолжает расти</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — не применимо (банк), но достаточность капитала на грани</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — нет, NIM сжался до 1,8%, чистый процентный убыток 127 млрд ₽</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — ADV ~300 млн ₽, free-float 44,6%</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — крайне низкое: прибыль Q3 за счёт разовых «прочих доходов» 195 млрд ₽</li><li><input type="checkbox" disabled> <strong>Геополитика учтена</strong> — банк в SDN-листе OFAC, отключён от SWIFT</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — частный банк, GOD не применим</li><li><input type="checkbox" disabled> <strong>Нет value trap</strong> — высокий риск value trap: P/BV 0,54x при ROE 6% и NPL 28%</li></ul>
+<p><strong>Результат: 3/10 — avoid (SDN).</strong></p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-02-05</td><td><strong>AVOID (SDN)</strong></td><td>6,25 ₽</td><td>NPL 28%, базовый бизнес убыточен, 0/12 брокеров, downside -20%</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/CBOM/f/y/MSFO/" target="_blank">Smart-lab: CBOM финансы</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=CBOM" target="_blank">MOEX: CBOM</a></li><li><a href="https://ir.mkb.ru/investor-relations/reports/ifrs/2024" target="_blank">МКБ IR: отчётность МСФО</a></li><li><a href="https://www.kommersant.ru/doc/8249940" target="_blank">Коммерсантъ: МКБ процентный убыток Q3 2025</a></li><li><a href="https://investfuture.ru/articles/aktsii-mkb-padayut-na-fone-rosta-problemnykh-kreditov-i-slukhov-o-sanatsii" target="_blank">InvestFuture: акции МКБ проблемы</a></li><li><a href="../../sectors/finance/_index.md" target="_blank">Секторальный анализ: Финансы</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>

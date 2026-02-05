@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МКПАО Циан (CNRU) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>МКПАО Циан</h1>
+<div class="ticker">CNRU &middot; IT и Телеком</div>
+<div class="badges">
+<span class="badge badge-neutral">neutral</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">572</div></div><div class="metric"><div class="label">Цель</div><div class="value">660</div></div><div class="metric"><div class="label">Upside</div><div class="value">+15%</div></div><div class="metric"><div class="label">P/E</div><div class="value">15.8</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">18.2</div></div><div class="metric"><div class="label">ROE</div><div class="value">41.4</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">44.4</div></div><div class="metric"><div class="label">P/BV</div><div class="value">12.2</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">9.7</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">-1.9</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:40%">&#x25B2; 40%</div>
+<div class="flat" style="width:20%">20%</div>
+<div class="decline" style="width:40%">&#x25BC; 40%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>МКПАО Циан (CNRU)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейший специализированный онлайн-сервис по недвижимости в России. Платформа агрегирует объявления о продаже и аренде жилой и коммерческой недвижимости, предоставляя услуги собственникам, риелторам и застройщикам. IPO на NYSE/MOEX состоялось в ноябре 2021 года по $16/акцию (~945 ₽). В 2024 году завершила редомициляцию из Кипра в Россию (МКПАО в САР Калининградской области). Обмен расписок на акции российского юрлица завершён в апреле 2025.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Объявления (листинг)</strong> (~54% выручки): платное размещение объявлений о продаже/аренде для агентов, собственников и застройщиков. Монетизация через подписки, пакеты объявлений и продвижение</li><li><strong>Лидогенерация</strong> (~31% выручки): платные звонки и заявки для застройщиков (pay-per-lead). Основной сегмент роста, привязан к объёмам строительства нового жилья</li><li><strong>Реклама (медиа)</strong> (~9% выручки): медийная и таргетированная реклама на платформе для застройщиков, банков, ремонтных компаний</li><li><strong>Транзакционный бизнес</strong> (~6% выручки): ипотечный маркетплейс (онлайн-подбор ипотеки), сервисы для сделок, посуточная аренда</li></ul>
+<p><strong>Рыночная позиция:</strong></p>
+<ul><li>Аренда: доля 68,6% (vs Авито 18%)</li><li>Продажа: доля ~57% среди специализированных площадок</li><li>MAU: ~20 млн уникальных пользователей/месяц</li><li>Покрытие: более 600 городов России</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Восстановление рынка недвижимости при снижении ставки ЦБ → рост транзакций → больше лидов для застройщиков</li><li>Рост монетизации (ARPU): повышение тарифов для агентов и застройщиков (+15-20% ежегодно)</li><li>Развитие транзакционного бизнеса: ипотечный маркетплейс, цифровые сделки с Минцифры → потенциал +20 млрд ₽ к рынку</li><li>Региональная экспансия: проникновение в малые города (сейчас ~70% выручки — Москва и Санкт-Петербург)</li><li>Цель менеджмента: удвоение выручки к 2027 году (&gt;26 млрд ₽), маржа EBITDA 30-40%</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Лидерство в нише</strong>: доля 57-69% в ключевых сегментах (аренда, продажа), сильный бренд в крупных городах</li><li><strong>Сетевые эффекты</strong>: больше объявлений → больше покупателей → больше агентов → самоусиливающийся цикл</li><li><strong>Asset-light модель</strong>: минимальный CAPEX (1-4% выручки), высокая конверсия выручки в FCF</li><li><strong>Чистый баланс</strong>: net cash 9,2 млрд ₽ (после редомициляции и до спецдивиденда), нет долга</li><li><strong>Высокая маржинальность</strong>: EBITDA margin 25%+ с потенциалом роста до 30-40%</li><li><strong>Кредитный рейтинг</strong>: нет внешних кредитных рейтингов (нет необходимости — компания без долга)</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li>Высокая ставка ЦБ (16%) угнетает ипотечный рынок → меньше транзакций с недвижимостью → давление на лидогенерацию</li><li>Охлаждение рынка новостроек после отмены массовой льготной ипотеки (июль 2024) — падение продаж на 30-40%</li><li>Рост зарплат IT-специалистов (50-70% расходов) при дефиците кадров ~500 тыс.</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Конкуренция с Авито</strong>: крупнейший горизонтальный классифайд наращивает долю в недвижимости, особенно в регионах</li><li><strong>ДомКлик (Сбер)</strong>: вертикально интегрированный конкурент с доступом к ипотечным данным и банковским клиентам</li><li><strong>Яндекс Недвижимость</strong>: поисковый трафик и экосистема Яндекса создают угрозу в лидогенерации</li><li><strong>Зависимость от двух городов</strong>: ~70% выручки — Москва и СПб, региональная монетизация слабее</li><li><strong>Спецдивиденд 104 ₽ (8 млрд ₽)</strong>: почти полностью истощает кэш-подушку, снижая запас прочности</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li>Регулирование рынка онлайн-объявлений (закон о классифайдах): потенциальные требования к верификации, модерации</li><li>Изменение ставки НДС до 22% (с 2025) увеличивает налоговую нагрузку</li><li>Риски регулирования ипотечного рынка (программы господдержки, лимиты ставок)</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>3,97</td><td>6,03</td><td>8,27</td><td>11,6</td><td>13,0</td><td>14,4</td></tr><tr><td>EBITDA, млрд ₽</td><td>0,03</td><td>0,32</td><td>1,67</td><td>2,78</td><td>3,21</td><td>3,63</td></tr><tr><td>Маржа EBITDA, %</td><td>0,8</td><td>5,3</td><td>20,2</td><td>24,0</td><td>24,7</td><td>25,2</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>-0,63</td><td>-2,86</td><td>0,48</td><td>1,69</td><td>2,46</td><td>2,81</td></tr><tr><td>FCF, млрд ₽</td><td>0,05</td><td>-2,24</td><td>1,76</td><td>1,94</td><td>2,34</td><td>2,16</td></tr><tr><td>Net Debt, млрд ₽</td><td>—</td><td>—</td><td>—</td><td>—</td><td>-9,22</td><td>-7,0*</td></tr><tr><td>Net Debt/EBITDA</td><td>—</td><td>—</td><td>—</td><td>—</td><td>-2,87</td><td>-1,9*</td></tr><tr><td>EPS, ₽</td><td>-40,8</td><td>—</td><td>6,86</td><td>24,2</td><td>31,7</td><td>36,2</td></tr><tr><td>ROE, %</td><td>отр.</td><td>отр.</td><td>13,2</td><td>46,4</td><td>41,4</td><td>~77*</td></tr><tr><td>P/E</td><td>отр.</td><td>отр.</td><td>—</td><td>—</td><td>18,0</td><td>15,8</td></tr><tr><td>EV/EBITDA</td><td>—</td><td>—</td><td>—</td><td>—</td><td>9,9</td><td>9,7</td></tr></tbody></table></div>
+<p>*Оценка с учётом выплаты спецдивиденда 8 млрд ₽ в декабре 2025</p>
+<h3>Квартальные</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3&#x27;24</th><th>Q4&#x27;24</th><th>Q1&#x27;25</th><th>Q2&#x27;25</th><th>Q3&#x27;25</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>3,17</td><td>3,44</td><td>3,30</td><td>3,60</td><td>4,09</td></tr><tr><td>EBITDA, млрд ₽</td><td>0,50</td><td>0,91</td><td>0,75</td><td>0,86</td><td>1,10</td></tr><tr><td>Маржа EBITDA, %</td><td>15,8</td><td>26,5</td><td>22,8</td><td>24,0</td><td>26,9</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>0,75</td><td>0,76</td><td>0,22</td><td>0,73</td><td>1,10</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> выручка устойчиво растёт (CAGR 34% за 5 лет), Q3&#x27;25 — ускорение до +29% YoY после замедления в 1П25 (+8%). Маржа EBITDA расширяется (15,8% → 26,9% за 4 квартала) благодаря операционному рычагу: расходы растут на 6% при росте выручки на 29%. Прибыль волатильна из-за курсовых разниц и процентных доходов от кэш-подушки.</p>
+<h2>Дивиденды</h2>
+<p><strong>Дивидендная политика (принята август 2024):</strong> 60-100% от скорректированной чистой прибыли.</p>
+<p><strong>Факт:</strong> первый спецдивиденд 104 ₽/акцию (8,08 млрд ₽) по итогам 9М 2025, выплачен в декабре 2025. За 2024 год дивиденды не выплачивались (решение ГОСА). Payout спецдивиденда: 288% от прибыли — по сути возврат накопленного кэша после редомициляции.</p>
+<div class="table-wrap"><table><thead><tr><th>Прогноз</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td><strong>2024</strong></td><td><strong>0</strong></td><td><strong>0%</strong></td><td>Отказ от выплат (ожидание редомициляции)</td></tr><tr><td><strong>9М 2025 (спец.)</strong></td><td><strong>104</strong></td><td><strong>18,2%</strong></td><td>Возврат накопленного кэша</td></tr><tr><td><strong>2025E (регулярный)</strong></td><td><strong>~25-35</strong></td><td><strong>~4-6%</strong></td><td>60-80% от скорр. ЧП ~3 млрд ₽</td></tr><tr><td><strong>2026E</strong></td><td><strong>~30-45</strong></td><td><strong>~5-8%</strong></td><td>Зависит от роста прибыли</td></tr></tbody></table></div>
+<p><strong>Ближайшая выплата:</strong> регулярный дивиденд за 2025 год — ожидается 2П 2026, ~25-35 ₽/акцию. После спецдивиденда кэш-подушка истощена → будущие дивиденды ограничены текущей прибылью.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>Среднее 3Y</th><th>Сектор (IT)</th></tr></thead><tbody><tr><td>P/E</td><td>15,8x</td><td>18-20x</td><td>10-25x</td></tr><tr><td>EV/EBITDA</td><td>9,7x</td><td>10-14x</td><td>8-15x</td></tr><tr><td>P/BV</td><td>12,2x</td><td>10-15x</td><td>3-10x</td></tr><tr><td>Div Yield</td><td>18,2%*</td><td>0%</td><td>0-8%</td></tr><tr><td>ROE</td><td>41,4%</td><td>13-46%</td><td>15-40%</td></tr><tr><td>EBITDA margin</td><td>25,2%</td><td>20-25%</td><td>20-35%</td></tr></tbody></table></div>
+<p>*Спецдивиденд, нерекуррентный. Нормализованная доходность ~5-7%.</p>
+<p><strong>Комментарий:</strong> Циан торгуется с дисконтом к историческим мультипликаторам (P/E 15,8x vs средний 18-20x) из-за замедления рынка недвижимости и высокой ставки ЦБ. P/BV 12,2x отражает asset-light модель (минимальный капитал). Мультипликаторы справедливы при текущем темпе роста 15-17%, но при целевом росте 25%+ (удвоение к 2027) компания может быть недооценена.</p>
+<h2>Мой тезис</h2>
+<p>Циан — качественный asset-light бизнес с лидерством в нише онлайн-недвижимости. Компания генерирует стабильный FCF, не имеет долга, наращивает маржу. Однако текущая оценка (P/E 15,8x) уже отражает базовый сценарий роста 15-17%. Для реализации upside необходимо ускорение роста до 25%+ (план менеджмента), что зависит от снижения ставки ЦБ и восстановления ипотечного рынка. Конкуренция с Авито, ДомКлик и Яндекс Недвижимость создаёт риск потери доли рынка в регионах. После выплаты спецдивиденда 104 ₽ кэш-подушка истощена — компания стала менее защищённой.</p>
+<p><strong>Почему watch:</strong></p>
+<ol><li>Upside 15% — недостаточно для buy (порог 30%)</li><li>Рост выручки замедлился до 15-17% в 2025 (vs 34% CAGR исторически) из-за высокой ставки ЦБ</li><li>Конкуренция усиливается: Авито, ДомКлик, Яндекс Недвижимость</li><li>После спецдивиденда нет кэш-подушки — дивиденды ограничены текущей прибылью</li></ol>
+<p><strong>Катализаторы для пересмотра:</strong></p>
+<ul><li>Снижение ставки ЦБ ниже 13% → восстановление ипотечного рынка → ускорение роста выручки</li><li>Подтверждение траектории удвоения выручки к 2027 (рост &gt;25% YoY)</li><li>Коррекция акций до 450-500 ₽ (P/E ~12-14x) → привлекательная точка входа</li></ul>
+<p><strong>Ключевые катализаторы:</strong></p>
+<ol><li>Снижение ставки ЦБ (заседание 14.02.2026)</li><li>Отчёт за 2025 год (апрель 2026) — подтверждение роста выручки 16-17%</li><li>Решение по дивидендам за 2025 год (2П 2026)</li></ol>
+<h2>Целевая цена</h2>
+<h3>Исходные данные</h3>
+<p>``<code> EPS (LTM) = 36,2 ₽ EBITDA per share = 46,7 ₽ Net Debt per share = -90 ₽ (net cash, после спецдивиденда ~-13 ₽) BV per share = 46,8 ₽ (до спецдивиденда) Текущая цена = 572 ₽ Ставка ЦБ текущая = 16%, прогноз = 13% ERP = 5%, g = 12% </code>``</p>
+<h3>Метод P/E (основной, компания без долга)</h3>
+<p>Базовый P/E = 1 / (r - g) = 1 / (0,18 - 0,12) = 16,7x</p>
+<p>Поправка за качество:</p>
+<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE 41% — выше сектора</td><td>+10%</td></tr><tr><td>Маржа EBITDA растёт (20% → 25%)</td><td>+5%</td></tr><tr><td>FCF стабильно положительный, конверсия высокая</td><td>+10%</td></tr><tr><td>Замедление роста (34% → 15-17%)</td><td>-10%</td></tr><tr><td>Конкуренция усиливается (Авито, ДомКлик)</td><td>-10%</td></tr><tr><td>Спецдивиденд истощил кэш</td><td>-5%</td></tr><tr><td><strong>Итого</strong></td><td><strong>0%</strong></td></tr></tbody></table></div>
+<p>Целевой P/E = 16,7 × 1,00 = 16,7x</p>
+<p>GOD-дисконт: нет гос. владения → GOD = 0%</p>
+<h3>Три сценария</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>P/E базовый</th><th>P/E целевой</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>11,1x</td><td>11,1x</td><td>402 ₽</td><td>-30%</td></tr><tr><td><strong>Базовый</strong></td><td><strong>13%</strong></td><td><strong>18%</strong></td><td><strong>16,7x</strong></td><td><strong>16,7x</strong></td><td><strong>605 ₽</strong></td><td><strong>+6%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>33,3x</td><td>33,3x</td><td>1 205 ₽</td><td>+111%</td></tr></tbody></table></div>
+<p>P/E-метод при g=12% даёт широкий разброс из-за чувствительности к ставке. В оптимистичном сценарии r-g=3% → P/E 33x, что нереалистично. Ограничим разумным диапазоном.</p>
+<h3>Метод с ограничением P/E (более реалистичный)</h3>
+<p>Для tech-компаний с ростом 15-25% разумный P/E: 15-22x.</p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>EPS 2026E</th><th>P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный (рост 10%)</td><td>40 ₽</td><td>14x</td><td>560 ₽</td><td>-2%</td></tr><tr><td><strong>Базовый (рост 18%)</strong></td><td><strong>43 ₽</strong></td><td><strong>15,5x</strong></td><td><strong>665 ₽</strong></td><td><strong>+16%</strong></td></tr><tr><td>Оптимистичный (рост 25%)</td><td>45 ₽</td><td>18x</td><td>810 ₽</td><td>+42%</td></tr></tbody></table></div>
+<h3>Чувствительность к g (базовый сценарий)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>8%</td><td>10,0x</td><td>362 ₽</td><td>-37%</td></tr><tr><td><strong>12% (базовый)</strong></td><td><strong>16,7x</strong></td><td><strong>605 ₽</strong></td><td><strong>+6%</strong></td></tr><tr><td>15%</td><td>33,3x (огр. 20x)</td><td>724 ₽</td><td>+27%</td></tr></tbody></table></div>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (базовый, LTM)</td><td>605 ₽</td><td>+6%</td><td>Текущая прибыль</td></tr><tr><td>P/E (forward 2026E)</td><td>665 ₽</td><td>+16%</td><td>С учётом роста прибыли</td></tr><tr><td>EV/EBITDA (12x, LTM)</td><td>650 ₽</td><td>+14%</td><td>Средний мультипликатор</td></tr><tr><td>Консенсус аналитиков</td><td>775 ₽</td><td>+35%</td><td>Диапазон 600-940 ₽</td></tr></tbody></table></div>
+<p><strong>my_fair_value = 660 ₽</strong> — среднее между forward P/E (665 ₽) и EV/EBITDA (650 ₽). Upside 15% — недостаточно для buy, но компания интересна при снижении до 450-500 ₽ или при подтверждении ускорения роста &gt;25%. Консенсус 775 ₽ выглядит оптимистичным и закладывает ускорение роста.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — 15%, нет</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ → восстановление ипотечного рынка</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — net cash, да</li><li><input type="checkbox" checked disabled> <strong>Маржа стабильна</strong> — растёт: 20% → 25%, тренд позитивный</li><li><input type="checkbox" disabled> <strong>Ликвидность</strong> — ADV ~200 млн ₽, средняя (free float 43%, но малая капитализация)</li><li><input type="checkbox" checked disabled> <strong>Качество прибыли</strong> — OCF/NI = 1,05, отличное</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — редомициляция завершена, прямых санкционных рисков нет</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — GOD 0%, частная компания</li><li><input type="checkbox" disabled> <strong>Нет value trap</strong> — недостаточный upside для buy</li></ul>
+<p><strong>Результат: 7/10 — watch (качественный бизнес, но upside недостаточный)</strong></p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-02-05</td><td><strong>WATCH</strong></td><td>572 ₽</td><td>Качественный asset-light бизнес с лидерством в нише, но upside 15% недостаточен для buy. Рост замедлился до 15-17%, конкуренция усиливается. Интересна при коррекции до 450-500 ₽ или подтверждении роста &gt;25%</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/CNRU/f/y/MSFO/" target="_blank">Smart-lab: CNRU финансы годовые</a></li><li><a href="https://smart-lab.ru/q/CNRU/f/q/MSFO/" target="_blank">Smart-lab: CNRU финансы квартальные</a></li><li><a href="https://ir.ciangroup.ru/ru/press-center/press-releases/mkpao-tsian-obyavlyaet-finansovye-rezultaty-za-chetvertyy-kvartal-2024-goda-i-za-2024-god/" target="_blank">Cian IR: финансовые результаты Q4 2024</a></li><li><a href="https://companies.rbc.ru/news/ry5VtRRQif/tsian-obyavlyaet-finansovyie-rezultatyi-za-tretij-kvartal-i-9-mesyatsev-2025/" target="_blank">Cian IR: финансовые результаты Q3 2025</a></li><li><a href="https://smart-lab.ru/company/mozgovik/blog/1235342.php" target="_blank">Smart-lab: День инвестора Циан 2025</a></li><li><a href="https://beststocks.ru/rustock/cnru/analysts" target="_blank">BestStocks: прогноз аналитиков CNRU</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=CNRU" target="_blank">MOEX: CNRU</a></li><li><a href="../../sectors/it-telecom/_index.md" target="_blank">Секторальный анализ: IT и Телеком</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>

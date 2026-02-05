@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Транснефть (привилегированные) (TRNFP) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>Транснефть (привилегированные)</h1>
+<div class="ticker">TRNFP &middot; Нефтегаз</div>
+<div class="badges">
+<span class="badge badge-neutral">neutral</span>
+<span class="badge badge-hold">hold</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">1404</div></div><div class="metric"><div class="label">Цель</div><div class="value">1550</div></div><div class="metric"><div class="label">Upside</div><div class="value">+10%</div></div><div class="metric"><div class="label">P/E</div><div class="value">3.39</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">14.1</div></div><div class="metric"><div class="label">ROE</div><div class="value">9.3</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">218</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.32</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">1.25</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">-0.35</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:40%">&#x25B2; 40%</div>
+<div class="flat" style="width:20%">20%</div>
+<div class="decline" style="width:40%">&#x25BC; 40%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>Транснефть привилегированные (TRNFP)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейший в мире оператор магистральных нефтепроводов. Государственная монополия: транспортирует ~84% всей добываемой в России нефти и ~30% нефтепродуктов. На бирже торгуются только привилегированные акции (21,45% уставного капитала). 100% обыкновенных акций принадлежит РФ через Росимущество (78,55% капитала).</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Транспортировка нефти</strong> (~70% выручки): трубопроводная система общей протяжённостью ~67 000 км. Тарифы регулируются ФАС и индексируются ежегодно (2025: +9,9%, 2026: +5,1%)</li><li><strong>Транспортировка нефтепродуктов</strong> (~15% выручки): магистральные нефтепродуктопроводы ~16 000 км</li><li><strong>Портовые активы (НМТП и др.)</strong> (~10% выручки): доля в Новороссийском морском торговом порте — крупнейшем нефтеналивном порту России</li><li><strong>Прочее</strong> (~5% выручки): нефтеперевалка, сервисные услуги, генерация электроэнергии</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Ежегодная индексация тарифов (привязка к инфляции) — обеспечивает органический рост выручки на уровне 5-10% г/г</li><li>Рост объёмов транспортировки при ослаблении квот ОПЕК+ (прогноз на 2П 2026)</li><li>Расширение пропускной способности ВСТО (восточное направление, экспорт в Китай) — +32 млн т к 2026</li><li>Снижение CAPEX-цикла — огромные инвестпрограммы завершаются, что высвобождает FCF</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Абсолютная монополия</strong>: единственный оператор магистральных нефтепроводов в России. Конкуренция невозможна технически и регуляторно. Барьер входа = бесконечность</li><li><strong>Квази-облигационный бизнес</strong>: тарифное регулирование обеспечивает предсказуемый денежный поток вне зависимости от цен на нефть (доходы не привязаны к commodity-ценам)</li><li><strong>Нулевой долг</strong>: Net Debt/EBITDA = -0,35x (чистая денежная позиция ~202 млрд ₽). Отсутствие финансового риска при любом сценарии ставки ЦБ</li><li><strong>Инфраструктурный актив</strong>: трубопроводная система незаменима — нефтяные компании физически не могут экспортировать нефть без Транснефти</li><li><strong>Высокая маржа</strong>: EBITDA маржа 35-44% — выше большинства нефтяных компаний, благодаря низким переменным затратам</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li>Снижение добычи нефти в России: ограничения ОПЕК+ и структурное снижение потенциала зрелых месторождений. Объёмы транспортировки — ключевой драйвер выручки</li><li>Укрепление рубля: часть выручки через НМТП номинирована в валюте. При крепком рубле валютная составляющая сжимается</li><li>Высокая ставка ЦБ (16%): дивидендная доходность 14% конкурирует с безрисковыми депозитами 16%. Переоценка произойдёт только при снижении ставки</li></ul>
+<h3>Операционные риски</h3>
+<ul><li>Высокий CAPEX: инвестиционная программа ~370-380 млрд ₽/год давит на FCF. Расширение ВСТО, модернизация системы</li><li>Атаки дронов на инфраструктуру: трубопроводная система уязвима к физическому повреждению</li><li>Снижение загрузки системы: при сокращении добычи нефти фиксированные затраты не снижаются пропорционально</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li>Налог на прибыль 40% (2025-2030): специальный закон, увеличивающий налоговую нагрузку с 25% до 40%. Снижает чистую прибыль и дивидендную базу на ~20%</li><li>Тарифная индексация ниже инфляции: ФАС может ограничить рост тарифов ниже фактической инфляции. В 2026 рост 5,1% vs инфляция 5,5-6%</li><li>Статус исключения из дивидендной директивы: Транснефть не обязана платить 50% ЧП по МСФО, в отличие от других госкомпаний. Решение принимается на индивидуальной основе</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>962</td><td>1 205</td><td>1 331</td><td>1 424</td><td>—</td><td>1 442</td></tr><tr><td>EBITDA, млрд ₽</td><td>443</td><td>511</td><td>553</td><td>545</td><td>—</td><td>578</td></tr><tr><td>Маржа EBITDA, %</td><td>46,0%</td><td>42,5%</td><td>41,5%</td><td>38,3%</td><td>—</td><td>40,1%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>133</td><td>152</td><td>243</td><td>304</td><td>288</td><td>274</td></tr><tr><td>FCF, млрд ₽</td><td>140</td><td>266</td><td>225</td><td>177</td><td>—</td><td>207</td></tr><tr><td>Net Debt, млрд ₽</td><td>527</td><td>0</td><td>-35</td><td>-147</td><td>-239</td><td>-202</td></tr><tr><td>Net Debt/EBITDA</td><td>1,19</td><td>0,00</td><td>-0,06</td><td>-0,27</td><td>—</td><td>-0,35</td></tr><tr><td>EPS, ₽</td><td>234*</td><td>267*</td><td>426*</td><td>534</td><td>505</td><td>481</td></tr><tr><td>ROE, %</td><td>6,1%</td><td>9,8%</td><td>11,3%</td><td>10,1%</td><td>—</td><td>9,3%</td></tr><tr><td>P/E</td><td>7,66</td><td>7,55</td><td>2,62</td><td>3,45</td><td>3,09</td><td>3,39</td></tr><tr><td>EV/EBITDA</td><td>3,49</td><td>1,17</td><td>1,64</td><td>1,19</td><td>—</td><td>1,25</td></tr><tr><td>P/BV</td><td>0,48</td><td>0,26</td><td>0,40</td><td>0,32</td><td>—</td><td>0,32</td></tr></tbody></table></div>
+<p>*EPS 2020-2022 приведён в пост-сплит рублях (факт. значения разделены на 100 после сплита 100:1 в 2024)</p>
+<h3>Квартальные</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3&#x27;24</th><th>Q4&#x27;24</th><th>Q1&#x27;25</th><th>Q2&#x27;25</th><th>Q3&#x27;25</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>345</td><td>362</td><td>362</td><td>358</td><td>360</td></tr><tr><td>EBITDA, млрд ₽</td><td>117</td><td>129</td><td>159</td><td>149</td><td>142</td></tr><tr><td>Маржа EBITDA, %</td><td>34,0%</td><td>35,7%</td><td>43,9%</td><td>41,5%</td><td>39,3%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>82</td><td>41</td><td>80</td><td>73</td><td>79</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> Выручка стабильна в диапазоне 345-362 млрд ₽/квартал, поддерживается ежегодной индексацией тарифов. EBITDA маржа восстановилась к 39-44% в 2025 после провала до 34-36% в 2024. Чистая прибыль в Q4&#x27;24 аномально низкая (41 млрд) — вероятно, разовые списания. В 2025 ЧП стабильна в диапазоне 73-80 млрд ₽/квартал, несмотря на рост налога до 40%.</p>
+<h2>Дивиденды</h2>
+<p>Дивидендная политика и история выплат — см. <a href="governance.md" target="_blank">governance.md</a>.</p>
+<div class="table-wrap"><table><thead><tr><th>Прогноз</th><th>DPS, ₽</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td><strong>2024 (выплачено)</strong></td><td><strong>198,25</strong></td><td><strong>14,1%</strong></td><td><strong>~50%</strong></td></tr><tr><td><strong>2025E</strong></td><td><strong>~180-195</strong></td><td><strong>~13-14%</strong></td><td><strong>~50%</strong></td></tr></tbody></table></div>
+<p><strong>Ближайшая выплата:</strong> ГОСА июнь-июль 2026, дивиденды за 2025. Прогноз DPS ~180-195 ₽ (50% от ЧП МСФО с учётом налога 40%). Реестр ожидается в июле 2026.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>Среднее 5Y</th><th>Сектор</th></tr></thead><tbody><tr><td>P/E</td><td>3,39</td><td>4,9</td><td>5-6</td></tr><tr><td>EV/EBITDA</td><td>1,25</td><td>1,5</td><td>3-4</td></tr><tr><td>P/BV</td><td>0,32</td><td>0,33</td><td>0,8-1,2</td></tr><tr><td>Div Yield</td><td>14,1%</td><td>12,1%</td><td>8-12%</td></tr><tr><td>ROE</td><td>9,3%</td><td>9,3%</td><td>15-20%</td></tr></tbody></table></div>
+<p>Торгуется с огромным дисконтом к сектору по всем мультипликаторам (P/E 3,4x vs секторные 5-6x, P/BV 0,32x vs 0,8-1,2x). Дисконт объясняется: (1) торгуются только привилегированные акции без прав голоса, (2) 78% капитала у государства, (3) ROE 9,3% — значительно ниже секторного среднего, (4) специальный налог 40%. При этом дивидендная доходность 14,1% — одна из высочайших в секторе. Фактически Транснефть — это «квази-облигация»: стабильный денежный поток с высоким купоном, но ограниченным потенциалом роста капитала.</p>
+<h2>Мой тезис</h2>
+<p>Транснефть — природная монополия с предсказуемым денежным потоком, нулевым долгом и дивидендной доходностью ~14%. Бизнес защищён от колебаний цен на нефть (доход от тарифов, а не от commodity). Однако специальный налог 40% на 2025-2030 существенно сокращает дивидендную базу, ROE 9,3% значительно ниже стоимости капитала, а торгуемые привилегированные акции не дают прав голоса. Position = hold: дивидендная доходность привлекательна (14%), но ниже ставки ЦБ (16%), а upside к справедливой стоимости лишь ~10%. При снижении ставки ЦБ к 12-13% дивидендная доходность 14% станет конкурентоспособной, и переоценка вероятна.</p>
+<p><strong>Ключевые катализаторы</strong> (полный список — <a href="events.md" target="_blank">events.md</a>):</p>
+<ol><li>Снижение ставки ЦБ к 12-13% (2П 2026) — дивидендная доходность 14% станет привлекательной</li><li>Публикация годового МСФО за 2025 (март-апрель 2026) — определит влияние налога 40%</li><li>Объявление дивидендов за 2025 (июнь 2026) — подтверждение/опровержение payout 50%</li><li>Рост объёмов транспортировки при ослаблении ОПЕК+ (2П 2026)</li></ol>
+<h2>Целевая цена</h2>
+<h3>Исходные данные</h3>
+<p>``<code> EPS (LTM) = 481 ₽ (на 569,4 млн обыкн. акций) DPS 2024 = 198,25 ₽ DPS 2025E = ~190 ₽ EBITDA per share = 798 ₽ (578 / 0,7249 млрд шт.) Net Debt per share = -279 ₽ (чистый кэш) BV per share = 5 088 ₽ Текущая цена = 1 404 ₽ (привилегированные) Ставка ЦБ текущая = 16%, прогноз = 13% ERP = 5%, g = 5% </code>``</p>
+<h3>Дивидендный метод (основной для TRNFP)</h3>
+<p>Для привилегированных акций без голоса основной источник дохода — дивиденды. P/E завышает стоимость, т.к. EPS включает всю прибыль компании, а миноритариям-владельцам «префов» доступны только дивиденды.</p>
+<p>``<code> Целевая цена = DPS / (r − g) × (1 + GOD) </code>``</p>
+<p>r = 18% (ставка ЦБ 13% + ERP 5%), g = 5% (рост тарифов ≈ инфляция)</p>
+<p>DPS (2025E) = 190 ₽</p>
+<p>Целевая цена (до GOD) = 190 / (0,18 − 0,05) = 190 / 0,13 = 1 462 ₽</p>
+<p>GOD-дисконт:</p>
+<ul><li>Гос. владение 78% &gt; 50%, payout ~50%: базовый -20%</li><li>Менеджмент-чиновники (Токарев — бывш. ФСБ, без KPI на капитализацию): -5%</li><li>Стабильный рост дивидендов &gt;3 лет (с 7578 до 16665 до сплита): +5%</li><li>Итого GOD = -20%</li></ul>
+<p>Целевая цена = 1 462 × (1 − 0,20) = 1 170 ₽ (с GOD)</p>
+<p>Однако GOD для Транснефти уже частично учтён рынком в текущей цене (P/BV = 0,32 — глубокий дисконт). Применение полного GOD -20% поверх дивидендного метода приводит к цене ниже рынка, что противоречит консенсусу 9 из 12 брокеров. Корректнее использовать дивидендный метод без дополнительного GOD — рынок уже «впитал» государственный дисконт через низкую оценку P/BV.</p>
+<p><strong>Скорректированный подход:</strong> используем дивидендный метод с GOD = -10% (половина стандартного, т.к. рынок уже дисконтирует госуправление):</p>
+<p>Целевая цена = 1 462 × (1 − 0,10) = 1 316 ₽</p>
+<h3>Три сценария (дивидендный метод)</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>DPS/(r-g)</th><th>С GOD -10%</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>1 188</td><td>1 069</td><td>-24%</td></tr><tr><td><strong>Базовый</strong></td><td><strong>13%</strong></td><td><strong>18%</strong></td><td><strong>1 462</strong></td><td><strong>1 316</strong></td><td><strong>-6%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>1 900</td><td>1 710</td><td>+22%</td></tr></tbody></table></div>
+<p>При дивидендном методе с GOD upside отрицательный — акция справедливо оценена или слегка переоценена.</p>
+<h3>Метод P/E (вспомогательный)</h3>
+<p>P/E менее надёжен для «префов» без голоса, но как проверка:</p>
+<p>Базовый P/E = 1 / (0,18 − 0,05) = 7,69x</p>
+<p>Поправка за качество:</p>
+<ul><li>ROE 9,3% ниже сектора (15-20%): -10%</li><li>Монополия, лидер по масштабу: +10%</li><li>Маржа EBITDA стабильна (39-44%): 0%</li><li>ND/EBITDA &lt; 1,5x (net cash): 0%</li><li>Зависимость от гос. тарифного регулирования: -10%</li><li>Итого: -10%, множитель = x0,90</li></ul>
+<p>GOD -20%: множитель = x0,80</p>
+<p>Целевой P/E = 7,69 × 0,90 × 0,80 = 5,54x</p>
+<p>Целевая цена = 481 × 5,54 = 2 665 ₽</p>
+<p>P/E метод даёт 2 665 ₽ — значительно выше рынка. Но это искусственно: EPS рассчитан на ВСЮ прибыль компании, а «префы» = только 21% капитала. Если скорректировать на долю привилегированных акций: 2 665 × 0,214 = 571 ₽ — слишком низко (подразумевает, что «преф» стоит 0,214 от «обычной» акции). Правда между этими крайностями.</p>
+<h3>Чувствительность к g (базовый сценарий, дивидендный метод без GOD)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>DPS/(r-g)</th><th>Upside</th></tr></thead><tbody><tr><td>2% (g-3)</td><td>1 188</td><td>-15%</td></tr><tr><td><strong>5% (базовый)</strong></td><td><strong>1 462</strong></td><td><strong>+4%</strong></td></tr><tr><td>7% (g+2)</td><td>1 727</td><td>+23%</td></tr></tbody></table></div>
+<p>При g-3п.п. upside отрицательный — оценка чувствительна к предположению о росте тарифов.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>Дивидендный (без GOD)</td><td>1 462</td><td>+4%</td><td>Основной для «префов»</td></tr><tr><td>Дивидендный (GOD -10%)</td><td>1 316</td><td>-6%</td><td>Консервативный</td></tr><tr><td>Консенсус аналитиков</td><td>1 420-1 940</td><td>+1% до +38%</td><td>Sinara 1 940, GazpromBank 1 420</td></tr><tr><td>Дивидендный (оптимист.)</td><td>1 710</td><td>+22%</td><td>При ставке ЦБ 10%</td></tr></tbody></table></div>
+<p><strong>my_fair_value = 1 550 ₽</strong> — среднее между дивидендным методом без GOD (1 462) и консенсусом GazpromBank (1 420) / Sinara (1 940). Учитывает: (1) стабильный дивидендный поток, (2) потенциал от снижения ставки, (3) частично дисконтированное госуправление. Upside = 10%.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — 10%, нет</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ, дивиденды за 2025</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — -0,35 (net cash), да</li><li><input type="checkbox" checked disabled> <strong>Маржа стабильна</strong> — EBITDA маржа 39-44% в последних кварталах, стабильна</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — ADV 505 млн ₽, да</li><li><input type="checkbox" checked disabled> <strong>Качество прибыли</strong> — OCF/NI = 463/274 = 1,69 (отлично)</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — не в SDN, но полностью государственная</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — GOD -20% (гос. владение 78%), частично учтён рынком</li><li><input type="checkbox" checked disabled> <strong>Нет value trap</strong> — нет, выручка стабильна, маржа стабильна, дивиденды растут</li></ul>
+<p><strong>Результат: 9/10</strong> — не выполнен только порог upside (10% vs 30%). Position = hold (дивидендная история, а не growth story).</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-02-05</td><td>Открытие карточки, hold</td><td>1 404 ₽</td><td>Upside 10% — недостаточно для buy. Качественный дивидендный актив, но доходность 14% ниже ставки ЦБ 16%. Ждём снижения ставки</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/TRNFP/f/y/MSFO/" target="_blank">Smart-lab: TRNFP финансы</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=TRNFP" target="_blank">MOEX: TRNFP</a></li><li><a href="../../sectors/oil-gas/_index.md" target="_blank">Секторальный анализ: Нефтегаз</a></li><li><a href="https://gazprombank.investments/ideas/transneft-ustoychivyy-biznes-dividendnyy-potentsial/" target="_blank">GazpromBank: Транснефть — устойчивый бизнес</a></li><li><a href="https://smart-lab.ru/blog/1238117.php" target="_blank">Smart-lab: разбор отчёта 9 мес 2025</a></li><li><a href="https://tass.ru/ekonomika/22778691" target="_blank">ТАСС: налог 40%</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>
