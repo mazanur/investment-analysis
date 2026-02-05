@@ -16,7 +16,7 @@ ev_ebitda: 9.7
 p_bv: 12.2
 dividend_yield: 18.2
 roe: 41.4
-net_debt_ebitda: -2.5
+net_debt_ebitda: -1.9
 gov_ownership: 0
 gov_discount: 0
 my_fair_value: 660

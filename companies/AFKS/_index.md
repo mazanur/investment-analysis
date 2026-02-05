@@ -289,6 +289,6 @@ NAV/акцию = 253,5 / 9,65 = 26,3 ₽
 - [АФК Система: IR-страница](https://sistema.ru/investors)
 - [T-Investments: обзор АФК Система](https://www.tbank.ru/invest/research/review/afk-sistema-2025/)
 - [Секторальный анализ: Финансы](../../sectors/finance/_index.md)
-- [МТС (MTSS): наш анализ](../MTSS/_index.md) — ключевой актив (~42%)
+- [МТС (MTSS): наш анализ](../MTSS/_index.md) — ключевой актив (~50%)
 - [Ozon (OZON): наш анализ](../OZON/_index.md) — портфельная компания
 - [Segezha Group (SGZH): наш анализ](../SGZH/_index.md) — портфельная компания
