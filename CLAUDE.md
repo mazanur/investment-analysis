@@ -83,10 +83,10 @@ companies/{TICKER}/
 ## Как исследовать компанию
 
 Когда пользователь просит проанализировать компанию:
-1. Скопируй чеклист: `cp companies/RESEARCH_CHECKLIST.md companies/{TICKER}/RESEARCH_CHECKLIST.md`
-2. Выполняй фазы 0–8 по порядку, отмечая `[x]` каждый пункт
-3. При необходимости сверяйся с **`companies/RESEARCH_GUIDE.md`** — подробная методология (формулы, таблицы, примеры)
-4. После завершения Фазы 8 — удали `companies/{TICKER}/RESEARCH_CHECKLIST.md`
+1. Создай **Claude Code Tasks** для каждой фазы (0–8) с зависимостями — структура описана в `companies/RESEARCH_GUIDE.md` → «Отслеживание прогресса через Tasks»
+2. Выполняй фазы по порядку, обновляя статус задач (`in_progress` → `completed`). Фазы 1 и 2 можно выполнять параллельно
+3. Детали каждой фазы — в `companies/RESEARCH_CHECKLIST.md`. Методология и формулы — в **`companies/RESEARCH_GUIDE.md`**
+4. Если Фаза 4 выявила stop-условие — пропусти Фазы 5-6, перейди к оформлению с `position: avoid`
 
 ## Как найти спекулятивную идею
 
