@@ -1,8 +1,8 @@
 {
   "ticker": "GCHE",
-  "sentiment": "neutral",
+  "sentiment": "bullish",
   "upside": 0.556,
-  "growth_probability": 0.5,
-  "decline_probability": 0.4,
+  "growth_probability": 0.75,
+  "decline_probability": 0.2,
   "updated": "2026-02-06"
 }
