@@ -1,8 +1,8 @@
 {
-  "ticker": "YDEX",
+  "ticker": "GCHE",
   "sentiment": "neutral",
-  "upside": 0.0,
-  "growth_probability": 0.4,
+  "upside": 0.556,
+  "growth_probability": 0.5,
   "decline_probability": 0.4,
   "updated": "2026-02-06"
 }
