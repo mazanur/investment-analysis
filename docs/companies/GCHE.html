@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Группа Черкизово (GCHE) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>Группа Черкизово</h1>
+<div class="ticker">GCHE &middot; Агросектор</div>
+<div class="badges">
+<span class="badge badge-neutral">neutral</span>
+<span class="badge badge-avoid">avoid</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">3592</div></div><div class="metric"><div class="label">Цель</div><div class="value">5590</div></div><div class="metric"><div class="label">Upside</div><div class="value">+56%</div></div><div class="metric"><div class="label">P/E</div><div class="value">11.1</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">2.8</div></div><div class="metric"><div class="label">ROE</div><div class="value">16.3</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">151900000000</div></div><div class="metric"><div class="label">P/BV</div><div class="value">1.22</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">5.85</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">2.83</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:50%">&#x25B2; 50%</div>
+<div class="flat" style="width:10%">10%</div>
+<div class="decline" style="width:40%">&#x25BC; 40%</div>
+</div>
+</div>
+
+<div class="analysis">
+<h1>Группа Черкизово (GCHE)</h1>
+<blockquote><strong>STOP-CONDITION: Free-float 2.5% без планов на увеличение.</strong> По методологии — position: avoid. Цена неинформативна, ликвидность крайне низкая (ADV 14 млн ₽, листинг 3-го уровня). Полный анализ приведён ниже для справки.</blockquote>
+<h2>Бизнес-модель</h2>
+<p>Крупнейший вертикально интегрированный мясоперерабатывающий холдинг России. Полный цикл: от выращивания зерна и производства комбикормов до переработки и продажи готовой продукции. Основан в 2005 году, IPO на MOEX в 2006.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Птицеводство</strong> (~45% выручки): бройлеры, индейка. Черкизово — лидер в РФ (&gt;12% рынка)</li><li><strong>Свиноводство</strong> (~25% выручки): свинина, полуфабрикаты. Один из топ-5 производителей</li><li><strong>Мясопереработка</strong> (~20% выручки): колбасы, сосиски, готовая продукция. Бренды: «Черкизово», «Петелинка», «Куриное царство»</li><li><strong>Растениеводство и комбикорма</strong> (~10% выручки): собственное зерно для обеспечения кормовой базы, вертикальная интеграция</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Рост экспорта: птица +42% в Q1 2025, экспорт в Китай, Саудовскую Аравию, СНГ</li><li>Рост цен на мясо: курица +12.9%, свинина +18.8% г/г в Q3 2025</li><li>Расширение мощностей: цель — 1 млн т курицы и 500 тыс. т свинины к 2027</li><li>Снижение ставки ЦБ в 2026 → облегчение долговой нагрузки</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Вертикальная интеграция</strong>: от зерна до прилавка — контроль себестоимости, независимость от поставщиков</li><li><strong>Масштаб</strong>: #1 по птице в РФ, топ-5 по свинине. Переговорная сила с сетями</li><li><strong>Бренды</strong>: узнаваемые марки («Петелинка», «Черкизово»), доля B2C-продаж растёт</li><li><strong>Диверсификация</strong>: птица + свинина + переработка + растениеводство — снижает зависимость от одного сегмента</li><li><strong>Экспортные лицензии</strong>: аккредитация на поставки в Китай, Саудовскую Аравию, Вьетнам — высокий барьер входа</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li>Высокая ставка ЦБ (16%): процентные расходы LTM 22.8 млрд ₽ — 45% EBITDA</li><li>Инфляция себестоимости: рост зарплат, ГСМ, кормов</li><li>Замедление потребительского спроса при высоких ставках</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Ветеринарные</strong>: грипп птиц (вспышка на Васильевской птицефабрике в 2025)</li><li>Агрессивная инвестпрограмма при отрицательном FCF</li><li>Насыщение внутреннего рынка мяса (82-83 кг/чел — рекорд)</li><li>Зависимость от импортных генетических материалов (инкубационное яйцо)</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li>Потенциальные ограничения на экспорт мяса (как с зерном)</li><li>Ветеринарные требования стран-импортёров</li><li>Рост НДС до 22% с 2026 — увеличивает конечную цену</li></ul>
+<h3>Специфические риски</h3>
+<ul><li><strong>Free-float 2.5%</strong> — крайне низкая ликвидность, листинг 3-го уровня</li><li>Семья Михайловых контролирует ~87% — key-man risk</li><li>Только 1 из 12 брокеров рекомендует (ПСБ)</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>120.1</td><td>128.8</td><td>160.2</td><td>184.3</td><td>226.7</td><td>281.4</td></tr><tr><td>EBITDA, млрд ₽</td><td>26.6</td><td>29.3</td><td>30.2</td><td>50.0</td><td>46.4</td><td>50.3</td></tr><tr><td>Маржа EBITDA, %</td><td>17.2</td><td>18.3</td><td>16.4</td><td>22.0</td><td>17.9</td><td>17.9</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>9.0</td><td>13.9</td><td>16.8</td><td>15.5</td><td>27.4</td><td>13.7</td></tr><tr><td>ЧП скорр., млрд ₽</td><td>15.2</td><td>16.9</td><td>14.6</td><td>33.1</td><td>19.9</td><td>21.1</td></tr><tr><td>OCF, млрд ₽</td><td>16.1</td><td>16.8</td><td>21.0</td><td>26.7</td><td>35.4</td><td>38.7</td></tr><tr><td>CAPEX, млрд ₽</td><td>8.6</td><td>12.2</td><td>18.2</td><td>19.1</td><td>36.7</td><td>39.4</td></tr><tr><td>FCF, млрд ₽</td><td>7.5</td><td>4.6</td><td>3.6</td><td>10.5</td><td>-1.7</td><td>-2.2</td></tr><tr><td>Net Debt, млрд ₽</td><td>61.9</td><td>62.3</td><td>72.5</td><td>90.7</td><td>95.4</td><td>142.3</td></tr><tr><td>Net Debt/EBITDA</td><td>2.34</td><td>2.48</td><td>3.01</td><td>1.91</td><td>2.87</td><td>2.83</td></tr><tr><td>EPS, ₽</td><td>218</td><td>339</td><td>398</td><td>366</td><td>649</td><td>325</td></tr><tr><td>ROE, %</td><td>14.8</td><td>19.5</td><td>21.1</td><td>16.9</td><td>22.9</td><td>~16.3</td></tr><tr><td>P/E</td><td>7.95</td><td>5.83</td><td>7.40</td><td>7.40</td><td>6.32</td><td>11.1</td></tr><tr><td>EV/EBITDA</td><td>5.39</td><td>6.72</td><td>6.80</td><td>5.37</td><td>6.75</td><td>5.85</td></tr><tr><td>P/BV</td><td>1.26</td><td>1.21</td><td>1.65</td><td>1.34</td><td>1.55</td><td>~1.22</td></tr></tbody></table></div>
+<p>CAGR выручки 2020-2024: <strong>17.2%</strong>. EBITDA margin стабильна в диапазоне 16-22%.</p>
+<h3>Квартальные</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q4&#x27;24</th><th>Q1&#x27;25</th><th>Q2&#x27;25</th><th>Q3&#x27;25</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>70.7</td><td>65.4</td><td>71.5</td><td>73.9</td><td>281.4</td></tr><tr><td>EBITDA, млрд ₽</td><td>10.5</td><td>8.3</td><td>11.5</td><td>20.0</td><td>50.3</td></tr><tr><td>Маржа EBITDA, %</td><td>14.9</td><td>12.7</td><td>16.1</td><td>27.1</td><td>17.9</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>3.4</td><td>-0.1</td><td>1.6</td><td>8.9</td><td>13.7</td></tr><tr><td>Процент. расходы, млрд ₽</td><td>8.0</td><td>—</td><td>14.8</td><td>—</td><td>22.8</td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> Q3 2025 — исключительно сильный квартал (маржа 27.1%, лучший за 5+ лет). Рост цен на курицу (+12.9%) и свинину (+18.8%) обеспечили рывок EBITDA. Q1 2025 был слабым (убыток, сезонность). Процентные расходы удвоились г/г и достигли 22.8 млрд ₽ LTM (45% EBITDA).</p>
+<h3>Анализ РСБУ за 2025 год (головная компания)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2025, млрд ₽</th><th>2024, млрд ₽</th><th>Δ%</th></tr></thead><tbody><tr><td>Выручка</td><td>26.8</td><td>25.2</td><td>+6.0%</td></tr><tr><td>Себестоимость</td><td>(9.0)</td><td>(6.8)</td><td>+32.0%</td></tr><tr><td>Валовая прибыль</td><td>17.8</td><td>18.4</td><td>-3.5%</td></tr><tr><td>Управленческие расходы</td><td>(2.6)</td><td>(3.3)</td><td>-23.2%</td></tr><tr><td>Прибыль от продаж</td><td>15.2</td><td>15.1</td><td>+0.8%</td></tr><tr><td>Проценты к получению</td><td>5.2</td><td>2.6</td><td>+104%</td></tr><tr><td>Проценты к уплате</td><td>(6.8)</td><td>(3.1)</td><td>+121%</td></tr><tr><td>Чистая прибыль</td><td>13.3</td><td>14.7</td><td>-9.4%</td></tr></tbody></table></div>
+<p><strong>Важно:</strong> РСБУ — это standalone-отчётность головной компании, не консолидированная группа. Выручка РСБУ (26.8 млрд) — это в основном управленческие услуги и дивиденды от дочек. Консолидированная выручка по МСФО значительно выше (~281 млрд LTM). Ключевые сигналы из РСБУ: (1) процентные расходы удвоились; (2) операционная прибыль flat; (3) чистая прибыль -9.4% из-за процентной нагрузки.</p>
+<h2>Дивиденды</h2>
+<p>Дивидендная политика и история — см. <a href="governance.md" target="_blank">governance.md</a>.</p>
+<div class="table-wrap"><table><thead><tr><th>Прогноз</th><th>DPS, ₽</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td><strong>2025E</strong></td><td><strong>0–176</strong></td><td><strong>0–4.9%</strong></td><td><strong>0–50%</strong></td></tr></tbody></table></div>
+<p>Дивидендная политика: не менее 50% скорр. ЧП МСФО при Net Debt/EBITDA &lt; 2.5x. На 30.09.2025 показатель = 2.8x — <strong>выше порога</strong>. СД рекомендовал не платить дивиденды за 1П 2025 из-за высокого долга. Дивиденд за 2025 — под большим вопросом.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>Среднее 5Y</th><th>Сектор</th></tr></thead><tbody><tr><td>P/E</td><td>11.1</td><td>7.0</td><td>6-8x</td></tr><tr><td>EV/EBITDA</td><td>5.85</td><td>6.0</td><td>5-7x</td></tr><tr><td>P/BV</td><td>1.22</td><td>1.36</td><td>1.0-1.5x</td></tr><tr><td>Div Yield</td><td>2.8%</td><td>5.5%</td><td>3-6%</td></tr><tr><td>ROE</td><td>16.3%</td><td>18.8%</td><td>12-15%</td></tr></tbody></table></div>
+<p>P/E LTM завышен из-за провала чистой прибыли (процентные расходы). EV/EBITDA — более репрезентативный показатель: 5.85x при 5-летнем среднем 6.0x — на уровне исторической нормы. По EV/EBITDA компания не выглядит дешёвой или дорогой. Но при снижении ставки ЦБ чистая прибыль резко вырастет, и P/E нормализуется до 6-7x.</p>
+<h2>Мой тезис</h2>
+<p><strong>Avoid</strong> из-за критически низкого free-float (2.5%). Бизнес фундаментально сильный — лидер российского мясного рынка с вертикальной интеграцией, стабильной маржой EBITDA 17-22% и ростом выручки 17% CAGR. Однако инвестировать невозможно: (1) free-float 2.5% без планов SPO — цена манипулируема, выход из позиции затруднён; (2) листинг 3-го уровня; (3) только 1 из 12 брокеров рекомендует; (4) Net Debt/EBITDA 2.83x при ставке 16% — процентные расходы съедают 45% EBITDA; (5) дивиденды под вопросом (порог 2.5x превышен). Если компания проведёт SPO для увеличения free-float до &gt;10% и снизит долг ниже 2.5x EBITDA — пересмотреть оценку.</p>
+<p><strong>Ключевые катализаторы</strong> (полный список — <a href="events.md" target="_blank">events.md</a>):</p>
+<ol><li>Снижение ставки ЦБ → снижение процентных расходов → рост ЧП (ближайшее заседание 13.02.2026)</li><li>Публикация МСФО за 2025 (ожидается март-апрель 2026)</li><li>Потенциальное SPO для увеличения free-float (не объявлено)</li></ol>
+<h2>Целевая цена</h2>
+<h3>Исходные данные</h3>
+<p>``<code> EBITDA LTM = 50.3 млрд ₽ (1,191 ₽/акцию) Net Debt (30.09.2025) = 142.3 млрд ₽ (3,370 ₽/акцию) Adj. EPS = 500 ₽ (21.1 млрд ЧП скорр. / 42.222 млн акций) Текущая цена = 3,592 ₽ Shares = 42.222 млн EV = 151.9 + 142.3 = 294.2 млрд ₽ E/(D+E) = 51.6%, D/(D+E) = 48.4% ERP = 5%, g = 5%, tax = 20% </code>``</p>
+<h3>Метод EV/EBITDA (основной, Net Debt/EBITDA = 2.83x &gt; 2.5x)</h3>
+<p>Поправка за качество:</p>
+<ul><li>ROE &gt; среднего по сектору (16-23% vs 12-15%): +10%</li><li>Рост выручки &gt; сектора (17% vs 2-5%): +10%</li><li>Лидер рынка по масштабу: +10%</li><li>Free-float 2.5% / листинг 3-го уровня: -10%</li><li>ND/EBITDA 2.5-3.5x: -25%</li><li>Итого: <strong>-5%</strong> (множитель 0.95)</li></ul>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r_eq</th><th>r_debt</th><th>WACC</th><th>EV/EBITDA баз.</th><th>EV/EBITDA цел.</th><th>Target EV</th><th>Target Eq</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>18%</td><td>17.8%</td><td>6.25x</td><td>5.94x</td><td>298.8</td><td>156.5</td><td>3,707 ₽</td><td>+3.2%</td></tr><tr><td><strong>Базовый</strong></td><td><strong>13%</strong></td><td><strong>18%</strong></td><td><strong>15%</strong></td><td><strong>15.1%</strong></td><td><strong>7.92x</strong></td><td><strong>7.52x</strong></td><td><strong>378.3</strong></td><td><strong>236.0</strong></td><td><strong>5,590 ₽</strong></td><td><strong>+55.6%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>12%</td><td>12.4%</td><td>10.81x</td><td>10.27x</td><td>516.6</td><td>374.3</td><td>8,866 ₽</td><td>+146.9%</td></tr></tbody></table></div>
+<h3>Чувствительность к g (базовый сценарий, ставка 13%)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>WACC-g</th><th>EV/EBITDA цел.</th><th>Target EV</th><th>Target Eq</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>2%</td><td>13.1%</td><td>5.80x</td><td>291.7</td><td>149.4</td><td>3,540 ₽</td><td>-1.4%</td></tr><tr><td><strong>5% (базовый)</strong></td><td><strong>10.1%</strong></td><td><strong>7.52x</strong></td><td><strong>378.3</strong></td><td><strong>236.0</strong></td><td><strong>5,590 ₽</strong></td><td><strong>+55.6%</strong></td></tr><tr><td>7%</td><td>8.1%</td><td>9.38x</td><td>472.0</td><td>329.7</td><td>7,811 ₽</td><td>+117.5%</td></tr></tbody></table></div>
+<p>При g=2% upside уходит в 0% → тезис хрупок при стагнации роста. При g=5% и выше — значительный потенциал, но зависит от снижения ставки ЦБ.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td><strong>EV/EBITDA (базовый)</strong></td><td><strong>5,590 ₽</strong></td><td><strong>+55.6%</strong></td><td><strong>Основной</strong> — корректен для ND/EBITDA 2.83x</td></tr><tr><td>P/E (adj)</td><td>3,654 ₽</td><td>+1.7%</td><td>r=18%, g=5%, P/E=7.31x × adj EPS 500₽. Занижен: P/E чувствителен к %, не учитывает нормализацию</td></tr><tr><td>DCF (norм. FCF)</td><td>~2,980 ₽</td><td>-17.0%</td><td>Занижен: FCF сейчас отрицателен из-за пика CAPEX</td></tr><tr><td>Дивидендный</td><td>N/A</td><td>N/A</td><td>Не применим: дивиденды под вопросом</td></tr></tbody></table></div>
+<p>Расхождение EV/EBITDA vs P/E/DCF &gt; 30% — характерно для компаний с высоким долгом. EV/EBITDA отражает стоимость бизнеса до финансовых расходов, P/E и DCF — что остаётся акционерам после обслуживания долга. При текущей ставке 16% разница огромна. При снижении до 13% P/E и EV/EBITDA сблизятся.</p>
+<p><strong>my_fair_value = 5,590 ₽</strong> (базовый сценарий EV/EBITDA при ставке 13%).</p>
+<h3>Стресс-тест (ND/EBITDA приближается к 3.5x)</h3>
+<p>При ставке ЦБ + 3п.п. = 19%:</p>
+<ul><li>Процентные расходы: 142.3 × 19% = 27.0 млрд ₽</li><li>EBITDA LTM: 50.3 млрд ₽</li><li>Процент. расходы / EBITDA = <strong>53.7%</strong> → выше порога 50%. Красный флаг.</li></ul>
+<p>При текущей ставке 16%: 22.8 / 50.3 = <strong>45.3%</strong> — на границе опасной зоны.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" checked disabled> <strong>Upside &gt; 30%</strong> — 55.6% в базовом сценарии</li><li><input type="checkbox" checked disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ (13.02.2026), МСФО 2025</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" disabled> <strong>Net Debt/EBITDA &lt; 2.5x</strong> — <strong>2.83x, НЕТ</strong></li><li><input type="checkbox" checked disabled> <strong>Маржа стабильна</strong> — 17-22%, стабильна</li><li><input type="checkbox" disabled> <strong>Ликвидность</strong> — ADV 14 млн ₽ (выше 10 млн), но <strong>free-float 2.5% &lt; 5%, НЕТ</strong></li><li><input type="checkbox" checked disabled> <strong>Качество прибыли</strong> — OCF/NI = 38.7/13.7 = 2.83 (высокое)</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — нет прямых санкций</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — частная компания, GOD = 0%</li><li><input type="checkbox" disabled> <strong>Нет value trap</strong> — FCF отрицателен 2 года, долг растёт</li></ul>
+<p><strong>Результат: 6/10</strong> → 4 пункта не выполнены → <strong>position: avoid</strong> (плюс STOP на free-float)</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-02-06</td><td>avoid</td><td>3,592 ₽</td><td>STOP: free-float 2.5% &lt; 5%, нет планов SPO. Также: ND/EBITDA 2.83x, FCF отрицателен, листинг 3 уровня. Фундаментально сильный бизнес, но неинвестируемый из-за структуры</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/GCHE/f/y/MSFO/" target="_blank">Smart-lab: GCHE финансы</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=GCHE" target="_blank">MOEX: GCHE</a></li><li><a href="https://cherkizovo-group.com/press/gruppa-cherkizovo-obyavlyaet-finansovye-rezultaty-za-devyat-mesyatsev-2025-goda/" target="_blank">Черкизово: МСФО 9М 2025</a></li><li><a href="https://cherkizovo-group.com/press/gruppa-cherkizovo-obyavlyaet-finansovye-rezultaty-za-2024-god/" target="_blank">Черкизово: МСФО 2024</a></li><li><a href="../../sectors/agro/_index.md" target="_blank">Секторальный анализ: Агро</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>
