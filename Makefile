@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex download-events download-governance download-all fill-events fill-governance
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex download-events download-governance download-all fill-events fill-governance daily update-prices
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -57,6 +57,10 @@ help:
 	@echo "  make portfolio     — показать компании с position=buy"
 	@echo "  make top           — топ-10 компаний по upside"
 	@echo "  make export        — экспортировать данные в JSON"
+	@echo ""
+	@echo "$(GREEN)Ежедневное обновление:$(NC)"
+	@echo "  make daily         — обновить цены + trends + дашборд + коммит + пуш"
+	@echo "  make update-prices — обновить цены с MOEX"
 	@echo ""
 	@echo "$(GREEN)Прочее:$(NC)"
 	@echo "  make validate      — проверить валидность _index.md"
@@ -274,6 +278,35 @@ export:
 	@mkdir -p data
 	@python3 scripts/export_data.py
 	@echo "$(GREEN)Готово: data/export.json$(NC)"
+
+# ============================================================================
+# ЕЖЕДНЕВНОЕ ОБНОВЛЕНИЕ
+# ============================================================================
+
+update-prices:
+	@echo "$(CYAN)Обновление цен с MOEX...$(NC)"
+	@python3 scripts/update_prices.py
+
+daily:
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo "$(CYAN)  Ежедневное обновление ($(TODAY))$(NC)"
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo ""
+	@echo "$(CYAN)[1/4] Обновление цен с MOEX...$(NC)"
+	@python3 scripts/update_prices.py
+	@echo ""
+	@echo "$(CYAN)[2/4] Генерация trend.json...$(NC)"
+	@python3 scripts/generate_trend_json.py
+	@echo ""
+	@echo "$(CYAN)[3/4] Генерация дашборда...$(NC)"
+	@python3 scripts/generate_dashboard.py
+	@echo ""
+	@echo "$(CYAN)[4/4] Коммит и пуш...$(NC)"
+	@git add companies/*/data/price_history.csv companies/*/_index.md companies/*/trend.json docs/
+	@git commit -m "daily: update prices and dashboard ($(TODAY))" || echo "$(YELLOW)Нет изменений для коммита$(NC)"
+	@git push || echo "$(RED)Пуш не удался$(NC)"
+	@echo ""
+	@echo "$(GREEN)Готово!$(NC)"
 
 # ============================================================================
 # ПРОЧЕЕ
