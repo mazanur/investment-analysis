@@ -202,6 +202,13 @@ tr.stub td { color: var(--stub-row-text); }
     padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
+.cmp-badge {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 8px 12px; margin-top: 6px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; cursor: pointer;
+}
+.cmp-badge:hover { border-color: var(--link); }
 .price-table-wrap { max-height: 400px; overflow-y: auto; }
 .price-table { font-size: 13px; }
 .price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
@@ -259,6 +266,7 @@ tr.stub td { color: var(--stub-row-text); }
 <svg id="price-svg" viewBox="0 0 700 200" class="price-chart"></svg>
 <div id="price-tooltip" class="price-tooltip"></div>
 </div>
+<div id="cmp-badge" class="cmp-badge" style="display:none"></div>
 <div class="table-wrap price-table-wrap"><table class="price-table">
 <thead><tr><th>Дата</th><th>Цена</th><th>Изм.</th><th>Объём</th></tr></thead>
 <tbody id="price-tbody"></tbody>
@@ -318,22 +326,96 @@ function render(days) {
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
     // Transparent overlay to capture mouse events
     h += '<rect x="'+PL+'" y="'+PT+'" width="'+CW+'" height="'+CH+'" fill="transparent" style="cursor:crosshair" id="hv-rect"/>';
+    // Compare mode elements
+    h += '<circle id="pin1" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
+    h += '<circle id="pin2" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
+    h += '<line id="cmp-line" x1="0" y1="0" x2="0" y2="0" stroke="var(--link)" stroke-width="1.5" stroke-dasharray="5,3" visibility="hidden"/>';
     svg.innerHTML = h;
 
-    // --- Hover interaction ---
+    // --- Hover & Compare interaction ---
     var tooltip = document.getElementById('price-tooltip');
     var hvLine = document.getElementById('hv-line');
     var hvDot = document.getElementById('hv-dot');
     var hvRect = document.getElementById('hv-rect');
+    var pin1El = document.getElementById('pin1');
+    var pin2El = document.getElementById('pin2');
+    var cmpLine = document.getElementById('cmp-line');
     var chartWrap = svg.closest('.price-chart-wrap');
+    var cmpBadge = document.getElementById('cmp-badge');
+    cmpBadge.style.display = 'none';
+    var cmpState = 0; // 0=none, 1=first pinned, 2=both pinned
+    var cmpIdx1 = -1, cmpIdx2 = -1;
 
-    hvRect.addEventListener('mousemove', function(e) {
+    function getIdx(e) {
         var rect = svg.getBoundingClientRect();
         var scaleX = W / rect.width;
         var mouseX = (e.clientX - rect.left) * scaleX;
-        // Find closest data point
         var idx = Math.round((mouseX - PL) / CW * (n - 1));
         if (idx < 0) idx = 0; if (idx >= n) idx = n - 1;
+        return idx;
+    }
+
+    function fmtPrice(p) {
+        return p >= 100 ? p.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : p >= 1 ? p.toFixed(2) : p.toFixed(4);
+    }
+
+    function fmtDate(d) {
+        var dd = d.split('-');
+        return dd[2]+'.'+dd[1]+'.'+dd[0];
+    }
+
+    function resetCompare() {
+        cmpState = 0; cmpIdx1 = -1; cmpIdx2 = -1;
+        pin1El.setAttribute('visibility', 'hidden');
+        pin2El.setAttribute('visibility', 'hidden');
+        cmpLine.setAttribute('visibility', 'hidden');
+        cmpBadge.style.display = 'none';
+    }
+
+    cmpBadge.onclick = function() { resetCompare(); };
+
+    function showBadge(i1, i2) {
+        var lo = Math.min(i1, i2), hi = Math.max(i1, i2);
+        var pct = (src[hi].c - src[lo].c) / src[lo].c * 100;
+        var sign = pct > 0 ? '+' : '';
+        var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+        var days = hi - lo;
+        var dayWord = 'дн.';
+        cmpBadge.innerHTML = '<span class="'+cls+'" style="font-weight:700;font-size:16px">'+sign+pct.toFixed(1)+'%</span>' +
+            '<span style="color:var(--text-secondary);font-size:12px;margin-left:8px">'+fmtDate(src[lo].d)+' → '+fmtDate(src[hi].d)+' ('+days+' '+dayWord+')</span>' +
+            '<span style="color:var(--text-secondary);font-size:12px;margin-left:8px">'+fmtPrice(src[lo].c)+' → '+fmtPrice(src[hi].c)+'</span>';
+        cmpBadge.style.display = 'flex';
+    }
+
+    hvRect.addEventListener('click', function(e) {
+        var idx = getIdx(e);
+        if (cmpState === 0) {
+            cmpState = 1; cmpIdx1 = idx;
+            pin1El.setAttribute('cx', xP(idx).toFixed(1));
+            pin1El.setAttribute('cy', yP(prices[idx]).toFixed(1));
+            pin1El.setAttribute('visibility', 'visible');
+            pin2El.setAttribute('visibility', 'hidden');
+            cmpLine.setAttribute('visibility', 'hidden');
+            cmpBadge.innerHTML = '<span style="color:var(--text-secondary);font-size:12px">Кликните вторую точку для сравнения</span>';
+            cmpBadge.style.display = 'flex';
+        } else if (cmpState === 1) {
+            cmpState = 2; cmpIdx2 = idx;
+            pin2El.setAttribute('cx', xP(idx).toFixed(1));
+            pin2El.setAttribute('cy', yP(prices[idx]).toFixed(1));
+            pin2El.setAttribute('visibility', 'visible');
+            cmpLine.setAttribute('x1', xP(cmpIdx1).toFixed(1));
+            cmpLine.setAttribute('y1', yP(prices[cmpIdx1]).toFixed(1));
+            cmpLine.setAttribute('x2', xP(idx).toFixed(1));
+            cmpLine.setAttribute('y2', yP(prices[idx]).toFixed(1));
+            cmpLine.setAttribute('visibility', 'visible');
+            showBadge(cmpIdx1, idx);
+        } else {
+            resetCompare();
+        }
+    });
+
+    hvRect.addEventListener('mousemove', function(e) {
+        var idx = getIdx(e);
         var px = xP(idx), py = yP(prices[idx]);
         hvLine.setAttribute('x1', px.toFixed(1));
         hvLine.setAttribute('x2', px.toFixed(1));
@@ -343,31 +425,42 @@ function render(days) {
         hvDot.setAttribute('visibility', 'visible');
         // Tooltip content
         var r = src[idx];
-        var dd = r.d.split('-');
-        var dateStr = dd[2]+'.'+dd[1]+'.'+dd[0];
-        var prStr = r.c >= 100 ? r.c.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : r.c >= 1 ? r.c.toFixed(2) : r.c.toFixed(4);
+        var prStr = fmtPrice(r.c);
         var chgHtml = '';
-        if (idx > 0) {
+        if (cmpState === 1) {
+            var pct = (r.c - src[cmpIdx1].c) / src[cmpIdx1].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        } else if (idx > 0) {
             var pct = (r.c - src[0].c) / src[0].c * 100;
             var sign = pct > 0 ? '+' : '';
             var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
             chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
         }
-        tooltip.innerHTML = '<strong>'+prStr+'</strong> '+chgHtml+'<br><span style="color:var(--text-secondary);font-size:11px">'+dateStr+'</span>';
+        tooltip.innerHTML = '<strong>'+prStr+'</strong> '+chgHtml+'<br><span style="color:var(--text-secondary);font-size:11px">'+fmtDate(r.d)+'</span>';
         tooltip.style.display = 'block';
         // Position tooltip
         var tipX = (e.clientX - chartWrap.getBoundingClientRect().left) + 12;
         var tipY = (e.clientY - chartWrap.getBoundingClientRect().top) - 10;
-        // Flip if near right edge
         if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
         tooltip.style.left = tipX + 'px';
         tooltip.style.top = tipY + 'px';
+        // Live connecting line while picking second point
+        if (cmpState === 1) {
+            cmpLine.setAttribute('x1', xP(cmpIdx1).toFixed(1));
+            cmpLine.setAttribute('y1', yP(prices[cmpIdx1]).toFixed(1));
+            cmpLine.setAttribute('x2', px.toFixed(1));
+            cmpLine.setAttribute('y2', py.toFixed(1));
+            cmpLine.setAttribute('visibility', 'visible');
+        }
     });
 
     hvRect.addEventListener('mouseleave', function() {
         hvLine.setAttribute('visibility', 'hidden');
         hvDot.setAttribute('visibility', 'hidden');
         tooltip.style.display = 'none';
+        if (cmpState === 1) cmpLine.setAttribute('visibility', 'hidden');
     });
 
     // --- Table ---

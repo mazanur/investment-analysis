@@ -202,6 +202,13 @@ tr.stub td { color: var(--stub-row-text); }
     padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
+.cmp-badge {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 8px 12px; margin-top: 6px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; cursor: pointer;
+}
+.cmp-badge:hover { border-color: var(--link); }
 .price-table-wrap { max-height: 400px; overflow-y: auto; }
 .price-table { font-size: 13px; }
 .price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
