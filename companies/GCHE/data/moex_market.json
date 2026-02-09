@@ -1,0 +1,38 @@
+{
+  "ticker": "GCHE",
+  "date": "2026-02-06",
+  "shortname": "ЧеркизГ-ао",
+  "secname": "Группа Черкизово ПАО-ао",
+  "price": {
+    "last": 3592,
+    "open": 3576,
+    "high": 3612,
+    "low": 3557,
+    "waprice": 3579,
+    "prev_close": 3570
+  },
+  "volume": {
+    "shares_today": 1207,
+    "value_today_rub": 4319644,
+    "num_trades_today": 281
+  },
+  "liquidity": {
+    "adv_30d_rub": 13959068,
+    "adv_30d_mln_rub": 14.0,
+    "bid_ask_spread_pct": 0.1391
+  },
+  "capitalization": {
+    "market_cap_rub": 151872685074,
+    "market_cap_bln_rub": 151.9,
+    "shares_outstanding": 42222042
+  },
+  "range_52w": {
+    "high": 4745,
+    "low": 2911
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 3,
+    "lot_size": 1
+  }
+}

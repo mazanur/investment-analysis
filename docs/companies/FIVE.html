@@ -180,6 +180,32 @@ tr.stub td { color: var(--stub-row-text); }
 .analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
+/* История цен */
+.price-history {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.price-history h3 { margin-bottom: 12px; font-size: 16px; }
+.period-btns { display: flex; gap: 6px; margin-bottom: 16px; }
+.period-btn {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 12px; cursor: pointer; color: var(--text-secondary); font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+}
+.period-btn:hover { border-color: var(--link); color: var(--text); }
+.period-btn.active { background: var(--link); color: #fff; border-color: var(--link); }
+.price-chart-wrap { margin-bottom: 16px; position: relative; }
+.price-chart { width: 100%; height: auto; }
+.price-tooltip {
+    display: none; position: absolute; pointer-events: none;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.price-table-wrap { max-height: 400px; overflow-y: auto; }
+.price-table { font-size: 13px; }
+.price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
+
 /* Responsive */
 @media (max-width: 768px) {
     .container { padding: 12px; }
@@ -208,6 +234,7 @@ tr.stub td { color: var(--stub-row-text); }
 </div>
 <div class="metrics-grid"></div>
 </div>
+
 
 
 

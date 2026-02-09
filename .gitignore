@@ -9,11 +9,10 @@ __pycache__/
 subtitles*.vtt
 
 # Экспорт и генерируемые данные
-data/
 
 # Структура data/ для новых компаний
 # Сами данные коммитим — используются в дашборде
-!companies/*/data/.gitkeep
+#!companies/*/data/.gitkeep
 
 # ralphex progress logs
 progress*.txt

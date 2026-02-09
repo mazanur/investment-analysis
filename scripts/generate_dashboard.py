@@ -11,6 +11,7 @@
 Автор: AlmazNurmukhametov
 """
 
+import csv
 import html as html_module
 import json
 import os
@@ -438,6 +439,207 @@ def read_all_trends(companies_dir: str) -> dict:
     return trends
 
 
+def read_price_history(companies_dir: str, ticker: str) -> list[dict]:
+    """Читает price_history.csv для тикера. Возвращает список записей."""
+    csv_path = os.path.join(companies_dir, ticker, 'data', 'price_history.csv')
+    if not os.path.exists(csv_path):
+        return []
+
+    rows = []
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            try:
+                rows.append({
+                    'date': row['date'],
+                    'close': float(row.get('close', 0) or 0),
+                    'volume_rub': int(float(row.get('volume_rub', 0) or 0)),
+                    'market_cap_bln': float(row.get('market_cap_bln', 0) or 0),
+                })
+            except (ValueError, KeyError):
+                continue
+
+    return rows
+
+
+def generate_price_chart_html(history: list[dict]) -> str:
+    """Генерирует интерактивный блок истории цен с переключением периодов."""
+    if not history:
+        return ''
+
+    prices = [h['close'] for h in history if h['close'] > 0]
+    if not prices:
+        return ''
+
+    # Данные для JS — только date, close, volume_rub
+    js_data = json.dumps(
+        [{'d': h['date'], 'c': h['close'], 'v': h['volume_rub']} for h in history],
+        ensure_ascii=False,
+    ).replace('</', '<\\/')
+
+    return f"""
+<div class="price-history">
+<h3>История цен</h3>
+<div class="period-btns" id="period-btns">
+<button class="period-btn" data-days="21">1М</button>
+<button class="period-btn" data-days="63">3М</button>
+<button class="period-btn" data-days="126">6М</button>
+<button class="period-btn active" data-days="252">1Г</button>
+<button class="period-btn" data-days="0">Всё</button>
+</div>
+<div class="price-chart-wrap">
+<svg id="price-svg" viewBox="0 0 700 200" class="price-chart"></svg>
+<div id="price-tooltip" class="price-tooltip"></div>
+</div>
+<div class="table-wrap price-table-wrap"><table class="price-table">
+<thead><tr><th>Дата</th><th>Цена</th><th>Изм.</th><th>Объём</th></tr></thead>
+<tbody id="price-tbody"></tbody>
+</table></div>
+</div>
+
+<script>
+(function() {{
+var DATA = {js_data};
+var svg = document.getElementById('price-svg');
+var tbody = document.getElementById('price-tbody');
+var activeDays = 252;
+
+function render(days) {{
+    activeDays = days;
+    var src = days > 0 ? DATA.slice(-days) : DATA;
+    if (!src.length) return;
+
+    // --- SVG chart ---
+    var W = 700, H = 200, PT = 20, PB = 30, PL = 60, PR = 20;
+    var CW = W - PL - PR, CH = H - PT - PB;
+    var prices = src.map(function(r){{ return r.c; }});
+    var minP = Math.min.apply(null, prices), maxP = Math.max.apply(null, prices);
+    var range = maxP - minP || maxP * 0.1 || 1;
+    minP -= range * 0.05; maxP += range * 0.05; range = maxP - minP;
+    var n = prices.length;
+
+    function xP(i) {{ return PL + (i / Math.max(n - 1, 1)) * CW; }}
+    function yP(p) {{ return PT + CH - ((p - minP) / range) * CH; }}
+
+    var trendColor = prices[n-1] >= prices[0] ? 'var(--positive)' : 'var(--negative)';
+    var pts = []; for (var i = 0; i < n; i++) pts.push(xP(i).toFixed(1)+','+yP(prices[i]).toFixed(1));
+    var polyline = pts.join(' ');
+    var area = xP(0).toFixed(1)+','+(PT+CH)+' '+polyline+' '+xP(n-1).toFixed(1)+','+(PT+CH);
+
+    // Grid
+    var h = '';
+    for (var g = 0; g < 5; g++) {{
+        var gp = minP + (range * g / 4), gy = yP(gp);
+        h += '<line x1="'+PL+'" y1="'+gy.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+gy.toFixed(1)+'" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="4,4"/>';
+        var lbl = gp >= 1000 ? Math.round(gp).toLocaleString('ru') : gp >= 1 ? gp.toFixed(1) : gp.toFixed(4);
+        h += '<text x="'+(PL-8)+'" y="'+gy.toFixed(1)+'" text-anchor="end" dominant-baseline="middle" fill="var(--text-secondary)" font-size="11">'+lbl+'</text>';
+    }}
+
+    // Date labels
+    var idxs = n >= 3 ? [0, Math.floor(n/2), n-1] : n === 2 ? [0, 1] : [0];
+    for (var di = 0; di < idxs.length; di++) {{
+        var dd = src[idxs[di]].d.split('-');
+        h += '<text x="'+xP(idxs[di]).toFixed(1)+'" y="'+(H-5)+'" text-anchor="middle" fill="var(--text-secondary)" font-size="11">'+dd[2]+'.'+dd[1]+'</text>';
+    }}
+
+    h += '<polygon points="'+area+'" fill="'+trendColor+'" opacity="0.1"/>';
+    h += '<polyline points="'+polyline+'" fill="none" stroke="'+trendColor+'" stroke-width="2" stroke-linejoin="round"/>';
+    h += '<circle cx="'+xP(n-1).toFixed(1)+'" cy="'+yP(prices[n-1]).toFixed(1)+'" r="4" fill="var(--link)"/>';
+    // Hover elements (initially hidden)
+    h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
+    h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
+    // Transparent overlay to capture mouse events
+    h += '<rect x="'+PL+'" y="'+PT+'" width="'+CW+'" height="'+CH+'" fill="transparent" style="cursor:crosshair" id="hv-rect"/>';
+    svg.innerHTML = h;
+
+    // --- Hover interaction ---
+    var tooltip = document.getElementById('price-tooltip');
+    var hvLine = document.getElementById('hv-line');
+    var hvDot = document.getElementById('hv-dot');
+    var hvRect = document.getElementById('hv-rect');
+    var chartWrap = svg.closest('.price-chart-wrap');
+
+    hvRect.addEventListener('mousemove', function(e) {{
+        var rect = svg.getBoundingClientRect();
+        var scaleX = W / rect.width;
+        var mouseX = (e.clientX - rect.left) * scaleX;
+        // Find closest data point
+        var idx = Math.round((mouseX - PL) / CW * (n - 1));
+        if (idx < 0) idx = 0; if (idx >= n) idx = n - 1;
+        var px = xP(idx), py = yP(prices[idx]);
+        hvLine.setAttribute('x1', px.toFixed(1));
+        hvLine.setAttribute('x2', px.toFixed(1));
+        hvLine.setAttribute('visibility', 'visible');
+        hvDot.setAttribute('cx', px.toFixed(1));
+        hvDot.setAttribute('cy', py.toFixed(1));
+        hvDot.setAttribute('visibility', 'visible');
+        // Tooltip content
+        var r = src[idx];
+        var dd = r.d.split('-');
+        var dateStr = dd[2]+'.'+dd[1]+'.'+dd[0];
+        var prStr = r.c >= 100 ? r.c.toLocaleString('ru', {{minimumFractionDigits:2, maximumFractionDigits:2}}) : r.c >= 1 ? r.c.toFixed(2) : r.c.toFixed(4);
+        var chgHtml = '';
+        if (idx > 0) {{
+            var pct = (r.c - src[0].c) / src[0].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        }}
+        tooltip.innerHTML = '<strong>'+prStr+'</strong> '+chgHtml+'<br><span style="color:var(--text-secondary);font-size:11px">'+dateStr+'</span>';
+        tooltip.style.display = 'block';
+        // Position tooltip
+        var tipX = (e.clientX - chartWrap.getBoundingClientRect().left) + 12;
+        var tipY = (e.clientY - chartWrap.getBoundingClientRect().top) - 10;
+        // Flip if near right edge
+        if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+        tooltip.style.left = tipX + 'px';
+        tooltip.style.top = tipY + 'px';
+    }});
+
+    hvRect.addEventListener('mouseleave', function() {{
+        hvLine.setAttribute('visibility', 'hidden');
+        hvDot.setAttribute('visibility', 'hidden');
+        tooltip.style.display = 'none';
+    }});
+
+    // --- Table ---
+    var tbl = '';
+    var recent = src.slice().reverse().slice(0, 30);
+    for (var ti = 0; ti < recent.length; ti++) {{
+        var row = recent[ti];
+        var chg = '\\u2014';
+        if (ti < recent.length - 1) {{
+            var prev = recent[ti+1].c;
+            if (prev > 0) {{
+                var pct = (row.c - prev) / prev * 100;
+                var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+                var sign = pct > 0 ? '+' : '';
+                chg = '<span class="'+cls+'">'+sign+pct.toFixed(1)+'%</span>';
+            }}
+        }}
+        var vm = row.v / 1e6;
+        var vs = vm >= 1000 ? Math.round(vm).toLocaleString('ru') : vm >= 1 ? Math.round(vm) : vm.toFixed(1);
+        var ps = row.c >= 100 ? row.c.toLocaleString('ru', {{minimumFractionDigits:2, maximumFractionDigits:2}}) : row.c >= 1 ? row.c.toFixed(2) : row.c.toFixed(4);
+        tbl += '<tr><td>'+row.d+'</td><td>'+ps+'</td><td>'+chg+'</td><td>'+vs+'M</td></tr>';
+    }}
+    tbody.innerHTML = tbl;
+
+    // Active button
+    document.querySelectorAll('.period-btn').forEach(function(b) {{
+        b.classList.toggle('active', parseInt(b.getAttribute('data-days')) === days);
+    }});
+}}
+
+document.getElementById('period-btns').addEventListener('click', function(e) {{
+    var btn = e.target.closest('.period-btn');
+    if (btn) render(parseInt(btn.getAttribute('data-days')));
+}});
+
+render(activeDays);
+}})();
+</script>"""
+
+
 # ============================================================================
 # CSS
 # ============================================================================
@@ -619,6 +821,32 @@ tr.stub td { color: var(--stub-row-text); }
 .analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 .analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* История цен */
+.price-history {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.price-history h3 { margin-bottom: 12px; font-size: 16px; }
+.period-btns { display: flex; gap: 6px; margin-bottom: 16px; }
+.period-btn {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 12px; cursor: pointer; color: var(--text-secondary); font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+}
+.period-btn:hover { border-color: var(--link); color: var(--text); }
+.period-btn.active { background: var(--link); color: #fff; border-color: var(--link); }
+.price-chart-wrap { margin-bottom: 16px; position: relative; }
+.price-chart { width: 100%; height: auto; }
+.price-tooltip {
+    display: none; position: absolute; pointer-events: none;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.price-table-wrap { max-height: 400px; overflow-y: auto; }
+.price-table { font-size: 13px; }
+.price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -898,7 +1126,8 @@ render();
     return output_file
 
 
-def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir: str) -> str:
+def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir: str,
+                          companies_dir: str = '') -> str:
     """Генерирует docs/companies/{TICKER}.html."""
     ticker = company['ticker']
     if not re.match(r'^[A-Za-z0-9]+$', ticker):
@@ -965,6 +1194,12 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
     if company['is_stub']:
         stub_html = '<div class="stub-banner">Анализ не завершён. Данные могут быть неполными.</div>'
 
+    # История цен
+    price_history_html = ''
+    if companies_dir:
+        history = read_price_history(companies_dir, ticker)
+        price_history_html = generate_price_chart_html(history)
+
     # Конвертируем body в HTML
     body_html = markdown_to_html(company['body'])
 
@@ -996,6 +1231,7 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
 
 {stub_html}
 {forecast_html}
+{price_history_html}
 
 <div class="analysis">
 {body_html}
@@ -1066,7 +1302,7 @@ def main():
 
     # Генерируем страницы компаний
     for c in companies:
-        page = generate_company_page(c, sectors, trends, output_dir)
+        page = generate_company_page(c, sectors, trends, output_dir, companies_dir)
         status = 'STUB' if c['is_stub'] else 'OK'
         color = YELLOW if c['is_stub'] else GREEN
         print(f"  {color}[{status}]{NC} {c['ticker']}")

@@ -13,7 +13,7 @@ ev_ebitda: 3.71
 dividend_yield: 14.2%
 roe: 47.8%
 my_fair_value: 3290
-current_price: 2587
+current_price: 2431.5
 upside: +27%
 position: watch
 ---

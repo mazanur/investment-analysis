@@ -1,0 +1,38 @@
+{
+  "ticker": "SVCB",
+  "date": "2026-02-04",
+  "shortname": "Совкомбанк",
+  "secname": "Совкомбанк ао",
+  "price": {
+    "last": 13.37,
+    "open": 12.9,
+    "high": 13.38,
+    "low": 12.9,
+    "waprice": 13.125,
+    "prev_close": 12.92
+  },
+  "volume": {
+    "shares_today": 104317800,
+    "value_today_rub": 1369152044,
+    "num_trades_today": 18737
+  },
+  "liquidity": {
+    "adv_30d_rub": 500880680,
+    "adv_30d_mln_rub": 500.9,
+    "bid_ask_spread_pct": 0.0748
+  },
+  "capitalization": {
+    "market_cap_rub": 303181022205.83,
+    "market_cap_bln_rub": 303.2,
+    "shares_outstanding": 22516228905
+  },
+  "range_52w": {
+    "high": 18.97,
+    "low": 11.65
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 100
+  }
+}

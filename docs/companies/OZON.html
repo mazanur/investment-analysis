@@ -180,6 +180,32 @@ tr.stub td { color: var(--stub-row-text); }
 .analysis strong { color: var(--text-strong); }
 .analysis input[type="checkbox"] { margin-right: 6px; }
 
+/* История цен */
+.price-history {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.price-history h3 { margin-bottom: 12px; font-size: 16px; }
+.period-btns { display: flex; gap: 6px; margin-bottom: 16px; }
+.period-btn {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 12px; cursor: pointer; color: var(--text-secondary); font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+}
+.period-btn:hover { border-color: var(--link); color: var(--text); }
+.period-btn.active { background: var(--link); color: #fff; border-color: var(--link); }
+.price-chart-wrap { margin-bottom: 16px; position: relative; }
+.price-chart { width: 100%; height: auto; }
+.price-tooltip {
+    display: none; position: absolute; pointer-events: none;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.price-table-wrap { max-height: 400px; overflow-y: auto; }
+.price-table { font-size: 13px; }
+.price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
+
 /* Responsive */
 @media (max-width: 768px) {
     .container { padding: 12px; }
@@ -206,7 +232,7 @@ tr.stub td { color: var(--stub-row-text); }
 <span class="badge badge-neutral">neutral</span>
 <span class="badge badge-watch">watch</span>
 </div>
-<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">4731</div></div><div class="metric"><div class="label">Цель</div><div class="value">5650</div></div><div class="metric"><div class="label">Upside</div><div class="value">+19%</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">3.0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">н/п</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">1 023 млрд</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">9.1</div></div></div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">4468</div></div><div class="metric"><div class="label">Цель</div><div class="value">5650</div></div><div class="metric"><div class="label">Upside</div><div class="value">+19%</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">3.0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">н/п</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">1 023 млрд</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">9.1</div></div></div>
 </div>
 
 
@@ -219,6 +245,167 @@ tr.stub td { color: var(--stub-row-text); }
 <div class="decline" style="width:40%">&#x25BC; 40%</div>
 </div>
 </div>
+
+<div class="price-history">
+<h3>История цен</h3>
+<div class="period-btns" id="period-btns">
+<button class="period-btn" data-days="21">1М</button>
+<button class="period-btn" data-days="63">3М</button>
+<button class="period-btn" data-days="126">6М</button>
+<button class="period-btn active" data-days="252">1Г</button>
+<button class="period-btn" data-days="0">Всё</button>
+</div>
+<div class="price-chart-wrap">
+<svg id="price-svg" viewBox="0 0 700 200" class="price-chart"></svg>
+<div id="price-tooltip" class="price-tooltip"></div>
+</div>
+<div class="table-wrap price-table-wrap"><table class="price-table">
+<thead><tr><th>Дата</th><th>Цена</th><th>Изм.</th><th>Объём</th></tr></thead>
+<tbody id="price-tbody"></tbody>
+</table></div>
+</div>
+
+<script>
+(function() {
+var DATA = [{"d": "2025-02-10", "c": 3615.0, "v": 1786256677}, {"d": "2025-02-11", "c": 3717.5, "v": 1621362940}, {"d": "2025-02-12", "c": 4002.0, "v": 6077335691}, {"d": "2025-02-13", "c": 3914.5, "v": 1908691265}, {"d": "2025-02-14", "c": 3864.5, "v": 2093820866}, {"d": "2025-02-17", "c": 4102.0, "v": 2480727368}, {"d": "2025-02-18", "c": 3915.0, "v": 2211908341}, {"d": "2025-02-19", "c": 4032.5, "v": 1582520110}, {"d": "2025-02-20", "c": 3989.5, "v": 1812321991}, {"d": "2025-02-21", "c": 4081.0, "v": 2034538136}, {"d": "2025-02-24", "c": 4110.0, "v": 2664157463}, {"d": "2025-02-25", "c": 4191.5, "v": 1880783466}, {"d": "2025-02-26", "c": 4094.0, "v": 3797106357}, {"d": "2025-02-27", "c": 3962.5, "v": 4339348796}, {"d": "2025-02-28", "c": 3949.5, "v": 4984947087}, {"d": "2025-03-03", "c": 3915.5, "v": 1339718701}, {"d": "2025-03-04", "c": 4065.0, "v": 1800864758}, {"d": "2025-03-05", "c": 4030.0, "v": 1159310354}, {"d": "2025-03-06", "c": 4019.0, "v": 745692908}, {"d": "2025-03-07", "c": 4011.0, "v": 864451408}, {"d": "2025-03-10", "c": 3964.5, "v": 541162726}, {"d": "2025-03-11", "c": 4024.5, "v": 988972547}, {"d": "2025-03-12", "c": 3988.5, "v": 462155319}, {"d": "2025-03-13", "c": 3950.0, "v": 1662128228}, {"d": "2025-03-14", "c": 3928.0, "v": 682178284}, {"d": "2025-03-17", "c": 4026.0, "v": 733890181}, {"d": "2025-03-18", "c": 3975.5, "v": 773456156}, {"d": "2025-03-19", "c": 3995.0, "v": 642368960}, {"d": "2025-03-20", "c": 3994.0, "v": 378010352}, {"d": "2025-03-21", "c": 3968.0, "v": 306910260}, {"d": "2025-03-24", "c": 3898.0, "v": 434703051}, {"d": "2025-03-25", "c": 3920.0, "v": 490654026}, {"d": "2025-03-26", "c": 3875.0, "v": 330765350}, {"d": "2025-03-27", "c": 3762.0, "v": 880363282}, {"d": "2025-03-28", "c": 3538.5, "v": 1426792203}, {"d": "2025-03-31", "c": 3773.5, "v": 1279227558}, {"d": "2025-04-01", "c": 3651.0, "v": 2127281201}, {"d": "2025-04-02", "c": 3716.5, "v": 1000725125}, {"d": "2025-04-03", "c": 3721.0, "v": 685928517}, {"d": "2025-04-04", "c": 3486.5, "v": 1203600143}, {"d": "2025-04-07", "c": 3470.0, "v": 1406339947}, {"d": "2025-04-08", "c": 3387.5, "v": 1018598077}, {"d": "2025-04-09", "c": 3579.0, "v": 1646816915}, {"d": "2025-04-10", "c": 3467.5, "v": 518176097}, {"d": "2025-04-11", "c": 3542.5, "v": 550485413}, {"d": "2025-04-14", "c": 3474.0, "v": 390086057}, {"d": "2025-04-15", "c": 3524.5, "v": 308368880}, {"d": "2025-04-16", "c": 3582.5, "v": 637206541}, {"d": "2025-04-17", "c": 3631.0, "v": 459815524}, {"d": "2025-04-18", "c": 3549.0, "v": 512524158}, {"d": "2025-04-21", "c": 3635.5, "v": 449454814}, {"d": "2025-04-22", "c": 3656.5, "v": 484403971}, {"d": "2025-04-23", "c": 3673.5, "v": 689078275}, {"d": "2025-04-24", "c": 3718.5, "v": 606474839}, {"d": "2025-04-25", "c": 3757.0, "v": 732472253}, {"d": "2025-04-28", "c": 3770.0, "v": 589633369}, {"d": "2025-04-29", "c": 3774.5, "v": 883017580}, {"d": "2025-04-30", "c": 3749.5, "v": 629066470}, {"d": "2025-05-02", "c": 3540.0, "v": 542644041}, {"d": "2025-05-05", "c": 3558.5, "v": 503218314}, {"d": "2025-05-06", "c": 3643.0, "v": 563728408}, {"d": "2025-05-07", "c": 3614.5, "v": 289709515}, {"d": "2025-05-08", "c": 3628.0, "v": 98153072}, {"d": "2025-05-12", "c": 3614.0, "v": 599151875}, {"d": "2025-05-13", "c": 3600.0, "v": 251462473}, {"d": "2025-05-14", "c": 3527.5, "v": 275953064}, {"d": "2025-05-15", "c": 3554.5, "v": 313324455}, {"d": "2025-05-16", "c": 3551.5, "v": 691741194}, {"d": "2025-05-19", "c": 3532.0, "v": 410619342}, {"d": "2025-05-20", "c": 3523.0, "v": 269993424}, {"d": "2025-05-21", "c": 3517.5, "v": 225918738}, {"d": "2025-05-22", "c": 3516.0, "v": 363628176}, {"d": "2025-05-23", "c": 3529.0, "v": 192122053}, {"d": "2025-05-26", "c": 3443.0, "v": 429884906}, {"d": "2025-05-27", "c": 3553.5, "v": 457236788}, {"d": "2025-05-28", "c": 3698.0, "v": 619115051}, {"d": "2025-05-29", "c": 3677.0, "v": 741891501}, {"d": "2025-05-30", "c": 3696.0, "v": 374661828}, {"d": "2025-06-02", "c": 3738.0, "v": 556310800}, {"d": "2025-06-03", "c": 3843.0, "v": 473836102}, {"d": "2025-06-04", "c": 3867.0, "v": 933664888}, {"d": "2025-06-05", "c": 4000.0, "v": 1266911742}, {"d": "2025-06-06", "c": 3854.5, "v": 1606697686}, {"d": "2025-06-09", "c": 3763.5, "v": 477123984}, {"d": "2025-06-10", "c": 3700.0, "v": 416546465}, {"d": "2025-06-11", "c": 3671.0, "v": 318639033}, {"d": "2025-06-13", "c": 3656.0, "v": 107971850}, {"d": "2025-06-16", "c": 3752.0, "v": 525067366}, {"d": "2025-06-17", "c": 3782.5, "v": 279840415}, {"d": "2025-06-18", "c": 3775.5, "v": 179092322}, {"d": "2025-06-19", "c": 3745.5, "v": 172681037}, {"d": "2025-06-20", "c": 3726.5, "v": 199311523}, {"d": "2025-06-23", "c": 3714.0, "v": 303456359}, {"d": "2025-06-24", "c": 3765.0, "v": 351033578}, {"d": "2025-06-25", "c": 3914.5, "v": 1194019433}, {"d": "2025-06-26", "c": 3889.5, "v": 311519385}, {"d": "2025-06-27", "c": 3900.5, "v": 253235531}, {"d": "2025-06-30", "c": 3967.0, "v": 435027971}, {"d": "2025-07-01", "c": 3944.0, "v": 449086553}, {"d": "2025-07-02", "c": 3970.5, "v": 319937616}, {"d": "2025-07-03", "c": 3963.0, "v": 616319536}, {"d": "2025-07-04", "c": 3933.0, "v": 239246773}, {"d": "2025-07-07", "c": 3893.0, "v": 172104048}, {"d": "2025-07-08", "c": 3883.5, "v": 453103839}, {"d": "2025-07-09", "c": 3861.0, "v": 551348099}, {"d": "2025-07-10", "c": 3898.5, "v": 508458950}, {"d": "2025-07-11", "c": 3801.0, "v": 639957397}, {"d": "2025-07-14", "c": 3956.0, "v": 749542364}, {"d": "2025-07-15", "c": 4062.5, "v": 929569326}, {"d": "2025-07-16", "c": 4133.0, "v": 624779318}, {"d": "2025-07-17", "c": 4090.0, "v": 358010377}, {"d": "2025-07-18", "c": 4198.5, "v": 580471503}, {"d": "2025-07-21", "c": 4254.5, "v": 932922202}, {"d": "2025-07-22", "c": 4226.0, "v": 306624620}, {"d": "2025-07-23", "c": 4279.5, "v": 676097179}, {"d": "2025-07-24", "c": 4228.0, "v": 492217897}, {"d": "2025-07-25", "c": 4253.5, "v": 1376419918}, {"d": "2025-07-28", "c": 4270.0, "v": 1190025012}, {"d": "2025-07-29", "c": 4261.0, "v": 745802016}, {"d": "2025-07-30", "c": 4060.0, "v": 2976627347}, {"d": "2025-07-31", "c": 4178.0, "v": 1093508577}, {"d": "2025-08-01", "c": 4184.5, "v": 425758861}, {"d": "2025-08-04", "c": 4179.0, "v": 355255739}, {"d": "2025-08-05", "c": 4216.5, "v": 665928281}, {"d": "2025-08-06", "c": 4275.5, "v": 711439011}, {"d": "2025-08-07", "c": 4361.5, "v": 2896393450}, {"d": "2025-08-08", "c": 4448.0, "v": 906424933}, {"d": "2025-08-11", "c": 4424.0, "v": 640738060}, {"d": "2025-08-12", "c": 4369.5, "v": 450266360}, {"d": "2025-08-13", "c": 4321.0, "v": 418880962}, {"d": "2025-08-14", "c": 4423.0, "v": 640272649}, {"d": "2025-08-15", "c": 4455.0, "v": 606950682}, {"d": "2025-08-18", "c": 4448.0, "v": 467710832}, {"d": "2025-08-19", "c": 4476.5, "v": 928892424}, {"d": "2025-08-20", "c": 4443.0, "v": 361999367}, {"d": "2025-08-21", "c": 4379.0, "v": 391098916}, {"d": "2025-08-22", "c": 4396.0, "v": 383261518}, {"d": "2025-08-25", "c": 4417.5, "v": 459974923}, {"d": "2025-08-26", "c": 4430.0, "v": 165093161}, {"d": "2025-08-27", "c": 4430.0, "v": 89914493}, {"d": "2025-08-28", "c": 4386.0, "v": 313428426}, {"d": "2025-08-29", "c": 4392.5, "v": 139189698}, {"d": "2025-09-01", "c": 4318.0, "v": 518186864}, {"d": "2025-09-02", "c": 4324.5, "v": 403089741}, {"d": "2025-09-03", "c": 4350.5, "v": 188609407}, {"d": "2025-09-04", "c": 4323.0, "v": 532604105}, {"d": "2025-09-05", "c": 4315.5, "v": 376255264}, {"d": "2025-09-08", "c": 4350.5, "v": 202551494}, {"d": "2025-09-09", "c": 4345.0, "v": 334481608}, {"d": "2025-09-10", "c": 4333.5, "v": 385291035}, {"d": "2025-09-11", "c": 4378.5, "v": 305741677}, {"d": "2025-09-12", "c": 4276.5, "v": 594748858}, {"d": "2025-09-15", "c": 4198.0, "v": 309076051}, {"d": "2025-09-16", "c": 4127.5, "v": 1331150623}, {"d": "2025-09-17", "c": 4075.5, "v": 948973047}, {"d": "2025-09-18", "c": 4081.5, "v": 412446392}, {"d": "2025-09-19", "c": 4112.0, "v": 850425183}, {"d": "2025-09-22", "c": 4135.0, "v": 1204364797}, {"d": "2025-11-11", "c": 4018.5, "v": 18048696065}, {"d": "2025-11-12", "c": 3964.0, "v": 3222295543}, {"d": "2025-11-13", "c": 3986.5, "v": 2823852936}, {"d": "2025-11-14", "c": 3914.0, "v": 1765126023}, {"d": "2025-11-15", "c": 3913.5, "v": 92808892}, {"d": "2025-11-16", "c": 3920.5, "v": 45402275}, {"d": "2025-11-17", "c": 3785.5, "v": 1961432883}, {"d": "2025-11-18", "c": 3791.0, "v": 3341507926}, {"d": "2025-11-19", "c": 3859.0, "v": 2054805181}, {"d": "2025-11-20", "c": 3879.5, "v": 1914079796}, {"d": "2025-11-21", "c": 3867.0, "v": 1950950991}, {"d": "2025-11-24", "c": 3709.0, "v": 4328192818}, {"d": "2025-11-25", "c": 3702.5, "v": 2457944416}, {"d": "2025-11-26", "c": 3689.0, "v": 1253862718}, {"d": "2025-11-27", "c": 3697.0, "v": 1458665563}, {"d": "2025-11-28", "c": 3693.5, "v": 1203804434}, {"d": "2025-11-29", "c": 3699.0, "v": 51812151}, {"d": "2025-11-30", "c": 3709.5, "v": 94804693}, {"d": "2025-12-01", "c": 3742.0, "v": 1639253527}, {"d": "2025-12-02", "c": 3808.0, "v": 1611474918}, {"d": "2025-12-03", "c": 3836.0, "v": 1355123248}, {"d": "2025-12-04", "c": 3985.5, "v": 3895725590}, {"d": "2025-12-05", "c": 4031.5, "v": 2429605475}, {"d": "2025-12-08", "c": 3996.5, "v": 3863669625}, {"d": "2025-12-09", "c": 4078.0, "v": 2143697300}, {"d": "2025-12-10", "c": 4105.5, "v": 2516799323}, {"d": "2025-12-11", "c": 4096.0, "v": 1828993180}, {"d": "2025-12-12", "c": 4061.5, "v": 1390431695}, {"d": "2025-12-13", "c": 4090.0, "v": 75492892}, {"d": "2025-12-14", "c": 4087.5, "v": 66633133}, {"d": "2025-12-15", "c": 4109.0, "v": 1183686963}, {"d": "2025-12-16", "c": 4133.0, "v": 1252550071}, {"d": "2025-12-17", "c": 4130.0, "v": 1577512571}, {"d": "2025-12-18", "c": 4222.0, "v": 4263554531}, {"d": "2025-12-19", "c": 4192.5, "v": 3086130362}, {"d": "2025-12-22", "c": 4110.0, "v": 2975606908}, {"d": "2025-12-23", "c": 4178.5, "v": 2282097486}, {"d": "2025-12-24", "c": 4206.0, "v": 1470070834}, {"d": "2025-12-25", "c": 4338.0, "v": 3761622065}, {"d": "2025-12-26", "c": 4480.0, "v": 3227266811}, {"d": "2025-12-27", "c": 4541.0, "v": 1184530352}, {"d": "2025-12-28", "c": 4530.0, "v": 560802453}, {"d": "2025-12-29", "c": 4510.0, "v": 3620874575}, {"d": "2025-12-30", "c": 4519.0, "v": 1426318267}, {"d": "2026-01-05", "c": 4442.0, "v": 925289998}, {"d": "2026-01-06", "c": 4384.5, "v": 676347724}, {"d": "2026-01-08", "c": 4296.0, "v": 1245206452}, {"d": "2026-01-09", "c": 4382.0, "v": 772592286}, {"d": "2026-01-12", "c": 4504.5, "v": 2170672049}, {"d": "2026-01-13", "c": 4428.0, "v": 1725701410}, {"d": "2026-01-14", "c": 4383.0, "v": 2212489871}, {"d": "2026-01-15", "c": 4421.5, "v": 1419235171}, {"d": "2026-01-16", "c": 4434.5, "v": 1850965652}, {"d": "2026-01-17", "c": 4450.5, "v": 87009870}, {"d": "2026-01-18", "c": 4470.0, "v": 69884740}, {"d": "2026-01-19", "c": 4481.0, "v": 1638106653}, {"d": "2026-01-20", "c": 4441.0, "v": 1385324515}, {"d": "2026-01-21", "c": 4523.0, "v": 1813121032}, {"d": "2026-01-22", "c": 4512.0, "v": 2019119114}, {"d": "2026-01-23", "c": 4560.5, "v": 1286799652}, {"d": "2026-01-24", "c": 4563.0, "v": 240159900}, {"d": "2026-01-25", "c": 4574.5, "v": 204592683}, {"d": "2026-01-26", "c": 4611.5, "v": 1962712244}, {"d": "2026-01-27", "c": 4713.0, "v": 2933313319}, {"d": "2026-01-28", "c": 4706.0, "v": 2218250162}, {"d": "2026-01-29", "c": 4731.0, "v": 2197523369}, {"d": "2026-01-30", "c": 4652.0, "v": 4636619480}, {"d": "2026-01-31", "c": 4689.5, "v": 185808006}, {"d": "2026-02-01", "c": 4700.0, "v": 131822765}, {"d": "2026-02-02", "c": 4614.0, "v": 3011343232}, {"d": "2026-02-03", "c": 4644.0, "v": 1673998383}, {"d": "2026-02-04", "c": 4638.0, "v": 1796268509}, {"d": "2026-02-05", "c": 4524.0, "v": 2505886720}, {"d": "2026-02-06", "c": 4525.0, "v": 1540052625}, {"d": "2026-02-07", "c": 4517.0, "v": 72616291}, {"d": "2026-02-08", "c": 4515.5, "v": 82969063}, {"d": "2026-02-09", "c": 4468.0, "v": 748538436}];
+var svg = document.getElementById('price-svg');
+var tbody = document.getElementById('price-tbody');
+var activeDays = 252;
+
+function render(days) {
+    activeDays = days;
+    var src = days > 0 ? DATA.slice(-days) : DATA;
+    if (!src.length) return;
+
+    // --- SVG chart ---
+    var W = 700, H = 200, PT = 20, PB = 30, PL = 60, PR = 20;
+    var CW = W - PL - PR, CH = H - PT - PB;
+    var prices = src.map(function(r){ return r.c; });
+    var minP = Math.min.apply(null, prices), maxP = Math.max.apply(null, prices);
+    var range = maxP - minP || maxP * 0.1 || 1;
+    minP -= range * 0.05; maxP += range * 0.05; range = maxP - minP;
+    var n = prices.length;
+
+    function xP(i) { return PL + (i / Math.max(n - 1, 1)) * CW; }
+    function yP(p) { return PT + CH - ((p - minP) / range) * CH; }
+
+    var trendColor = prices[n-1] >= prices[0] ? 'var(--positive)' : 'var(--negative)';
+    var pts = []; for (var i = 0; i < n; i++) pts.push(xP(i).toFixed(1)+','+yP(prices[i]).toFixed(1));
+    var polyline = pts.join(' ');
+    var area = xP(0).toFixed(1)+','+(PT+CH)+' '+polyline+' '+xP(n-1).toFixed(1)+','+(PT+CH);
+
+    // Grid
+    var h = '';
+    for (var g = 0; g < 5; g++) {
+        var gp = minP + (range * g / 4), gy = yP(gp);
+        h += '<line x1="'+PL+'" y1="'+gy.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+gy.toFixed(1)+'" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="4,4"/>';
+        var lbl = gp >= 1000 ? Math.round(gp).toLocaleString('ru') : gp >= 1 ? gp.toFixed(1) : gp.toFixed(4);
+        h += '<text x="'+(PL-8)+'" y="'+gy.toFixed(1)+'" text-anchor="end" dominant-baseline="middle" fill="var(--text-secondary)" font-size="11">'+lbl+'</text>';
+    }
+
+    // Date labels
+    var idxs = n >= 3 ? [0, Math.floor(n/2), n-1] : n === 2 ? [0, 1] : [0];
+    for (var di = 0; di < idxs.length; di++) {
+        var dd = src[idxs[di]].d.split('-');
+        h += '<text x="'+xP(idxs[di]).toFixed(1)+'" y="'+(H-5)+'" text-anchor="middle" fill="var(--text-secondary)" font-size="11">'+dd[2]+'.'+dd[1]+'</text>';
+    }
+
+    h += '<polygon points="'+area+'" fill="'+trendColor+'" opacity="0.1"/>';
+    h += '<polyline points="'+polyline+'" fill="none" stroke="'+trendColor+'" stroke-width="2" stroke-linejoin="round"/>';
+    h += '<circle cx="'+xP(n-1).toFixed(1)+'" cy="'+yP(prices[n-1]).toFixed(1)+'" r="4" fill="var(--link)"/>';
+    // Hover elements (initially hidden)
+    h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
+    h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
+    // Transparent overlay to capture mouse events
+    h += '<rect x="'+PL+'" y="'+PT+'" width="'+CW+'" height="'+CH+'" fill="transparent" style="cursor:crosshair" id="hv-rect"/>';
+    svg.innerHTML = h;
+
+    // --- Hover interaction ---
+    var tooltip = document.getElementById('price-tooltip');
+    var hvLine = document.getElementById('hv-line');
+    var hvDot = document.getElementById('hv-dot');
+    var hvRect = document.getElementById('hv-rect');
+    var chartWrap = svg.closest('.price-chart-wrap');
+
+    hvRect.addEventListener('mousemove', function(e) {
+        var rect = svg.getBoundingClientRect();
+        var scaleX = W / rect.width;
+        var mouseX = (e.clientX - rect.left) * scaleX;
+        // Find closest data point
+        var idx = Math.round((mouseX - PL) / CW * (n - 1));
+        if (idx < 0) idx = 0; if (idx >= n) idx = n - 1;
+        var px = xP(idx), py = yP(prices[idx]);
+        hvLine.setAttribute('x1', px.toFixed(1));
+        hvLine.setAttribute('x2', px.toFixed(1));
+        hvLine.setAttribute('visibility', 'visible');
+        hvDot.setAttribute('cx', px.toFixed(1));
+        hvDot.setAttribute('cy', py.toFixed(1));
+        hvDot.setAttribute('visibility', 'visible');
+        // Tooltip content
+        var r = src[idx];
+        var dd = r.d.split('-');
+        var dateStr = dd[2]+'.'+dd[1]+'.'+dd[0];
+        var prStr = r.c >= 100 ? r.c.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : r.c >= 1 ? r.c.toFixed(2) : r.c.toFixed(4);
+        var chgHtml = '';
+        if (idx > 0) {
+            var pct = (r.c - src[0].c) / src[0].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        }
+        tooltip.innerHTML = '<strong>'+prStr+'</strong> '+chgHtml+'<br><span style="color:var(--text-secondary);font-size:11px">'+dateStr+'</span>';
+        tooltip.style.display = 'block';
+        // Position tooltip
+        var tipX = (e.clientX - chartWrap.getBoundingClientRect().left) + 12;
+        var tipY = (e.clientY - chartWrap.getBoundingClientRect().top) - 10;
+        // Flip if near right edge
+        if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+        tooltip.style.left = tipX + 'px';
+        tooltip.style.top = tipY + 'px';
+    });
+
+    hvRect.addEventListener('mouseleave', function() {
+        hvLine.setAttribute('visibility', 'hidden');
+        hvDot.setAttribute('visibility', 'hidden');
+        tooltip.style.display = 'none';
+    });
+
+    // --- Table ---
+    var tbl = '';
+    var recent = src.slice().reverse().slice(0, 30);
+    for (var ti = 0; ti < recent.length; ti++) {
+        var row = recent[ti];
+        var chg = '\u2014';
+        if (ti < recent.length - 1) {
+            var prev = recent[ti+1].c;
+            if (prev > 0) {
+                var pct = (row.c - prev) / prev * 100;
+                var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+                var sign = pct > 0 ? '+' : '';
+                chg = '<span class="'+cls+'">'+sign+pct.toFixed(1)+'%</span>';
+            }
+        }
+        var vm = row.v / 1e6;
+        var vs = vm >= 1000 ? Math.round(vm).toLocaleString('ru') : vm >= 1 ? Math.round(vm) : vm.toFixed(1);
+        var ps = row.c >= 100 ? row.c.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : row.c >= 1 ? row.c.toFixed(2) : row.c.toFixed(4);
+        tbl += '<tr><td>'+row.d+'</td><td>'+ps+'</td><td>'+chg+'</td><td>'+vs+'M</td></tr>';
+    }
+    tbody.innerHTML = tbl;
+
+    // Active button
+    document.querySelectorAll('.period-btn').forEach(function(b) {
+        b.classList.toggle('active', parseInt(b.getAttribute('data-days')) === days);
+    });
+}
+
+document.getElementById('period-btns').addEventListener('click', function(e) {
+    var btn = e.target.closest('.period-btn');
+    if (btn) render(parseInt(btn.getAttribute('data-days')));
+});
+
+render(activeDays);
+})();
+</script>
 
 <div class="analysis">
 <h1>Озон (OZON)</h1>

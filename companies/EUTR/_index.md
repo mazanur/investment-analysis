@@ -5,7 +5,7 @@ sector: retail
 sentiment: neutral
 position: watch
 updated: 2026-01-28
-current_price: 147
+current_price: 140.75
 my_fair_value: 190
 upside: 29%
 p_e: 3.6
