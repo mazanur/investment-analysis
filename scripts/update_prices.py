@@ -59,15 +59,20 @@ CYAN = "\033[0;36m"
 NC = "\033[0m"
 
 
-def fetch_json(url: str) -> list | dict | None:
-    """Загружает JSON по URL."""
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            return json.loads(resp.read())
-    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
-        print(f"  {RED}Ошибка загрузки: {e}{NC}")
-        return None
+def fetch_json(url: str, retries: int = 3) -> list | dict | None:
+    """Загружает JSON по URL с повторами при ошибке."""
+    for attempt in range(1, retries + 1):
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return json.loads(resp.read())
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
+            if attempt < retries:
+                print(f"  {YELLOW}Попытка {attempt}/{retries} не удалась: {e}, повтор через {attempt * 2}с...{NC}")
+                time.sleep(attempt * 2)
+            else:
+                print(f"  {RED}Ошибка загрузки ({retries} попыток): {e}{NC}")
+                return None
 
 
 def fetch_all_tqbr() -> dict[str, dict]:
