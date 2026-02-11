@@ -17,10 +17,9 @@ MOEX ISS API — публичный, не требует авторизации.
 
 import json
 import os
+import subprocess
 import sys
 import time
-import urllib.request
-import urllib.error
 from datetime import date, timedelta
 
 
@@ -48,18 +47,24 @@ CYAN = "\033[0;36m"
 NC = "\033[0m"
 
 
-def fetch_json(url: str) -> dict | list | None:
-    """Загружает JSON по URL. Возвращает parsed JSON или None."""
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = resp.read()
-            return json.loads(data)
-    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
-        print(f"    {RED}Ошибка: {e}{NC}")
-        return None
-    except json.JSONDecodeError:
-        return None
+def fetch_json(url: str, retries: int = 3) -> dict | list | None:
+    """Загружает JSON по URL через curl с повторами при ошибке."""
+    for attempt in range(1, retries + 1):
+        try:
+            result = subprocess.run(
+                ["curl", "-s", "--max-time", "120", url],
+                capture_output=True, text=True, timeout=130,
+            )
+            if result.returncode == 0 and result.stdout:
+                return json.loads(result.stdout)
+            raise OSError(f"curl rc={result.returncode}")
+        except (OSError, json.JSONDecodeError, subprocess.TimeoutExpired) as e:
+            if attempt < retries:
+                print(f"    {YELLOW}Попытка {attempt}/{retries}: {e}, повтор...{NC}")
+                time.sleep(attempt * 2)
+            else:
+                print(f"    {RED}Ошибка: {e}{NC}")
+                return None
 
 
 def parse_securities_data(data: list) -> dict | None:
