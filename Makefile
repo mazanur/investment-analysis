@@ -192,6 +192,8 @@ ifdef TICKER
 	@python3 scripts/download_moex_events.py $(TICKER)
 	@echo ""
 	@python3 scripts/download_governance.py $(TICKER)
+	@echo ""
+	@python3 scripts/check_reports.py $(TICKER)
 else
 	@python3 scripts/download_smartlab.py
 	@echo ""
@@ -322,7 +324,7 @@ check-reports:
 		while IFS= read -r ticker; do \
 			[ -z "$$ticker" ] && continue; \
 			echo "$(CYAN)═══ Анализ $$ticker ═══$(NC)"; \
-			claude $(CLAUDE_FLAGS) -p "Для компании $$ticker вышел новый финансовый отчёт (обновлены smartlab CSV в companies/$$ticker/data/). Обнови анализ компании следуя методологии из companies/RESEARCH_GUIDE.md (фазы 0-8). После обновления запусти make trends && make dashboard." | $(CLAUDE_LOG); \
+			claude $(CLAUDE_FLAGS) -p "Для компании $$ticker вышел новый финансовый отчёт. Обнови анализ компании следуя методологии из companies/RESEARCH_GUIDE.md (фазы 0-8). После обновления запусти make trends && make dashboard." | $(CLAUDE_LOG); \
 			echo ""; \
 		done < reports_new_tickers.txt; \
 	else \

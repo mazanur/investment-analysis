@@ -95,8 +95,6 @@ cp companies/_TEMPLATE/governance.md companies/{TICKER}/governance.md
 - `companies/{TICKER}/data/moex_market.json` — текущая цена, ADV, спред, капитализация, 52w range
 - `companies/{TICKER}/data/price_history.csv` — история дневных цен (close, open, high, low, volume)
 
-> **Автоматическое обновление отчётов:** `make check-reports` (скрипт `scripts/check_reports.py`) сравнивает заголовки remote CSV на smart-lab.ru с локальными файлами `smartlab_quarterly.csv` / `smartlab_yearly.csv`. Если на smart-lab появился новый период — значит, вышел новый отчёт. С флагом `--download` скрипт автоматически скачивает обновлённые CSV. Если анализ запущен после `check-reports`, smartlab CSV уже актуальны.
-
 Если локальные файлы есть — используй их (быстрее и надёжнее). Если нет — загружай через WebFetch. **Проверяй актуальность:** в таблице смотри дату последнего периода. Если данные старше квартала — сверяй с официальным отчётом на e-disclosure.ru.
 
 Из них извлекай:
