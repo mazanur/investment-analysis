@@ -263,9 +263,10 @@ tr.stub td { color: var(--stub-row-text); }
 <button class="period-btn active" data-days="252">1Г</button>
 <button class="period-btn" data-days="0">Всё</button>
 </div>
-<div class="report-legend" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary)">
-<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:4px"></span>Годовой отчёт</span>
+<div class="report-legend" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap">
+<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:4px"></span>Годовой</span>
 <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin-right:4px"></span>Квартальный</span>
+<span><span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive);margin-right:4px"></span>Новость</span>
 </div>
 </div>
 <div class="price-chart-wrap">
@@ -283,6 +284,7 @@ tr.stub td { color: var(--stub-row-text); }
 (function() {
 var DATA = [{"d": "2025-02-10", "c": 180.0, "v": 29655826}, {"d": "2025-02-11", "c": 182.8, "v": 16120335}, {"d": "2025-02-12", "c": 192.3, "v": 160482514}, {"d": "2025-02-13", "c": 188.9, "v": 58199791}, {"d": "2025-02-14", "c": 184.3, "v": 159586713}, {"d": "2025-02-17", "c": 191.5, "v": 314367235}, {"d": "2025-02-18", "c": 186.8, "v": 68114894}, {"d": "2025-02-19", "c": 187.4, "v": 128205259}, {"d": "2025-02-20", "c": 191.0, "v": 86515088}, {"d": "2025-02-21", "c": 187.9, "v": 70656383}, {"d": "2025-02-24", "c": 191.0, "v": 158024552}, {"d": "2025-02-25", "c": 198.5, "v": 356304575}, {"d": "2025-02-26", "c": 190.2, "v": 225332666}, {"d": "2025-02-27", "c": 179.2, "v": 180769255}, {"d": "2025-02-28", "c": 181.5, "v": 61108017}, {"d": "2025-03-03", "c": 179.0, "v": 42157530}, {"d": "2025-03-04", "c": 182.0, "v": 66079982}, {"d": "2025-03-05", "c": 180.4, "v": 45481231}, {"d": "2025-03-06", "c": 179.8, "v": 31190263}, {"d": "2025-03-07", "c": 181.5, "v": 22538214}, {"d": "2025-03-10", "c": 184.5, "v": 40120409}, {"d": "2025-03-11", "c": 181.3, "v": 29777342}, {"d": "2025-03-12", "c": 177.0, "v": 27433796}, {"d": "2025-03-13", "c": 177.2, "v": 36848556}, {"d": "2025-03-14", "c": 178.6, "v": 21437263}, {"d": "2025-03-17", "c": 183.0, "v": 23984321}, {"d": "2025-03-18", "c": 179.6, "v": 31431932}, {"d": "2025-03-19", "c": 187.7, "v": 47198278}, {"d": "2025-03-20", "c": 184.8, "v": 27726143}, {"d": "2025-03-21", "c": 182.3, "v": 24000793}, {"d": "2025-03-24", "c": 181.6, "v": 21862379}, {"d": "2025-03-25", "c": 181.5, "v": 29846445}, {"d": "2025-03-26", "c": 177.3, "v": 27350638}, {"d": "2025-03-27", "c": 173.6, "v": 26731379}, {"d": "2025-03-28", "c": 169.8, "v": 25731060}, {"d": "2025-03-31", "c": 170.3, "v": 25678370}, {"d": "2025-04-01", "c": 169.2, "v": 94906486}, {"d": "2025-04-02", "c": 174.3, "v": 29058639}, {"d": "2025-04-03", "c": 171.5, "v": 41436417}, {"d": "2025-04-04", "c": 159.3, "v": 106046981}, {"d": "2025-04-07", "c": 154.7, "v": 66094707}, {"d": "2025-04-08", "c": 151.1, "v": 41600013}, {"d": "2025-04-09", "c": 157.2, "v": 162627133}, {"d": "2025-04-10", "c": 156.0, "v": 19979068}, {"d": "2025-04-11", "c": 160.7, "v": 89048732}, {"d": "2025-04-14", "c": 159.0, "v": 23240030}, {"d": "2025-04-15", "c": 160.3, "v": 23999266}, {"d": "2025-04-16", "c": 162.6, "v": 25833198}, {"d": "2025-04-17", "c": 163.1, "v": 21444323}, {"d": "2025-04-18", "c": 160.1, "v": 27581790}, {"d": "2025-04-21", "c": 161.7, "v": 17534709}, {"d": "2025-04-22", "c": 163.7, "v": 27191079}, {"d": "2025-04-23", "c": 160.6, "v": 29080477}, {"d": "2025-04-24", "c": 160.2, "v": 9393400}, {"d": "2025-04-25", "c": 162.2, "v": 13694479}, {"d": "2025-04-28", "c": 159.9, "v": 43658007}, {"d": "2025-04-29", "c": 157.2, "v": 18215195}, {"d": "2025-04-30", "c": 156.0, "v": 32966360}, {"d": "2025-05-02", "c": 151.5, "v": 17620019}, {"d": "2025-05-05", "c": 151.8, "v": 16908348}, {"d": "2025-05-06", "c": 154.3, "v": 16424762}, {"d": "2025-05-07", "c": 158.2, "v": 65247343}, {"d": "2025-05-08", "c": 158.9, "v": 10127747}, {"d": "2025-05-12", "c": 160.0, "v": 14989488}, {"d": "2025-05-13", "c": 158.2, "v": 7231485}, {"d": "2025-05-14", "c": 154.6, "v": 39050983}, {"d": "2025-05-15", "c": 156.9, "v": 26177504}, {"d": "2025-05-16", "c": 155.9, "v": 15257185}, {"d": "2025-05-19", "c": 154.3, "v": 70213233}, {"d": "2025-05-20", "c": 152.1, "v": 33480668}, {"d": "2025-05-21", "c": 150.5, "v": 11321438}, {"d": "2025-05-22", "c": 148.2, "v": 17705602}, {"d": "2025-05-23", "c": 148.1, "v": 10825762}, {"d": "2025-05-26", "c": 144.0, "v": 20284824}, {"d": "2025-05-27", "c": 146.4, "v": 12750486}, {"d": "2025-05-28", "c": 147.8, "v": 28111239}, {"d": "2025-05-29", "c": 145.4, "v": 13980261}, {"d": "2025-05-30", "c": 146.6, "v": 15904069}, {"d": "2025-06-02", "c": 148.5, "v": 14147969}, {"d": "2025-06-03", "c": 150.1, "v": 21744603}, {"d": "2025-06-04", "c": 149.8, "v": 61933861}, {"d": "2025-06-05", "c": 149.6, "v": 60932941}, {"d": "2025-06-06", "c": 147.3, "v": 35868090}, {"d": "2025-06-09", "c": 145.0, "v": 23755399}, {"d": "2025-06-10", "c": 143.8, "v": 4594772}, {"d": "2025-06-11", "c": 143.7, "v": 79296129}, {"d": "2025-06-13", "c": 142.3, "v": 18037793}, {"d": "2025-06-16", "c": 137.0, "v": 44293187}, {"d": "2025-06-17", "c": 132.0, "v": 56738582}, {"d": "2025-06-18", "c": 133.1, "v": 40569522}, {"d": "2025-06-19", "c": 134.0, "v": 17070518}, {"d": "2025-06-20", "c": 137.4, "v": 23796319}];
 var REPORTS = [];
+var NEWS = [];
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -345,6 +347,22 @@ function render(days) {
         var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
         h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7"/>';
         h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="4" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'"/>';
+    }
+
+    // News markers
+    var newsMarkers = [];
+    for (var ni = 0; ni < NEWS.length; ni++) {
+        var nd = NEWS[ni].date;
+        if (dateToIdx[nd] !== undefined) {
+            newsMarkers.push({idx: dateToIdx[nd], title: NEWS[ni].title, impact: NEWS[ni].impact || 'neutral'});
+        }
+    }
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8"/>';
+        h += '<polygon points="'+(nmx-5).toFixed(1)+','+(PT+8)+' '+(nmx+5).toFixed(1)+','+(PT+8)+' '+nmx.toFixed(1)+','+PT+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'"/>';
     }
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
@@ -500,6 +518,28 @@ function render(days) {
             var tipX = (e.clientX - rect.left) + 12;
             var tipY = (e.clientY - rect.top) - 10;
             if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // News marker tooltips
+    svg.querySelectorAll('.news-marker').forEach(function(marker) {
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {
+            var title = this.getAttribute('data-title');
+            var impact = this.getAttribute('data-impact');
+            var impactText = impact === 'positive' ? '↑ Позитив' : impact === 'negative' ? '↓ Негатив' : '— Нейтрально';
+            var impactCls = impact === 'positive' ? 'positive' : impact === 'negative' ? 'negative' : 'muted';
+            tooltip.innerHTML = '<strong>Новость</strong><br><span style="font-size:12px">' + title + '</span><br><span class="' + impactCls + '" style="font-size:11px">' + impactText + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 180 > chartWrap.offsetWidth) tipX -= 190;
             tooltip.style.left = tipX + 'px';
             tooltip.style.top = tipY + 'px';
         });
