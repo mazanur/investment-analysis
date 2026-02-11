@@ -32,11 +32,11 @@ MAX_CALENDAR_PAGES = 100  # защита от бесконечной пагин�
 
 # MOEX ISS API endpoints
 DIVIDENDS_URL = (
-    "https://iss.moex.com/iss/securities/{ticker}/dividends.json"
+    "http://iss.moex.com/iss/securities/{ticker}/dividends.json"
     "?iss.meta=off&iss.json=extended"
 )
 IR_CALENDAR_URL = (
-    "https://iss.moex.com/iss/cci/calendars/ir-calendar.json"
+    "http://iss.moex.com/iss/cci/calendars/ir-calendar.json"
     "?iss.meta=off&iss.json=extended&start={start}"
 )
 

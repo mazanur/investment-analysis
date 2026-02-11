@@ -30,11 +30,11 @@ USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
 
 # MOEX ISS API endpoints
 SECURITIES_URL = (
-    "https://iss.moex.com/iss/engines/stock/markets/shares/boardgroups/57"
+    "http://iss.moex.com/iss/engines/stock/markets/shares/boardgroups/57"
     "/securities/{ticker}.json?iss.meta=off&iss.json=extended&lang=ru"
 )
 CANDLES_URL = (
-    "https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR"
+    "http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR"
     "/securities/{ticker}/candles.json"
     "?iss.meta=off&iss.json=extended&interval=24"
     "&from={date_from}&till={date_till}&lang=ru"

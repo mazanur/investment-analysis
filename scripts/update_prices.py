@@ -24,6 +24,7 @@ import io
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import urllib.request
@@ -34,12 +35,12 @@ from datetime import date, timedelta
 # MOEX ISS API — все бумаги на TQBR одним запросом
 # Пагинация: API возвращает до 100 строк, start= для следующей страницы
 TQBR_URL = (
-    "https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR"
+    "http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR"
     "/securities.json?iss.meta=off&iss.json=extended&start={start}"
 )
 
 CANDLES_URL = (
-    "https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR"
+    "http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR"
     "/securities/{ticker}/candles.json"
     "?iss.meta=off&iss.json=extended&interval=24"
     "&from={date_from}&till={date_till}"
@@ -60,13 +61,17 @@ NC = "\033[0m"
 
 
 def fetch_json(url: str, retries: int = 3) -> list | dict | None:
-    """Загружает JSON по URL с повторами при ошибке."""
+    """Загружает JSON по URL с повторами при ошибке. Использует curl как fallback."""
     for attempt in range(1, retries + 1):
-        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
         try:
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                return json.loads(resp.read())
-        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
+            result = subprocess.run(
+                ["curl", "-s", "--max-time", "120", url],
+                capture_output=True, text=True, timeout=130,
+            )
+            if result.returncode == 0 and result.stdout:
+                return json.loads(result.stdout)
+            raise OSError(f"curl rc={result.returncode}")
+        except (OSError, json.JSONDecodeError, subprocess.TimeoutExpired) as e:
             if attempt < retries:
                 print(f"  {YELLOW}Попытка {attempt}/{retries} не удалась: {e}, повтор через {attempt * 2}с...{NC}")
                 time.sleep(attempt * 2)
