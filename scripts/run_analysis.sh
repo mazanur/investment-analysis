@@ -65,25 +65,11 @@ echo -e "${CYAN}  Анализ компаний с новыми отчётами
 echo -e "${CYAN}═══════════════════════════════════════════════════════════════${NC}"
 echo ""
 
-# Фаза 0: скачиваем все данные для всех тикеров (без Claude)
-echo -e "${YELLOW}Фаза 0: Скачивание данных для $TOTAL компаний...${NC}"
-echo ""
-for i in "${!TICKERS[@]}"; do
-    ticker="${TICKERS[$i]}"
-    num=$((i + 1))
-    echo -e "  [$num/$TOTAL] $ticker: download-all..."
-    make download-all TICKER="$ticker" 2>&1 | tail -1
-done
-echo ""
-echo -e "${GREEN}Фаза 0 завершена. Все данные скачаны.${NC}"
-echo ""
-
-# Фазы 1-8: запуск Claude для анализа
 for i in "${!TICKERS[@]}"; do
     ticker="${TICKERS[$i]}"
     num=$((i + 1))
     echo -e "${CYAN}═══ [$num/$TOTAL] Анализ $ticker ═══${NC}"
-    claude $CLAUDE_FLAGS -p "Для компании $ticker вышел новый финансовый отчёт (companies/$ticker/data/). Обнови анализ компании следуя методологии из companies/RESEARCH_GUIDE.md (фазы 0-8). После обновления запусти make trends && make dashboard." | $CLAUDE_LOG
+    claude $CLAUDE_FLAGS -p "Для компании $ticker вышел новый финансовый отчёт, Обнови анализ компании следуя методологии из companies/RESEARCH_GUIDE.md (фазы 0-8). После обновления запусти make trends && make dashboard." | $CLAUDE_LOG
     echo ""
 done
 

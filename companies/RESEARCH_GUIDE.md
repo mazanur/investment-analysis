@@ -75,11 +75,9 @@ cp companies/_TEMPLATE/governance.md companies/{TICKER}/governance.md
 
 > **Перед чтением пунктов 8–10:** убедись, что данные актуальны. Если `data/` пуст или устарел — сначала обнови:
 > ```bash
-> make download-all TICKER={TICKER}    # финансы + рыночные данные + санкции
-> make fill-events TICKER={TICKER}     # обновить events.md (авто-секции)
-> make fill-governance TICKER={TICKER} # обновить governance.md (авто-секции)
+> make download-all TICKER={TICKER}    # финансы + рыночные данные
 > ```
-> Ручные секции (акционеры, менеджмент, guidance, consensus.md) — необходимо попробовать заполнить через поиск в интеренте.
+> Ручные секции (акционеры, менеджмент, guidance, consensus.md, governance.md, events.md) — заполняются через веб-поиск.
 
 ### 2. Собери финансовые данные
 
