@@ -7,7 +7,7 @@ sentiment: neutral
 position: hold
 updated: 2026-01-30
 author: AlmazNurmukhametov
-current_price: 107.56
+current_price: 109
 my_fair_value: 100
 upside: -12%
 p_e: 7.96

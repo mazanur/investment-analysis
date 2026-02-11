@@ -18,7 +18,7 @@ roe: 23.7
 gov_ownership: 50
 gov_discount: -0.05
 my_fair_value: 500
-current_price: 302.75
+current_price: 303.69
 upside: 64
 position: buy
 key_risks:
