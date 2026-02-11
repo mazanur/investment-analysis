@@ -84,55 +84,48 @@ def fetch_all_tqbr() -> dict[str, dict]:
     """
     Загружает все бумаги с доски TQBR.
     Возвращает dict: ticker -> {last, open, high, low, valtoday, issuecap, ...}
+
+    С iss.json=extended API возвращает все бумаги в одном ответе,
+    пагинация не требуется.
     """
     all_securities = {}
-    start = 0
 
-    while True:
-        data = fetch_json(TQBR_URL.format(start=start))
-        if not data or not isinstance(data, list):
-            break
+    data = fetch_json(TQBR_URL.format(start=0))
+    if not data or not isinstance(data, list):
+        return all_securities
 
-        page_count = 0
-        for block in data:
-            if not isinstance(block, dict):
-                continue
+    for block in data:
+        if not isinstance(block, dict):
+            continue
 
-            # Собираем статические данные (securities block)
-            securities = block.get("securities")
-            if securities and isinstance(securities, list):
-                for row in securities:
-                    if not isinstance(row, dict):
-                        continue
-                    ticker = row.get("SECID", "")
-                    if ticker:
-                        all_securities.setdefault(ticker, {})
-                        all_securities[ticker]["issuesize"] = row.get("ISSUESIZE", 0)
-                        page_count += 1
+        # Собираем статические данные (securities block)
+        securities = block.get("securities")
+        if securities and isinstance(securities, list):
+            for row in securities:
+                if not isinstance(row, dict):
+                    continue
+                ticker = row.get("SECID", "")
+                if ticker:
+                    all_securities.setdefault(ticker, {})
+                    all_securities[ticker]["issuesize"] = row.get("ISSUESIZE", 0)
 
-            # Собираем торговые данные (marketdata block)
-            marketdata = block.get("marketdata")
-            if marketdata and isinstance(marketdata, list):
-                for row in marketdata:
-                    if not isinstance(row, dict):
-                        continue
-                    ticker = row.get("SECID", "")
-                    if ticker:
-                        all_securities.setdefault(ticker, {})
-                        all_securities[ticker].update({
-                            "last": row.get("LAST") or row.get("LCLOSEPRICE", 0),
-                            "open": row.get("OPEN", 0),
-                            "high": row.get("HIGH", 0),
-                            "low": row.get("LOW", 0),
-                            "valtoday": row.get("VALTODAY", 0),
-                            "issuecap": row.get("ISSUECAPITALIZATION", 0),
-                        })
-
-        # Если страница пустая — конец
-        if page_count == 0:
-            break
-
-        start += 100  # Следующая страница
+        # Собираем торговые данные (marketdata block)
+        marketdata = block.get("marketdata")
+        if marketdata and isinstance(marketdata, list):
+            for row in marketdata:
+                if not isinstance(row, dict):
+                    continue
+                ticker = row.get("SECID", "")
+                if ticker:
+                    all_securities.setdefault(ticker, {})
+                    all_securities[ticker].update({
+                        "last": row.get("LAST") or row.get("LCLOSEPRICE", 0),
+                        "open": row.get("OPEN", 0),
+                        "high": row.get("HIGH", 0),
+                        "low": row.get("LOW", 0),
+                        "valtoday": row.get("VALTODAY", 0),
+                        "issuecap": row.get("ISSUECAPITALIZATION", 0),
+                    })
 
     return all_securities
 
