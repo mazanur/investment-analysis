@@ -263,10 +263,19 @@ tr.stub td { color: var(--stub-row-text); }
 <button class="period-btn active" data-days="252">1Г</button>
 <button class="period-btn" data-days="0">Всё</button>
 </div>
-<div class="report-legend" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap">
-<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:4px"></span>Годовой</span>
-<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin-right:4px"></span>Квартальный</span>
-<span><span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive);margin-right:4px"></span>Новость</span>
+<div class="marker-toggles" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap">
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-yearly" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue)"></span>Годовой
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-quarterly" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow)"></span>Квартальный
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-news" checked style="cursor:pointer">
+<span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive)"></span>Новость
+</label>
 </div>
 </div>
 <div class="price-chart-wrap">
@@ -362,7 +371,8 @@ function render(days) {
         var nmx = xP(nm.idx);
         var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
         h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8"/>';
-        h += '<polygon points="'+(nmx-5).toFixed(1)+','+(PT+8)+' '+(nmx+5).toFixed(1)+','+(PT+8)+' '+nmx.toFixed(1)+','+PT+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'"/>';
+        var nmUrl = NEWS[nmi].url || '';
+        h += '<polygon points="'+(nmx-5).toFixed(1)+','+(PT+8)+' '+(nmx+5).toFixed(1)+','+(PT+8)+' '+nmx.toFixed(1)+','+PT+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'" data-url="'+nmUrl.replace(/"/g, '&quot;')+'"/>';
     }
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
@@ -526,27 +536,63 @@ function render(days) {
         });
     });
 
-    // News marker tooltips
+    // News marker tooltips and click
     svg.querySelectorAll('.news-marker').forEach(function(marker) {
         marker.style.cursor = 'pointer';
         marker.addEventListener('mouseenter', function(e) {
             var title = this.getAttribute('data-title');
             var impact = this.getAttribute('data-impact');
+            var url = this.getAttribute('data-url');
             var impactText = impact === 'positive' ? '↑ Позитив' : impact === 'negative' ? '↓ Негатив' : '— Нейтрально';
             var impactCls = impact === 'positive' ? 'positive' : impact === 'negative' ? 'negative' : 'muted';
-            tooltip.innerHTML = '<strong>Новость</strong><br><span style="font-size:12px">' + title + '</span><br><span class="' + impactCls + '" style="font-size:11px">' + impactText + '</span>';
+            var clickHint = url ? '<br><span style="color:var(--link);font-size:10px">Кликните для перехода →</span>' : '';
+            tooltip.innerHTML = '<strong>Новость</strong><br><span style="font-size:12px">' + title + '</span><br><span class="' + impactCls + '" style="font-size:11px">' + impactText + '</span>' + clickHint;
             tooltip.style.display = 'block';
             var rect = chartWrap.getBoundingClientRect();
             var tipX = (e.clientX - rect.left) + 12;
             var tipY = (e.clientY - rect.top) - 10;
-            if (tipX + 180 > chartWrap.offsetWidth) tipX -= 190;
+            if (tipX + 200 > chartWrap.offsetWidth) tipX -= 210;
             tooltip.style.left = tipX + 'px';
             tooltip.style.top = tipY + 'px';
         });
         marker.addEventListener('mouseleave', function() {
             tooltip.style.display = 'none';
         });
+        marker.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var url = this.getAttribute('data-url');
+            if (url) window.open(url, '_blank');
+        });
     });
+
+    // Toggle markers visibility
+    var toggleYearly = document.getElementById('toggle-yearly');
+    var toggleQuarterly = document.getElementById('toggle-quarterly');
+    var toggleNews = document.getElementById('toggle-news');
+
+    function updateMarkerVisibility() {
+        svg.querySelectorAll('.report-marker').forEach(function(m) {
+            var type = m.getAttribute('data-type');
+            if (type === 'Y') {
+                m.style.display = toggleYearly.checked ? '' : 'none';
+                var line = m.previousElementSibling;
+                if (line && line.tagName === 'line') line.style.display = toggleYearly.checked ? '' : 'none';
+            } else {
+                m.style.display = toggleQuarterly.checked ? '' : 'none';
+                var line = m.previousElementSibling;
+                if (line && line.tagName === 'line') line.style.display = toggleQuarterly.checked ? '' : 'none';
+            }
+        });
+        svg.querySelectorAll('.news-marker').forEach(function(m) {
+            m.style.display = toggleNews.checked ? '' : 'none';
+            var line = m.previousElementSibling;
+            if (line && line.tagName === 'line') line.style.display = toggleNews.checked ? '' : 'none';
+        });
+    }
+
+    if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
+    if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
+    if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
 
     // --- Table ---
     var tbl = '';
