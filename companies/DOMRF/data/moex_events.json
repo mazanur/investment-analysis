@@ -1,0 +1,64 @@
+{
+  "ticker": "DOMRF",
+  "company_name": "ДОМ.РФ",
+  "date": "2026-02-11",
+  "dividends": [],
+  "ir_events": [
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ДОМ.РФ\"",
+      "inn": "7729355614",
+      "event_date": "2027-02-18",
+      "event_type": "Публикация отчетности",
+      "description": "Раскрытие результатов Группы ПАО ДОМ.РФ по МСФО за 2026 год",
+      "link": "https://xn--d1aqf.xn--p1ai/investors/calendar/?emitent=events,reports,bonds"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ДОМ.РФ\"",
+      "inn": "7729355614",
+      "event_date": "2026-12-22",
+      "event_type": "Публикация отчетности",
+      "description": "Раскрытие результатов Группы ПАО ДОМ.РФ по МСФО за 11 месяцев 2026 года",
+      "link": "https://xn--d1aqf.xn--p1ai/investors/calendar/?emitent=events,reports,bonds"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ДОМ.РФ\"",
+      "inn": "7729355614",
+      "event_date": "2026-11-24",
+      "event_type": "Публикация отчетности",
+      "description": "Раскрытие результатов Группы ПАО ДОМ.РФ по МСФО за 10 месяцев 2026 года",
+      "link": "https://xn--d1aqf.xn--p1ai/investors/calendar/?emitent=events,reports,bonds"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ДОМ.РФ\"",
+      "inn": "7729355614",
+      "event_date": "2026-11-10",
+      "event_type": "Публикация отчетности",
+      "description": "Раскрытие результатов Группы ПАО ДОМ.РФ по МСФО за 9 месяцев 2026 года",
+      "link": "https://xn--d1aqf.xn--p1ai/investors/calendar/?emitent=events,reports,bonds"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ДОМ.РФ\"",
+      "inn": "7729355614",
+      "event_date": "2026-09-22",
+      "event_type": "Публикация отчетности",
+      "description": "Раскрытие результатов Группы ПАО ДОМ.РФ по МСФО за 8 месяцев 2026 года",
+      "link": "https://xn--d1aqf.xn--p1ai/investors/calendar/?emitent=events,reports,bonds"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ДОМ.РФ\"",
+      "inn": "7729355614",
+      "event_date": "2026-08-25",
+      "event_type": "Публикация отчетности",
+      "description": "Раскрытие результатов Группы ПАО ДОМ.РФ по МСФО за 7 месяцев 2026 года",
+      "link": "https://xn--d1aqf.xn--p1ai/investors/calendar/?emitent=events,reports,bonds"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ДОМ.РФ\"",
+      "inn": "7729355614",
+      "event_date": "2026-08-04",
+      "event_type": "Публикация отчетности",
+      "description": "Раскрытие результатов Группы ПАО ДОМ.РФ по МСФО за 5 месяцев 2026 года",
+      "link": "https://xn--d1aqf.xn--p1ai/investors/calendar/?emitent=events,reports,bonds"
+    }
+  ]
+}

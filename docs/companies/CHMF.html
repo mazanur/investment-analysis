@@ -237,9 +237,9 @@ tr.stub td { color: var(--stub-row-text); }
 <div class="ticker">CHMF &middot; Металлы и добыча</div>
 <div class="badges">
 <span class="badge badge-bearish">bearish</span>
-<span class="badge badge-watch">watch</span>
+<span class="badge badge-sell">sell</span>
 </div>
-<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">954</div></div><div class="metric"><div class="label">Цель</div><div class="value">500</div></div><div class="metric"><div class="label">Upside</div><div class="value">-49%</div></div><div class="metric"><div class="label">P/E</div><div class="value">10.2</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">18%</div></div><div class="metric"><div class="label">P/BV</div><div class="value">2.3</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">5.8</div></div></div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">954</div></div><div class="metric"><div class="label">Цель</div><div class="value">200</div></div><div class="metric"><div class="label">Upside</div><div class="value">-79%</div></div><div class="metric"><div class="label">P/E</div><div class="value">25.0</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">6.1%</div></div><div class="metric"><div class="label">P/BV</div><div class="value">1.6</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">6.0</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">0.16</div></div></div>
 </div>
 
 
@@ -512,53 +512,61 @@ render(activeDays);
 <ul><li>Вертикальная интеграция (собственная руда и уголь) — низкая себестоимость</li><li>Современное оборудование (модернизация за последние 10 лет)</li><li>Лидер по эффективности среди российских металлургов</li><li>Нулевой чистый долг — финансовая гибкость</li></ul>
 <h2>Финансовые показатели</h2>
 <h3>Годовые (МСФО)</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>835.5</td><td>682.2</td><td>728.3</td><td>829.8</td><td>~730</td></tr><tr><td>EBITDA, млрд ₽</td><td>439.7</td><td>214.3</td><td>262.2</td><td>237.9</td><td>~160</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>299.6</td><td>108.4</td><td>193.9</td><td>149.6</td><td>~81</td></tr><tr><td>Маржа EBITDA</td><td>52.6%</td><td>31.4%</td><td>36.0%</td><td>28.7%</td><td>~22%</td></tr><tr><td>Net Debt/EBITDA</td><td>0.24</td><td>-0.39</td><td>-0.80</td><td>-0.08</td><td>~0</td></tr><tr><td>ROE</td><td>96.2%</td><td>25.4%</td><td>31.6%</td><td>30.2%</td><td>~18%</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>835.5</td><td>682.2</td><td>728.3</td><td>829.8</td><td>712.9</td><td>712.9</td></tr><tr><td>EBITDA, млрд ₽</td><td>439.7</td><td>214.3</td><td>262.2</td><td>237.9</td><td>137.6</td><td>137.6</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>299.6</td><td>108.4</td><td>193.9</td><td>149.6</td><td>32.0</td><td>32.0</td></tr><tr><td>Маржа EBITDA</td><td>52.6%</td><td>31.4%</td><td>36.0%</td><td>28.7%</td><td><strong>19.3%</strong></td><td>19.3%</td></tr><tr><td>Net Debt/EBITDA</td><td>0.24</td><td>-0.39</td><td>-0.80</td><td>-0.08</td><td><strong>0.16</strong></td><td>0.16</td></tr><tr><td>ROE</td><td>96.2%</td><td>25.4%</td><td>31.6%</td><td>30.2%</td><td><strong>6.1%</strong></td><td>6.1%</td></tr><tr><td>FCF, млрд ₽</td><td>260.3</td><td>156.7</td><td>120.0</td><td>96.8</td><td><strong>-30.5</strong></td><td>-30.5</td></tr></tbody></table></div>
 <h3>Квартальные (тренд)</h3>
-<div class="table-wrap"><table><thead><tr><th>Период</th><th>Выручка</th><th>EBITDA</th><th>Прибыль</th><th>Маржа EBITDA</th></tr></thead><tbody><tr><td>Q3 2024</td><td>219.1</td><td>64.9</td><td>35.0</td><td>29.6%</td></tr><tr><td>Q4 2024</td><td>201.6</td><td>46.5</td><td>31.3</td><td>23.0%</td></tr><tr><td>Q1 2025</td><td>178.7</td><td>39.4</td><td>21.1</td><td>22.0%</td></tr><tr><td>Q2 2025</td><td>185.5</td><td>39.3</td><td>15.7</td><td>21.2%</td></tr><tr><td>Q3 2025</td><td>179.1</td><td>35.5</td><td>13.0</td><td><strong>19.8%</strong></td></tr></tbody></table></div>
-<p><strong>Тренд:</strong> Выраженное ухудшение. Прибыль Q3&#x27;25 vs Q3&#x27;24: -63%. Маржа EBITDA потеряла 10 п.п. за год.</p>
+<div class="table-wrap"><table><thead><tr><th>Период</th><th>Выручка</th><th>EBITDA</th><th>Прибыль</th><th>Маржа EBITDA</th></tr></thead><tbody><tr><td>Q3 2024</td><td>219.1</td><td>64.9</td><td>35.0</td><td>29.6%</td></tr><tr><td>Q4 2024</td><td>201.6</td><td>46.5</td><td>31.3</td><td>23.0%</td></tr><tr><td>Q1 2025</td><td>178.7</td><td>39.4</td><td>21.1</td><td>22.0%</td></tr><tr><td>Q2 2025</td><td>185.5</td><td>39.3</td><td>15.7</td><td>21.2%</td></tr><tr><td>Q3 2025</td><td>179.1</td><td>35.5</td><td>13.0</td><td>19.8%</td></tr><tr><td>Q4 2025</td><td>169.6</td><td>23.5</td><td><strong>-17.8</strong></td><td><strong>13.8%</strong></td></tr></tbody></table></div>
+<p><strong>Тренд:</strong> Критическое ухудшение. Q4&#x27;25 — первый <strong>убыток</strong> за много лет. Маржа EBITDA потеряла 15,8 п.п. за год (29,6% → 13,8%). Прибыль 2025 упала на 78,6% vs 2024.</p>
 <h2>Дивиденды</h2>
-<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, ₽</th><th>Доходность</th></tr></thead><tbody><tr><td>2021</td><td>217.15</td><td>13.5%</td></tr><tr><td>2022</td><td>0</td><td>0%</td></tr><tr><td>2023</td><td>191.51</td><td>13.7%</td></tr><tr><td>2024</td><td>118.42*</td><td>~9%*</td></tr><tr><td>2025</td><td><strong>0</strong></td><td>0%</td></tr></tbody></table></div>
-<p>*Только за 9М2024. Финальные дивиденды за 2024, Q1-Q3 2025 — отменены.</p>
+<div class="table-wrap"><table><thead><tr><th>Год</th><th>DPS, ₽</th><th>Доходность</th></tr></thead><tbody><tr><td>2021</td><td>217.15</td><td>13.5%</td></tr><tr><td>2022</td><td>0</td><td>0%</td></tr><tr><td>2023</td><td>191.51</td><td>13.7%</td></tr><tr><td>2024</td><td>118.42</td><td>~9%</td></tr><tr><td>2025</td><td><strong>0</strong></td><td>0%</td></tr><tr><td>2026E</td><td><strong>0</strong></td><td>0%</td></tr></tbody></table></div>
+<p>Последняя выплата: Q4 2024 (49,06 ₽, отсечка 17.12.2024). Все дивиденды за 2025 — отменены.</p>
 <p><strong>Дивидендная политика:</strong> 100% FCF при Net Debt/EBITDA &lt; 1x. На практике — приостановлена из-за падения прибыли.</p>
 <h2>Оценка</h2>
 <h3>Текущие мультипликаторы</h3>
-<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>CHMF</th><th>Сектор</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (LTM)</td><td>10.2x</td><td>4-6x</td><td>Дорого vs сектор</td></tr><tr><td>EV/EBITDA</td><td>5.8x</td><td>3-4x</td><td>Премия к рынку</td></tr><tr><td>P/BV</td><td>2.3x</td><td>1-2x</td><td>Выше среднего</td></tr><tr><td>Див. доходность</td><td>0%</td><td>0-8%</td><td>Дивиденды отменены</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>CHMF</th><th>Сектор</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (LTM)</td><td><strong>25.0x</strong></td><td>4-6x</td><td>Переоценена в 4-5 раз vs сектор</td></tr><tr><td>EV/EBITDA</td><td>6.0x</td><td>3-4x</td><td>Премия к рынку не оправдана</td></tr><tr><td>P/BV</td><td>1.6x</td><td>1-2x</td><td>В диапазоне сектора</td></tr><tr><td>Див. доходность</td><td>0%</td><td>0-8%</td><td>Дивиденды отменены на весь 2025-2026E</td></tr><tr><td>FCF yield</td><td><strong>-3.8%</strong></td><td>5-10%</td><td>Отрицательный FCF — компания сжигает кэш</td></tr></tbody></table></div>
 <h3>Расчёт справедливой цены</h3>
-<p><strong>Метод P/E (основной — низкий долг):</strong></p>
-<div class="table-wrap"><table><thead><tr><th>Параметр</th><th>Значение</th><th>Комментарий</th></tr></thead><tbody><tr><td>Ставка ЦБ (базовый)</td><td>13%</td><td>Прогноз на конец 2026</td></tr><tr><td>ERP</td><td>5%</td><td>Стандарт для РФ</td></tr><tr><td>r</td><td>18%</td><td></td></tr><tr><td>g</td><td>4%</td><td>Зрелая компания, рост = инфляция</td></tr><tr><td>Базовый P/E</td><td>7.1x</td><td>1 / (0.18 - 0.04)</td></tr></tbody></table></div>
+<p><strong>Метод P/E (основной — Net Debt/EBITDA 0.16x):</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Параметр</th><th>Значение</th><th>Комментарий</th></tr></thead><tbody><tr><td>Ставка ЦБ (базовый)</td><td>13%</td><td>Прогноз на конец 2026</td></tr><tr><td>ERP</td><td>5%</td><td>Стандарт для РФ</td></tr><tr><td>r</td><td>18%</td><td></td></tr><tr><td>g</td><td><strong>0%</strong></td><td>Циклическая в фазе спада, нулевой долгосрочный рост</td></tr><tr><td>Базовый P/E</td><td>5.56x</td><td>1 / (0.18 - 0.00)</td></tr></tbody></table></div>
 <p><strong>Поправки:</strong></p>
-<ul><li>Маржа падает 5+ кварталов: <strong>-15%</strong></li><li>Зависимость от строительства в кризисе: <strong>-10%</strong></li><li>Net cash на балансе: <strong>+5%</strong></li><li>Лидер сектора: <strong>+5%</strong></li><li><strong>Итого: -15%</strong></li></ul>
-<p><strong>Целевой P/E = 7.1 × 0.85 = 6.0x</strong></p>
-<p><strong>Проблема:</strong> Какую прибыль брать?</p>
-<ul><li>LTM (81 млрд) — искажена падением, занижена</li><li>Нормализованная (средняя за цикл, ~165 млрд) — оптимистична</li></ul>
-<div class="table-wrap"><table><thead><tr><th>Сценарий прибыли</th><th>EPS</th><th>Целевая цена</th><th>Upside</th></tr></thead><tbody><tr><td>LTM (81 млрд)</td><td>97 ₽</td><td>580 ₽</td><td>-41%</td></tr><tr><td>Forward 2026E (60 млрд)</td><td>72 ₽</td><td>430 ₽</td><td>-56%</td></tr><tr><td>Нормализованная (120 млрд)</td><td>143 ₽</td><td>860 ₽</td><td>-13%</td></tr></tbody></table></div>
-<p><strong>my_fair_value = 500 ₽</strong> (среднее между LTM и forward, консервативно)</p>
+<ul><li>Маржа падает 6 кварталов подряд (29.6% → 13.8%): <strong>-15%</strong></li><li>Зависимость от строительства в кризисе: <strong>-10%</strong></li><li>Убыток в Q4 2025: <strong>-10%</strong></li><li>Net cash → Net debt (тренд негативный): <strong>-5%</strong></li><li>Лидер сектора с низкой себестоимостью: <strong>+5%</strong></li><li><strong>Итого: -35%</strong></li></ul>
+<p><strong>Целевой P/E = 5.56 × 0.65 = 3.6x</strong></p>
+<p><strong>Проблема:</strong> LTM прибыль включает убыточный Q4. Два сценария:</p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий прибыли</th><th>EPS</th><th>Целевая цена (базовый P/E 3.6x)</th><th>Upside</th></tr></thead><tbody><tr><td><strong>LTM (32 млрд)</strong></td><td>38.2 ₽</td><td><strong>138 ₽</strong></td><td><strong>-85.5%</strong></td></tr><tr><td>Нормализованная (9M&#x27;25 annualized, 66 млрд)</td><td>79.3 ₽</td><td><strong>286 ₽</strong></td><td>-70.0%</td></tr></tbody></table></div>
+<p><strong>my_fair_value = 200 ₽</strong> (консервативно, между LTM и нормализованным)</p>
 <h3>Три сценария по ставке</h3>
-<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>P/E</th><th>Цена (норм.)</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>4.9x</td><td>700 ₽</td><td>-29%</td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>18%</td><td>6.0x</td><td>860 ₽</td><td>-13%</td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>7.7x</td><td>1100 ₽</td><td>+12%</td></tr></tbody></table></div>
-<p><strong>Вывод по оценке:</strong> При текущей прибыли акция переоценена на 40-50%. Рынок закладывает разворот цикла и восстановление прибыли до нормы. Если разворот случится — цена справедлива. Если спад продолжится — потенциал падения 30-50%.</p>
+<p><strong>На LTM прибыли (EPS 38.2 ₽):</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>Базовый P/E</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>4.76x</td><td>3.1x</td><td><strong>118 ₽</strong></td><td><strong>-87.6%</strong></td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>18%</td><td>5.56x</td><td>3.6x</td><td><strong>138 ₽</strong></td><td><strong>-85.5%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>6.67x</td><td>4.3x</td><td><strong>164 ₽</strong></td><td><strong>-82.8%</strong></td></tr></tbody></table></div>
+<p><strong>На нормализованной прибыли (EPS 79.3 ₽, без убытка Q4):</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>3.1x</td><td><strong>246 ₽</strong></td><td>-74.2%</td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>18%</td><td>3.6x</td><td><strong>286 ₽</strong></td><td>-70.0%</td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>4.3x</td><td><strong>341 ₽</strong></td><td>-64.3%</td></tr></tbody></table></div>
+<p><strong>Вывод по оценке:</strong> Акция <strong>критически переоценена</strong> в любом сценарии. Даже при оптимистичных допущениях (нормализованная прибыль + снижение ставки до 10%) downside -64%. При текущей прибыли и ставке справедливая цена <strong>138 ₽</strong> — акция торгуется с премией 590%. Это классическая <strong>value trap</strong>: низкий P/E на исторической прибыли скрывает обвал текущих показателей.</p>
 <h2>Риски</h2>
+<ol><li><strong>Критические (новые):</strong></li></ol>
+<ul><li><strong>Убыток в Q4 2025</strong> (-17.8 млрд ₽) — первый за много лет, сигнал о глубине кризиса</li><li><strong>Маржа EBITDA обвалилась до 13.8%</strong> (с 29.6% год назад) — компания теряет операционную эффективность</li><li><strong>FCF отрицательный -30.5 млрд ₽</strong> — компания сжигает кэш при высоких капзатратах</li><li><strong>Net cash превратился в Net debt</strong> (+21.7 млрд ₽) — финансовая подушка исчерпана</li></ul>
 <ol><li><strong>Операционные:</strong></li></ol>
-<ul><li>Маржа EBITDA падает 5 кварталов подряд — не видно дна</li><li>Внутренний спрос на сталь -15% YoY, строительство заморожено</li><li>Экспорт ограничен санкциями</li></ul>
+<ul><li>Маржа EBITDA падает <strong>6 кварталов подряд</strong> — не видно дна</li><li>Внутренний спрос на сталь -15% YoY, строительство заморожено</li><li>Производство стали упало до 10.8 млн т (-7% vs 2024)</li><li>Экспорт ограничен санкциями (США 50% пошлины, запрет ЕС)</li></ul>
 <ol><li><strong>Макро:</strong></li></ol>
-<ul><li>Высокая ставка ЦБ (16%) давит на строительство — главный драйвер спроса</li><li>При затяжном периоде высоких ставок прибыль продолжит падать</li></ul>
+<ul><li>Высокая ставка ЦБ (16%) давит на строительство — главный драйвер спроса</li><li>Цены на сталь HRC $460/т — многолетний минимум</li><li>Конкуренция китайского экспорта давит на мировые цены</li></ul>
+<ol><li><strong>Оценочные (value trap):</strong></li></ol>
+<ul><li><strong>P/E 25x при обваливающейся прибыли</strong> — переоценка в 5 раз vs сектора</li><li>Рынок закладывает разворот, который ещё не начался</li><li>Исторический P/E вводит в заблуждение — прибыль обвалилась на 78%</li></ul>
 <ol><li><strong>Дивидендные:</strong></li></ol>
-<ul><li>Дивиденды отменены на неопределённый срок</li><li>Нет понимания, когда возобновятся</li></ul>
-<ol><li><strong>Оценочные:</strong></li></ol>
-<ul><li>P/E 10x при падающей прибыли — премия к сектору без оснований</li><li>Рынок закладывает разворот, который может не случиться</li></ul>
+<ul><li>Дивиденды отменены на весь 2025-2026</li><li>При отрицательном FCF возобновление маловероятно до 2027</li></ul>
 <h2>Катализаторы</h2>
-<p><strong>Позитивные:</strong></p>
-<ul><li>Снижение ставки ЦБ ниже 14% → восстановление строительства (горизонт: 2П 2026)</li><li>Возобновление дивидендов — сигнал уверенности менеджмента</li><li>Стабилизация маржи EBITDA</li></ul>
-<p><strong>Негативные:</strong></p>
-<ul><li>Сохранение ставки 16%+ → продолжение спада спроса</li><li>Дальнейшее падение маржи ниже 18%</li><li>Новые санкции на сталь</li></ul>
+<p><strong>Позитивные (долгосрочные):</strong></p>
+<ul><li>Снижение ставки ЦБ до 13% к концу 2026 → восстановление строительства (горизонт: 2П 2026 - 1П 2027)</li><li>Стабилизация маржи EBITDA — первый квартал без падения</li><li>Отчёт Q1 2026 без убытка — подтверждение, что Q4&#x27;25 был аномалией</li><li>Дно цикла металлургии — возможная точка разворота</li></ul>
+<p><strong>Негативные (краткосрочные, вероятные):</strong></p>
+<ul><li>Продолжение падения маржи в Q1 2026 — подтверждение тренда</li><li>Сохранение ставки 16%+ до лета 2026 → продолжение спада спроса</li><li>Новые санкции на российскую сталь (расширение пошлин ЕС/США)</li><li>Рост китайского экспорта стали → давление на цены HRC</li><li>Отмена дивидендов и за 2026 год — сигнал о длительном кризисе</li></ul>
 <h2>Мой тезис</h2>
-<p><strong>Position: watch</strong> | <strong>Sentiment: bearish</strong></p>
-<p>Северсталь — качественная компания (лидер сектора, net cash, низкая себестоимость), но в неправильной точке цикла. Прибыль падает 5 кварталов подряд, маржа сжалась с 30% до 20%, дивиденды отменены. При этом акция торгуется по P/E 10x — дорого для металлургии в спаде.</p>
-<p>Рынок закладывает разворот цикла при снижении ставки ЦБ, но этот сценарий ещё не материализовался. Покупать сейчас — ставить на то, что худшее позади, без подтверждающих сигналов.</p>
-<p><strong>Что нужно для пересмотра на buy:</strong></p>
-<ol><li>Стабилизация маржи EBITDA (прекращение падения)</li><li>Снижение ставки ЦБ ниже 14%</li><li>Возобновление дивидендов</li><li>P/E &lt; 6x при текущей прибыли</li></ol>
-<p><strong>Сейчас:</strong> Не покупать. Наблюдать за сигналами разворота.</p>
+<p><strong>Position: sell</strong> | <strong>Sentiment: bearish</strong></p>
+<p>Северсталь демонстрирует <strong>критическое ухудшение</strong> финансовых показателей. Q4 2025 принёс первый убыток за много лет (-17.8 млрд ₽), маржа EBITDA обвалилась до 13.8% (с 29.6% год назад), FCF отрицательный -30.5 млрд ₽. Прибыль 2025 упала на 78.6% vs 2024, ROE снизился с 30% до 6%.</p>
+<p>При этом акция торгуется по <strong>P/E 25x</strong> — переоценка в <strong>4.8 раза</strong> относительно справедливой стоимости. Это классическая <strong>value trap</strong>: исторически низкий P/E (на старых данных) скрывает обвал текущей прибыли. Справедливая цена — <strong>200 ₽</strong> (downside -79%).</p>
+<p><strong>Почему sell, а не watch:</strong></p>
+<ol><li><strong>Переоценка критическая</strong> — даже при оптимистичных допущениях downside &gt;60%</li><li><strong>Тренд ухудшается</strong> — 6 кварталов подряд падения маржи, убыток в Q4</li><li><strong>FCF отрицательный</strong> — компания сжигает кэш, дивиденды отменены до 2027</li><li><strong>Разворот цикла не начался</strong> — ставка ЦБ 16%, строительство заморожено</li></ol>
+<p><strong>Для смягчения до watch нужно:</strong></p>
+<ol><li>Отчёт Q1 2026 с положительной прибылью (без убытка)</li><li>Стабилизация маржи EBITDA выше 18%</li><li>Падение цены до 400-500 ₽ (P/E 10-13x на текущей прибыли)</li></ol>
+<p><strong>Для buy нужно (горизонт 2027):</strong></p>
+<ol><li>Снижение ставки ЦБ ниже 13% + восстановление строительства</li><li>Маржа EBITDA вернулась к 20%+</li><li>FCF стал положительным</li><li>Цена &lt; 300 ₽ (margin of safety)</li></ol>
+<p><strong>Сейчас:</strong> Продавать или избегать. Ждать подтверждения дна цикла.</p>
 <h2>История решений</h2>
-<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-29</td><td>watch</td><td>985 ₽</td><td>Переоценена при падающей прибыли, ждать разворот</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Комментарий</th></tr></thead><tbody><tr><td>2026-01-29</td><td>watch</td><td>985 ₽</td><td>Переоценена при падающей прибыли, ждать разворот</td></tr><tr><td>2026-02-11</td><td><strong>sell</strong></td><td>954 ₽</td><td>Критическое ухудшение: убыток Q4&#x27;25, FCF -30.5 млрд, P/E 25x — переоценка в 4.8 раза</td></tr></tbody></table></div>
 <h2>Источники</h2>
 <ul><li><a href="https://smart-lab.ru/q/CHMF/f/y/MSFO/" target="_blank">Smart-lab: CHMF годовые МСФО</a></li><li><a href="https://smart-lab.ru/q/CHMF/f/q/MSFO/" target="_blank">Smart-lab: CHMF квартальные МСФО</a></li><li><a href="https://www.dohod.ru/ik/analytics/dividend/chmf" target="_blank">Дивиденды Северсталь — ДОХОДЪ</a></li><li><a href="https://bcs.ru/markets/chmf/tqbr/dividends" target="_blank">BCS: дивиденды CHMF</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
 </div>

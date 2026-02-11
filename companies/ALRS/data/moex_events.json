@@ -1,0 +1,78 @@
+{
+  "ticker": "ALRS",
+  "company_name": "Алроса",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2014-07-18",
+      "value": 1.47,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-07-15",
+      "value": 1.47,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-07-19",
+      "value": 2.09,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-07-20",
+      "value": 8.93,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-07-14",
+      "value": 5.24,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-10-15",
+      "value": 5.93,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-07-15",
+      "value": 4.11,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-10-14",
+      "value": 3.84,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-07-13",
+      "value": 2.63,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-07-04",
+      "value": 9.54,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-10-19",
+      "value": 8.79,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-10-18",
+      "value": 3.77,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-05-31",
+      "value": 2.02,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-10-19",
+      "value": 2.49,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

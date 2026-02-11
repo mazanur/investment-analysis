@@ -1,0 +1,78 @@
+{
+  "ticker": "BANEP",
+  "company_name": "Башнефть (привилегированные)",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2013-11-05",
+      "value": 199,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2014-06-23",
+      "value": 211,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-07-17",
+      "value": 113,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-07-15",
+      "value": 164,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-07-12",
+      "value": 0.1,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-12-12",
+      "value": 148.31,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-07-09",
+      "value": 158.95,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-06-24",
+      "value": 158.95,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-07-06",
+      "value": 107.81,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-07-14",
+      "value": 0.1,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-07-11",
+      "value": 117.29,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-07-07",
+      "value": 199.89,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-07-12",
+      "value": 249.69,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-14",
+      "value": 147.31,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}
