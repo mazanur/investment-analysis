@@ -86,7 +86,7 @@ author: AlmazNurmukhametov
 | companies/MDMG/_index.md | заполнен | 2026-02-05 | 2026-04-30 | ежеквартально |
 | companies/PLZL/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/SIBN/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
-| companies/ALRS/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
+| companies/ALRS/_index.md | заполнен | 2026-02-11 | 2026-05-11 | ежеквартально |
 | companies/FIXP/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/HHRU/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/IRAO/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
