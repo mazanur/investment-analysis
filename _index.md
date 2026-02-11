@@ -1,6 +1,6 @@
 ---
 type: root
-updated: 2026-02-06
+updated: 2026-02-11
 author: AlmazNurmukhametov
 ---
 
@@ -112,7 +112,7 @@ author: AlmazNurmukhametov
 | companies/TATN/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
 | companies/SNGS/_index.md | заполнен | 2026-02-01 | 2026-05-01 | ежеквартально |
 | companies/RUAL/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
-| companies/AFLT/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
+| companies/AFLT/_index.md | заполнен | 2026-02-11 | 2026-05-11 | ежеквартально |
 | companies/DOMRF/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/SVCB/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
 | companies/TRNFP/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
