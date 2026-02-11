@@ -9,6 +9,7 @@
 Использование:
     python3 scripts/check_reports.py              # все компании
     python3 scripts/check_reports.py SBER LKOH    # конкретные тикеры
+    python3 scripts/check_reports.py --download    # + скачать данные для новых отчётов
 
 Автор: AlmazNurmukhametov
 """
@@ -16,6 +17,7 @@
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import urllib.request
@@ -200,6 +202,9 @@ def main():
         return 1
 
     args = sys.argv[1:]
+    do_download = "--download" in args
+    args = [a for a in args if a != "--download"]
+
     if args:
         tickers = [t.upper() for t in args]
     else:
@@ -256,6 +261,8 @@ def main():
 
     # Итоги
     print()
+    new_tickers = [t for t, _ in new_reports]
+
     if new_reports:
         print(f"{GREEN}{BOLD}Новые отчёты ({len(new_reports)}):{NC}")
         for ticker, res in new_reports:
@@ -267,10 +274,30 @@ def main():
             if y.get("new") and y.get("new") != y.get("old", y.get("new")):
                 parts.append(f"годовой: {y['new']}")
             print(f"  {GREEN}{ticker}{NC}: {', '.join(parts)}")
+
+        # Скачиваем данные для новых отчётов
+        if do_download and new_tickers:
+            print()
+            print(f"{CYAN}Скачивание данных со smart-lab для {len(new_tickers)} компаний...{NC}")
+            smartlab_script = os.path.join(script_dir, "download_smartlab.py")
+            subprocess.run(
+                [sys.executable, smartlab_script, "--force"] + new_tickers,
+                cwd=base_dir,
+            )
+
+        # Записываем список тикеров в файл (для Makefile)
+        new_tickers_path = os.path.join(base_dir, "reports_new_tickers.txt")
+        with open(new_tickers_path, "w") as f:
+            f.write("\n".join(new_tickers) + "\n")
         print()
-        print("Рекомендация: обновите анализ для этих компаний.")
+        print(f"Тикеры с новыми отчётами: {' '.join(new_tickers)}")
+        print(f"Сохранено в: reports_new_tickers.txt")
     else:
         print("Новых отчётов не обнаружено.")
+        # Очищаем файл тикеров
+        new_tickers_path = os.path.join(base_dir, "reports_new_tickers.txt")
+        with open(new_tickers_path, "w") as f:
+            f.write("")
 
     if errors:
         print(f"{YELLOW}{errors} компаний с ошибками загрузки{NC}")

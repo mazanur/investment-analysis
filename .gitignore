@@ -14,5 +14,8 @@ subtitles*.vtt
 # Сами данные коммитим — используются в дашборде
 #!companies/*/data/.gitkeep
 
+# Временные файлы скриптов
+reports_new_tickers.txt
+
 # ralphex progress logs
 progress*.txt

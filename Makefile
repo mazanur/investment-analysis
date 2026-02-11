@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex download-events download-governance download-all fill-events fill-governance daily update-prices
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex download-events download-governance download-all fill-events fill-governance daily update-prices check-reports
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -61,6 +61,7 @@ help:
 	@echo "$(GREEN)Ежедневное обновление:$(NC)"
 	@echo "  make daily         — обновить цены + trends + дашборд + коммит + пуш"
 	@echo "  make update-prices — обновить цены с MOEX"
+	@echo "  make check-reports — проверить новые отчёты + скачать + запустить анализ"
 	@echo ""
 	@echo "$(GREEN)Прочее:$(NC)"
 	@echo "  make validate      — проверить валидность _index.md"
@@ -307,6 +308,26 @@ daily:
 	@git push || echo "$(RED)Пуш не удался$(NC)"
 	@echo ""
 	@echo "$(GREEN)Готово!$(NC)"
+
+check-reports:
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo "$(CYAN)  Проверка новых отчётов ($(TODAY))$(NC)"
+	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
+	@echo ""
+	@python3 scripts/check_reports.py --download
+	@echo ""
+	@if [ -s reports_new_tickers.txt ]; then \
+		echo "$(CYAN)Запуск анализа для компаний с новыми отчётами...$(NC)"; \
+		echo ""; \
+		while IFS= read -r ticker; do \
+			[ -z "$$ticker" ] && continue; \
+			echo "$(CYAN)═══ Анализ $$ticker ═══$(NC)"; \
+			claude $(CLAUDE_FLAGS) -p "Для компании $$ticker вышел новый финансовый отчёт. Данные уже скачаны в companies/$$ticker/data/. Прочитай новые данные (smartlab_quarterly.csv, smartlab_yearly.csv) и обнови анализ в companies/$$ticker/_index.md: пересчитай мультипликаторы, обнови финансовые таблицы, скорректируй fair value и sentiment если нужно. После обновления запусти make trends && make dashboard." | $(CLAUDE_LOG); \
+			echo ""; \
+		done < reports_new_tickers.txt; \
+	else \
+		echo "$(GREEN)Новых отчётов нет, анализ не требуется.$(NC)"; \
+	fi
 
 # ============================================================================
 # ПРОЧЕЕ
