@@ -280,6 +280,10 @@ tr.stub td { color: var(--stub-row-text); }
 <input type="checkbox" id="toggle-dividends" checked style="cursor:pointer">
 <span style="display:inline-block;width:8px;height:8px;background:var(--green);transform:rotate(45deg)"></span>Дивиденд
 </label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-ir" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border:2px solid var(--link);border-radius:50%;background:transparent"></span>IR-события
+</label>
 </div>
 </div>
 <div class="price-chart-wrap">
@@ -299,6 +303,7 @@ var DATA = [{"d": "2025-02-10", "c": 289.94, "v": 21267188580}, {"d": "2025-02-1
 var REPORTS = [{"date": "2018-04-17", "type": "Q", "period": "2017Q4"}, {"date": "2018-05-30", "type": "Q", "period": "2017Q1"}, {"date": "2018-08-23", "type": "Q", "period": "2018Q2"}, {"date": "2018-11-01", "type": "Q", "period": "2017Q3"}, {"date": "2019-02-28", "type": "Q", "period": "2018Q4"}, {"date": "2019-04-30", "type": "Q", "period": "2019Q1"}, {"date": "2019-07-31", "type": "Q", "period": "2019Q2"}, {"date": "2019-10-24", "type": "Q", "period": "2016Q4"}, {"date": "2019-10-31", "type": "Q", "period": "2015Q1"}, {"date": "2020-02-27", "type": "Q", "period": "2019Q4"}, {"date": "2020-04-30", "type": "Q", "period": "2020Q1"}, {"date": "2020-07-30", "type": "Q", "period": "2020Q2"}, {"date": "2020-10-29", "type": "Q", "period": "2020Q3"}, {"date": "2020-10-30", "type": "Q", "period": "2014Q4"}, {"date": "2021-03-04", "type": "Q", "period": "2020Q4"}, {"date": "2021-04-29", "type": "Q", "period": "2021Q1"}, {"date": "2021-07-29", "type": "Q", "period": "2021Q2"}, {"date": "2021-10-28", "type": "Q", "period": "2021Q3"}, {"date": "2022-03-02", "type": "Q", "period": "2021Q4"}, {"date": "2023-03-09", "type": "Q", "period": "2022Q4"}, {"date": "2023-05-18", "type": "Q", "period": "2023Q1"}, {"date": "2023-08-03", "type": "Q", "period": "2023Q2"}, {"date": "2023-11-02", "type": "Q", "period": "2023Q3"}, {"date": "2024-02-28", "type": "Q", "period": "2023Q4"}, {"date": "2024-04-26", "type": "Q", "period": "2024Q1"}, {"date": "2024-08-08", "type": "Q", "period": "2024Q2"}, {"date": "2024-10-31", "type": "Q", "period": "2024Q3"}, {"date": "2025-02-20", "type": "Q", "period": "2012Q4"}, {"date": "2025-02-27", "type": "Q", "period": "2024Q4"}, {"date": "2025-04-28", "type": "Q", "period": "2025Q1"}, {"date": "2025-07-29", "type": "Q", "period": "2025Q2"}, {"date": "2025-10-28", "type": "Q", "period": "2025Q3"}];
 var NEWS = [];
 var DIVIDENDS = [{"date": "2019-06-13", "value": 16, "currency": "RUB"}, {"date": "2020-10-05", "value": 18.7, "currency": "RUB"}, {"date": "2021-05-12", "value": 18.7, "currency": "RUB"}, {"date": "2023-05-11", "value": 25, "currency": "RUB"}, {"date": "2024-07-11", "value": 33.3, "currency": "RUB"}, {"date": "2025-07-18", "value": 34.84, "currency": "RUB"}];
+var IR_EVENTS = [{"date": "2025-07-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 6М 2025"}, {"date": "2025-07-18", "type": "Выплаты по инструментам", "description": "Рекомендованная Наблюдательным советом дата определения лиц, имеющих право на получение дивидендов"}, {"date": "2025-07-29", "type": "IR событие (online)", "description": "Звонок с инвесторами и аналитиками по результатам работы Группы Сбер по МСФО за 6 месяцев 2025 года"}, {"date": "2025-07-29", "type": "Публикация отчетности", "description": "Консолидированные результаты Группы Сбер по МСФО за 6 месяцев 2025 года"}, {"date": "2025-08-11", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 7М 2025"}, {"date": "2025-09-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 8М 2025"}, {"date": "2025-10-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 9М 2025"}, {"date": "2025-10-28", "type": "IR событие (online)", "description": "Звонок с инвесторами и аналитиками по результатам работы Группы Сбер по МСФО за 9 месяцев 2025 года"}, {"date": "2025-11-12", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 10М 2025"}, {"date": "2025-12-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 11М 2025"}, {"date": "2026-02-26", "type": "Публикация отчетности", "description": "Консолидированные результаты Группы Сбер по МСФО за 12 месяцев 2025 года"}, {"date": "2026-04-29", "type": "Публикация отчетности", "description": "Консолидированные результаты Группы Сбер по МСФО за 3 месяца 2026 года"}, {"date": "2026-05-13", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 4М 2026"}, {"date": "2026-06-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 8М 2026"}, {"date": "2026-06-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 5М 2026"}, {"date": "2026-07-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 6М 2026"}, {"date": "2026-08-11", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 7М 2026"}, {"date": "2026-10-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 9М 2026"}, {"date": "2026-11-11", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 10М 2026"}, {"date": "2026-12-09", "type": "Публикация отчетности", "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 11М 2026"}];
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -392,6 +397,20 @@ function render(days) {
         h += '<line x1="'+dmx.toFixed(1)+'" y1="'+PT+'" x2="'+dmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--green)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" class="div-line"/>';
     }
 
+    // IR events markers (future reports)
+    var irMarkers = [];
+    for (var iri = 0; iri < IR_EVENTS.length; iri++) {
+        var ird = IR_EVENTS[iri].date;
+        if (dateToIdx[ird] !== undefined) {
+            irMarkers.push({idx: dateToIdx[ird], type: IR_EVENTS[iri].type, description: IR_EVENTS[iri].description});
+        }
+    }
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<line x1="'+irmx.toFixed(1)+'" y1="'+PT+'" x2="'+irmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--link)" stroke-width="1" stroke-dasharray="6,3" opacity="0.5" class="ir-line"/>';
+    }
+
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
@@ -420,6 +439,12 @@ function render(days) {
         var dm = divMarkers[dmi];
         var dmx = xP(dm.idx);
         h += '<polygon points="'+dmx.toFixed(1)+','+(PT-2)+' '+(dmx+5).toFixed(1)+','+(PT+5)+' '+dmx.toFixed(1)+','+(PT+12)+' '+(dmx-5).toFixed(1)+','+(PT+5)+'" fill="var(--green)" class="div-marker" data-value="'+dm.value+'" data-currency="'+dm.currency+'" style="cursor:pointer"/>';
+    }
+    // IR event markers (hollow circle for future events)
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<circle cx="'+irmx.toFixed(1)+'" cy="'+(PT+5)+'" r="5" fill="var(--bg)" stroke="var(--link)" stroke-width="2" class="ir-marker" data-type="'+irm.type.replace(/"/g, '&quot;')+'" data-desc="'+irm.description.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
     }
 
     svg.innerHTML = h;
@@ -623,11 +648,31 @@ function render(days) {
         });
     });
 
+    // IR event marker tooltips
+    svg.querySelectorAll('.ir-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var type = this.getAttribute('data-type');
+            var desc = this.getAttribute('data-desc');
+            tooltip.innerHTML = '<strong>IR-событие</strong><br><span style="font-size:11px;color:var(--link)">' + type + '</span><br><span style="font-size:12px">' + desc.substring(0, 80) + (desc.length > 80 ? '...' : '') + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 220 > chartWrap.offsetWidth) tipX -= 230;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
     // Toggle markers visibility
     var toggleYearly = document.getElementById('toggle-yearly');
     var toggleQuarterly = document.getElementById('toggle-quarterly');
     var toggleNews = document.getElementById('toggle-news');
     var toggleDividends = document.getElementById('toggle-dividends');
+    var toggleIR = document.getElementById('toggle-ir');
 
     function updateMarkerVisibility() {
         svg.querySelectorAll('.report-marker').forEach(function(m) {
@@ -650,12 +695,19 @@ function render(days) {
         svg.querySelectorAll('.div-line').forEach(function(line) {
             line.style.display = toggleDividends.checked ? '' : 'none';
         });
+        svg.querySelectorAll('.ir-marker').forEach(function(m) {
+            m.style.display = toggleIR.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.ir-line').forEach(function(line) {
+            line.style.display = toggleIR.checked ? '' : 'none';
+        });
     }
 
     if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
     if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
     if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
     if (toggleDividends) toggleDividends.addEventListener('change', updateMarkerVisibility);
+    if (toggleIR) toggleIR.addEventListener('change', updateMarkerVisibility);
 
     // --- Table ---
     var tbl = '';

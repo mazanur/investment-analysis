@@ -280,6 +280,10 @@ tr.stub td { color: var(--stub-row-text); }
 <input type="checkbox" id="toggle-dividends" checked style="cursor:pointer">
 <span style="display:inline-block;width:8px;height:8px;background:var(--green);transform:rotate(45deg)"></span>Дивиденд
 </label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-ir" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border:2px solid var(--link);border-radius:50%;background:transparent"></span>IR-события
+</label>
 </div>
 </div>
 <div class="price-chart-wrap">
@@ -299,6 +303,7 @@ var DATA = [{"d": "2025-02-10", "c": 1.331, "v": 304288026}, {"d": "2025-02-11",
 var REPORTS = [{"date": "2020-12-01", "type": "Q", "period": "2020Q3"}, {"date": "2021-04-23", "type": "Q", "period": "2019Q4"}, {"date": "2021-04-26", "type": "Q", "period": "2016Q4"}, {"date": "2021-08-27", "type": "Q", "period": "2020Q2"}, {"date": "2021-11-02", "type": "Q", "period": "2021Q3"}, {"date": "2022-03-31", "type": "Q", "period": "2021Q4"}, {"date": "2022-05-20", "type": "Q", "period": "2022Q1"}, {"date": "2022-08-26", "type": "Q", "period": "2022Q2"}, {"date": "2022-12-09", "type": "Q", "period": "2022Q3"}, {"date": "2023-03-31", "type": "Q", "period": "2022Q4"}, {"date": "2023-05-24", "type": "Q", "period": "2023Q1"}, {"date": "2023-08-29", "type": "Q", "period": "2023Q2"}, {"date": "2023-11-13", "type": "Q", "period": "2023Q3"}, {"date": "2024-03-22", "type": "Q", "period": "2023Q4"}, {"date": "2024-05-24", "type": "Q", "period": "2024Q1"}, {"date": "2024-08-28", "type": "Q", "period": "2024Q2"}, {"date": "2024-11-21", "type": "Q", "period": "2024Q3"}, {"date": "2025-04-28", "type": "Q", "period": "2024Q4"}, {"date": "2025-06-26", "type": "Q", "period": "2025Q1"}, {"date": "2025-08-29", "type": "Q", "period": "2025Q2"}, {"date": "2025-11-27", "type": "Q", "period": "2025Q3"}];
 var NEWS = [];
 var DIVIDENDS = [{"date": "2022-01-08", "value": 0.42, "currency": "RUB"}, {"date": "2022-06-02", "value": 0.64, "currency": "RUB"}];
+var IR_EVENTS = [];
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -392,6 +397,20 @@ function render(days) {
         h += '<line x1="'+dmx.toFixed(1)+'" y1="'+PT+'" x2="'+dmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--green)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" class="div-line"/>';
     }
 
+    // IR events markers (future reports)
+    var irMarkers = [];
+    for (var iri = 0; iri < IR_EVENTS.length; iri++) {
+        var ird = IR_EVENTS[iri].date;
+        if (dateToIdx[ird] !== undefined) {
+            irMarkers.push({idx: dateToIdx[ird], type: IR_EVENTS[iri].type, description: IR_EVENTS[iri].description});
+        }
+    }
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<line x1="'+irmx.toFixed(1)+'" y1="'+PT+'" x2="'+irmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--link)" stroke-width="1" stroke-dasharray="6,3" opacity="0.5" class="ir-line"/>';
+    }
+
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
@@ -420,6 +439,12 @@ function render(days) {
         var dm = divMarkers[dmi];
         var dmx = xP(dm.idx);
         h += '<polygon points="'+dmx.toFixed(1)+','+(PT-2)+' '+(dmx+5).toFixed(1)+','+(PT+5)+' '+dmx.toFixed(1)+','+(PT+12)+' '+(dmx-5).toFixed(1)+','+(PT+5)+'" fill="var(--green)" class="div-marker" data-value="'+dm.value+'" data-currency="'+dm.currency+'" style="cursor:pointer"/>';
+    }
+    // IR event markers (hollow circle for future events)
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<circle cx="'+irmx.toFixed(1)+'" cy="'+(PT+5)+'" r="5" fill="var(--bg)" stroke="var(--link)" stroke-width="2" class="ir-marker" data-type="'+irm.type.replace(/"/g, '&quot;')+'" data-desc="'+irm.description.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
     }
 
     svg.innerHTML = h;
@@ -623,11 +648,31 @@ function render(days) {
         });
     });
 
+    // IR event marker tooltips
+    svg.querySelectorAll('.ir-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var type = this.getAttribute('data-type');
+            var desc = this.getAttribute('data-desc');
+            tooltip.innerHTML = '<strong>IR-событие</strong><br><span style="font-size:11px;color:var(--link)">' + type + '</span><br><span style="font-size:12px">' + desc.substring(0, 80) + (desc.length > 80 ? '...' : '') + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 220 > chartWrap.offsetWidth) tipX -= 230;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
     // Toggle markers visibility
     var toggleYearly = document.getElementById('toggle-yearly');
     var toggleQuarterly = document.getElementById('toggle-quarterly');
     var toggleNews = document.getElementById('toggle-news');
     var toggleDividends = document.getElementById('toggle-dividends');
+    var toggleIR = document.getElementById('toggle-ir');
 
     function updateMarkerVisibility() {
         svg.querySelectorAll('.report-marker').forEach(function(m) {
@@ -650,12 +695,19 @@ function render(days) {
         svg.querySelectorAll('.div-line').forEach(function(line) {
             line.style.display = toggleDividends.checked ? '' : 'none';
         });
+        svg.querySelectorAll('.ir-marker').forEach(function(m) {
+            m.style.display = toggleIR.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.ir-line').forEach(function(line) {
+            line.style.display = toggleIR.checked ? '' : 'none';
+        });
     }
 
     if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
     if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
     if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
     if (toggleDividends) toggleDividends.addEventListener('change', updateMarkerVisibility);
+    if (toggleIR) toggleIR.addEventListener('change', updateMarkerVisibility);
 
     // --- Table ---
     var tbl = '';
