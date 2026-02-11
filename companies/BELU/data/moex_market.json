@@ -1,0 +1,38 @@
+{
+  "ticker": "BELU",
+  "date": "2026-02-11",
+  "shortname": "НоваБев ао",
+  "secname": "НоваБев Групп ПАО ао",
+  "price": {
+    "last": 424.4,
+    "open": 424.8,
+    "high": 428.2,
+    "low": 419,
+    "waprice": 423.2,
+    "prev_close": 424.8
+  },
+  "volume": {
+    "shares_today": 205427,
+    "value_today_rub": 86952111,
+    "num_trades_today": 5668
+  },
+  "liquidity": {
+    "adv_30d_rub": 0,
+    "adv_30d_mln_rub": 0.0,
+    "bid_ask_spread_pct": 0.0943
+  },
+  "capitalization": {
+    "market_cap_rub": 53720000000,
+    "market_cap_bln_rub": 53.7,
+    "shares_outstanding": 126400000
+  },
+  "range_52w": {
+    "high": 0,
+    "low": 0
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 1
+  }
+}
