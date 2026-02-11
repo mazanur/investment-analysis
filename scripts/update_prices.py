@@ -43,25 +43,13 @@ _vpn_was_connected = False
 
 
 def vpn_control(action: str) -> bool:
-    """Управляет VPN-подключением через scutil или AppleScript."""
-    if action == "start":
-        # v2RayTun требует AppleScript для подключения
-        try:
-            import subprocess
-            result = subprocess.run(
-                ["bash", os.path.expanduser("~/vpn-on.sh")],
-                capture_output=True, text=True, timeout=30
-            )
-            return result.returncode == 0
-        except Exception:
-            return False
-    else:
-        cmd = ["/usr/sbin/scutil", "--nc", action, VPN_NAME]
-        try:
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
-            return result.returncode == 0
-        except Exception:
-            return False
+    """Управляет VPN-подключением."""
+    cmd = ["/usr/sbin/scutil", "--nc", action, VPN_NAME]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+        return result.returncode == 0
+    except Exception:
+        return False
 
 
 def vpn_is_connected() -> bool:
