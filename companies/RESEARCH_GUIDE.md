@@ -89,10 +89,13 @@ cp companies/_TEMPLATE/governance.md companies/{TICKER}/governance.md
 - Квартальные МСФО: `https://smart-lab.ru/q/{TICKER}/f/q/MSFO/`
 - CSV-download (предпочтительно): `https://smart-lab.ru/q/{TICKER}/f/y/MSFO/download/` и `.../f/q/MSFO/download/`
 
-**Локальные данные** (если скачаны через `make download-all TICKER={TICKER}`):
+**Локальные данные** (если скачаны через `make download-all TICKER={TICKER}` или `make check-reports`):
 - `companies/{TICKER}/data/smartlab_yearly.csv` — годовые МСФО
 - `companies/{TICKER}/data/smartlab_quarterly.csv` — квартальные МСФО
 - `companies/{TICKER}/data/moex_market.json` — текущая цена, ADV, спред, капитализация, 52w range
+- `companies/{TICKER}/data/price_history.csv` — история дневных цен (close, open, high, low, volume)
+
+> **Автоматическое обновление отчётов:** `make check-reports` (скрипт `scripts/check_reports.py`) сравнивает заголовки remote CSV на smart-lab.ru с локальными файлами `smartlab_quarterly.csv` / `smartlab_yearly.csv`. Если на smart-lab появился новый период — значит, вышел новый отчёт. С флагом `--download` скрипт автоматически скачивает обновлённые CSV. Если анализ запущен после `check-reports`, smartlab CSV уже актуальны.
 
 Если локальные файлы есть — используй их (быстрее и надёжнее). Если нет — загружай через WebFetch. **Проверяй актуальность:** в таблице смотри дату последнего периода. Если данные старше квартала — сверяй с официальным отчётом на e-disclosure.ru.
 
