@@ -19,17 +19,77 @@
 Автор: AlmazNurmukhametov
 """
 
+import atexit
 import csv
 import io
 import json
 import os
 import re
+import signal
 import subprocess
 import sys
 import time
 import urllib.request
 import urllib.error
 from datetime import date, timedelta
+from typing import Optional, Union
+
+
+# VPN configuration
+VPN_NAME = "v2RayTun"
+
+# Глобальный флаг для отслеживания состояния VPN
+_vpn_was_connected = False
+
+
+def vpn_control(action: str) -> bool:
+    """Управляет VPN-подключением."""
+    cmd = ["/usr/sbin/scutil", "--nc", action, VPN_NAME]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+        return result.returncode == 0
+    except Exception:
+        return False
+
+
+def vpn_is_connected() -> bool:
+    """Проверяет, подключен ли VPN."""
+    cmd = ["/usr/sbin/scutil", "--nc", "status", VPN_NAME]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+        return "Connected" in result.stdout
+    except Exception:
+        return False
+
+
+def vpn_ensure_disconnected():
+    """Гарантирует отключение VPN. Возвращает (was_connected, success)."""
+    global _vpn_was_connected
+    _vpn_was_connected = vpn_is_connected()
+    if _vpn_was_connected:
+        print(f"  Отключаем VPN ({VPN_NAME})...")
+        return _vpn_was_connected, vpn_control("stop")
+    return False, True
+
+
+def vpn_restore():
+    """Восстанавливает VPN если был подключен."""
+    global _vpn_was_connected
+    if _vpn_was_connected:
+        print(f"  Включаем обратно VPN ({VPN_NAME})...")
+        vpn_control("start")
+
+
+# Регистрируем восстановление VPN при любом выходе
+atexit.register(vpn_restore)
+
+# Также обрабатываем сигналы прерывания
+def signal_handler(signum, frame):
+    vpn_restore()
+    sys.exit(128 + signum)
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
 
 
 # MOEX ISS API — все бумаги на TQBR одним запросом
@@ -60,7 +120,7 @@ CYAN = "\033[0;36m"
 NC = "\033[0m"
 
 
-def fetch_json(url: str, retries: int = 3) -> list | dict | None:
+def fetch_json(url: str, retries: int = 3) -> Optional[Union[list, dict]]:
     """Загружает JSON по URL с повторами при ошибке. Использует curl как fallback."""
     for attempt in range(1, retries + 1):
         try:
@@ -340,6 +400,11 @@ def main():
     if not os.path.exists(companies_dir):
         print(f"{RED}Ошибка: директория {companies_dir} не найдена{NC}")
         return 1
+
+    # VPN management — отключаем перед MOEX
+    was_connected, vpn_ok = vpn_ensure_disconnected()
+    if not vpn_ok:
+        print(f"{YELLOW}Не удалось отключить VPN. Продолжаем.{NC}")
 
     # Парсим аргументы
     args = sys.argv[1:]
