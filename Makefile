@@ -322,7 +322,7 @@ check-reports:
 		while IFS= read -r ticker; do \
 			[ -z "$$ticker" ] && continue; \
 			echo "$(CYAN)═══ Анализ $$ticker ═══$(NC)"; \
-			claude $(CLAUDE_FLAGS) -p "Для компании $$ticker вышел новый финансовый отчёт. Данные уже скачаны в companies/$$ticker/data/. Прочитай новые данные (smartlab_quarterly.csv, smartlab_yearly.csv) и обнови анализ в companies/$$ticker/_index.md: пересчитай мультипликаторы, обнови финансовые таблицы, скорректируй fair value и sentiment если нужно. После обновления запусти make trends && make dashboard." | $(CLAUDE_LOG); \
+			claude $(CLAUDE_FLAGS) -p "Для компании $$ticker вышел новый финансовый отчёт. Данные уже скачаны в companies/$$ticker/data/. Обнови анализ компании следуя методологии из companies/RESEARCH_GUIDE.md (фазы 1-8). После обновления запусти make trends && make dashboard." | $(CLAUDE_LOG); \
 			echo ""; \
 		done < reports_new_tickers.txt; \
 	else \
