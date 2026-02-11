@@ -1,0 +1,63 @@
+{
+  "ticker": "IRAO",
+  "company_name": "Интер РАО",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2015-06-09",
+      "value": 0,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-06-21",
+      "value": 0.02,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-06-20",
+      "value": 0.15,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-06-01",
+      "value": 0.13,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-05-31",
+      "value": 0.171635536398468,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-06-01",
+      "value": 0.196192528735633,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-06-07",
+      "value": 0.180711206896552,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-06-10",
+      "value": 0.23658380041773,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-05-30",
+      "value": 0.28365531801897,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-06-03",
+      "value": 0.325999263608046,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-06-09",
+      "value": 0.353756516888506,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}
