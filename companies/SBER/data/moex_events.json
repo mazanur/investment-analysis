@@ -1,7 +1,7 @@
 {
   "ticker": "SBER",
   "company_name": "Сбербанк",
-  "date": "2026-02-01",
+  "date": "2026-02-11",
   "dividends": [
     {
       "registryclosedate": "2019-06-13",
@@ -193,118 +193,6 @@
       "event_date": "2025-07-09",
       "event_type": "Публикация отчетности",
       "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 6М 2025",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-06-30",
-      "event_type": "Собрания владельцев ценных бумаг",
-      "description": "Годовое заседание Общего собрания акционеров ПАО Сбербанк по итогам 2024 года",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-06-28",
-      "event_type": "IR событие (очное)",
-      "description": "Участие в конференции Smart-Lab 2025",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-06-06",
-      "event_type": "Собрания владельцев ценных бумаг",
-      "description": "Дата начала электронного голосования на годовом заседании Общего собрания акционеров по итогам 2024 года",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-06-05",
-      "event_type": "Собрания владельцев ценных бумаг",
-      "description": "Дата определения (фиксации) лиц, имеющих право на участие в годовом заседании Общего собрания акционеров по итогам 2024 года",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-05-15",
-      "event_type": "Публикация отчетности",
-      "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 4М 2025",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-04-29",
-      "event_type": "Публикация отчетности",
-      "description": "Консолидированные результаты Группы Сбер по МСФО за 3 месяца 2026 года",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-04-28",
-      "event_type": "IR событие (online)",
-      "description": "Звонок с инвесторами и аналитиками по результатам работы Группы Сбер по МСФО за 1 квартал 2025 года",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-04-28",
-      "event_type": "Публикация отчетности",
-      "description": "Консолидированные результаты Группы Сбер по МСФО за 1 квартал 2025 года",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-04-09",
-      "event_type": "Публикация отчетности",
-      "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 3М 2025",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-03-11",
-      "event_type": "Публикация отчетности",
-      "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 2М 2025",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-02-27",
-      "event_type": "IR событие (online)",
-      "description": "Звонок с Германом Грефом",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-02-27",
-      "event_type": "Публикация отчетности",
-      "description": "Консолидированные результаты Группы Сбербанк по МСФО за 2024 год",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-02-11",
-      "event_type": "Публикация отчетности",
-      "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 1М 2025",
-      "link": "https://www.sberbank.com/ru/investor-relations/calendar"
-    },
-    {
-      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СБЕРБАНК РОССИИ\"",
-      "inn": "7707083893",
-      "event_date": "2025-01-17",
-      "event_type": "Публикация отчетности",
-      "description": "Сокращенные результаты ПАО Сбербанк по РПБУ за 12М 2024",
       "link": "https://www.sberbank.com/ru/investor-relations/calendar"
     }
   ]

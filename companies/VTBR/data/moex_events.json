@@ -1,0 +1,63 @@
+{
+  "ticker": "VTBR",
+  "company_name": "ВТБ",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2014-07-01",
+      "value": 0,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-07-06",
+      "value": 0,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-07-04",
+      "value": 0,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-12-26",
+      "value": 0.01,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-05-10",
+      "value": 0,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-06-04",
+      "value": 0,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-06-24",
+      "value": 0.00109867761463259,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-10-05",
+      "value": 0.00077345337561138,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-06-22",
+      "value": 1.73965919370917e-05,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-07-15",
+      "value": 1.73965919370917e-05,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-11",
+      "value": 25.58,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

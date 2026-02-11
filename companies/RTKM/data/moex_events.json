@@ -1,0 +1,90 @@
+{
+  "ticker": "RTKM",
+  "company_name": "Ростелеком",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2014-07-14",
+      "value": 3.12,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-07-03",
+      "value": 3.34,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-07-08",
+      "value": 5.92,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-07-07",
+      "value": 5.39,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-07-08",
+      "value": 5.045825249373,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-01-13",
+      "value": 2.5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-07-04",
+      "value": 2.5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-08-21",
+      "value": 5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-07-12",
+      "value": 5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-07-20",
+      "value": 4.56,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-12-01",
+      "value": 5.4465,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-09-27",
+      "value": 6.06,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-08-13",
+      "value": 2.71,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": [
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"РОСТЕЛЕКОМ\"",
+      "inn": "7707049388",
+      "event_date": "2026-11-12",
+      "event_type": "Публикация отчетности",
+      "description": "Объявление результатов за 3 квартал и 9 месяцев 2026 по МСФО (предварительно)",
+      "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"РОСТЕЛЕКОМ\"",
+      "inn": "7707049388",
+      "event_date": "2026-08-05",
+      "event_type": "Публикация отчетности",
+      "description": "Объявление результатов за 1 квартал 2026 по МСФО (предварительно)",
+      "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
+    }
+  ]
+}

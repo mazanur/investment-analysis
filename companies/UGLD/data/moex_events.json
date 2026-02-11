@@ -1,0 +1,18 @@
+{
+  "ticker": "UGLD",
+  "company_name": "Южуралзолото Группа Компаний (ЮГК)",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2019-07-08",
+      "value": 0.018,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-08-27",
+      "value": 0.005,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

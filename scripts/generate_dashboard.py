@@ -555,8 +555,32 @@ def read_dividends(companies_dir: str, ticker: str) -> list[dict]:
         return []
 
 
+def read_ir_events(companies_dir: str, ticker: str) -> list[dict]:
+    """Читает IR-события (будущие отчёты) из moex_events.json. Возвращает [{date, type, description}]."""
+    events_path = os.path.join(companies_dir, ticker, 'data', 'moex_events.json')
+    if not os.path.exists(events_path):
+        return []
+
+    try:
+        with open(events_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        ir_events = data.get('ir_events', [])
+        result = []
+        for e in ir_events:
+            if e.get('event_date'):
+                result.append({
+                    'date': e['event_date'],
+                    'type': e.get('event_type', ''),
+                    'description': e.get('description', ''),
+                })
+        return sorted(result, key=lambda x: x['date'])
+    except (json.JSONDecodeError, KeyError):
+        return []
+
+
 def generate_price_chart_html(history: list[dict], report_dates: list[dict] = None,
-                              news: list[dict] = None, dividends: list[dict] = None) -> str:
+                              news: list[dict] = None, dividends: list[dict] = None,
+                              ir_events: list[dict] = None) -> str:
     """Генерирует интерактивный блок истории цен с переключением периодов."""
     if not history:
         return ''
@@ -589,6 +613,12 @@ def generate_price_chart_html(history: list[dict], report_dates: list[dict] = No
         ensure_ascii=False,
     ).replace('</', '<\\/')
 
+    # IR-события для JS
+    js_ir_events = json.dumps(
+        ir_events or [],
+        ensure_ascii=False,
+    ).replace('</', '<\\/')
+
     return f"""
 <div class="price-history">
 <h3>История цен</h3>
@@ -617,6 +647,10 @@ def generate_price_chart_html(history: list[dict], report_dates: list[dict] = No
 <input type="checkbox" id="toggle-dividends" checked style="cursor:pointer">
 <span style="display:inline-block;width:8px;height:8px;background:var(--green);transform:rotate(45deg)"></span>Дивиденд
 </label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-ir" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border:2px solid var(--link);border-radius:50%;background:transparent"></span>IR-события
+</label>
 </div>
 </div>
 <div class="price-chart-wrap">
@@ -636,6 +670,7 @@ var DATA = {js_data};
 var REPORTS = {js_reports};
 var NEWS = {js_news};
 var DIVIDENDS = {js_dividends};
+var IR_EVENTS = {js_ir_events};
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -729,6 +764,20 @@ function render(days) {{
         h += '<line x1="'+dmx.toFixed(1)+'" y1="'+PT+'" x2="'+dmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--green)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" class="div-line"/>';
     }}
 
+    // IR events markers (future reports)
+    var irMarkers = [];
+    for (var iri = 0; iri < IR_EVENTS.length; iri++) {{
+        var ird = IR_EVENTS[iri].date;
+        if (dateToIdx[ird] !== undefined) {{
+            irMarkers.push({{idx: dateToIdx[ird], type: IR_EVENTS[iri].type, description: IR_EVENTS[iri].description}});
+        }}
+    }}
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {{
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<line x1="'+irmx.toFixed(1)+'" y1="'+PT+'" x2="'+irmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--link)" stroke-width="1" stroke-dasharray="6,3" opacity="0.5" class="ir-line"/>';
+    }}
+
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
@@ -757,6 +806,12 @@ function render(days) {{
         var dm = divMarkers[dmi];
         var dmx = xP(dm.idx);
         h += '<polygon points="'+dmx.toFixed(1)+','+(PT-2)+' '+(dmx+5).toFixed(1)+','+(PT+5)+' '+dmx.toFixed(1)+','+(PT+12)+' '+(dmx-5).toFixed(1)+','+(PT+5)+'" fill="var(--green)" class="div-marker" data-value="'+dm.value+'" data-currency="'+dm.currency+'" style="cursor:pointer"/>';
+    }}
+    // IR event markers (hollow circle for future events)
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {{
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<circle cx="'+irmx.toFixed(1)+'" cy="'+(PT+5)+'" r="5" fill="var(--bg)" stroke="var(--link)" stroke-width="2" class="ir-marker" data-type="'+irm.type.replace(/"/g, '&quot;')+'" data-desc="'+irm.description.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
     }}
 
     svg.innerHTML = h;
@@ -960,11 +1015,31 @@ function render(days) {{
         }});
     }});
 
+    // IR event marker tooltips
+    svg.querySelectorAll('.ir-marker').forEach(function(marker) {{
+        marker.addEventListener('mouseenter', function(e) {{
+            var type = this.getAttribute('data-type');
+            var desc = this.getAttribute('data-desc');
+            tooltip.innerHTML = '<strong>IR-событие</strong><br><span style="font-size:11px;color:var(--link)">' + type + '</span><br><span style="font-size:12px">' + desc.substring(0, 80) + (desc.length > 80 ? '...' : '') + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 220 > chartWrap.offsetWidth) tipX -= 230;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        }});
+        marker.addEventListener('mouseleave', function() {{
+            tooltip.style.display = 'none';
+        }});
+    }});
+
     // Toggle markers visibility
     var toggleYearly = document.getElementById('toggle-yearly');
     var toggleQuarterly = document.getElementById('toggle-quarterly');
     var toggleNews = document.getElementById('toggle-news');
     var toggleDividends = document.getElementById('toggle-dividends');
+    var toggleIR = document.getElementById('toggle-ir');
 
     function updateMarkerVisibility() {{
         svg.querySelectorAll('.report-marker').forEach(function(m) {{
@@ -987,12 +1062,19 @@ function render(days) {{
         svg.querySelectorAll('.div-line').forEach(function(line) {{
             line.style.display = toggleDividends.checked ? '' : 'none';
         }});
+        svg.querySelectorAll('.ir-marker').forEach(function(m) {{
+            m.style.display = toggleIR.checked ? '' : 'none';
+        }});
+        svg.querySelectorAll('.ir-line').forEach(function(line) {{
+            line.style.display = toggleIR.checked ? '' : 'none';
+        }});
     }}
 
     if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
     if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
     if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
     if (toggleDividends) toggleDividends.addEventListener('change', updateMarkerVisibility);
+    if (toggleIR) toggleIR.addEventListener('change', updateMarkerVisibility);
 
     // --- Table ---
     var tbl = '';
@@ -1600,7 +1682,8 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
         report_dates = read_report_dates(companies_dir, ticker)
         news = read_news(companies_dir, ticker)
         dividends = read_dividends(companies_dir, ticker)
-        price_history_html = generate_price_chart_html(history, report_dates, news, dividends)
+        ir_events = read_ir_events(companies_dir, ticker)
+        price_history_html = generate_price_chart_html(history, report_dates, news, dividends, ir_events)
 
     # Конвертируем body в HTML
     body_html = markdown_to_html(company['body'])

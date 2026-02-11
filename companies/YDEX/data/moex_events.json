@@ -1,0 +1,18 @@
+{
+  "ticker": "YDEX",
+  "company_name": "Яндекс",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2024-09-20",
+      "value": 80,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-04-28",
+      "value": 80,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

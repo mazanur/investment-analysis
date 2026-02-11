@@ -1,0 +1,68 @@
+{
+  "ticker": "MSNG",
+  "company_name": "Мосэнерго",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2014-06-16",
+      "value": 0.04,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-06-24",
+      "value": 0.01,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-06-17",
+      "value": 0.06,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-06-14",
+      "value": 0.08,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-06-18",
+      "value": 0.17,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-07-02",
+      "value": 0.21004,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-07-08",
+      "value": 0.12075,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-07-05",
+      "value": 0.17945,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-07-11",
+      "value": 0.22308,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-07-04",
+      "value": 0.18652,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-07-09",
+      "value": 0.16038,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-08",
+      "value": 0.22606373615,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

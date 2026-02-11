@@ -1,0 +1,73 @@
+{
+  "ticker": "PLZL",
+  "company_name": "Полюс",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2017-07-17",
+      "value": 152.41,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-09-25",
+      "value": 104.3,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-06-10",
+      "value": 147.12,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-10-18",
+      "value": 131.11,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-05-16",
+      "value": 143.62,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-10-10",
+      "value": 162.98,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-08-28",
+      "value": 244.75,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-10-20",
+      "value": 240.18,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-06-07",
+      "value": 387.15,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-10-11",
+      "value": 267.48,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-06-16",
+      "value": 436.79,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-12-13",
+      "value": 1301.75,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-04-25",
+      "value": 73,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

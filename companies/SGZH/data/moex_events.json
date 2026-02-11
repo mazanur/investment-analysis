@@ -1,0 +1,18 @@
+{
+  "ticker": "SGZH",
+  "company_name": "Сегежа Групп",
+  "date": "2026-02-11",
+  "dividends": [
+    {
+      "registryclosedate": "2022-01-08",
+      "value": 0.42,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-06-02",
+      "value": 0.64,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}
