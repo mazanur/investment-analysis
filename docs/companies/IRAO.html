@@ -255,12 +255,18 @@ tr.stub td { color: var(--stub-row-text); }
 
 <div class="price-history">
 <h3>История цен</h3>
-<div class="period-btns" id="period-btns">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+<div class="period-btns" id="period-btns" style="margin-bottom:0">
 <button class="period-btn" data-days="21">1М</button>
 <button class="period-btn" data-days="63">3М</button>
 <button class="period-btn" data-days="126">6М</button>
 <button class="period-btn active" data-days="252">1Г</button>
 <button class="period-btn" data-days="0">Всё</button>
+</div>
+<div class="report-legend" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary)">
+<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:4px"></span>Годовой отчёт</span>
+<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin-right:4px"></span>Квартальный</span>
+</div>
 </div>
 <div class="price-chart-wrap">
 <svg id="price-svg" viewBox="0 0 700 200" class="price-chart"></svg>
@@ -276,6 +282,7 @@ tr.stub td { color: var(--stub-row-text); }
 <script>
 (function() {
 var DATA = [{"d": "2026-02-09", "c": 3.3745, "v": 392300348}, {"d": "2026-02-10", "c": 3.386, "v": 198866714}, {"d": "2026-02-11", "c": 3.3745, "v": 68527689}];
+var REPORTS = [{"date": "2018-05-16", "type": "Q", "period": "2018Q1"}, {"date": "2018-06-15", "type": "Q", "period": "2017Q4"}, {"date": "2018-07-07", "type": "Q", "period": "2013Q4"}, {"date": "2018-08-15", "type": "Q", "period": "2017Q2"}, {"date": "2018-11-14", "type": "Q", "period": "2018Q3"}, {"date": "2019-03-04", "type": "Q", "period": "2018Q4"}, {"date": "2019-05-16", "type": "Q", "period": "2019Q1"}, {"date": "2019-08-14", "type": "Q", "period": "2019Q2"}, {"date": "2019-11-15", "type": "Q", "period": "2019Q3"}, {"date": "2020-02-28", "type": "Q", "period": "2019Q4"}, {"date": "2020-04-01", "type": "Q", "period": "2015Q4"}, {"date": "2020-05-22", "type": "Q", "period": "2020Q1"}, {"date": "2020-08-17", "type": "Q", "period": "2020Q2"}, {"date": "2020-11-13", "type": "Q", "period": "2020Q3"}, {"date": "2020-11-16", "type": "Q", "period": "2014Q4"}, {"date": "2021-03-01", "type": "Q", "period": "2020Q4"}, {"date": "2021-05-28", "type": "Q", "period": "2021Q1"}, {"date": "2021-08-27", "type": "Q", "period": "2021Q2"}, {"date": "2021-11-25", "type": "Q", "period": "2021Q3"}, {"date": "2022-06-17", "type": "Q", "period": "2011Q4"}, {"date": "2023-08-29", "type": "Q", "period": "2022Q1"}, {"date": "2023-09-14", "type": "Q", "period": "2014Q2"}, {"date": "2023-12-01", "type": "Q", "period": "2022Q3"}, {"date": "2024-02-29", "type": "Q", "period": "2022Q4"}, {"date": "2024-05-30", "type": "Q", "period": "2024Q1"}, {"date": "2024-06-20", "type": "Q", "period": "2008Q4"}, {"date": "2024-08-14", "type": "Q", "period": "2024Q2"}, {"date": "2024-11-29", "type": "Q", "period": "2024Q3"}, {"date": "2025-02-28", "type": "Q", "period": "2024Q4"}, {"date": "2025-05-30", "type": "Q", "period": "2025Q1"}, {"date": "2025-08-14", "type": "Q", "period": "2025Q2"}, {"date": "2025-11-14", "type": "Q", "period": "2025Q3"}];
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -321,6 +328,24 @@ function render(days) {
     h += '<polygon points="'+area+'" fill="'+trendColor+'" opacity="0.1"/>';
     h += '<polyline points="'+polyline+'" fill="none" stroke="'+trendColor+'" stroke-width="2" stroke-linejoin="round"/>';
     h += '<circle cx="'+xP(n-1).toFixed(1)+'" cy="'+yP(prices[n-1]).toFixed(1)+'" r="4" fill="var(--link)"/>';
+
+    // Report markers
+    var dateToIdx = {};
+    for (var di = 0; di < n; di++) dateToIdx[src[di].d] = di;
+    var reportMarkers = [];
+    for (var ri = 0; ri < REPORTS.length; ri++) {
+        var rd = REPORTS[ri].date;
+        if (dateToIdx[rd] !== undefined) {
+            reportMarkers.push({idx: dateToIdx[rd], type: REPORTS[ri].type, period: REPORTS[ri].period});
+        }
+    }
+    for (var mi = 0; mi < reportMarkers.length; mi++) {
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7"/>';
+        h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="4" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'"/>';
+    }
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
@@ -461,6 +486,26 @@ function render(days) {
         hvDot.setAttribute('visibility', 'hidden');
         tooltip.style.display = 'none';
         if (cmpState === 1) cmpLine.setAttribute('visibility', 'hidden');
+    });
+
+    // Report marker tooltips
+    svg.querySelectorAll('.report-marker').forEach(function(marker) {
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {
+            var period = this.getAttribute('data-period');
+            var type = this.getAttribute('data-type') === 'Y' ? 'Годовой' : 'Квартальный';
+            tooltip.innerHTML = '<strong>' + type + ' отчёт</strong><br><span style="color:var(--text-secondary);font-size:11px">' + period + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
     });
 
     // --- Table ---
