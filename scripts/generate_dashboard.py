@@ -462,7 +462,63 @@ def read_price_history(companies_dir: str, ticker: str) -> list[dict]:
     return rows
 
 
-def generate_price_chart_html(history: list[dict]) -> str:
+def read_report_dates(companies_dir: str, ticker: str) -> list[dict]:
+    """Читает даты отчётов из smartlab CSV. Возвращает [{date, type, period}]."""
+    reports = []
+
+    for csv_name, report_type in [('smartlab_quarterly.csv', 'Q'), ('smartlab_yearly.csv', 'Y')]:
+        csv_path = os.path.join(companies_dir, ticker, 'data', csv_name)
+        if not os.path.exists(csv_path):
+            continue
+
+        try:
+            with open(csv_path, 'r', encoding='utf-8-sig') as f:
+                reader = csv.reader(f, delimiter=';')
+                rows = list(reader)
+
+            if len(rows) < 2:
+                continue
+
+            # Первая строка — заголовки (периоды: 2023Q1, 2024, etc)
+            headers = rows[0]
+            # Вторая строка — "Дата отчета"
+            date_row = rows[1] if rows[1][0].strip('"') == 'Дата отчета' else None
+
+            if not date_row:
+                continue
+
+            for i, date_str in enumerate(date_row[1:], start=1):
+                if not date_str or date_str == '':
+                    continue
+                # Парсим дату DD.MM.YYYY → YYYY-MM-DD
+                try:
+                    parts = date_str.strip().split('.')
+                    if len(parts) == 3:
+                        iso_date = f"{parts[2]}-{parts[1]}-{parts[0]}"
+                        period = headers[i] if i < len(headers) else ''
+                        reports.append({
+                            'date': iso_date,
+                            'type': report_type,
+                            'period': period,
+                        })
+                except (ValueError, IndexError):
+                    continue
+
+        except Exception:
+            continue
+
+    # Убираем дубликаты по дате и сортируем
+    seen = set()
+    unique = []
+    for r in reports:
+        if r['date'] not in seen:
+            seen.add(r['date'])
+            unique.append(r)
+
+    return sorted(unique, key=lambda x: x['date'])
+
+
+def generate_price_chart_html(history: list[dict], report_dates: list[dict] = None) -> str:
     """Генерирует интерактивный блок истории цен с переключением периодов."""
     if not history:
         return ''
@@ -477,15 +533,27 @@ def generate_price_chart_html(history: list[dict]) -> str:
         ensure_ascii=False,
     ).replace('</', '<\\/')
 
+    # Даты отчётов для JS
+    js_reports = json.dumps(
+        report_dates or [],
+        ensure_ascii=False,
+    ).replace('</', '<\\/')
+
     return f"""
 <div class="price-history">
 <h3>История цен</h3>
-<div class="period-btns" id="period-btns">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+<div class="period-btns" id="period-btns" style="margin-bottom:0">
 <button class="period-btn" data-days="21">1М</button>
 <button class="period-btn" data-days="63">3М</button>
 <button class="period-btn" data-days="126">6М</button>
 <button class="period-btn active" data-days="252">1Г</button>
 <button class="period-btn" data-days="0">Всё</button>
+</div>
+<div class="report-legend" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary)">
+<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:4px"></span>Годовой отчёт</span>
+<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin-right:4px"></span>Квартальный</span>
+</div>
 </div>
 <div class="price-chart-wrap">
 <svg id="price-svg" viewBox="0 0 700 200" class="price-chart"></svg>
@@ -501,6 +569,7 @@ def generate_price_chart_html(history: list[dict]) -> str:
 <script>
 (function() {{
 var DATA = {js_data};
+var REPORTS = {js_reports};
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -546,6 +615,24 @@ function render(days) {{
     h += '<polygon points="'+area+'" fill="'+trendColor+'" opacity="0.1"/>';
     h += '<polyline points="'+polyline+'" fill="none" stroke="'+trendColor+'" stroke-width="2" stroke-linejoin="round"/>';
     h += '<circle cx="'+xP(n-1).toFixed(1)+'" cy="'+yP(prices[n-1]).toFixed(1)+'" r="4" fill="var(--link)"/>';
+
+    // Report markers
+    var dateToIdx = {{}};
+    for (var di = 0; di < n; di++) dateToIdx[src[di].d] = di;
+    var reportMarkers = [];
+    for (var ri = 0; ri < REPORTS.length; ri++) {{
+        var rd = REPORTS[ri].date;
+        if (dateToIdx[rd] !== undefined) {{
+            reportMarkers.push({{idx: dateToIdx[rd], type: REPORTS[ri].type, period: REPORTS[ri].period}});
+        }}
+    }}
+    for (var mi = 0; mi < reportMarkers.length; mi++) {{
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7"/>';
+        h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="4" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'"/>';
+    }}
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
@@ -686,6 +773,26 @@ function render(days) {{
         hvDot.setAttribute('visibility', 'hidden');
         tooltip.style.display = 'none';
         if (cmpState === 1) cmpLine.setAttribute('visibility', 'hidden');
+    }});
+
+    // Report marker tooltips
+    svg.querySelectorAll('.report-marker').forEach(function(marker) {{
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {{
+            var period = this.getAttribute('data-period');
+            var type = this.getAttribute('data-type') === 'Y' ? 'Годовой' : 'Квартальный';
+            tooltip.innerHTML = '<strong>' + type + ' отчёт</strong><br><span style="color:var(--text-secondary);font-size:11px">' + period + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        }});
+        marker.addEventListener('mouseleave', function() {{
+            tooltip.style.display = 'none';
+        }});
     }});
 
     // --- Table ---
@@ -1291,7 +1398,8 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
     price_history_html = ''
     if companies_dir:
         history = read_price_history(companies_dir, ticker)
-        price_history_html = generate_price_chart_html(history)
+        report_dates = read_report_dates(companies_dir, ticker)
+        price_history_html = generate_price_chart_html(history, report_dates)
 
     # Конвертируем body в HTML
     body_html = markdown_to_html(company['body'])
