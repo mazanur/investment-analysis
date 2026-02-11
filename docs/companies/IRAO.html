@@ -276,6 +276,10 @@ tr.stub td { color: var(--stub-row-text); }
 <input type="checkbox" id="toggle-news" checked style="cursor:pointer">
 <span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive)"></span>Новость
 </label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-dividends" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;background:var(--green);transform:rotate(45deg)"></span>Дивиденд
+</label>
 </div>
 </div>
 <div class="price-chart-wrap">
@@ -294,6 +298,7 @@ tr.stub td { color: var(--stub-row-text); }
 var DATA = [{"d": "2026-02-09", "c": 3.3745, "v": 392300348}, {"d": "2026-02-10", "c": 3.386, "v": 198866714}, {"d": "2026-02-11", "c": 3.3745, "v": 68527689}];
 var REPORTS = [{"date": "2018-05-16", "type": "Q", "period": "2018Q1"}, {"date": "2018-06-15", "type": "Q", "period": "2017Q4"}, {"date": "2018-07-07", "type": "Q", "period": "2013Q4"}, {"date": "2018-08-15", "type": "Q", "period": "2017Q2"}, {"date": "2018-11-14", "type": "Q", "period": "2018Q3"}, {"date": "2019-03-04", "type": "Q", "period": "2018Q4"}, {"date": "2019-05-16", "type": "Q", "period": "2019Q1"}, {"date": "2019-08-14", "type": "Q", "period": "2019Q2"}, {"date": "2019-11-15", "type": "Q", "period": "2019Q3"}, {"date": "2020-02-28", "type": "Q", "period": "2019Q4"}, {"date": "2020-04-01", "type": "Q", "period": "2015Q4"}, {"date": "2020-05-22", "type": "Q", "period": "2020Q1"}, {"date": "2020-08-17", "type": "Q", "period": "2020Q2"}, {"date": "2020-11-13", "type": "Q", "period": "2020Q3"}, {"date": "2020-11-16", "type": "Q", "period": "2014Q4"}, {"date": "2021-03-01", "type": "Q", "period": "2020Q4"}, {"date": "2021-05-28", "type": "Q", "period": "2021Q1"}, {"date": "2021-08-27", "type": "Q", "period": "2021Q2"}, {"date": "2021-11-25", "type": "Q", "period": "2021Q3"}, {"date": "2022-06-17", "type": "Q", "period": "2011Q4"}, {"date": "2023-08-29", "type": "Q", "period": "2022Q1"}, {"date": "2023-09-14", "type": "Q", "period": "2014Q2"}, {"date": "2023-12-01", "type": "Q", "period": "2022Q3"}, {"date": "2024-02-29", "type": "Q", "period": "2022Q4"}, {"date": "2024-05-30", "type": "Q", "period": "2024Q1"}, {"date": "2024-06-20", "type": "Q", "period": "2008Q4"}, {"date": "2024-08-14", "type": "Q", "period": "2024Q2"}, {"date": "2024-11-29", "type": "Q", "period": "2024Q3"}, {"date": "2025-02-28", "type": "Q", "period": "2024Q4"}, {"date": "2025-05-30", "type": "Q", "period": "2025Q1"}, {"date": "2025-08-14", "type": "Q", "period": "2025Q2"}, {"date": "2025-11-14", "type": "Q", "period": "2025Q3"}];
 var NEWS = [];
+var DIVIDENDS = [{"date": "2016-06-21", "value": 0.02, "currency": "RUB"}, {"date": "2017-06-20", "value": 0.15, "currency": "RUB"}, {"date": "2018-06-01", "value": 0.13, "currency": "RUB"}, {"date": "2019-05-31", "value": 0.171635536398468, "currency": "RUB"}, {"date": "2020-06-01", "value": 0.196192528735633, "currency": "RUB"}, {"date": "2021-06-07", "value": 0.180711206896552, "currency": "RUB"}, {"date": "2022-06-10", "value": 0.23658380041773, "currency": "RUB"}, {"date": "2023-05-30", "value": 0.28365531801897, "currency": "RUB"}, {"date": "2024-06-03", "value": 0.325999263608046, "currency": "RUB"}, {"date": "2025-06-09", "value": 0.353756516888506, "currency": "RUB"}];
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -373,6 +378,20 @@ function render(days) {
         h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8" class="news-line"/>';
     }
 
+    // Dividend markers
+    var divMarkers = [];
+    for (var dvi = 0; dvi < DIVIDENDS.length; dvi++) {
+        var dd = DIVIDENDS[dvi].date;
+        if (dateToIdx[dd] !== undefined) {
+            divMarkers.push({idx: dateToIdx[dd], value: DIVIDENDS[dvi].value, currency: DIVIDENDS[dvi].currency || 'RUB'});
+        }
+    }
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<line x1="'+dmx.toFixed(1)+'" y1="'+PT+'" x2="'+dmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--green)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" class="div-line"/>';
+    }
+
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
@@ -395,6 +414,12 @@ function render(days) {
         var nmx = xP(nm.idx);
         var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
         h += '<polygon points="'+(nmx-6).toFixed(1)+','+(PT+10)+' '+(nmx+6).toFixed(1)+','+(PT+10)+' '+nmx.toFixed(1)+','+(PT-2)+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'" data-url="'+nm.url.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }
+    // Dividend markers (diamond shape)
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<polygon points="'+dmx.toFixed(1)+','+(PT-2)+' '+(dmx+5).toFixed(1)+','+(PT+5)+' '+dmx.toFixed(1)+','+(PT+12)+' '+(dmx-5).toFixed(1)+','+(PT+5)+'" fill="var(--green)" class="div-marker" data-value="'+dm.value+'" data-currency="'+dm.currency+'" style="cursor:pointer"/>';
     }
 
     svg.innerHTML = h;
@@ -579,10 +604,30 @@ function render(days) {
         });
     });
 
+    // Dividend marker tooltips
+    svg.querySelectorAll('.div-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var value = this.getAttribute('data-value');
+            var currency = this.getAttribute('data-currency');
+            tooltip.innerHTML = '<strong>Дивиденд</strong><br><span style="font-size:14px;color:var(--positive)">' + value + ' ' + currency + '</span><br><span style="color:var(--text-secondary);font-size:10px">Дата отсечки</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 150 > chartWrap.offsetWidth) tipX -= 160;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
     // Toggle markers visibility
     var toggleYearly = document.getElementById('toggle-yearly');
     var toggleQuarterly = document.getElementById('toggle-quarterly');
     var toggleNews = document.getElementById('toggle-news');
+    var toggleDividends = document.getElementById('toggle-dividends');
 
     function updateMarkerVisibility() {
         svg.querySelectorAll('.report-marker').forEach(function(m) {
@@ -599,11 +644,18 @@ function render(days) {
         svg.querySelectorAll('.news-line').forEach(function(line) {
             line.style.display = toggleNews.checked ? '' : 'none';
         });
+        svg.querySelectorAll('.div-marker').forEach(function(m) {
+            m.style.display = toggleDividends.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.div-line').forEach(function(line) {
+            line.style.display = toggleDividends.checked ? '' : 'none';
+        });
     }
 
     if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
     if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
     if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
+    if (toggleDividends) toggleDividends.addEventListener('change', updateMarkerVisibility);
 
     // --- Table ---
     var tbl = '';
