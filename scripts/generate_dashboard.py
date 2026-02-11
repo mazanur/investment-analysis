@@ -518,7 +518,22 @@ def read_report_dates(companies_dir: str, ticker: str) -> list[dict]:
     return sorted(unique, key=lambda x: x['date'])
 
 
-def generate_price_chart_html(history: list[dict], report_dates: list[dict] = None) -> str:
+def read_news(companies_dir: str, ticker: str) -> list[dict]:
+    """Читает новости из news.json. Возвращает [{date, title, type, url, impact}]."""
+    news_path = os.path.join(companies_dir, ticker, 'data', 'news.json')
+    if not os.path.exists(news_path):
+        return []
+
+    try:
+        with open(news_path, 'r', encoding='utf-8') as f:
+            news = json.load(f)
+        return sorted(news, key=lambda x: x.get('date', ''))
+    except (json.JSONDecodeError, KeyError):
+        return []
+
+
+def generate_price_chart_html(history: list[dict], report_dates: list[dict] = None,
+                              news: list[dict] = None) -> str:
     """Генерирует интерактивный блок истории цен с переключением периодов."""
     if not history:
         return ''
@@ -539,6 +554,12 @@ def generate_price_chart_html(history: list[dict], report_dates: list[dict] = No
         ensure_ascii=False,
     ).replace('</', '<\\/')
 
+    # Новости для JS
+    js_news = json.dumps(
+        news or [],
+        ensure_ascii=False,
+    ).replace('</', '<\\/')
+
     return f"""
 <div class="price-history">
 <h3>История цен</h3>
@@ -550,9 +571,10 @@ def generate_price_chart_html(history: list[dict], report_dates: list[dict] = No
 <button class="period-btn active" data-days="252">1Г</button>
 <button class="period-btn" data-days="0">Всё</button>
 </div>
-<div class="report-legend" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary)">
-<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:4px"></span>Годовой отчёт</span>
+<div class="report-legend" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap">
+<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:4px"></span>Годовой</span>
 <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin-right:4px"></span>Квартальный</span>
+<span><span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive);margin-right:4px"></span>Новость</span>
 </div>
 </div>
 <div class="price-chart-wrap">
@@ -570,6 +592,7 @@ def generate_price_chart_html(history: list[dict], report_dates: list[dict] = No
 (function() {{
 var DATA = {js_data};
 var REPORTS = {js_reports};
+var NEWS = {js_news};
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -632,6 +655,22 @@ function render(days) {{
         var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
         h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7"/>';
         h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="4" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'"/>';
+    }}
+
+    // News markers
+    var newsMarkers = [];
+    for (var ni = 0; ni < NEWS.length; ni++) {{
+        var nd = NEWS[ni].date;
+        if (dateToIdx[nd] !== undefined) {{
+            newsMarkers.push({{idx: dateToIdx[nd], title: NEWS[ni].title, impact: NEWS[ni].impact || 'neutral'}});
+        }}
+    }}
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {{
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8"/>';
+        h += '<polygon points="'+(nmx-5).toFixed(1)+','+(PT+8)+' '+(nmx+5).toFixed(1)+','+(PT+8)+' '+nmx.toFixed(1)+','+PT+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'"/>';
     }}
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
@@ -787,6 +826,28 @@ function render(days) {{
             var tipX = (e.clientX - rect.left) + 12;
             var tipY = (e.clientY - rect.top) - 10;
             if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        }});
+        marker.addEventListener('mouseleave', function() {{
+            tooltip.style.display = 'none';
+        }});
+    }});
+
+    // News marker tooltips
+    svg.querySelectorAll('.news-marker').forEach(function(marker) {{
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {{
+            var title = this.getAttribute('data-title');
+            var impact = this.getAttribute('data-impact');
+            var impactText = impact === 'positive' ? '↑ Позитив' : impact === 'negative' ? '↓ Негатив' : '— Нейтрально';
+            var impactCls = impact === 'positive' ? 'positive' : impact === 'negative' ? 'negative' : 'muted';
+            tooltip.innerHTML = '<strong>Новость</strong><br><span style="font-size:12px">' + title + '</span><br><span class="' + impactCls + '" style="font-size:11px">' + impactText + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 180 > chartWrap.offsetWidth) tipX -= 190;
             tooltip.style.left = tipX + 'px';
             tooltip.style.top = tipY + 'px';
         }});
@@ -1399,7 +1460,8 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
     if companies_dir:
         history = read_price_history(companies_dir, ticker)
         report_dates = read_report_dates(companies_dir, ticker)
-        price_history_html = generate_price_chart_html(history, report_dates)
+        news = read_news(companies_dir, ticker)
+        price_history_html = generate_price_chart_html(history, report_dates, news)
 
     # Конвертируем body в HTML
     body_html = markdown_to_html(company['body'])
