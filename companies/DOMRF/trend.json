@@ -1,8 +1,8 @@
 {
   "ticker": "DOMRF",
-  "sentiment": "bullish",
-  "upside": 0.47,
-  "growth_probability": 0.7,
-  "decline_probability": 0.2,
+  "sentiment": "neutral",
+  "upside": 0.4,
+  "growth_probability": 0.45,
+  "decline_probability": 0.4,
   "updated": "2026-02-11"
 }
