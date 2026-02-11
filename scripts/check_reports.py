@@ -3,8 +3,9 @@
 Проверка выхода новых финансовых отчётов.
 
 Скачивает квартальный CSV со smart-lab.ru и сравнивает последний
-доступный период с сохранённым состоянием. Если появился новый
-квартал — значит, компания опубликовала отчёт.
+доступный период с локальным CSV в companies/{TICKER}/data/.
+Если на smart-lab появился новый квартал/год — значит, компания
+опубликовала отчёт.
 
 Использование:
     python3 scripts/check_reports.py              # все компании
@@ -14,7 +15,6 @@
 Автор: AlmazNurmukhametov
 """
 
-import json
 import os
 import re
 import subprocess
@@ -30,9 +30,6 @@ QUARTERLY_URL = "https://smart-lab.ru/q/{ticker}/f/q/MSFO/download/"
 YEARLY_URL = "https://smart-lab.ru/q/{ticker}/f/y/MSFO/download/"
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 DELAY_SECONDS = 1.5
-
-# Файл состояния — хранит последние известные периоды
-STATE_FILE = "reports_state.json"
 
 # Цвета
 GREEN = "\033[0;32m"
@@ -83,24 +80,22 @@ def get_latest_period(periods: list[str]) -> str:
     return periods[-1]
 
 
-def get_report_date(url: str) -> str:
-    """Извлекает дату последнего отчёта из строки 'Дата отчета' CSV."""
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+def get_local_latest_period(companies_dir: str, ticker: str, csv_type: str) -> str:
+    """
+    Читает заголовок локального CSV и возвращает последний период.
+    csv_type: "quarterly" или "yearly"
+    """
+    filename = f"smartlab_{csv_type}.csv"
+    csv_path = os.path.join(companies_dir, ticker, "data", filename)
+    if not os.path.exists(csv_path):
+        return ""
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = resp.read(8192)
-            text = data.decode("utf-8-sig", errors="replace")
-            lines = text.split("\n")
-            if len(lines) >= 2:
-                # Вторая строка — "Дата отчета";...;28.08.2025;...
-                parts = lines[1].split(";")
-                # Берём последнюю непустую дату
-                dates = [p.strip().strip('"') for p in parts if re.match(r"\d{2}\.\d{2}\.\d{4}", p.strip().strip('"'))]
-                if dates:
-                    return dates[-1]
-    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError):
-        pass
-    return ""
+        with open(csv_path, "r", encoding="utf-8-sig") as f:
+            header = f.readline().strip()
+        periods = parse_periods(header)
+        return get_latest_period(periods)
+    except (OSError, UnicodeDecodeError):
+        return ""
 
 
 def get_tickers(companies_dir: str) -> list[str]:
@@ -122,28 +117,14 @@ def get_tickers(companies_dir: str) -> list[str]:
     return tickers
 
 
-def load_state(state_path: str) -> dict:
-    """Загружает состояние из JSON."""
-    if os.path.exists(state_path):
-        with open(state_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {}
-
-
-def save_state(state_path: str, state: dict):
-    """Сохраняет состояние в JSON."""
-    with open(state_path, "w", encoding="utf-8") as f:
-        json.dump(state, f, ensure_ascii=False, indent=2)
-        f.write("\n")
-
-
-def check_ticker(ticker: str, state: dict) -> dict:
+def check_ticker(ticker: str, companies_dir: str) -> dict:
     """
-    Проверяет один тикер. Возвращает:
+    Проверяет один тикер. Сравнивает remote smart-lab с локальным CSV.
+    Возвращает:
     {
         "status": "new" | "unchanged" | "error",
-        "quarterly": {"old": "2025Q2", "new": "2025Q3", "report_date": "28.08.2025"},
-        "yearly": {"old": "2024", "new": "2024"},
+        "quarterly": {"local": "2025Q2", "remote": "2025Q3"},
+        "yearly": {"local": "2024", "remote": "2024"},
     }
     """
     result = {"status": "unchanged", "quarterly": {}, "yearly": {}}
@@ -152,16 +133,16 @@ def check_ticker(ticker: str, state: dict) -> dict:
     q_header = fetch_csv_header(QUARTERLY_URL.format(ticker=ticker))
     if q_header:
         q_periods = parse_periods(q_header)
-        q_latest = get_latest_period(q_periods)
-        q_old = state.get(f"{ticker}_quarterly", "")
+        q_remote = get_latest_period(q_periods)
+        q_local = get_local_latest_period(companies_dir, ticker, "quarterly")
 
         result["quarterly"] = {
-            "old": q_old,
-            "new": q_latest,
+            "local": q_local,
+            "remote": q_remote,
             "all_periods": q_periods[-6:] if q_periods else [],
         }
 
-        if q_latest and q_latest != q_old:
+        if q_remote and q_remote != q_local:
             result["status"] = "new"
     else:
         result["quarterly"] = {"error": "не удалось загрузить"}
@@ -172,15 +153,15 @@ def check_ticker(ticker: str, state: dict) -> dict:
     y_header = fetch_csv_header(YEARLY_URL.format(ticker=ticker))
     if y_header:
         y_periods = parse_periods(y_header)
-        y_latest = get_latest_period(y_periods)
-        y_old = state.get(f"{ticker}_yearly", "")
+        y_remote = get_latest_period(y_periods)
+        y_local = get_local_latest_period(companies_dir, ticker, "yearly")
 
         result["yearly"] = {
-            "old": y_old,
-            "new": y_latest,
+            "local": y_local,
+            "remote": y_remote,
         }
 
-        if y_latest and y_latest != y_old:
+        if y_remote and y_remote != y_local:
             result["status"] = "new"
     else:
         result["yearly"] = {"error": "не удалось загрузить"}
@@ -195,7 +176,6 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     base_dir = os.path.dirname(script_dir)
     companies_dir = os.path.join(base_dir, "companies")
-    state_path = os.path.join(base_dir, STATE_FILE)
 
     if not os.path.exists(companies_dir):
         print(f"{RED}Ошибка: директория {companies_dir} не найдена{NC}")
@@ -210,8 +190,6 @@ def main():
     else:
         tickers = get_tickers(companies_dir)
 
-    state = load_state(state_path)
-
     print(f"{CYAN}═══════════════════════════════════════════════════════════════{NC}")
     print(f"{CYAN}  Проверка выхода отчётов ({date.today().isoformat()}){NC}")
     print(f"{CYAN}═══════════════════════════════════════════════════════════════{NC}")
@@ -222,7 +200,7 @@ def main():
 
     for i, ticker in enumerate(tickers, 1):
         prefix = f"  [{i}/{len(tickers)}] {ticker}"
-        result = check_ticker(ticker, state)
+        result = check_ticker(ticker, companies_dir)
 
         q = result.get("quarterly", {})
         y = result.get("yearly", {})
@@ -230,15 +208,13 @@ def main():
         if result["status"] == "new":
             parts = []
 
-            if q.get("new") and q.get("new") != q.get("old"):
-                old_str = q["old"] or "—"
-                parts.append(f"кварт: {old_str} → {BOLD}{q['new']}{NC}{GREEN}")
-                state[f"{ticker}_quarterly"] = q["new"]
+            if q.get("remote") and q.get("remote") != q.get("local"):
+                local_str = q["local"] or "—"
+                parts.append(f"кварт: {local_str} → {BOLD}{q['remote']}{NC}{GREEN}")
 
-            if y.get("new") and y.get("new") != y.get("old"):
-                old_str = y["old"] or "—"
-                parts.append(f"год: {old_str} → {BOLD}{y['new']}{NC}{GREEN}")
-                state[f"{ticker}_yearly"] = y["new"]
+            if y.get("remote") and y.get("remote") != y.get("local"):
+                local_str = y["local"] or "—"
+                parts.append(f"год: {local_str} → {BOLD}{y['remote']}{NC}{GREEN}")
 
             info = ", ".join(parts)
             print(f"{prefix}: {GREEN}НОВЫЙ ОТЧЁТ! {info}{NC}")
@@ -247,17 +223,9 @@ def main():
             print(f"{prefix}: {RED}ошибка загрузки{NC}")
             errors += 1
         else:
-            q_latest = q.get("new", "?")
-            y_latest = y.get("new", "?")
+            q_latest = q.get("remote", "?")
+            y_latest = y.get("remote", "?")
             print(f"{prefix}: без изменений (кварт: {q_latest}, год: {y_latest})")
-
-            # Сохраняем текущее состояние даже при первом запуске
-            if q.get("new"):
-                state[f"{ticker}_quarterly"] = q["new"]
-            if y.get("new"):
-                state[f"{ticker}_yearly"] = y["new"]
-
-    save_state(state_path, state)
 
     # Итоги
     print()
@@ -269,10 +237,10 @@ def main():
             q = res.get("quarterly", {})
             y = res.get("yearly", {})
             parts = []
-            if q.get("new") and q.get("new") != q.get("old", q.get("new")):
-                parts.append(f"квартальный: {q['new']}")
-            if y.get("new") and y.get("new") != y.get("old", y.get("new")):
-                parts.append(f"годовой: {y['new']}")
+            if q.get("remote") and q.get("remote") != q.get("local", q.get("remote")):
+                parts.append(f"квартальный: {q['remote']}")
+            if y.get("remote") and y.get("remote") != y.get("local", y.get("remote")):
+                parts.append(f"годовой: {y['remote']}")
             print(f"  {GREEN}{ticker}{NC}: {', '.join(parts)}")
 
         # Скачиваем данные для новых отчётов
