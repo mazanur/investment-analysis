@@ -532,8 +532,31 @@ def read_news(companies_dir: str, ticker: str) -> list[dict]:
         return []
 
 
+def read_dividends(companies_dir: str, ticker: str) -> list[dict]:
+    """Читает дивиденды из moex_events.json. Возвращает [{date, value, currency}]."""
+    events_path = os.path.join(companies_dir, ticker, 'data', 'moex_events.json')
+    if not os.path.exists(events_path):
+        return []
+
+    try:
+        with open(events_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        dividends = data.get('dividends', [])
+        result = []
+        for d in dividends:
+            if d.get('registryclosedate') and d.get('value'):
+                result.append({
+                    'date': d['registryclosedate'],
+                    'value': d['value'],
+                    'currency': d.get('currencyid', 'RUB'),
+                })
+        return sorted(result, key=lambda x: x['date'])
+    except (json.JSONDecodeError, KeyError):
+        return []
+
+
 def generate_price_chart_html(history: list[dict], report_dates: list[dict] = None,
-                              news: list[dict] = None) -> str:
+                              news: list[dict] = None, dividends: list[dict] = None) -> str:
     """Генерирует интерактивный блок истории цен с переключением периодов."""
     if not history:
         return ''
@@ -557,6 +580,12 @@ def generate_price_chart_html(history: list[dict], report_dates: list[dict] = No
     # Новости для JS
     js_news = json.dumps(
         news or [],
+        ensure_ascii=False,
+    ).replace('</', '<\\/')
+
+    # Дивиденды для JS
+    js_dividends = json.dumps(
+        dividends or [],
         ensure_ascii=False,
     ).replace('</', '<\\/')
 
@@ -584,6 +613,10 @@ def generate_price_chart_html(history: list[dict], report_dates: list[dict] = No
 <input type="checkbox" id="toggle-news" checked style="cursor:pointer">
 <span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive)"></span>Новость
 </label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-dividends" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;background:var(--green);transform:rotate(45deg)"></span>Дивиденд
+</label>
 </div>
 </div>
 <div class="price-chart-wrap">
@@ -602,6 +635,7 @@ def generate_price_chart_html(history: list[dict], report_dates: list[dict] = No
 var DATA = {js_data};
 var REPORTS = {js_reports};
 var NEWS = {js_news};
+var DIVIDENDS = {js_dividends};
 var svg = document.getElementById('price-svg');
 var tbody = document.getElementById('price-tbody');
 var activeDays = 252;
@@ -681,6 +715,20 @@ function render(days) {{
         h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8" class="news-line"/>';
     }}
 
+    // Dividend markers
+    var divMarkers = [];
+    for (var dvi = 0; dvi < DIVIDENDS.length; dvi++) {{
+        var dd = DIVIDENDS[dvi].date;
+        if (dateToIdx[dd] !== undefined) {{
+            divMarkers.push({{idx: dateToIdx[dd], value: DIVIDENDS[dvi].value, currency: DIVIDENDS[dvi].currency || 'RUB'}});
+        }}
+    }}
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {{
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<line x1="'+dmx.toFixed(1)+'" y1="'+PT+'" x2="'+dmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--green)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" class="div-line"/>';
+    }}
+
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
@@ -703,6 +751,12 @@ function render(days) {{
         var nmx = xP(nm.idx);
         var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
         h += '<polygon points="'+(nmx-6).toFixed(1)+','+(PT+10)+' '+(nmx+6).toFixed(1)+','+(PT+10)+' '+nmx.toFixed(1)+','+(PT-2)+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'" data-url="'+nm.url.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }}
+    // Dividend markers (diamond shape)
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {{
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<polygon points="'+dmx.toFixed(1)+','+(PT-2)+' '+(dmx+5).toFixed(1)+','+(PT+5)+' '+dmx.toFixed(1)+','+(PT+12)+' '+(dmx-5).toFixed(1)+','+(PT+5)+'" fill="var(--green)" class="div-marker" data-value="'+dm.value+'" data-currency="'+dm.currency+'" style="cursor:pointer"/>';
     }}
 
     svg.innerHTML = h;
@@ -887,10 +941,30 @@ function render(days) {{
         }});
     }});
 
+    // Dividend marker tooltips
+    svg.querySelectorAll('.div-marker').forEach(function(marker) {{
+        marker.addEventListener('mouseenter', function(e) {{
+            var value = this.getAttribute('data-value');
+            var currency = this.getAttribute('data-currency');
+            tooltip.innerHTML = '<strong>Дивиденд</strong><br><span style="font-size:14px;color:var(--positive)">' + value + ' ' + currency + '</span><br><span style="color:var(--text-secondary);font-size:10px">Дата отсечки</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 150 > chartWrap.offsetWidth) tipX -= 160;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        }});
+        marker.addEventListener('mouseleave', function() {{
+            tooltip.style.display = 'none';
+        }});
+    }});
+
     // Toggle markers visibility
     var toggleYearly = document.getElementById('toggle-yearly');
     var toggleQuarterly = document.getElementById('toggle-quarterly');
     var toggleNews = document.getElementById('toggle-news');
+    var toggleDividends = document.getElementById('toggle-dividends');
 
     function updateMarkerVisibility() {{
         svg.querySelectorAll('.report-marker').forEach(function(m) {{
@@ -907,11 +981,18 @@ function render(days) {{
         svg.querySelectorAll('.news-line').forEach(function(line) {{
             line.style.display = toggleNews.checked ? '' : 'none';
         }});
+        svg.querySelectorAll('.div-marker').forEach(function(m) {{
+            m.style.display = toggleDividends.checked ? '' : 'none';
+        }});
+        svg.querySelectorAll('.div-line').forEach(function(line) {{
+            line.style.display = toggleDividends.checked ? '' : 'none';
+        }});
     }}
 
     if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
     if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
     if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
+    if (toggleDividends) toggleDividends.addEventListener('change', updateMarkerVisibility);
 
     // --- Table ---
     var tbl = '';
@@ -1518,7 +1599,8 @@ def generate_company_page(company: dict, sectors: dict, trends: dict, output_dir
         history = read_price_history(companies_dir, ticker)
         report_dates = read_report_dates(companies_dir, ticker)
         news = read_news(companies_dir, ticker)
-        price_history_html = generate_price_chart_html(history, report_dates, news)
+        dividends = read_dividends(companies_dir, ticker)
+        price_history_html = generate_price_chart_html(history, report_dates, news, dividends)
 
     # Конвертируем body в HTML
     body_html = markdown_to_html(company['body'])

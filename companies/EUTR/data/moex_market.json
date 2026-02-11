@@ -1,0 +1,38 @@
+{
+  "ticker": "EUTR",
+  "date": "2026-02-11",
+  "shortname": "ЕвроТранс",
+  "secname": "ЕвроТранс ао",
+  "price": {
+    "last": 138.6,
+    "open": 137.85,
+    "high": 139.85,
+    "low": 137.35,
+    "waprice": 138.65,
+    "prev_close": 137.85
+  },
+  "volume": {
+    "shares_today": 1118910,
+    "value_today_rub": 155135914,
+    "num_trades_today": 9709
+  },
+  "liquidity": {
+    "adv_30d_rub": 288944304,
+    "adv_30d_mln_rub": 288.9,
+    "bid_ask_spread_pct": 0.0361
+  },
+  "capitalization": {
+    "market_cap_rub": 22050047535.75,
+    "market_cap_bln_rub": 22.1,
+    "shares_outstanding": 159148665
+  },
+  "range_52w": {
+    "high": 151.85,
+    "low": 111.6
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 1
+  }
+}
