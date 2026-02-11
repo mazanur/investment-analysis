@@ -648,9 +648,11 @@ function render(days) {{
     h += '<polyline points="'+polyline+'" fill="none" stroke="'+trendColor+'" stroke-width="2" stroke-linejoin="round"/>';
     h += '<circle cx="'+xP(n-1).toFixed(1)+'" cy="'+yP(prices[n-1]).toFixed(1)+'" r="4" fill="var(--link)"/>';
 
-    // Report markers
+    // Build dateToIdx mapping
     var dateToIdx = {{}};
     for (var di = 0; di < n; di++) dateToIdx[src[di].d] = di;
+
+    // Marker vertical lines (under hv-rect)
     var reportMarkers = [];
     for (var ri = 0; ri < REPORTS.length; ri++) {{
         var rd = REPORTS[ri].date;
@@ -662,26 +664,23 @@ function render(days) {{
         var m = reportMarkers[mi];
         var mx = xP(m.idx);
         var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
-        h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7"/>';
-        h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="4" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'"/>';
+        h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7" class="report-line" data-type="'+m.type+'"/>';
     }}
 
-    // News markers
     var newsMarkers = [];
     for (var ni = 0; ni < NEWS.length; ni++) {{
         var nd = NEWS[ni].date;
         if (dateToIdx[nd] !== undefined) {{
-            newsMarkers.push({{idx: dateToIdx[nd], title: NEWS[ni].title, impact: NEWS[ni].impact || 'neutral'}});
+            newsMarkers.push({{idx: dateToIdx[nd], title: NEWS[ni].title, impact: NEWS[ni].impact || 'neutral', url: NEWS[ni].url || ''}});
         }}
     }}
     for (var nmi = 0; nmi < newsMarkers.length; nmi++) {{
         var nm = newsMarkers[nmi];
         var nmx = xP(nm.idx);
         var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
-        h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8"/>';
-        var nmUrl = NEWS[nmi].url || '';
-        h += '<polygon points="'+(nmx-5).toFixed(1)+','+(PT+8)+' '+(nmx+5).toFixed(1)+','+(PT+8)+' '+nmx.toFixed(1)+','+PT+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'" data-url="'+nmUrl.replace(/"/g, '&quot;')+'"/>';
+        h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8" class="news-line"/>';
     }}
+
     // Hover elements (initially hidden)
     h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
     h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
@@ -691,6 +690,21 @@ function render(days) {{
     h += '<circle id="pin1" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
     h += '<circle id="pin2" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
     h += '<line id="cmp-line" x1="0" y1="0" x2="0" y2="0" stroke="var(--link)" stroke-width="1.5" stroke-dasharray="5,3" visibility="hidden"/>';
+
+    // Marker circles/polygons (ABOVE hv-rect for click/hover)
+    for (var mi = 0; mi < reportMarkers.length; mi++) {{
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="5" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'" style="cursor:pointer"/>';
+    }}
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {{
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<polygon points="'+(nmx-6).toFixed(1)+','+(PT+10)+' '+(nmx+6).toFixed(1)+','+(PT+10)+' '+nmx.toFixed(1)+','+(PT-2)+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'" data-url="'+nm.url.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }}
+
     svg.innerHTML = h;
 
     // --- Hover & Compare interaction ---
@@ -881,20 +895,17 @@ function render(days) {{
     function updateMarkerVisibility() {{
         svg.querySelectorAll('.report-marker').forEach(function(m) {{
             var type = m.getAttribute('data-type');
-            if (type === 'Y') {{
-                m.style.display = toggleYearly.checked ? '' : 'none';
-                var line = m.previousElementSibling;
-                if (line && line.tagName === 'line') line.style.display = toggleYearly.checked ? '' : 'none';
-            }} else {{
-                m.style.display = toggleQuarterly.checked ? '' : 'none';
-                var line = m.previousElementSibling;
-                if (line && line.tagName === 'line') line.style.display = toggleQuarterly.checked ? '' : 'none';
-            }}
+            m.style.display = (type === 'Y' ? toggleYearly.checked : toggleQuarterly.checked) ? '' : 'none';
+        }});
+        svg.querySelectorAll('.report-line').forEach(function(line) {{
+            var type = line.getAttribute('data-type');
+            line.style.display = (type === 'Y' ? toggleYearly.checked : toggleQuarterly.checked) ? '' : 'none';
         }});
         svg.querySelectorAll('.news-marker').forEach(function(m) {{
             m.style.display = toggleNews.checked ? '' : 'none';
-            var line = m.previousElementSibling;
-            if (line && line.tagName === 'line') line.style.display = toggleNews.checked ? '' : 'none';
+        }});
+        svg.querySelectorAll('.news-line').forEach(function(line) {{
+            line.style.display = toggleNews.checked ? '' : 'none';
         }});
     }}
 
