@@ -14,7 +14,7 @@ dividend_yield: 6.2
 roe: 35.9
 net_debt_ebitda: 1.10
 my_fair_value: 600
-current_price: 502.8
+current_price: 505.2
 upside: 16
 position: hold
 ---

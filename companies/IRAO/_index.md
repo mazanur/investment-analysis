@@ -17,7 +17,7 @@ net_debt_ebitda: -2.27
 gov_ownership: 60
 gov_discount: -0.30
 my_fair_value: 4.9
-current_price: 3.41
+current_price: 3.44
 upside: 40
 position: watch
 ---

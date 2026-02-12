@@ -7,7 +7,7 @@ sentiment: bearish
 position: watch
 updated: 2026-01-30
 author: AlmazNurmukhametov
-current_price: 31.94
+current_price: 31.8
 my_fair_value: 24
 upside: -21%
 p_e: 15.1

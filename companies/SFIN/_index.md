@@ -15,7 +15,7 @@ p_bv: 0.58
 dividend_yield: 0
 roe: 11.1
 my_fair_value: 760
-current_price: 961.2
+current_price: 957.4
 upside: -30
 position: sell
 ---
