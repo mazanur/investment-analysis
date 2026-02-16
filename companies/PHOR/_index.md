@@ -6,7 +6,7 @@ sector: agro
 sentiment: neutral
 position: watch
 updated: 2026-01-31
-current_price: 6395
+current_price: 6345
 my_fair_value: 8000
 upside: 24
 p_e: 7.15
