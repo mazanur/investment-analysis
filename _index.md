@@ -1,6 +1,6 @@
 ---
 type: root
-updated: 2026-02-11
+updated: 2026-02-17
 author: AlmazNurmukhametov
 ---
 
@@ -76,7 +76,7 @@ author: AlmazNurmukhametov
 | companies/MSNG/_index.md | заполнен | 2026-01-31 | 2026-04-30 | ежеквартально |
 | companies/GAZP/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/TCSG/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
-| companies/YNDX/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
+| companies/YNDX/_index.md | заполнен | 2026-02-17 | 2026-05-17 | ежеквартально |
 | companies/POSI/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/MOEX/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/GMKN/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
