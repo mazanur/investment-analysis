@@ -1,8 +1,8 @@
 {
   "ticker": "YDEX",
-  "sentiment": "neutral",
-  "upside": 0.0,
-  "growth_probability": 0.4,
-  "decline_probability": 0.4,
-  "updated": "2026-02-16"
+  "sentiment": "bullish",
+  "upside": 0.21,
+  "growth_probability": 0.65,
+  "decline_probability": 0.15,
+  "updated": "2026-02-17"
 }
