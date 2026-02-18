@@ -18,7 +18,7 @@ updated: 2026-02-05
 | [ROSN](ROSN/) | Роснефть | neutral | hold | 1 |
 | [LKOH](LKOH/) | Лукойл | bullish | buy | 10 |
 | [BANEP](BANEP/) | Башнефть-преф | bullish | buy | 0 |
-| [NVTK](NVTK/) | Новатэк | neutral | hold | 4 |
+| [NVTK](NVTK/) | Новатэк | bearish | sell | 4 |
 | [SIBN](SIBN/) | Газпром нефть | neutral | hold | 4 |
 | [TATN](TATN/) | Татнефть | neutral | watch | 0 |
 | [SNGS](SNGS/) | Сургутнефтегаз | neutral | watch | 0 |
