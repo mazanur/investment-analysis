@@ -55,7 +55,7 @@ updated: 2026-02-05
 | [YDEX](YDEX/) | Яндекс | neutral | watch | 4 |
 | [VKCO](VKCO/) | VK | bearish | avoid | 4 |
 | [MTSS](MTSS/) | МТС | neutral | watch | 5 |
-| [OZON](OZON/) | Озон | neutral | watch | 2 |
+| [OZON](OZON/) | Озон | bullish | buy | 2 |
 | [HHRU](HHRU/) | HeadHunter | neutral | watch | 2 |
 | [POSI](POSI/) | Positive Technologies | bearish | watch | 65 |
 | [RTKM](RTKM/) | Ростелеком | neutral | hold | 2 |
