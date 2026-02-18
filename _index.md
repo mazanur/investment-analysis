@@ -73,7 +73,7 @@ author: AlmazNurmukhametov
 | companies/BANEP/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/AQUA/_index.md | заполнен | 2026-02-11 | 2026-05-11 | ежеквартально |
 | companies/HNFG/_index.md | заполнен | 2026-02-18 | 2026-05-18 | ежеквартально |
-| companies/MSNG/_index.md | заполнен | 2026-01-31 | 2026-04-30 | ежеквартально |
+| companies/MSNG/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/GAZP/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/TCSG/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/YNDX/_index.md | заполнен | 2026-02-17 | 2026-05-17 | ежеквартально |
