@@ -1,7 +1,7 @@
 {
   "ticker": "ROSN",
   "sentiment": "neutral",
-  "upside": 0.11,
+  "upside": 0.23,
   "growth_probability": 0.4,
   "decline_probability": 0.4,
   "updated": "2026-02-19"

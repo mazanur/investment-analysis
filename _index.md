@@ -93,7 +93,7 @@ author: AlmazNurmukhametov
 | companies/HYDR/_index.md | заполнен | 2026-02-18 | 2026-05-18 | ежеквартально |
 | companies/OZON/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/LENT/_index.md | заполнен | 2026-02-18 | 2026-05-18 | ежеквартально |
-| companies/ROSN/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/ROSN/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/NVTK/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/VTBR/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/MGNT/_index.md | заполнен | 2026-02-18 | 2026-05-18 | ежеквартально |
