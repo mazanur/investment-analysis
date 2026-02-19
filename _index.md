@@ -114,7 +114,7 @@ author: AlmazNurmukhametov
 | companies/RUAL/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/AFLT/_index.md | заполнен | 2026-02-11 | 2026-05-11 | ежеквартально |
 | companies/DOMRF/_index.md | заполнен | 2026-02-11 | 2026-05-11 | ежеквартально |
-| companies/SVCB/_index.md | заполнен | 2026-02-04 | 2026-05-04 | ежеквартально |
+| companies/SVCB/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/TRNFP/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/CBOM/_index.md | заполнен | 2026-02-11 | 2026-05-11 | ежеквартально |
 | companies/ENPG/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
