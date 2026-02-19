@@ -1,7 +1,7 @@
 {
   "ticker": "RTKM",
   "company_name": "Ростелеком",
-  "date": "2026-02-11",
+  "date": "2026-02-19",
   "dividends": [
     {
       "registryclosedate": "2014-07-14",
@@ -84,6 +84,54 @@
       "event_date": "2026-08-05",
       "event_type": "Публикация отчетности",
       "description": "Объявление результатов за 1 квартал 2026 по МСФО (предварительно)",
+      "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"РОСТЕЛЕКОМ\"",
+      "inn": "7707049388",
+      "event_date": "2026-05-14",
+      "event_type": "Публикация отчетности",
+      "description": "Объявление результатов за 1 квартал 2026 по МСФО (предварительно)",
+      "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"РОСТЕЛЕКОМ\"",
+      "inn": "7707049388",
+      "event_date": "2026-02-26",
+      "event_type": "Публикация отчетности",
+      "description": "Объявление результатов за 4 квартал и 12 месяцев 2025 по МСФО (предварительно)",
+      "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"РОСТЕЛЕКОМ\"",
+      "inn": "7707049388",
+      "event_date": "2025-11-12",
+      "event_type": "Публикация отчетности",
+      "description": "Объявление результатов за 3 квартал и 9 месяцев 2025 по МСФО (предварительно)",
+      "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"РОСТЕЛЕКОМ\"",
+      "inn": "7707049388",
+      "event_date": "2025-08-05",
+      "event_type": "Публикация отчетности",
+      "description": "Объявление результатов за 2 квартал и 6 месяцев 2025 по МСФО",
+      "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"РОСТЕЛЕКОМ\"",
+      "inn": "7707049388",
+      "event_date": "2025-05-15",
+      "event_type": "Публикация отчетности",
+      "description": "Объявление результатов за 1 квартал 2025 по МСФО",
+      "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"РОСТЕЛЕКОМ\"",
+      "inn": "7707049388",
+      "event_date": "2025-02-26",
+      "event_type": "Публикация отчетности",
+      "description": "Объявление результатов за 4 квартал и 12 месяцев 2024 по МСФО",
       "link": "https://www.company.rt.ru/ir/news_calendar/calendar/"
     }
   ]

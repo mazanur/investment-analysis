@@ -1,7 +1,7 @@
 {
   "ticker": "CHMF",
   "company_name": "Северсталь",
-  "date": "2026-02-11",
+  "date": "2026-02-19",
   "dividends": [
     {
       "registryclosedate": "2013-08-12",
@@ -164,5 +164,38 @@
       "currencyid": "RUB"
     }
   ],
-  "ir_events": []
+  "ir_events": [
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕВЕРСТАЛЬ\"",
+      "inn": "3528000597",
+      "event_date": "2026-02-03",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные и финансовые результаты по МСФО за 12 мес. 2025",
+      "link": "https://severstal.com/rus/ir/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕВЕРСТАЛЬ\"",
+      "inn": "3528000597",
+      "event_date": "2025-10-20",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные и финансовые результаты по МСФО за 9 мес. 2025",
+      "link": "https://severstal.com/rus/ir/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕВЕРСТАЛЬ\"",
+      "inn": "3528000597",
+      "event_date": "2025-07-21",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные и финансовые результаты по МСФО за 6 мес. 2025",
+      "link": "https://severstal.com/rus/ir/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕВЕРСТАЛЬ\"",
+      "inn": "3528000597",
+      "event_date": "2025-02-03",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные и финансовые результаты за 4 кв и 12 мес. 2024 года",
+      "link": "https://severstal.com/rus/ir/calendar/"
+    }
+  ]
 }

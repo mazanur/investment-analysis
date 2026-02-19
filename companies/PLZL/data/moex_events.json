@@ -1,7 +1,7 @@
 {
   "ticker": "PLZL",
   "company_name": "Полюс",
-  "date": "2026-02-11",
+  "date": "2026-02-19",
   "dividends": [
     {
       "registryclosedate": "2017-07-17",
@@ -69,5 +69,22 @@
       "currencyid": "RUB"
     }
   ],
-  "ir_events": []
+  "ir_events": [
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ПОЛЮС\"",
+      "inn": "7703389295",
+      "event_date": "2025-08-27",
+      "event_type": "Публикация отчетности",
+      "description": "Производственные и финансовые результаты за I полугодие 2025",
+      "link": "https://polyus.com/ru/investors/investor-calendar/past/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ПОЛЮС\"",
+      "inn": "7703389295",
+      "event_date": "2025-03-05",
+      "event_type": "Публикация отчетности",
+      "description": "Производственные и финансовые результаты за II полугодие и 2024 г.",
+      "link": "https://polyus.com/ru/investors/investor-calendar/past/"
+    }
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "ticker": "RENI",
   "company_name": "Ренессанс Страхование",
-  "date": "2026-02-11",
+  "date": "2026-02-19",
   "dividends": [
     {
       "registryclosedate": "2023-10-10",
@@ -24,5 +24,150 @@
       "currencyid": "RUB"
     }
   ],
-  "ir_events": []
+  "ir_events": [
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2026-03-12",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация финансовых результатов за 12 мес. 2025 г. по МСФО",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-11-27",
+      "event_type": "IR событие (online)",
+      "description": "RENI в эфире шоу «Акционеры. Цифры»",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-11-26",
+      "event_type": "IR событие (online)",
+      "description": "Эфир для программы «Рынки.Итоги с Максимом Орловским» на РБК",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-11-20",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация финансовых результатов за 9 месяцев 2025 г. по МСФО",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-11-20",
+      "event_type": "IR событие (online)",
+      "description": "Эфир для канала «Газпромбанк инвестиции»",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-09-04",
+      "event_type": "IR событие (online)",
+      "description": "Эфир для канала «Эйлер»",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-08-28",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация финансовых результатов за 1 полугодие 2025 г. по МСФО",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-07-12",
+      "event_type": "IR событие (очное)",
+      "description": "Встреча с инвесторами на конференции ИнвеSт Weekend от РБК и Мосбиржи в Москве",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-05-27",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация финансовых результатов за 1 кв. 2025 г. по МСФО",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-05-27",
+      "event_type": "IR событие (online)",
+      "description": "Интервью Генерального директора Группы Ренессанс страхование Юлии Гадлиба компании Kept",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-04-12",
+      "event_type": "IR событие (очное)",
+      "description": "Встреча с инвесторами на PROFIT Conf",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-03-31",
+      "event_type": "IR событие (online)",
+      "description": "Фильм о RENI от проекта Bazar",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-03-20",
+      "event_type": "IR событие (online)",
+      "description": "Эфир для канала «Сбер Инвестиции»",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-03-19",
+      "event_type": "IR событие (online)",
+      "description": "Интервью Генерального директора Группы Ренессанс страхование Юлии Гадлиба изданию Коммерсантъ",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-03-14",
+      "event_type": "IR событие (online)",
+      "description": "Публикация о RENI в газете «Ведомости»",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-03-13",
+      "event_type": "IR событие (online)",
+      "description": "Эфир в телеграм канале «Газпромбанк Инвестиции»",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-03-12",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация финансовых результатов за 12 мес. 2024 г. по МСФО",
+      "link": "https://www.renins.ru/invest/calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ГРУППА РЕНЕССАНС СТРАХОВАНИЕ\"",
+      "inn": "7725497022",
+      "event_date": "2025-02-23",
+      "event_type": "IR событие (online)",
+      "description": "Эфир у проекта Alexey Linetsky",
+      "link": "https://www.renins.ru/invest/calendar/"
+    }
+  ]
 }
