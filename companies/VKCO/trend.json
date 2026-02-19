@@ -2,7 +2,7 @@
   "ticker": "VKCO",
   "sentiment": "bearish",
   "upside": -0.86,
-  "growth_probability": 0.12,
-  "decline_probability": 0.82,
+  "growth_probability": 0.2,
+  "decline_probability": 0.75,
   "updated": "2026-02-19"
 }
