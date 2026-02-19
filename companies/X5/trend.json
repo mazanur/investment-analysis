@@ -1,8 +1,8 @@
 {
   "ticker": "X5",
-  "sentiment": "neutral",
-  "upside": 0.27,
-  "growth_probability": 0.4,
-  "decline_probability": 0.4,
+  "sentiment": "bullish",
+  "upside": 0.46,
+  "growth_probability": 0.7,
+  "decline_probability": 0.2,
   "updated": "2026-02-19"
 }
