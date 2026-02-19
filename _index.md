@@ -119,6 +119,6 @@ author: AlmazNurmukhametov
 | companies/CBOM/_index.md | заполнен | 2026-02-11 | 2026-05-11 | ежеквартально |
 | companies/ENPG/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/AFKS/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
-| companies/UGLD/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
+| companies/UGLD/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/CNRU/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/GCHE/_index.md | заполнен | 2026-02-06 | 2026-05-06 | ежеквартально |

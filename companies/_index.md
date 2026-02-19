@@ -72,7 +72,7 @@ updated: 2026-02-05
 | [PLZL](PLZL/) | Полюс | bullish | watch | 2 |
 | [POLY](POLY/) | Polymetal (Solidcore) | bearish | avoid (делистинг) | 1 |
 | [RUAL](RUAL/) | Русал | bearish | sell | 3 |
-| [UGLD](UGLD/) | ЮГК | bearish | sell | 0 |
+| [UGLD](UGLD/) | ЮГК | neutral | watch | 0 |
 
 ### Удобрения
 | Тикер | Компания | Sentiment | Position | Мнений |
