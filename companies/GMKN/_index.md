@@ -14,7 +14,7 @@ ev_ebitda: 6.45
 dividend_yield: 0%
 roe: 15.7%
 my_fair_value: 150
-current_price: 154.38
+current_price: 155.1
 upside: -7%
 position: hold
 ---
