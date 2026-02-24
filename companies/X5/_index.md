@@ -19,7 +19,7 @@ net_debt_ebitda: 0.99
 gov_ownership: 0
 gov_discount: 0
 my_fair_value: 3650
-current_price: 2442.5
+current_price: 2427.5
 upside: +46%
 position: buy
 ---

@@ -15,7 +15,7 @@ dividend_yield: 0%
 roe: н/п (убыток)
 net_debt_ebitda: 27
 my_fair_value: 0.90
-current_price: 1.32
+current_price: 1.31
 upside: -25%
 position: avoid
 gov_ownership: 0

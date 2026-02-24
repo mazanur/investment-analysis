@@ -15,7 +15,7 @@ dividend_yield: 0%
 roe: 28.5%
 net_debt_ebitda: 2.61
 my_fair_value: 1480
-current_price: 1201.8
+current_price: 1232.2
 upside: +32%
 position: watch
 gov_ownership: 0

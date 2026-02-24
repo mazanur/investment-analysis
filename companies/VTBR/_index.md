@@ -13,7 +13,7 @@ p_bv: 0.36
 dividend_yield: 12-18%
 roe: 17.4%
 my_fair_value: 115
-current_price: 88.39
+current_price: 87.5
 upside: 32%
 position: watch
 gov_ownership: 75
