@@ -18,6 +18,8 @@ roe: 0
 net_debt_ebitda: 0
 gov_ownership: 0
 gov_discount: 0
+key_risks: []
+key_opportunities: []
 my_fair_value: 0
 current_price: 0
 upside: 0

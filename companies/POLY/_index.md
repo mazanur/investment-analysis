@@ -23,6 +23,12 @@ new_ticker: CORE
 new_exchange: AIX (Astana International Exchange)
 gov_ownership: 0
 gov_discount: 0
+key_risks:
+  - Делистинг с MOEX — акции не торгуются с октября 2024
+  - Принудительный выкуп по $2,57/акция для не обменявших
+  - SDN-лист США, санкции блокируют операции через НРД/Euroclear
+  - Потеря 70% производства после продажи российских активов
+key_opportunities: []
 ---
 
 # Polymetal / Solidcore Resources (POLY)
