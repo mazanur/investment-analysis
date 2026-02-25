@@ -189,40 +189,6 @@ python3 scripts/generate_trend_json.py
 
 ### Формат catalysts.json
 
-Файл `catalysts.json` содержит позитивные и негативные катализаторы для внешнего сервиса:
-
-```json
-{
-  "ticker": "SBER",
-  "company_name": "Сбербанк",
-  "generated": "2026-02-25",
-  "catalysts": [
-    {
-      "type": "opportunity",
-      "impact": "positive",
-      "magnitude": "high",
-      "date": null,
-      "description": "Снижение ставки ЦБ 16% → 13%",
-      "source": "index"
-    },
-    {
-      "type": "cb_meeting",
-      "impact": "mixed",
-      "magnitude": "high",
-      "date": "2026-03-20",
-      "description": "Заседание ЦБ по ключевой ставке",
-      "source": "macro"
-    }
-  ],
-  "summary": { "total": 10, "positive": 4, "negative": 4, "mixed": 2 }
-}
-```
-
+Файл `catalysts.json` содержит позитивные и негативные катализаторы для внешнего сервиса.
 Источники: `key_risks` и `key_opportunities` из `_index.md` + заседания ЦБ из `russia/macro.md`.
 Схема API: `api/catalysts-schema.yaml`.
-
-Генерация:
-```bash
-make catalysts                    # все компании
-make catalysts TICKER=SBER        # одна компания
-```
