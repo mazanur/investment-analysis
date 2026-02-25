@@ -1,8 +1,80 @@
 {
   "ticker": "VTBR",
-  "company_name": "ВТБ",
+  "company_name": "VTBR",
   "generated": "2026-02-25",
   "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ добавляет ~+0,44 п.п. к ROE за каждые -1 п.п. ставки",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Прогноз роста прибыли: 500 млрд (2025) → 600-650 млрд (2026) = +20-30% YoY",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Масштаб: 2-е место по активам в РФ, доступ к крупнейшим корпоративным клиентам",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Дивиденды за 2025: 25-50% прибыли, потенциальная доходность 12-20%",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "CET1 = 6,1% — критически низкий уровень достаточности капитала",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Конвертация привилегированных акций до мая 2026 — параметры не раскрыты, возможное разводнение ~35%",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Полные блокирующие санкции США/ЕС, отключение от SWIFT",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Непредсказуемая дивидендная политика и история допэмиссий/размытия миноритариев",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "NIM компрессия: 1,3% за 11М 2025 — крайне низко для банка",
+      "source": "index"
+    },
     {
       "type": "cb_meeting",
       "impact": "mixed",
@@ -21,9 +93,9 @@
     }
   ],
   "summary": {
-    "total": 2,
-    "positive": 0,
-    "negative": 0,
+    "total": 11,
+    "positive": 4,
+    "negative": 5,
     "mixed": 2
   }
 }

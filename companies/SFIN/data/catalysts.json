@@ -4,6 +4,70 @@
   "generated": "2026-02-25",
   "catalysts": [
     {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "ВСК — крупная страховая (5-е место в России) с рейтингом ruAA",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Низкий долг на уровне холдинга после продажи Европлана",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Возможность реинвестирования при нахождении нового качественного актива для поглощения",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Потеря якорного актива Европлан (ROE 30%+) — холдинг стал shell-компанией",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "ВСК под санкциями ЕС и UK — ограничения на перестрахование и международные расчёты",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "М.Видео — токсичный актив с долгом 159,7 млрд и убытком -25,2 млрд за 1П 2025",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Нет понятной стратегии реинвестирования, менеджмент опроверг продажу ВСК",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Free-float 10,71% — низкая ликвидность и манипулируемость цены",
+      "source": "index"
+    },
+    {
       "type": "cb_meeting",
       "impact": "mixed",
       "magnitude": "high",
@@ -21,9 +85,9 @@
     }
   ],
   "summary": {
-    "total": 2,
-    "positive": 0,
-    "negative": 0,
+    "total": 10,
+    "positive": 3,
+    "negative": 5,
     "mixed": 2
   }
 }

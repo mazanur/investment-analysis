@@ -1,8 +1,88 @@
 {
   "ticker": "PIKK",
-  "company_name": "ПИК",
+  "company_name": "PIKK",
   "generated": "2026-02-25",
   "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Крупнейший застройщик РФ по объёму ввода (~3 млн кв. м/год) с эффектом масштаба",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ — главный катализатор: при ставке <13% оживёт рыночная ипотека",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Чистый долг отрицательный (-37.7 млрд), баланс здоровый несмотря на циклический спад",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Семейная ипотека 6% до 2030 поддерживает текущие продажи",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Отложенный спрос — при нормализации ставок реализуется накопленный за 2024-2026 спрос",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "EBITDA маржа H1 2025 обвалилась до 10.1% — исторический минимум (vs 22.1% H1 2024)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Процентные расходы (33.5 млрд за H1 2025) сравнялись с EBITDA за полугодие",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Санкции США (SDN) и ЕС ограничивают привлечение иностранного капитала",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Не платит дивиденды с 2021 года, нет плана возобновления",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Ужесточение семейной ипотеки с 01.02.2026 сокращает спрос на 10-15%",
+      "source": "index"
+    },
     {
       "type": "cb_meeting",
       "impact": "mixed",
@@ -21,9 +101,9 @@
     }
   ],
   "summary": {
-    "total": 2,
-    "positive": 0,
-    "negative": 0,
+    "total": 12,
+    "positive": 5,
+    "negative": 5,
     "mixed": 2
   }
 }

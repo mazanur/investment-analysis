@@ -1,8 +1,80 @@
 {
   "ticker": "HYDR",
-  "company_name": "РусГидро",
+  "company_name": "HYDR",
   "generated": "2026-02-25",
   "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Низкая себестоимость гидрогенерации — одна из самых высоких маржинальностей в энергосекторе",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Либерализация рынка Дальнего Востока — дополнительная выручка до 145 млрд руб в 2026-2030",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Индексация тарифов +11.3% в 2026 году обеспечивает рост выручки без роста объёмов",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "При снижении ставки ЦБ до 12% стоимость может вырасти в 3-4x",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Отрицательный FCF четвёртый год подряд (-182 млрд LTM) из-за CAPEX 230 млрд/год",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Net Debt/EBITDA 3.64x — критический уровень долга, продолжающий расти",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Мораторий на дивиденды до 2028-2029, одобренный правительством",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Стресс-тест не пройден: процентные расходы = 66% от EBITDA при текущей ставке",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Риск допэмиссии для финансирования инвестпрограммы",
+      "source": "index"
+    },
     {
       "type": "cb_meeting",
       "impact": "mixed",
@@ -21,9 +93,9 @@
     }
   ],
   "summary": {
-    "total": 2,
-    "positive": 0,
-    "negative": 0,
+    "total": 11,
+    "positive": 4,
+    "negative": 5,
     "mixed": 2
   }
 }

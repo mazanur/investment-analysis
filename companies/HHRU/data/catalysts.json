@@ -1,8 +1,88 @@
 {
   "ticker": "HHRU",
-  "company_name": "HeadHunter (Хэдхантер)",
+  "company_name": "HHRU",
   "generated": "2026-02-25",
   "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Монополия: доля >60% на рынке онлайн-рекрутмента РФ с сетевым эффектом",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Asset-light модель: минимальный капекс, почти вся прибыль конвертируется в FCF",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Дефицит кадров (безработица ~2.4%) вынуждает работодателей платить за рекрутмент",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "IT-льгота: ставка налога 0% до 2027 года",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Высокая дивдоходность ~15% при payout ≥75% прибыли",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Рост выручки замедлился с +34% до +3%, компания снизила guidance",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Количество платящих клиентов падает 4 квартала подряд (-15% YoY)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Маржа EBITDA снизилась с 59% до 52% из-за роста расходов на персонал и интеграции HRtech",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Отрицательный собственный капитал после спецдивиденда — ограничивает выплаты",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Рекрутинг — проциклический бизнес, страдает при замедлении экономики",
+      "source": "index"
+    },
     {
       "type": "cb_meeting",
       "impact": "mixed",
@@ -21,9 +101,9 @@
     }
   ],
   "summary": {
-    "total": 2,
-    "positive": 0,
-    "negative": 0,
+    "total": 12,
+    "positive": 5,
+    "negative": 5,
     "mixed": 2
   }
 }
