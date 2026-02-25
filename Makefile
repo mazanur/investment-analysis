@@ -266,17 +266,20 @@ daily:
 	@echo "$(CYAN)  Ежедневное обновление ($(TODAY))$(NC)"
 	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
 	@echo ""
-	@echo "$(CYAN)[1/4] Обновление цен с MOEX...$(NC)"
+	@echo "$(CYAN)[1/5] Обновление цен с MOEX...$(NC)"
 	@python3 scripts/update_prices.py
 	@echo ""
-	@echo "$(CYAN)[2/4] Генерация trend.json...$(NC)"
+	@echo "$(CYAN)[2/5] Генерация trend.json...$(NC)"
 	@python3 scripts/generate_trend_json.py
 	@echo ""
-	@echo "$(CYAN)[3/4] Генерация дашборда...$(NC)"
+	@echo "$(CYAN)[3/5] Генерация catalysts.json...$(NC)"
+	@python3 scripts/generate_catalysts.py
+	@echo ""
+	@echo "$(CYAN)[4/5] Генерация дашборда...$(NC)"
 	@python3 scripts/generate_dashboard.py
 	@echo ""
-	@echo "$(CYAN)[4/4] Коммит и пуш...$(NC)"
-	@git add companies/*/data/price_history.csv companies/*/_index.md companies/*/trend.json docs/
+	@echo "$(CYAN)[5/5] Коммит и пуш...$(NC)"
+	@git add companies/*/data/price_history.csv companies/*/_index.md companies/*/trend.json companies/*/data/catalysts.json docs/
 	@git commit -m "daily: update prices and dashboard ($(TODAY))" || echo "$(YELLOW)Нет изменений для коммита$(NC)"
 	@git push || echo "$(RED)Пуш не удался$(NC)"
 	@echo ""
