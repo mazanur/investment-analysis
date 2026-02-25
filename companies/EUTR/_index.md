@@ -5,7 +5,7 @@ sector: retail
 sentiment: bullish
 position: buy
 updated: 2026-02-11
-current_price: 133.7
+current_price: 134.8
 my_fair_value: 210
 upside: 52%
 p_e: 2.7

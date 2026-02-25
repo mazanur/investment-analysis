@@ -25,7 +25,7 @@ key_opportunities:
   - Снижение ставки ЦБ — главный катализатор восстановления маржи ЧП до 12-15%
   - Органическая экспансия — рост площадей с 57 до 69 тыс. м²
 my_fair_value: 690
-current_price: 490.8
+current_price: 491.8
 upside: 37
 position: watch
 gov_ownership: 0

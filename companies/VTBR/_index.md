@@ -25,7 +25,7 @@ key_opportunities:
   - Масштаб: 2-е место по активам в РФ, доступ к крупнейшим корпоративным клиентам
   - Прогноз роста прибыли: 484 млрд (2025) → 600-650 млрд (2026E) = +24-34% YoY
 my_fair_value: 135
-current_price: 89.0
+current_price: 88.6
 upside: 52%
 position: watch
 gov_ownership: 75

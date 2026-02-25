@@ -24,7 +24,7 @@ key_opportunities:
   - Диверсификация в золотодобычу (проект Дегдекан) — долгосрочный опцион
   - Ослабление рубля позитивно для экспортной выручки
 my_fair_value: 54
-current_price: 39.67
+current_price: 39.8
 upside: 34%
 position: watch
 ---

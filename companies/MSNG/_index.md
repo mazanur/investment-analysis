@@ -25,7 +25,7 @@ key_opportunities:
   - Индексация тарифов выше инфляции (+11.3% в 2026 году)
   - Дивиденды за 2024 утверждены, прогноз на 12 мес ~0.415 руб (~16.4% доходность)
 my_fair_value: 2.60
-current_price: 2.29
+current_price: 2.28
 upside: 3
 position: hold
 gov_ownership: 80
