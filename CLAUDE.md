@@ -127,6 +127,7 @@ companies/{TICKER}/
 | companies/{TICKER}/_index.md | ежеквартально | публикация отчётности (МСФО/РСБУ), дивидендные решения, корпоративные события |
 | companies/{TICKER}/opinions.md | автоматически | запуск `scripts/generate_opinions.py` после обновления sources/ |
 | companies/{TICKER}/trend.json | автоматически | запуск `scripts/generate_trend_json.py` после обновления _index.md |
+| companies/{TICKER}/data/catalysts.json | автоматически | запуск `scripts/generate_catalysts.py` после обновления key_risks/key_opportunities в _index.md |
 
 ### Как рассчитывать «След. обновление»
 - Для заполненных документов: дата последнего обновления + период частоты
@@ -185,3 +186,43 @@ python3 scripts/generate_trend_json.py
 Схема API: `api/trend-schema.yaml`.
 
 Подробная инструкция: `scripts/README.md`
+
+### Формат catalysts.json
+
+Файл `catalysts.json` содержит позитивные и негативные катализаторы для внешнего сервиса:
+
+```json
+{
+  "ticker": "SBER",
+  "company_name": "Сбербанк",
+  "generated": "2026-02-25",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ 16% → 13%",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": { "total": 10, "positive": 4, "negative": 4, "mixed": 2 }
+}
+```
+
+Источники: `key_risks` и `key_opportunities` из `_index.md` + заседания ЦБ из `russia/macro.md`.
+Схема API: `api/catalysts-schema.yaml`.
+
+Генерация:
+```bash
+make catalysts                    # все компании
+make catalysts TICKER=SBER        # одна компания
+```

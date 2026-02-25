@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Investment Catalysts API
+  version: 1.0.0
+  description: |
+    Схема данных для катализаторов компаний.
+
+    Файл `catalysts.json` содержит позитивные и негативные катализаторы,
+    извлечённые из анализа компании, а также макро-события (заседания ЦБ).
+
+    ## Как сгенерировать
+
+    ```bash
+    make catalysts                    # все компании
+    make catalysts TICKER=SBER        # одна компания
+    python3 scripts/generate_catalysts.py SBER LKOH  # несколько тикеров
+    ```
+
+    ## Источники данных
+
+    - `companies/{TICKER}/_index.md` — поля `key_risks` (негативные) и `key_opportunities` (позитивные)
+    - `russia/macro.md` — даты заседаний ЦБ (добавляются ко всем компаниям)
+
+    ## Расположение файлов
+
+    `companies/{TICKER}/data/catalysts.json`
+
+components:
+  schemas:
+    CompanyCatalysts:
+      type: object
+      required:
+        - ticker
+        - company_name
+        - generated
+        - catalysts
+        - summary
+      properties:
+        ticker:
+          type: string
+          description: Тикер компании на Московской бирже
+          example: "SBER"
+        company_name:
+          type: string
+          description: Полное название компании
+          example: "Сбербанк"
+        generated:
+          type: string
+          format: date
+          description: Дата генерации файла
+          example: "2026-02-25"
+        catalysts:
+          type: array
+          description: Массив катализаторов (позитивные, негативные, макро)
+          items:
+            $ref: '#/components/schemas/Catalyst'
+        summary:
+          $ref: '#/components/schemas/Summary'
+
+    Catalyst:
+      type: object
+      required:
+        - type
+        - impact
+        - magnitude
+        - date
+        - description
+        - source
+      properties:
+        type:
+          type: string
+          enum: [opportunity, risk, cb_meeting]
+          description: |
+            Тип катализатора:
+            - `opportunity` — позитивный (из key_opportunities)
+            - `risk` — негативный (из key_risks)
+            - `cb_meeting` — заседание ЦБ по ключевой ставке
+        impact:
+          type: string
+          enum: [positive, negative, mixed]
+          description: |
+            Направление влияния на цену акции:
+            - `positive` — рост цены
+            - `negative` — падение цены
+            - `mixed` — зависит от решения (заседания ЦБ)
+        magnitude:
+          type: string
+          enum: [high, medium]
+          description: |
+            Значимость катализатора:
+            - `high` — если текст содержит ключевые слова (санкции, ставка, ЦБ, дивиденды, SDN, делистинг, IPO, buyback)
+            - `medium` — остальные
+        date:
+          type: string
+          format: date
+          nullable: true
+          description: |
+            Дата события (ISO 8601). Только для `cb_meeting`.
+            Для `opportunity` и `risk` — `null` (без конкретной даты).
+          example: "2026-03-20"
+        description:
+          type: string
+          description: Текстовое описание катализатора
+          example: "Снижение ставки ЦБ 16% → 13% — рост кредитования + переоценка мультипликаторов"
+        source:
+          type: string
+          enum: [index, macro]
+          description: |
+            Источник данных:
+            - `index` — из _index.md (key_risks / key_opportunities)
+            - `macro` — из russia/macro.md (заседания ЦБ)
+
+    Summary:
+      type: object
+      required:
+        - total
+        - positive
+        - negative
+        - mixed
+      properties:
+        total:
+          type: integer
+          description: Общее количество катализаторов
+          example: 10
+        positive:
+          type: integer
+          description: Количество позитивных катализаторов
+          example: 4
+        negative:
+          type: integer
+          description: Количество негативных катализаторов
+          example: 4
+        mixed:
+          type: integer
+          description: Количество смешанных (заседания ЦБ)
+          example: 2
