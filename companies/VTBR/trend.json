@@ -1,8 +1,8 @@
 {
   "ticker": "VTBR",
   "sentiment": "neutral",
-  "upside": 0.32,
-  "growth_probability": 0.45,
+  "upside": 0.52,
+  "growth_probability": 0.5,
   "decline_probability": 0.4,
   "updated": "2026-02-25"
 }
