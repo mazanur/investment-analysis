@@ -1,0 +1,101 @@
+{
+  "ticker": "CNRU",
+  "company_name": "CNRU",
+  "generated": "2026-02-25",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Ускорение роста в Q3'25: +29% YoY после снижения ставки ЦБ",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Buyback программа до 3 млрд ₽ (6,8% капитализации) поддержит котировки и сократит акции",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Планируемый дивиденд 2026: >50 ₽/акция (8,8% доходность)",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Расширение маржи EBITDA: 16% → 27% за год (Q3'24 vs Q3'25)",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Лидерство в нише с долей 57-69% в ключевых сегментах",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Конкуренция с Авито, ДомКлик (Сбер) и Яндекс Недвижимостью усиливается",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Зависимость от ипотечного рынка — высокая ставка ЦБ (16%) угнетает лидогенерацию",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Зависимость от Москвы и СПб (~70% выручки)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Рост зарплат IT-специалистов (50-70% расходов) при дефиците кадров",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "positive": 5,
+    "negative": 4,
+    "mixed": 2
+  }
+}

@@ -16,6 +16,7 @@ scripts/
 ├── filter_russia.py         # Фильтрация постов о России
 ├── generate_opinions.py     # Генерация opinions.md для компаний
 ├── generate_trend_json.py   # Генерация trend.json
+├── generate_catalysts.py    # Генерация catalysts.json (катализаторы)
 ├── check_updates.py         # Проверка просроченных документов
 ├── validate_index.py        # Валидация _index.md
 ├── top_upside.py            # Топ компаний по upside
@@ -197,6 +198,37 @@ python3 scripts/fill_governance.py SBER LKOH    # конкретные тике�
 ```bash
 make fill-governance               # все компании
 make fill-governance TICKER=SBER   # одна компания
+```
+
+### 0.6. generate_catalysts.py
+
+Генерирует `catalysts.json` с позитивными и негативными катализаторами.
+
+```bash
+python3 scripts/generate_catalysts.py              # все компании
+python3 scripts/generate_catalysts.py SBER LKOH    # конкретные тикеры
+```
+
+**Входные данные:**
+- `companies/{TICKER}/_index.md` — `key_risks` (негативные), `key_opportunities` (позитивные)
+- `russia/macro.md` — даты заседаний ЦБ (макро-катализаторы для всех компаний)
+
+**Выходные данные:** `companies/{TICKER}/data/catalysts.json`
+
+**Что содержит JSON:**
+- `catalysts[]` — массив катализаторов, каждый с полями:
+  - `type`: `opportunity` | `risk` | `cb_meeting`
+  - `impact`: `positive` | `negative` | `mixed`
+  - `magnitude`: `high` | `medium` (эвристика по ключевым словам)
+  - `date`: ISO-дата или `null`
+  - `description`: текст катализатора
+  - `source`: `index` | `macro`
+- `summary` — статистика: total, positive, negative, mixed
+
+**Makefile:**
+```bash
+make catalysts               # все компании
+make catalysts TICKER=SBER   # одна компания
 ```
 
 ### 1. telegram_scraper.py

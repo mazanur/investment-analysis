@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events download-all daily update-prices check-reports
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events download-all daily update-prices check-reports catalysts
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -47,6 +47,7 @@ help:
 	@echo "  make download TICKER=SBER — скачать для конкретной компании"
 	@echo "  make events        — скачать события с MOEX IR-календаря (медленно)"
 	@echo "  make trends        — сгенерировать trend.json для всех компаний"
+	@echo "  make catalysts     — сгенерировать catalysts.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
 	@echo "  make dashboard     — сгенерировать GitHub Pages дашборд"
 	@echo ""
@@ -196,6 +197,14 @@ endif
 trends:
 	@echo "$(CYAN)Генерация trend.json...$(NC)"
 	@python3 scripts/generate_trend_json.py
+
+catalysts:
+	@echo "$(CYAN)Генерация catalysts.json...$(NC)"
+ifdef TICKER
+	@python3 scripts/generate_catalysts.py $(TICKER)
+else
+	@python3 scripts/generate_catalysts.py
+endif
 
 opinions:
 	@echo "$(CYAN)Генерация opinions.md...$(NC)"

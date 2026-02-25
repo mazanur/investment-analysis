@@ -1,0 +1,101 @@
+{
+  "ticker": "RTKM",
+  "company_name": "RTKM",
+  "generated": "2026-02-25",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ до 10-14% к концу 2026 — резкое восстановление прибыли и FCF",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "CAPEX снижается (-6% 9М г/г, целевой уровень 17-18% от выручки) — улучшение FCF",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Стабильный рост выручки (+10% 9М 2025) и OIBDA (+6%)",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "IPO дочерних компаний (ЦОД, кибербезопасность) в 2026-2027",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Годовой отчёт за 2025 (6 марта 2026) — катализатор переоценки",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Рост процентных расходов до 122 млрд LTM (+67% г/г) — чистая прибыль 9М 2025 всего 18.5 млрд, LTM ~0.5 млрд",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "FCF отрицательный (-28.1 млрд за 9М 2025) пятый квартал подряд",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Чистый долг вырос до 729.7 млрд, Net Debt/EBITDA = 2.31x — риск при высокой ставке",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Госкомпания с ROE 0.2% (LTM) — разрушение акционерной стоимости",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "positive": 5,
+    "negative": 4,
+    "mixed": 2
+  }
+}
