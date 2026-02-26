@@ -6,7 +6,7 @@
     {
       "type": "opportunity",
       "impact": "positive",
-      "magnitude": "high",
+      "magnitude": "medium",
       "date": null,
       "description": "Гайденс 2026: EBITDA ~200 млрд (+28%), чистая прибыль, GMV +25-30%",
       "source": "index"
@@ -78,7 +78,7 @@
     {
       "type": "risk",
       "impact": "negative",
-      "magnitude": "low",
+      "magnitude": "high",
       "date": null,
       "description": "Отрицательный собственный капитал (de-jure ограничивает дивиденды)",
       "source": "index"
@@ -86,7 +86,7 @@
     {
       "type": "risk",
       "impact": "negative",
-      "magnitude": "low",
+      "magnitude": "medium",
       "date": null,
       "description": "Годовой чистый убыток -0,9 млрд — формально не достигнута годовая прибыль",
       "source": "index"
