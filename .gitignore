@@ -19,3 +19,4 @@ reports_new_tickers.txt
 
 # ralphex progress logs
 progress*.txt
+.env
