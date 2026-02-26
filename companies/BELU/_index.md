@@ -24,7 +24,7 @@ key_opportunities:
   - Рост выручки ~15-20% YoY за счёт органической экспансии ВинЛаб
   - Высокое качество прибыли: OCF/NI = 4.26, FCF 13 млрд руб
 my_fair_value: 529
-current_price: 442.6
+current_price: 445.8
 upside: 25
 position: watch
 ---

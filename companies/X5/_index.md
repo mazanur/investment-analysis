@@ -30,7 +30,7 @@ key_opportunities:
   - Крупнейшая программа лояльности: X5 Клуб с 95,1 млн клиентов
   - Цифровые бизнесы растут на +42,8% YoY, MAU 54,3 млн
 my_fair_value: 3650
-current_price: 2419.5
+current_price: 2415.5
 upside: +46%
 position: buy
 ---

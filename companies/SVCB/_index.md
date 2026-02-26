@@ -30,7 +30,7 @@ key_opportunities:
   - Интеграция Хоум Банка: 10 млн клиентов, 84 000 точек POS-кредитов, синергии в 2026
   - Исторический track record: 25 успешных M&A за 10 лет, средняя ROE ~34%
 my_fair_value: 22.5
-current_price: 13.85
+current_price: 13.97
 upside: 0.61
 position: watch
 ---

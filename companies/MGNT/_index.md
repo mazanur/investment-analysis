@@ -26,7 +26,7 @@ key_opportunities:
   - Приобретение Азбуки Вкуса добавляет 171 премиальный магазин
   - Доля СТМ >25% — маржинальность на 5-15 п.п. выше брендов
 my_fair_value: 4100
-current_price: 3322.5
+current_price: 3373.5
 upside: +23%
 position: watch
 gov_ownership: 0
