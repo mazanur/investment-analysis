@@ -1,8 +1,8 @@
 {
   "ticker": "OZON",
   "sentiment": "bullish",
-  "upside": 0.43,
-  "growth_probability": 0.72,
-  "decline_probability": 0.18,
+  "upside": 0.44,
+  "growth_probability": 0.7,
+  "decline_probability": 0.2,
   "updated": "2026-02-26"
 }

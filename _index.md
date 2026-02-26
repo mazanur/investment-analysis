@@ -1,6 +1,6 @@
 ---
 type: root
-updated: 2026-02-19
+updated: 2026-02-26
 author: AlmazNurmukhametov
 ---
 
@@ -61,7 +61,7 @@ author: AlmazNurmukhametov
 | sectors/healthcare | заполнен | 2026-01-31 | 2026-04-30 | ежеквартально |
 | sectors/manufacturing | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | **Компании** | | | | |
-| companies/SBER/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/SBER/_index.md | заполнен | 2026-02-26 | 2026-05-26 | ежеквартально |
 | companies/X5/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/PHOR/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/EUTR/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
