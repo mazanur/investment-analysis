@@ -39,6 +39,13 @@ TQBR_URL = (
     "/securities.json?iss.meta=off&iss.json=extended&start={start}"
 )
 
+
+# MOEX ISS API — одна бумага на TQBR
+SINGLE_TICKER_URL = (
+    "http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR"
+    "/securities/{ticker}.json?iss.meta=off&iss.json=extended"
+)
+
 CANDLES_URL = (
     "http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR"
     "/securities/{ticker}/candles.json"
@@ -128,6 +135,43 @@ def fetch_all_tqbr() -> dict[str, dict]:
                     })
 
     return all_securities
+
+
+
+def fetch_single_ticker(ticker: str) -> dict | None:
+    """
+    Загружает данные одной бумаги с TQBR.
+    Возвращает dict с ключами last, open, high, low, valtoday, issuecap или None.
+    """
+    data = fetch_json(SINGLE_TICKER_URL.format(ticker=ticker))
+    if not data or not isinstance(data, list):
+        return None
+
+    result = {}
+    for block in data:
+        if not isinstance(block, dict):
+            continue
+
+        securities = block.get("securities")
+        if securities and isinstance(securities, list):
+            for row in securities:
+                if isinstance(row, dict) and row.get("SECID") == ticker:
+                    result["issuesize"] = row.get("ISSUESIZE", 0)
+
+        marketdata = block.get("marketdata")
+        if marketdata and isinstance(marketdata, list):
+            for row in marketdata:
+                if isinstance(row, dict) and row.get("SECID") == ticker:
+                    result.update({
+                        "last": row.get("LAST") or row.get("LCLOSEPRICE", 0),
+                        "open": row.get("OPEN", 0),
+                        "high": row.get("HIGH", 0),
+                        "low": row.get("LOW", 0),
+                        "valtoday": row.get("VALTODAY", 0),
+                        "issuecap": row.get("ISSUECAPITALIZATION", 0),
+                    })
+
+    return result if result.get("last") else None
 
 
 def get_tickers(companies_dir: str) -> list[str]:
@@ -376,11 +420,25 @@ def main():
     print(f"{CYAN}═══════════════════════════════════════════════════════════════{NC}")
     print()
 
-    # Batch-загрузка всех бумаг TQBR
-    print(f"  Загрузка данных с MOEX ISS...", end=" ", flush=True)
-    moex_data = fetch_all_tqbr()
-    print(f"{GREEN}{len(moex_data)} бумаг загружено{NC}")
-    print()
+    # Загрузка данных с MOEX ISS
+    if args:
+        # Конкретные тикеры — загружаем по одному (быстрее)
+        moex_data = {}
+        for t in tickers:
+            print(f"  Загрузка {t} с MOEX ISS...", end=" ", flush=True)
+            md = fetch_single_ticker(t)
+            if md:
+                moex_data[t] = md
+                print(f"{GREEN}{md['last']}{NC}")
+            else:
+                print(f"{YELLOW}нет данных{NC}")
+        print()
+    else:
+        # Все компании — batch-загрузка (один запрос)
+        print(f"  Загрузка данных с MOEX ISS...", end=" ", flush=True)
+        moex_data = fetch_all_tqbr()
+        print(f"{GREEN}{len(moex_data)} бумаг загружено{NC}")
+        print()
 
     if not moex_data:
         print(f"{RED}Не удалось загрузить данные с MOEX{NC}")
