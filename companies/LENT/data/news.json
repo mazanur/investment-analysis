@@ -9,5 +9,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-27",
+    "title": "Акции “Ленты” войдут в индекс МосБиржи",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/aktsii-lenty-voydut-v-indeks-mosbirzhi-20260227-0904/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Включение акций Ленты в индекс МосБиржи повысит спрос со стороны индексных фондов (ETF), что поддержит ликвидность и может оказать умеренное положительное давление на котировки в среднесрочной перспективе",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
