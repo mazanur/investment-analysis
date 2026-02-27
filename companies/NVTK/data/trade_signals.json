@@ -27,4 +27,5 @@
     "position_size": "skip",
     "reasoning": "Негативная regulation-новость (strength: high), но рынок не отреагировал (price_move -0,3%, volume_ratio 0,8×). Ни long-positive (новость негативная), ни long-oversold (нет падения >5%) не применимы. Инкрементальный негатив к уже учтённым санкционным рискам в key_risks (Арктик СПГ-2, запрет ЕС). Тезис не меняется: sentiment bearish, fair value 1 000 ₽ < текущей 1 197 ₽."
   }
+
 ]
