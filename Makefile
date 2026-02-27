@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events download-all daily update-prices check-reports catalysts
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events download-all daily update-prices check-reports catalysts news-reaction
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -38,6 +38,7 @@ help:
 	@echo "  make research TICKER=SBER  — исследовать конкретную компанию"
 	@echo "  make sector SECTOR=finance — исследовать сектор"
 	@echo "  make speculative   — найти спекулятивные идеи"
+	@echo "  make news-reaction TICKER=EUTR — реакция на новость (trade signal)"
 	@echo "  make update-macro  — обновить macro.md после заседания ЦБ"
 	@echo ""
 	@echo "$(GREEN)Данные и генерация (скрипты):$(NC)"
@@ -134,6 +135,18 @@ endif
 speculative:
 	@echo "$(CYAN)Запуск Claude для поиска спекулятивных идей...$(NC)"
 	@claude $(CLAUDE_FLAGS) -p "Прочитай companies/SPECULATIVE_GUIDE.md. Найди топ-3 спекулятивные идеи среди заполненных компаний (sentiment: bullish, position: buy/watch). Рассчитай Speculative Score и покажи результаты." | $(CLAUDE_LOG)
+
+news-reaction:
+ifndef TICKER
+	@echo "$(RED)Ошибка: укажи тикер$(NC)"
+	@echo "Использование: make news-reaction TICKER=EUTR"
+	@exit 1
+endif
+	@echo "$(CYAN)Обновление цены $(TICKER)...$(NC)"
+	@python3 scripts/update_prices.py $(TICKER)
+	@echo ""
+	@echo "$(CYAN)Запуск Claude для анализа новостей $(TICKER)...$(NC)"
+	@claude $(CLAUDE_FLAGS) -p "Прочитай companies/NEWS_REACTION_GUIDE.md. Проанализируй последние новости из companies/$(TICKER)/data/news.json и определи, есть ли спекулятивная возможность. Запиши результат в companies/$(TICKER)/data/trade_signals.json." | $(CLAUDE_LOG)
 
 update-macro:
 	@echo "$(CYAN)Запуск Claude для обновления macro.md...$(NC)"

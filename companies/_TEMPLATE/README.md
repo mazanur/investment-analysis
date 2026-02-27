@@ -30,7 +30,9 @@ companies/{TICKER}/
 │   ├── moex_events.json        # Дивиденды, IR-календарь (MOEX ISS)
 │   └── sanctions.json          # Санкционный скрининг (OpenSanctions)
 ├── opinions.md        # Внешние мнения (автогенерация скриптом)
-└── trend.json         # Вероятности для API (автогенерация скриптом)
+├── trend.json         # Вероятности для API (автогенерация скриптом)
+└── data/
+    └── trade_signals.json  # Торговые сигналы на новости (Claude)
 ```
 
 ## Кто что заполняет
@@ -49,6 +51,7 @@ companies/{TICKER}/
 | `_index.md` | **Claude** | Анализ на основе всех данных выше |
 | `opinions.md` | **Скрипт** | Генерируется из Telegram-каналов |
 | `trend.json` | **Скрипт** | Генерируется из _index.md |
+| `data/trade_signals.json` | **Claude** | Генерируется при анализе новостей (`NEWS_REACTION_GUIDE.md`) |
 
 ## Что скачивается автоматически
 
