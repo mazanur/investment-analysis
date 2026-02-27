@@ -9,5 +9,16 @@
     "strength": "high",
     "action": "hold",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-27",
+    "title": "Bloomberg: украинская атака на завод в Дорогобуже ...",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/02/27/cimb-bloomberg-ukrainskaya-ataka-na-zavod-v-dorogobuzhe-povlechet-sereznye-posledstvi.html",
+    "impact": "neutral",
+    "summary": "Атака на завод Дорогобуж (2 млн тонн азотных удобрений в год, ~40% мощностей Акрона) приведёт к дефициту предложения на мировом рынке азотных удобрений в 1П2026, что позитивно для цен и выручки Акрона как экспортёра, несмотря на локальный ущерб производству.",
+    "strength": "high",
+    "action": "hold",
+    "source": "rss-feeder"
   }
 ]
