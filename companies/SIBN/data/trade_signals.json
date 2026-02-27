@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-02-27",
+    "trigger": "Задержание зампреда правления Джалябова по подозрению во взяточничестве на 30 млн ₽",
+    "trigger_url": "https://www.interfax.ru/russia/1074916",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Новость негативная (корпоративный governance-риск), но рынок не отреагировал (price_move +0.6%, volume 0.75× ADV). Ни long-positive (новость не позитивная), ни long-oversold (нет паники) сценарий не применим. Сумма взятки (30 млн ₽) ничтожна для компании с капитализацией 3 054 млрд ₽ — тезис не сломан."
+  }
+]
