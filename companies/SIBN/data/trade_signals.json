@@ -1,6 +1,34 @@
 [
   {
     "date": "2026-02-27",
+    "trigger": "Доставка Джалябова в суд для избрания меры пресечения — очередной этап того же уголовного дела о взятках",
+    "trigger_url": "https://ria.ru/20260227/dzhalyabov-2077133124.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Продолжение дела Джалябова (арест → этапирование → суд). Рынок игнорирует негатив (price_move +0.6%, volume 0.7× ADV). Новость негативная, но без паники — ни long-positive, ни long-oversold не применимы. Тезис не сломан: сумма взятки (30 млн ₽) ничтожна для компании с MCap 2.4 трлн ₽."
+  },
+  {
+    "date": "2026-02-24",
+    "trigger": "Продажа 56,15% NIS от «Газпром нефти» венгерской MOL — свершившийся факт (соглашение подписано 19.01)",
+    "trigger_url": "https://1prime.ru/20260224/siyyarto-867786152.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Strength: medium + impact: neutral → фильтр по силе: skip. Сделка по продаже NIS — свершившийся факт, не влияет на операционную деятельность. Переупаковка известной информации."
+  },
+  {
+    "date": "2026-02-27",
     "trigger": "Этапирование зампреда правления Джалябова в Москву, конкретизация эпизодов (фиктивные акты в «Газпром инвест»)",
     "trigger_url": "https://www.kommersant.ru/doc/8464097",
     "signal": "skip",
