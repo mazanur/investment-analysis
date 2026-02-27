@@ -26,7 +26,7 @@ key_opportunities:
   - Защитный актив: золото растёт при геополитической нестабильности и инфляции
   - Долг снижается: Net Debt/EBITDA = 0.88x — лучший уровень с 2021
 my_fair_value: 2 990
-current_price: 2476 481
+current_price: 2504 481
 upside: 21%
 position: watch
 gov_ownership: 0

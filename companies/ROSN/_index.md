@@ -26,7 +26,7 @@ key_opportunities:
   - Ослабление квот ОПЕК+ со 2П 2026 — потенциал роста добычи
   - Цикл снижения ставки ЦБ (прогноз 10-14% на конец 2026) улучшает оценку
 my_fair_value: 480
-current_price: 390
+current_price: 394.6
 upside: 23%
 position: watch
 gov_ownership: 50

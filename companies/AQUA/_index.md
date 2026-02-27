@@ -25,7 +25,7 @@ key_opportunities:
   - Высокий ROE 36% — качественный бизнес при нормальных условиях
   - Органический рост биомассы и производственных мощностей
 my_fair_value: 580
-current_price: 489.7
+current_price: 489.1
 upside: 18
 position: hold
 ---

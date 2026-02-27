@@ -25,7 +25,7 @@ key_opportunities:
   - Индексация тарифов +11.3% в 2026 году обеспечивает рост выручки без роста объёмов
   - При снижении ставки ЦБ до 12% стоимость может вырасти в 3-4x
 my_fair_value: 0.79
-current_price: 0.44
+current_price: 0.45
 upside: 82
 position: watch
 gov_ownership: 60

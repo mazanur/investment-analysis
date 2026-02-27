@@ -20,7 +20,7 @@ shares_outstanding: 177.6
 free_float: 17
 adv_rub_mln: 25
 my_fair_value: 1300
-current_price: 897.5
+current_price: 901.5
 upside: 39
 position: buy
 key_risks:
