@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-02-27",
+    "trigger": "Прибыль МСФО 2025 снизилась на 9,2% до 133,8 млрд ₽ (Q4 = 21,8 млрд vs прогноз 50-55 млрд)",
+    "trigger_url": "https://www.finam.ru/publications/item/pribyl-inter-rao-po-msfo-za-2025-god-snizilas-na-92-20260227-1155/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость (results, strength: high), но рынок не отреагировал (price_move −0,23%, volume 0,61× ADV). Ни long-positive (новость негативная), ни long-oversold (нет перепроданности >5%) не применимы. Снижение прибыли подтверждает уже известный key_risk (падение процентных доходов с кубышки при снижении ставки ЦБ). РСБУ Q4 2025 уже телеграфировал тренд — МСФО не сюрприз. Тезис не сломан: кэш (432 млрд) > капитализации (344 млрд), P/E 2,57x."
+  },
+  {
+    "date": "2026-02-24",
+    "trigger": "Интер РАО выбрано техпартнёром Минэнерго для создания электронной торговой площадки розничного рынка э/э",
+    "trigger_url": "https://www.vedomosti.ru/business/news/2026/02/24/1178644-ploschadku-dlya-elektroenergii",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Фильтр Шага 1: strength medium + impact neutral → skip. Позитив для долгосрочного позиционирования в рознице (новый источник комиссионных доходов), но финансовый эффект от пилота (2026-2027) неопределён. Нет числового катализатора для спекулятивной сделки."
+  }
+]
