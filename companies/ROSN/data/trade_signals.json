@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-02-27",
+    "trigger": "Доходы РФ от экспорта ископаемого топлива сократились на 19%, усиление санкционного давления OFAC, рост дисконта на российскую нефть",
+    "trigger_url": "https://smart-lab.ru/blog/1270667.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость (regulation, strength: high), но рынок не отреагировал (price_move +1,2%, volume 1,0× ADV). Новость подтверждает уже известные key_risks из _index.md (санкции против Восток Ойл, падение нефтяных цен, рост дисконта Urals). Ни long-positive (новость негативная), ни long-oversold (нет перепроданности >5%) не применимы. Тезис не сломан — position watch сохраняется."
+  },
+  {
+    "date": "2026-02-27",
+    "trigger": "Прогноз падения ЧП Роснефти на 73% г/г (до 49 млрд руб.), ожидаемые дивиденды ~4 руб./акцию (1% доходность)",
+    "trigger_url": "https://smart-lab.ru/blog/1269238.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость (results, strength: high), рынок не отреагировал (price_move −1,8% за 2 дня, volume ~1,0× ADV). Прогноз 73% падения ЧП — экстраполяция уже учтённого тренда 9М 2025 (−70% г/г из _index.md). Дивиденды 4 руб. ниже нашего прогноза (25-35 руб.), но это прогноз аналитика, не решение СД. Ни long-positive, ни long-oversold не применимы. R/R не рассчитывается — нет точки входа."
+  }
+]
