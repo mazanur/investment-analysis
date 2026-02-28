@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-02-28",
+    "trigger": "Удары США и Израиля по Ирану вызвали рост акций нефтяников, котировки Роснефти в верхних ценовых планках",
+    "trigger_url": "https://smart-lab.ru/blog/1271073.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная геополитическая новость (macro, strength: medium) уже в цене: price_move +2,85% (394,6→405,85), volume_ratio 3,16× ADV. По матрице 2–5% + volume >2× = «в цене» для позитива → skip. Дополнительно R/R = 1,83 (target 480 / stop −10% = 365) < 2,0. Геополитический эффект непредсказуем по длительности — деэскалация может быстро развернуть рост."
+  },
+  {
     "date": "2026-02-27",
     "trigger": "Доходы РФ от экспорта ископаемого топлива сократились на 19%, усиление санкционного давления OFAC, рост дисконта на российскую нефть",
     "trigger_url": "https://smart-lab.ru/blog/1270667.php",
