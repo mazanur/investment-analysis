@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-02-28",
+    "trigger": "ОПЕК+ обсудит увеличение добычи на 411 тыс. б/с на апрель — давление на нефтяные цены",
+    "trigger_url": "https://1prime.ru/20260301/strany-867907027.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Skip по трём причинам: (1) ADV 25 млн ₽ < 50 млн — неликвид, stop-условие по гайду; (2) негативная новость не отразилась на цене — price_move +2.72% (позитив от роста Brent доминировал), нет oversold-сценария; (3) решение ОПЕК+ — ожидаемый макро-фактор, уже в key_risks как «падение цен на нефть»."
+  },
+  {
+    "date": "2026-02-28",
     "trigger": "Рост Brent +2.87% до $72.87/барр. — позитив для нефтяного сектора",
     "trigger_url": "https://ru.investing.com/news/stock-market-news/article-3133316",
     "signal": "skip",
