@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-02-28",
+    "trigger": "ОПЕК+ обсуждает увеличение добычи на 411 тыс. б/с с апреля — рост предложения давит на цены нефти",
+    "trigger_url": "https://1prime.ru/20260301/strany-867907027.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная macro-новость (strength: medium), но рынок не отреагировал — цена +2,85% за день из-за доминирующего позитива (удары по Ирану). Нет сценария long-oversold (требуется >5% падения). Рост добычи ОПЕК+ — уже частично учтённый risk из _index.md (квоты ОПЕК+), при этом ослабление квот также opportunity (потенциал роста добычи ROSN). Противоречивый сигнал → skip."
+  },
+  {
+    "date": "2026-02-28",
     "trigger": "Удары США и Израиля по Ирану вызвали рост акций нефтяников, котировки Роснефти в верхних ценовых планках",
     "trigger_url": "https://smart-lab.ru/blog/1271073.php",
     "signal": "skip",
