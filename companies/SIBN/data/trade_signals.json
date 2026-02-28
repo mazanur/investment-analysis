@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-02-28",
+    "trigger": "Прогноз главы РФПИ Дмитриева о росте нефти выше $100/барр. на фоне ближневосточного конфликта",
+    "trigger_url": "https://ria.ru/20260228/neft-2077534655.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитив уже в цене: price_move +3.0% (506.9→522.1 ₽), volume_ratio 2.65× ADV. Новость — прогноз/мнение (noise), не факт. Тип: macro/noise. Тезис не изменён. Фильтр: strength medium + impact positive → анализируем, но матрица (2-5%, >2× ADV) → «в цене» для позитива → skip."
+  },
+  {
     "date": "2026-02-27",
     "trigger": "Суд изберёт меру пресечения зампреду Джалябову — процессуальный этап того же коррупционного дела",
     "trigger_url": "https://ria.ru/20260227/vzyatka-2077217675.html",
