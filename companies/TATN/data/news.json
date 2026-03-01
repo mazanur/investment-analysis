@@ -42,5 +42,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-01",
+    "title": "Акции нефтяников выросли на фоне тревожных новостей с Ближнего Востока",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/aktsii-neftyanikov-vyrosli-na-fone-trevozhnykh-novostey-s-blizhnego-vostoka-20260301-2016/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "negative",
+    "summary": "Рост акций Татнефти на 3,04% вызван эскалацией конфликта на Ближнем Востоке (авиаудары по Тегерану, частичное перекрытие Ормузского пролива), что подняло цены на нефть Brent до $73,21. Однако аналитики предупреждают о краткосрочности фактора — с апреля ОПЕК+ возобновит увеличение добычи на 206 тыс. барр/сутки, что создаст дополнительное давление на цены.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
