@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-01",
+    "trigger": "Прогноз роста Brent на $20/барр. при блокаде Ормузского пролива — гипотетический сценарий",
+    "trigger_url": "https://www.kommersant.ru/doc/8477282",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Skip по трём причинам: (1) ADV 25 млн ₽ < 50 млн — неликвид, stop-условие по гайду; (2) позитив уже в цене (price_move +2.72%, vol 5.68× ADV); (3) новость — noise: гипотетический прогноз экспертов, дублирует уже обработанную новость про Ормузский пролив от 28.02. Не является реальным катализатором."
+  },
+  {
     "date": "2026-02-28",
     "trigger": "ОПЕК+ обсудит увеличение добычи на 411 тыс. б/с на апрель — давление на нефтяные цены",
     "trigger_url": "https://1prime.ru/20260301/strany-867907027.html",
