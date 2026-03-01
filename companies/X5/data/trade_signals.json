@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-01",
+    "trigger": "Медийная статья о росте популярности «магазинов для бедных» в России — подтверждение тренда дискаунтеров",
+    "trigger_url": "https://lenta.ru/news/2026/03/01/rost-populyarnosti-magazinov-dlya-bednyh-v-rossii-ob-yasnili/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Шум: статья переупаковывает известный тренд роста дискаунтеров, уже заложенный в тезис (Чижик +67,3% YoY, Пятёрочка как формат «у дома»). Цена не отреагировала (−0,6%), но нет нового катализатора — нет информационного края для спекуляции. Фундаментальный тезис (buy, upside +46%) не меняется."
+  }
+]
