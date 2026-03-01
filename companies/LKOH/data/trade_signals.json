@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Индекс МосБиржи >2800 на фоне эскалации Ближний Восток — Иран перекрыл Ормузский пролив, ЛУКОЙЛ +2.99%",
+    "trigger_url": "https://www.finam.ru/publications/item/indeks-mosbirzhi-prevysil-2800-punktov-na-fone-eskalatsii-na-blizhnem-vostoke-20260301-1037/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Продолжение геополитического триггера (Иран), уже покрытого сигналом от 28.02. Цена +4.5% от пре-новостного уровня (5147→5376.5), volume ~2x ADV — частично в цене. R/R = 1.53 < 2.0. Временный макро-фактор, не меняет фундаментальный тезис (neutral/hold). Ближайший катализатор — FY2025 МСФО 4 марта."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Аналитики считают укрепление рубля временным, прогноз ослабления к 80–100 ₽/$ к осени — позитив для экспортёров",
     "trigger_url": "https://1prime.ru/20260301/rubl-867911597.html",
     "signal": "skip",
