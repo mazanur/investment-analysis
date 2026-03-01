@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Морские поставки нефти в Персидском заливе сокращаются — 250+ судов на рейде, эксперты прогнозируют $80–100/барр.",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2026/03/02/1179947-morskie-postavki-nefti-v-persidskom-zalive-sokraschayutsya",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная macro-новость (strength: medium) — продолжение иранской темы 28.02. Позитив уже в цене: price_move +2,85% (394,6→405,85), volume_ratio 3,2× ADV. По матрице 2–5% + volume >2× = «в цене» для позитива → skip. Цена 01.03 = 405,85 — не изменилась vs 28.02, рынок не отреагировал на эту новость дополнительно. Влияние косвенное: российская нефть не идёт через Ормуз. R/R = 1,83 (target 480, stop −10% = 365) < 2,0. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Рынки ждут прилёта ракет — нефть Brent может подняться выше $80 при открытии бирж, но ОПЕК+ +206k б/с и поставки РФ не через Ормуз ограничивают эффект",
     "trigger_url": "https://www.kommersant.ru/doc/8477536",
     "signal": "skip",
