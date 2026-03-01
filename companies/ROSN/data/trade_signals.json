@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Эксперт оценил вероятность блокады Ормузского пролива как низкую — снижение геополитической премии в ценах на нефть",
+    "trigger_url": "https://ria.ru/20260301/ekspert-2077680065.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная macro-новость (strength: medium) — noise, экспертное мнение о низкой вероятности блокады Ормузского пролива. Цена не отреагировала (0% за 01.03, close 405,85 = close 28.02). Позитив от иранских ударов уже в цене: price_move +2,85% (394,6→405,85), volume_ratio 3,16× ADV. Ни long-positive (новость негативная), ни long-oversold (нет падения >5%) не применимы. Тезис не сломан — position watch сохраняется."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Поражение второго танкера у Ормузского пролива — продолжение геополитической эскалации Иран/Израиль",
     "trigger_url": "https://lenta.ru/news/2026/03/01/second/",
     "signal": "skip",
