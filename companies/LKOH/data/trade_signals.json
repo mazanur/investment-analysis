@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Иран закрывает Ормузский пролив для ВСЕХ судов (военных, коммерческих, гражданских) — 20% мировых поставок нефти, Maersk приостановил рейсы",
+    "trigger_url": "https://ria.ru/20260301/zakrytie-2077746586.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "11-й сигнал кластера Ормуз. Полное закрытие пролива — эскалация, но Brent $80 ≠ Urals $80 (дисконт $10–15), при Urals ~$65 fair value ~5775 (+7%). Позитив уже в цене: +4.5% от пре-новостного уровня (5147→5376.5), volume ~2× ADV. R/R = 1.53 (upside 15.3% до fair value 6200, stop −10% = 4839) < минимума 2.0. Временный макро-фактор, тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — более значимый катализатор."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Рынки ждут прилета ракет — Brent выше $80/барр. на геополитике Ирана, дубль кластера Ормуз",
     "trigger_url": "https://www.kommersant.ru/doc/8477536",
     "signal": "skip",
