@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "ОПЕК+ увеличит добычу нефти с апреля на 206 000 б/с — дополнительное предложение давит на цены",
+    "trigger_url": "https://www.vedomosti.ru/business/news/2026/03/01/1179887-opek-uvelichit-dobichu",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная макро-новость (ОПЕК+ +206k б/с с апреля), но цена +3.5% за день на геополитике (Ормуз). Ни long-positive (новость негативная), ни long-oversold (цена не упала) — нет сценария. Увеличение добычи скромное, усиливает уже известный key_risk (Urals под давлением), тезис не сломан. R/R = 1.53 < 2.0."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Азиатские покупатели иранской нефти (Китай, Индия) могут перейти на российскую нефть при затяжном конфликте вокруг Ормузского пролива",
     "trigger_url": "https://1prime.ru/20260301/neft-867916916.html",
     "signal": "skip",
