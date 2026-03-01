@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Эскалация вокруг Ормузского пролива может поддержать цены на нефть и газ — Investing.com",
+    "trigger_url": "https://ru.investing.com/news/economy-news/article-3133381",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Продолжение геополитического кластера (Ормуз), уже покрытого 5 сигналами. Позитив в цене: +4.5% от пре-новостного уровня (5147→5376.5), volume ~2x ADV. R/R = 1.53 (upside 15.3% до fair value 6200, stop −10% = 4839) < минимума 2.0. Временный макро-фактор, не меняет фундаментальный тезис (neutral/hold). Ожидаем FY2025 МСФО 4 марта — более значимый катализатор."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "ОПЕК+ увеличит добычу нефти с апреля на 206 000 б/с — дополнительное предложение давит на цены",
     "trigger_url": "https://www.vedomosti.ru/business/news/2026/03/01/1179887-opek-uvelichit-dobichu",
     "signal": "skip",
