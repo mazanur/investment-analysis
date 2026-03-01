@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Reuters: 150+ танкеров встали на якорь у Ормузского пролива, крупные нефтяные компании приостановили проход судов — эскалация геополитической премии в нефти ($73+ Brent)",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/01/cimo-reuters-sotni-tankerov-i-kontejnerovozov-vstali-na-yakor-po-obe-storony-ormuzsko.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Эскалация кластера Иран/Ормуз — физическая блокада танкеров подтверждает рост нефти, позитив для Татнефти. Но R/R = 1.17 (upside к fair value 625 ₽ = +12%, стоп -10% по макро-типу). Цена частично отреагировала (+2.4% с пт). Геополитическая премия у Ормуза исторически временная. Position = watch, sentiment = neutral — нет оснований для override порога R/R."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Секторная ротация из банков в нефтяников на фоне конфликта в Иране и угрозы блокировки Ормузского пролива — косвенный позитив для Татнефти",
     "trigger_url": "https://smart-lab.ru/blog/1271175.php",
     "signal": "skip",
