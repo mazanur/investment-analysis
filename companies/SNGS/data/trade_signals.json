@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-01",
+    "trigger": "Аналитики считают укрепление рубля временным, прогноз 80-100 ₽/$ к осени — позитив для кубышки SNGS",
+    "trigger_url": "https://1prime.ru/20260301/rubl-867911597.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Обе новости (26.02 и 01.03) — одна тема: прогноз ослабления рубля. Позитив уже в цене: +4.33% от 21.74 до 22.68, volume 2× ADV. Новости — мнения аналитиков (noise), не конкретный катализатор с датой. Position = watch (5/10 чеклист), value trap не снят."
+  }
+]
