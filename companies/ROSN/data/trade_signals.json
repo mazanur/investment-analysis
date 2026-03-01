@@ -1,6 +1,34 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Рынки ждут прилёта ракет — нефть Brent может подняться выше $80 при открытии бирж, но ОПЕК+ +206k б/с и поставки РФ не через Ормуз ограничивают эффект",
+    "trigger_url": "https://www.kommersant.ru/doc/8477536",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная macro-новость (strength: medium) — обзор ожиданий роста нефти при открытии бирж. Позитив уже в цене: price_move +2,85% (394,6→405,85), volume_ratio 3,2× ADV. По матрице 2–5% + volume >2× = «в цене» для позитива → skip. R/R = 1,83 (target 480, stop −10% = 365) < 2,0. Сама статья отмечает ограничители: ОПЕК+ +206k б/с, российская нефть не идёт через Ормуз. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-01",
+    "trigger": "Эксперт: увеличение добычи ОПЕК+ на 206 тыс. б/с (166 тыс. с учётом компенсаций) в апреле — дополнительное предложение давит на цены",
+    "trigger_url": "https://ria.ru/20260301/ekspert-2077735922.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная macro-новость (strength: medium) — экспертный комментарий к решению ОПЕК+ увеличить добычу. Рынок не отреагировал на негатив: цена +2,85% за 28.02 из-за доминирующего геополитического позитива (удары по Ирану). Ни long-positive (новость негативная), ни long-oversold (нет падения >5%) не применимы. Увеличение добычи ОПЕК+ — уже учтённый risk/opportunity из _index.md: давит на цены, но ослабляет квоты для ROSN. R/R = 1,83 < 2,0. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Аналитики допускают переход Китая, Индии и Европы на закупки российской нефти при затяжном конфликте у Ормузского пролива",
     "trigger_url": "https://1prime.ru/20260301/neft-867916916.html",
     "signal": "skip",
