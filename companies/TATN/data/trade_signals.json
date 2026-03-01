@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "ОПЕК+ решил нарастить добычу на 206 тыс. барр/сутки в апреле 2026 — дополнительное давление на цены нефти",
+    "trigger_url": "https://www.kommersant.ru/doc/8477523",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная макро-новость (рост предложения нефти), но цена TATN выросла на +2.4% за выходные (позитив от Ормуза перевесил). Наращивание добычи ОПЕК+ уже частично заложено в стратегию компании. Ни long-positive (новость негативная), ни long-oversold (нет паники — цена растёт) не подходят. Upside к fair value всего 12% при стоп -10% → R/R = 1.2, ниже порога 2.0."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Reuters: 150+ танкеров встали на якорь у Ормузского пролива, крупные нефтяные компании приостановили проход судов — эскалация геополитической премии в нефти ($73+ Brent)",
     "trigger_url": "https://www.profinance.ru/news/2026/03/01/cimo-reuters-sotni-tankerov-i-kontejnerovozov-vstali-na-yakor-po-obe-storony-ormuzsko.html",
     "signal": "skip",
