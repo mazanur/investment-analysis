@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Brent $81+ впервые за 8 месяцев на эскалации Ближнего Востока — косвенный позитив для выручки SNGS",
+    "trigger_url": "https://www.kommersant.ru/doc/8477667",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Макро-новость (Brent $81+) с ограниченным влиянием на SNGS — основной драйвер цены акций — валютная кубышка ($44 млрд), а не нефтяные котировки; SDN-санкции ограничивают экспорт. Позитив уже в цене: +2.4% (22.14→22.68) при volume 2× ADV. Position = watch (value trap, 5/10 чеклист), нет специфического катализатора."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "NYT: морское сообщение через Ормузский пролив свелось к минимуму — потенциальный рост нефтяных котировок",
     "trigger_url": "https://www.interfax.ru/world/1075399",
     "signal": "skip",
