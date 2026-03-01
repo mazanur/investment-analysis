@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Аналитик: ОПЕК+ бережет мощности для балансировки — переупаковка решения о +206 тыс. барр/сутки в апреле",
+    "trigger_url": "https://1prime.ru/20260301/opek-867919817.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise — мнение аналитика о решении ОПЕК+, уже покрытом новостью Коммерсанта. Негатив не отразился на цене (TATN +2.4% на геополитической премии Ормуза). Ни long-positive, ни long-oversold не применимы. R/R = 1.17 (upside 11.7% к fair value 625 ₽, стоп -10%) < 2.0."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Акции нефтяников выросли на 3% на фоне Ормуза, но аналитики предупреждают о краткосрочности фактора и наращивании добычи ОПЕК+",
     "trigger_url": "https://www.finam.ru/publications/item/aktsii-neftyanikov-vyrosli-na-fone-trevozhnykh-novostey-s-blizhnego-vostoka-20260301-2016/",
     "signal": "skip",
