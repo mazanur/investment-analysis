@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-03-01",
+    "trigger": "Секторная ротация из банков в нефтяников на фоне конфликта в Иране и угрозы блокировки Ормузского пролива — косвенный позитив для Татнефти",
+    "trigger_url": "https://smart-lab.ru/blog/1271175.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная макро-новость (рост нефти из-за Ирана), но R/R = 1.17 (upside к fair value 625 ₽ всего +12%, стоп -10% по макро-типу). Цена частично отреагировала (+2.4% за день). Автор статьи сам отмечает, что иранские конфликты обычно непродолжительны — временный фактор, не меняющий нейтральный тезис."
+  },
+  {
+    "date": "2026-03-01",
+    "trigger": "Прогноз аналитиков: снижение выручки Татнефти на 17%, EBITDA на 23%, ЧП на 20% по итогам 2025 года",
+    "trigger_url": "https://smart-lab.ru/blog/1269238.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Прогнозная статья (noise), impact = neutral, strength = medium. По фильтру гайда: medium strength + neutral impact → skip. Прогноз снижения прибыли уже заложен в текущую оценку (_index.md). Не катализатор."
+  }
+]
