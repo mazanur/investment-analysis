@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-03-01",
+    "trigger": "Аналитики считают укрепление рубля временным, прогноз ослабления к 80–100 ₽/$ к осени — позитив для экспортёров",
+    "trigger_url": "https://1prime.ru/20260301/rubl-867911597.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Общая макро-новость, не специфичная для ЛУКОЙЛ (компания упомянута лишь как пример экспортёра). Ослабление рубля уже заложено в key_opportunities. Цена 1 марта +3.5% при volume ~2x ADV — движение, вероятно, связано с ожиданием FY2025 МСФО (4 марта), а не с этой новостью. Позитив уже в цене."
+  },
+  {
+    "date": "2026-02-26",
+    "trigger": "Litasco начала арбитраж против Болгарии ($4.5 млрд за экспроприацию НПЗ); дочка ЛУКОЙЛа подала иск к Румынии (проект Trident); TotalEnergies выкупила 45% НПЗ у ЛУКОЙЛа — продолжение потери зарубежных активов",
+    "trigger_url": "https://www.kommersant.ru/doc/8461756",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Кластер негативных новостей подтверждает уже известные key_risks (SDN-санкции, потеря зарубежных активов). Цена −1.1% на низком объёме (volume <1x ADV) — рынок не отреагировал. Нет условий для long-oversold (падение <2%), нет условий для long-positive (новость негативная). Тезис не сломан — иски к Румынии/Болгарии и продажа НПЗ уже заложены в fair value 6200. R/R при входе по текущей цене = 1.53 < 2.0."
+  }
+]
