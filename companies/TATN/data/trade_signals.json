@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Акции нефтяников выросли на 3% на фоне Ормуза, но аналитики предупреждают о краткосрочности фактора и наращивании добычи ОПЕК+",
+    "trigger_url": "https://www.finam.ru/publications/item/aktsii-neftyanikov-vyrosli-na-fone-trevozhnykh-novostey-s-blizhnego-vostoka-20260301-2016/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Шум — переупаковка уже проанализированных событий (Ормуз + ОПЕК+). Позитив частично в цене (+2.4%, volume 1.6× ADV). Upside к fair value 625 ₽ = +11.7%, стоп -10% → R/R = 1.17 < 2.0. Аналитики сами отмечают краткосрочность геополитической премии."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "ОПЕК+ решил нарастить добычу на 206 тыс. барр/сутки в апреле 2026 — дополнительное давление на цены нефти",
     "trigger_url": "https://www.kommersant.ru/doc/8477523",
     "signal": "skip",
