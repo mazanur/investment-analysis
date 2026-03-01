@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Поражение второго танкера у Ормузского пролива — продолжение геополитической эскалации Иран/Израиль",
+    "trigger_url": "https://lenta.ru/news/2026/03/01/second/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная macro-новость (strength: medium) — продолжение иранской эскалации 28.02, которая уже в цене: price_move +2,85% (394,6→405,85), volume_ratio 3,16× ADV. По матрице 2–5% + volume >2× = «в цене» для позитива → skip. R/R = 1,83 (target 480, stop −10% = 365) < 2,0. Нейтрализующие факторы того же дня: открытие Ормузского пролива, ОПЕК+ +411k б/с, США не ждут роста цен. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "ОПЕК+ договорились увеличить лимит добычи нефти на 411 тыс. б/с с апреля — подтверждение ранее обсуждаемого решения",
     "trigger_url": "https://www.rbc.ru/politics/01/03/2026/69a41b709a794715d7a46097",
     "signal": "skip",
