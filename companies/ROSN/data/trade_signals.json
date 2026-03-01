@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Открытие Ормузского пролива для танкеров — снятие геополитической премии в ценах на нефть",
+    "trigger_url": "https://lenta.ru/news/2026/03/01/stalo-izvestno-ob-otkrytii-ormuzskogo-proliva-dlya-tankerov/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная macro-новость (strength: medium): открытие Ормузского пролива снимает геополитическую премию от ударов по Ирану (28.02). Цена не отреагировала (price_move 0%, всё ещё 405,85 ₽ — уровень после иранского позитива +2,85%). Ни long-positive (новость негативная), ни long-oversold (нет падения >5%) не применимы. Тезис не сломан — временное снятие геополитической премии. Ожидаем возврат к ~394-395 ₽ (до иранского ралли), но short-сценарии не рассматриваем. Position watch сохраняется."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "СМИ: США не ожидают сильного изменения цен на нефть после ударов по Ирану — геополитическая премия ограничена",
     "trigger_url": "https://ria.ru/20260301/ssha-2077567567.html",
     "signal": "skip",
