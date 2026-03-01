@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Индия может начать закупать больше российской нефти, считает эксперт — дубль кластера Ормуз",
+    "trigger_url": "https://ria.ru/20260301/indija-2077734118.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise: экспертное мнение о гипотетическом росте закупок российской нефти Индией — дубль кластера Ормуз (уже покрыт 9 сигналами). Позитив в цене: +4.5% от пре-новостного уровня (5147→5376.5), volume ~2x ADV. R/R = 1.53 (upside 15.3% до fair value 6200, stop −10% = 4839) < минимума 2.0. Ожидаем FY2025 МСФО 4 марта — более значимый катализатор."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Прогноз роста цен на нефть после перекрытия Ормузского пролива — возможен переход Китая и Индии на российскую нефть",
     "trigger_url": "https://lenta.ru/news/2026/03/01/tsenam-na-neft-sprognozirovali-rost-posle-perekrytiya-iranom-ormuzskogo-proliva/",
     "signal": "skip",
