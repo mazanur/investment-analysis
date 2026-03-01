@@ -1,0 +1,93 @@
+{
+  "ticker": "NLMK",
+  "company_name": "НЛМК",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Квоты на поставки в ЕС до 2028 — уникальное преимущество среди российских металлургов",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Чистая денежная позиция (~80 млрд ₽) — финансовая устойчивость",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ к 10-14% к концу 2026 оживит строительство и внутренний спрос",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Акция торгуется с 24% дисконтом к балансовой стоимости (P/BV 0.78x)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "EBITDA H1 2025 рухнул на 46% г/г — кризис маржинальности",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "FCF отрицательный (-29.8 млрд LTM) из-за рекордного CAPEX 113 млрд ₽",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Дивиденды не выплачиваются второй год подряд (за 2024 рекомендовано 0)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Рост налоговой нагрузки: НДПИ 4.8% → 6.7%, налог на прибыль 25%",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "positive": 4,
+    "negative": 4,
+    "mixed": 2
+  }
+}

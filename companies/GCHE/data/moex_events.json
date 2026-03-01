@@ -1,0 +1,78 @@
+{
+  "ticker": "GCHE",
+  "company_name": "ЧеркизГ-ао",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2018-04-03",
+      "value": 75.07,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-10-08",
+      "value": 20.48,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-04-07",
+      "value": 101.63,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-10-07",
+      "value": 48.79,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-04-07",
+      "value": 60.92,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-10-05",
+      "value": 48.79,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-04-05",
+      "value": 120.42,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-10-03",
+      "value": 85.27,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-04-05",
+      "value": 130.27,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-12-12",
+      "value": 148.05,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-10-01",
+      "value": 118.43,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-04-07",
+      "value": 205.38,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-09-29",
+      "value": 142.11,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-04-07",
+      "value": 98.92,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

@@ -1,0 +1,38 @@
+{
+  "ticker": "AFKS",
+  "date": "2026-02-05",
+  "shortname": "Система ао",
+  "secname": "АФК \"Система\" ПАО ао",
+  "price": {
+    "last": 13.603,
+    "open": 13.77,
+    "high": 13.925,
+    "low": 13.511,
+    "waprice": 13.717,
+    "prev_close": 13.722
+  },
+  "volume": {
+    "shares_today": 64297000,
+    "value_today_rub": 881990396,
+    "num_trades_today": 20145
+  },
+  "liquidity": {
+    "adv_30d_rub": 582967227,
+    "adv_30d_mln_rub": 583.0,
+    "bid_ask_spread_pct": 0
+  },
+  "capitalization": {
+    "market_cap_rub": 131268950000,
+    "market_cap_bln_rub": 131.3,
+    "shares_outstanding": 9650000000
+  },
+  "range_52w": {
+    "high": 19.67,
+    "low": 11.928
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 100
+  }
+}

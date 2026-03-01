@@ -1,0 +1,38 @@
+{
+  "ticker": "ENPG",
+  "date": "2026-02-05",
+  "shortname": "ЭН+ГРУП ао",
+  "secname": "МКПАО ЭН+ ГРУП ао",
+  "price": {
+    "last": 483.6,
+    "open": 495.95,
+    "high": 501.25,
+    "low": 478.6,
+    "waprice": 491.5,
+    "prev_close": 495.45
+  },
+  "volume": {
+    "shares_today": 486755,
+    "value_today_rub": 239241436,
+    "num_trades_today": 19142
+  },
+  "liquidity": {
+    "adv_30d_rub": 216941668,
+    "adv_30d_mln_rub": 216.9,
+    "bid_ask_spread_pct": 0
+  },
+  "capitalization": {
+    "market_cap_rub": 308947326105.6,
+    "market_cap_bln_rub": 308.9,
+    "shares_outstanding": 638848896
+  },
+  "range_52w": {
+    "high": 569.45,
+    "low": 338.7
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 1
+  }
+}

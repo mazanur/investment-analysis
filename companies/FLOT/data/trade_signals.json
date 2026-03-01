@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-01",
+    "trigger": "Эскалация на Ближнем Востоке: Иран перекрыл Ормузский пролив (20% мирового экспорта нефти), рост цен на нефть — позитив для фрахтовых ставок",
+    "trigger_url": "https://www.finam.ru/publications/item/indeks-mosbirzhi-prevysil-2800-punktov-na-fone-eskalatsii-na-blizhnem-vostoke-20260301-1037/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Position: avoid, sentiment: bearish. Fair value 60 ₽ при текущей цене 78.73 ₽ (upside −20%) — long-трейд невозможен при отрицательном upside. Новость не меняет тезис: рост нефти — временный макро-фактор, санкции на 69 судов (3/4 флота) остаются. Цена частично отреагировала (+3.02%, volume_ratio 1.9×)."
+  }
+]

@@ -1,0 +1,73 @@
+{
+  "ticker": "MOEX",
+  "company_name": "Мосбиржа",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2014-07-11",
+      "value": 2.38,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-05-12",
+      "value": 3.87,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-05-16",
+      "value": 7.11,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-05-16",
+      "value": 7.68,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-09-29",
+      "value": 2.49,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-05-15",
+      "value": 5.47,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-05-14",
+      "value": 7.7,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-05-15",
+      "value": 7.93,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-05-14",
+      "value": 9.45,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-05-12",
+      "value": 4.84,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-06-16",
+      "value": 4.84,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-06-14",
+      "value": 17.35,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-10",
+      "value": 26.11,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

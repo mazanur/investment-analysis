@@ -1,0 +1,13 @@
+{
+  "ticker": "CBOM",
+  "company_name": "МКБ ао",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2019-06-07",
+      "value": 0.11,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

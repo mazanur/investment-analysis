@@ -1,0 +1,38 @@
+{
+  "ticker": "CBOM",
+  "date": "2026-02-11",
+  "shortname": "МКБ ао",
+  "secname": "\"МКБ\" ПАО ао",
+  "price": {
+    "last": 6.044,
+    "open": 6.028,
+    "high": 6.069,
+    "low": 6.003,
+    "waprice": 6.037,
+    "prev_close": 6.013
+  },
+  "volume": {
+    "shares_today": 4283600,
+    "value_today_rub": 25858864,
+    "num_trades_today": 1946
+  },
+  "liquidity": {
+    "adv_30d_rub": 68794776,
+    "adv_30d_mln_rub": 68.8,
+    "bid_ask_spread_pct": 0.1158
+  },
+  "capitalization": {
+    "market_cap_rub": 201815158461.04,
+    "market_cap_bln_rub": 201.8,
+    "shares_outstanding": 33429709866
+  },
+  "range_52w": {
+    "high": 0,
+    "low": 0
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 100
+  }
+}

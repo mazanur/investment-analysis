@@ -1,0 +1,101 @@
+{
+  "ticker": "RTKM",
+  "company_name": "RTKM",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ до 10-14% к концу 2026 — резкое восстановление прибыли",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Q4 FCF +48.3 млрд (погашено 51 млрд финансового долга) — разворот FCF",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "EBITDA 331 млрд (+9.4%), CAPEX/Revenue 18% (vs 23% в 2024) — операционная дисциплина",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "IPO дочерних компаний (ЦОД, кибербезопасность) в 2026-2027",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Полный пресс-релиз за 2025 (6 марта 2026) — подробные цифры с IFRS 16",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Процентные расходы 128.2 млрд (+52% YoY) — ЧП 11.4 млрд при выручке 872.8 (маржа 1.3%)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Q4'25 убыток -4.9 млрд — разовые списания и рост расходов на персонал (+23% в Q4)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "ROE 5.1% при стоимости капитала >17% — разрушение акционерной стоимости",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "BV/share отрицательная (-3.08 руб) — балансовая стоимость для ао отрицательна",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "positive": 5,
+    "negative": 4,
+    "mixed": 2
+  }
+}

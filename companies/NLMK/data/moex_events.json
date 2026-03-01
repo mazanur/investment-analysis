@@ -1,0 +1,153 @@
+{
+  "ticker": "NLMK",
+  "company_name": "НЛМК",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2014-06-17",
+      "value": 0.67,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2014-10-11",
+      "value": 0.88,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-06-16",
+      "value": 1.64,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-10-12",
+      "value": 0.93,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-01-08",
+      "value": 1.95,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-06-14",
+      "value": 1.13,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-10-12",
+      "value": 1.08,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-01-09",
+      "value": 3.63,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-06-14",
+      "value": 2.35,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-10-12",
+      "value": 3.2,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-01-09",
+      "value": 5.13,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-06-20",
+      "value": 5.73,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-10-12",
+      "value": 5.24,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-01-09",
+      "value": 6.04,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-05-06",
+      "value": 5.8,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-06-19",
+      "value": 7.34,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-10-10",
+      "value": 3.68,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-01-09",
+      "value": 3.22,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-05-06",
+      "value": 5.16,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-06-09",
+      "value": 3.12,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-07-13",
+      "value": 3.21,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-10-12",
+      "value": 4.75,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-12-29",
+      "value": 6.43,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-05-11",
+      "value": 7.25,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-06-23",
+      "value": 7.71,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-09-07",
+      "value": 13.62,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-12-07",
+      "value": 13.33,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-01-11",
+      "value": 2.6,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-05-27",
+      "value": 25.43,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

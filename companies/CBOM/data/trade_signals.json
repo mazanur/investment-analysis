@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-03-01",
+    "trigger": "В России появился реестр торговцев драгоценностями — усиление контроля за операциями с драгметаллами, дополнительная отчётность перед Росфинмониторингом для всех банков",
+    "trigger_url": "https://www.rbc.ru/finances/08/04/2025/67f4ed7c9a794733e12eddb3",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Общеотраслевая regulation-новость, не специфичная для МКБ (банк не упоминается). Фактически шум: закон применяется ко всем кредитным организациям. Фундаментал bearish (position: avoid, fair value 4.5₽ vs 6.05₽ = downside -25%), NPL 28%, SDN-санкции. Нет сценария для заработка: новость негативная (long-positive невозможен), падения нет (long-oversold невозможен)."
+  },
+  {
+    "date": "2026-02-28",
+    "trigger": "ЦБ повышает надбавку к коэффициентам риска до 100% для кредитов крупным компаниям с высокой закредитованностью — дополнительное давление на капитал МКБ (H1.0 на грани 11%)",
+    "trigger_url": "https://1prime.ru/20260301/tsb-867906517.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная regulation-новость (strength: medium), но рынок не отреагировал (+0.12%). Нет сценария для заработка: long-positive невозможен (новость негативная), long-oversold невозможен (нет падения >5%). Фундаментал bearish (position: avoid, fair value 4.5₽ vs текущая 6.05₽ = downside -25%), новость лишь подтверждает уже известный риск давления на капитал H1.0. NPL 28%, базовый бизнес убыточен, SDN-санкции."
+  }
+]

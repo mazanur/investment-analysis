@@ -1,0 +1,38 @@
+{
+  "ticker": "TATN",
+  "date": "2026-02-04",
+  "shortname": "Татнфт 3ао",
+  "secname": "ПАО \"Татнефть\" ао",
+  "price": {
+    "last": 567.2,
+    "open": 567.6,
+    "high": 576.5,
+    "low": 561.6,
+    "waprice": 568,
+    "prev_close": 567.6
+  },
+  "volume": {
+    "shares_today": 1623088,
+    "value_today_rub": 921985576,
+    "num_trades_today": 26336
+  },
+  "liquidity": {
+    "adv_30d_rub": 678239327,
+    "adv_30d_mln_rub": 678.2,
+    "bid_ask_spread_pct": 0.0353
+  },
+  "capitalization": {
+    "market_cap_rub": 1236406972250,
+    "market_cap_bln_rub": 1236.4,
+    "shares_outstanding": 2178690700
+  },
+  "range_52w": {
+    "high": 769.8,
+    "low": 511.1
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 1
+  }
+}

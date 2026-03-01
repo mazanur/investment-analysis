@@ -1,0 +1,68 @@
+{
+  "ticker": "SNGS",
+  "company_name": "Сургнфгз",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2014-07-16",
+      "value": 0.6,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-07-16",
+      "value": 0.65,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-07-18",
+      "value": 0.6,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-07-19",
+      "value": 0.6,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-07-19",
+      "value": 0.65,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-07-18",
+      "value": 0.65,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-07-20",
+      "value": 0.65,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-07-20",
+      "value": 0.7,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-07-20",
+      "value": 0.8,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-07-20",
+      "value": 0.8,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-07-18",
+      "value": 0.85,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-17",
+      "value": 0.9,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

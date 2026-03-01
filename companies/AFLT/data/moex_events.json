@@ -1,0 +1,466 @@
+{
+  "ticker": "AFLT",
+  "company_name": "Аэрофлот",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2014-07-08",
+      "value": 2.5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-07-14",
+      "value": 17.48,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-07-06",
+      "value": 12.8053,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-07-05",
+      "value": 2.6877,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-18",
+      "value": 5.27,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": [
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-12-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за ноябрь 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-11-27",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по МСФО за 9М 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-11-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за октябрь 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-10-30",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 9М 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-10-12",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за сентябрь 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-09-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за август 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-08-28",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по МСФО за 6М 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-08-11",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 6М 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-07-30",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 6М 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-07-13",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за июнь 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-06-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за май 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-05-29",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация годового отчета 2025 (предварительно)",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-05-29",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по МСФО за 3М 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-05-13",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за апрель 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-04-30",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 3М 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-04-13",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за март 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-03-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за февраль 2026",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-03-04",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по МСФО за 12М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-02-11",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 12М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2026-02-03",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 12М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-12-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за ноябрь 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-11-28",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по МСФО за 9М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-11-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за октябрь 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-10-30",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 9М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-10-25",
+      "event_type": "IR событие (очное)",
+      "description": "Конференция Smart-Lab Conf 2025 (Москва)",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-10-13",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за сентябрь 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-09-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за август 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-08-29",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по МСФО за 6М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-08-12",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за июль 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-07-30",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 6М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-07-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за июнь 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-06-30",
+      "event_type": "Собрания владельцев ценных бумаг",
+      "description": "Годовое Общее собрание акционеров",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-06-30",
+      "event_type": "Собрания владельцев ценных бумаг",
+      "description": "Годовое Общее собрание акционеров (предварительно)",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-06-30",
+      "event_type": "Собрания владельцев ценных бумаг",
+      "description": "Годовое Общее собрание акционеров",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-06-28",
+      "event_type": "IR событие (очное)",
+      "description": "Конференция Smart-Lab Conf 2025 (Санкт-Петербург)",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-06-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за май 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-05-30",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по МСФО за 3М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-05-30",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация годового отчета 2024",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-05-15",
+      "event_type": "Собрания владельцев ценных бумаг",
+      "description": "Внеочередное Общее собрание акционеров",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-05-15",
+      "event_type": "Собрания владельцев ценных бумаг",
+      "description": "Внеочередное Общее собрание акционеров",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-04-30",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по РСБУ за 3М 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-04-12",
+      "event_type": "IR событие (очное)",
+      "description": "Конференция Profit Conf (Москва)",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-04-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за март 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-04-08",
+      "event_type": "IR событие (online)",
+      "description": "Вебинар на МосБирже",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-03-27",
+      "event_type": "IR событие (online)",
+      "description": "Стрим Market-Power",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-03-14",
+      "event_type": "IR событие (очное)",
+      "description": "Инвестиционная конференция Эйлер (Сочи)",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-03-11",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за февраль 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-03-11",
+      "event_type": "IR событие (online)",
+      "description": "Эфир Т-Инвестиции",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-03-04",
+      "event_type": "IR событие (online)",
+      "description": "Эфир РБК Рынки",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-03-04",
+      "event_type": "Публикация отчетности",
+      "description": "Публикация результатов по МСФО за 12М 2024",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-02-12",
+      "event_type": "IR событие (online)",
+      "description": "Эфир РБК Инвестиции",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-01-28",
+      "event_type": "IR событие (очное)",
+      "description": "Посещение аналитиками Летного комплекса Аэрофлота",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2025-01-14",
+      "event_type": "IR событие (online)",
+      "description": "Эфир РБК Рынки",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"АЭРОФЛОТ-РОССИЙСКИЕ АВИАЛИНИИ\"",
+      "inn": "7712040126",
+      "event_date": "2024-05-12",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные результаты за апрель 2025",
+      "link": "https://ir.aeroflot.ru/ru/news-and-events/investor-calendar/"
+    }
+  ]
+}

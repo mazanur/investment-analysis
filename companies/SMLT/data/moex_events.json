@@ -1,0 +1,43 @@
+{
+  "ticker": "SMLT",
+  "company_name": "Самолёт",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2019-01-09",
+      "value": 1.7,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-04-22",
+      "value": 5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-07-10",
+      "value": 5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-07-10",
+      "value": 41,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-10-15",
+      "value": 41,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-07-11",
+      "value": 41,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-10-12",
+      "value": 41,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

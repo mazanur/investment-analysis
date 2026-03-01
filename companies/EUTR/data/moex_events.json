@@ -1,0 +1,38 @@
+{
+  "ticker": "EUTR",
+  "company_name": "ЕвроТранс",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2023-07-01",
+      "value": 6.7,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-12-10",
+      "value": 8.88,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-07-09",
+      "value": 16.72,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-10-19",
+      "value": 4.32,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-01-15",
+      "value": 6.48,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-17",
+      "value": 14.19,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

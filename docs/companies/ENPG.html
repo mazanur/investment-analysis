@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЭН+ Групп (EN+ Group) (ENPG) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* История цен */
+.price-history {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.price-history h3 { margin-bottom: 12px; font-size: 16px; }
+.period-btns { display: flex; gap: 6px; margin-bottom: 16px; }
+.period-btn {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 12px; cursor: pointer; color: var(--text-secondary); font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+}
+.period-btn:hover { border-color: var(--link); color: var(--text); }
+.period-btn.active { background: var(--link); color: #fff; border-color: var(--link); }
+.price-chart-wrap { margin-bottom: 16px; position: relative; }
+.price-chart { width: 100%; height: auto; }
+.price-tooltip {
+    display: none; position: absolute; pointer-events: none;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.cmp-badge {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 8px 12px; margin-top: 6px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; cursor: pointer;
+}
+.cmp-badge:hover { border-color: var(--link); }
+.price-table-wrap { max-height: 400px; overflow-y: auto; }
+.price-table { font-size: 13px; }
+.price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>ЭН+ Групп (EN+ Group)</h1>
+<div class="ticker">ENPG &middot; Энергетика</div>
+<div class="badges">
+<span class="badge badge-bearish">bearish</span>
+<span class="badge badge-sell">sell</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">490.55</div></div><div class="metric"><div class="label">Цель</div><div class="value">296</div></div><div class="metric"><div class="label">Upside</div><div class="value">-39%</div></div><div class="metric"><div class="label">P/E</div><div class="value">5.18</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0</div></div><div class="metric"><div class="label">ROE</div><div class="value">7.5</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">309</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.52</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">4.47</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">3.50</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:20%">&#x25B2; 20%</div>
+<div class="flat" style="width:5%">5%</div>
+<div class="decline" style="width:75%">&#x25BC; 75%</div>
+</div>
+</div>
+
+<div class="price-history">
+<h3>История цен</h3>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+<div class="period-btns" id="period-btns" style="margin-bottom:0">
+<button class="period-btn" data-days="21">1М</button>
+<button class="period-btn" data-days="63">3М</button>
+<button class="period-btn" data-days="126">6М</button>
+<button class="period-btn active" data-days="252">1Г</button>
+<button class="period-btn" data-days="0">Всё</button>
+</div>
+<div class="marker-toggles" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap">
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-yearly" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue)"></span>Годовой
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-quarterly" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow)"></span>Квартальный
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-news" checked style="cursor:pointer">
+<span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive)"></span>Новость
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-dividends" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;background:var(--green);transform:rotate(45deg)"></span>Дивиденд
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-ir" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border:2px solid var(--link);border-radius:50%;background:transparent"></span>IR-события
+</label>
+</div>
+</div>
+<div class="price-chart-wrap">
+<svg id="price-svg" viewBox="0 0 700 200" class="price-chart"></svg>
+<div id="price-tooltip" class="price-tooltip"></div>
+</div>
+<div id="cmp-badge" class="cmp-badge" style="display:none"></div>
+<div class="table-wrap price-table-wrap"><table class="price-table">
+<thead><tr><th>Дата</th><th>Цена</th><th>Изм.</th><th>Объём</th></tr></thead>
+<tbody id="price-tbody"></tbody>
+</table></div>
+</div>
+
+<script>
+(function() {
+var DATA = [{"d": "2025-02-10", "c": 408.5, "v": 2925492527}, {"d": "2025-02-11", "c": 429.2, "v": 4714544480}, {"d": "2025-02-12", "c": 431.45, "v": 1818973543}, {"d": "2025-02-13", "c": 428.05, "v": 768464679}, {"d": "2025-02-14", "c": 419.8, "v": 728722204}, {"d": "2025-02-17", "c": 437.15, "v": 268626465}, {"d": "2025-02-18", "c": 428.6, "v": 326171278}, {"d": "2025-02-19", "c": 431.5, "v": 218758957}, {"d": "2025-02-20", "c": 436.45, "v": 252879870}, {"d": "2025-02-21", "c": 445.8, "v": 361860631}, {"d": "2025-02-24", "c": 495.0, "v": 901668187}, {"d": "2025-02-25", "c": 502.0, "v": 1930534957}, {"d": "2025-02-26", "c": 487.5, "v": 1095782233}, {"d": "2025-02-27", "c": 467.65, "v": 424098844}, {"d": "2025-02-28", "c": 483.35, "v": 494655615}, {"d": "2025-03-01", "c": 480.3, "v": 13714763}, {"d": "2025-03-02", "c": 474.8, "v": 9067204}, {"d": "2025-03-03", "c": 479.5, "v": 477593213}, {"d": "2025-03-04", "c": 498.95, "v": 387640971}, {"d": "2025-03-05", "c": 482.3, "v": 368559195}, {"d": "2025-03-06", "c": 483.1, "v": 208347086}, {"d": "2025-03-07", "c": 492.0, "v": 361142488}, {"d": "2025-03-10", "c": 507.2, "v": 878184319}, {"d": "2025-03-11", "c": 505.7, "v": 408416321}, {"d": "2025-03-12", "c": 493.65, "v": 364810001}, {"d": "2025-03-13", "c": 507.35, "v": 788936657}, {"d": "2025-03-14", "c": 523.0, "v": 705597825}, {"d": "2025-03-15", "c": 523.25, "v": 13538529}, {"d": "2025-03-16", "c": 528.1, "v": 29549916}, {"d": "2025-03-17", "c": 528.55, "v": 344266557}, {"d": "2025-03-18", "c": 519.95, "v": 446404111}, {"d": "2025-03-19", "c": 523.3, "v": 203252050}, {"d": "2025-03-20", "c": 553.9, "v": 1734546833}, {"d": "2025-03-21", "c": 552.0, "v": 642310096}, {"d": "2025-03-24", "c": 547.15, "v": 570032668}, {"d": "2025-03-25", "c": 564.95, "v": 508021710}, {"d": "2025-03-26", "c": 547.95, "v": 307228103}, {"d": "2025-03-27", "c": 526.45, "v": 782126584}, {"d": "2025-03-28", "c": 510.2, "v": 809587135}, {"d": "2025-03-29", "c": 493.2, "v": 75198548}, {"d": "2025-03-30", "c": 492.3, "v": 9113457}, {"d": "2025-03-31", "c": 524.0, "v": 723450566}, {"d": "2025-04-01", "c": 498.45, "v": 727638061}, {"d": "2025-04-02", "c": 519.85, "v": 511101136}, {"d": "2025-04-03", "c": 506.55, "v": 677706145}, {"d": "2025-04-04", "c": 463.25, "v": 911698423}, {"d": "2025-04-05", "c": 468.0, "v": 136930824}, {"d": "2025-04-06", "c": 478.0, "v": 57290646}, {"d": "2025-04-07", "c": 433.5, "v": 2019047708}, {"d": "2025-04-08", "c": 396.95, "v": 977494486}, {"d": "2025-04-09", "c": 400.95, "v": 2841286022}, {"d": "2025-04-10", "c": 408.65, "v": 1217532440}, {"d": "2025-04-11", "c": 429.15, "v": 799520055}, {"d": "2025-04-12", "c": 430.75, "v": 64520545}, {"d": "2025-04-13", "c": 430.75, "v": 4754825}, {"d": "2025-04-14", "c": 415.45, "v": 724065961}, {"d": "2025-04-15", "c": 428.15, "v": 442091404}, {"d": "2025-04-16", "c": 437.4, "v": 607113284}, {"d": "2025-04-17", "c": 445.0, "v": 572636723}, {"d": "2025-04-18", "c": 438.1, "v": 418198272}, {"d": "2025-04-21", "c": 440.0, "v": 258239042}, {"d": "2025-04-22", "c": 445.1, "v": 469309295}, {"d": "2025-04-23", "c": 435.65, "v": 228542005}, {"d": "2025-04-24", "c": 431.5, "v": 117250399}, {"d": "2025-04-25", "c": 439.2, "v": 179196308}, {"d": "2025-04-26", "c": 449.0, "v": 175715938}, {"d": "2025-04-27", "c": 450.8, "v": 29298797}, {"d": "2025-04-28", "c": 443.45, "v": 338371685}, {"d": "2025-04-29", "c": 421.85, "v": 247896381}, {"d": "2025-04-30", "c": 408.85, "v": 634057256}, {"d": "2025-05-02", "c": 392.45, "v": 284486258}, {"d": "2025-05-03", "c": 393.05, "v": 16814179}, {"d": "2025-05-04", "c": 392.75, "v": 18064345}, {"d": "2025-05-05", "c": 386.5, "v": 233188665}, {"d": "2025-05-06", "c": 401.15, "v": 528367796}, {"d": "2025-05-07", "c": 402.0, "v": 309450977}, {"d": "2025-05-08", "c": 405.3, "v": 183852503}, {"d": "2025-05-10", "c": 403.6, "v": 15005530}, {"d": "2025-05-11", "c": 410.95, "v": 51583220}, {"d": "2025-05-12", "c": 415.15, "v": 171523045}, {"d": "2025-05-13", "c": 409.65, "v": 185780968}, {"d": "2025-05-14", "c": 403.5, "v": 208112069}, {"d": "2025-05-15", "c": 401.9, "v": 113927607}, {"d": "2025-05-16", "c": 398.4, "v": 187730306}, {"d": "2025-05-17", "c": 406.95, "v": 22484814}, {"d": "2025-05-18", "c": 408.85, "v": 17231949}, {"d": "2025-05-19", "c": 400.05, "v": 107330087}, {"d": "2025-05-20", "c": 396.05, "v": 77365985}, {"d": "2025-05-21", "c": 387.0, "v": 145461704}, {"d": "2025-05-22", "c": 372.55, "v": 279226124}, {"d": "2025-05-23", "c": 364.8, "v": 226094651}, {"d": "2025-05-26", "c": 347.75, "v": 434884672}, {"d": "2025-05-27", "c": 364.0, "v": 396162229}, {"d": "2025-05-28", "c": 378.0, "v": 393119008}, {"d": "2025-05-29", "c": 360.0, "v": 278774551}, {"d": "2025-05-30", "c": 358.55, "v": 175069783}, {"d": "2025-05-31", "c": 363.55, "v": 48261749}, {"d": "2025-06-01", "c": 352.5, "v": 95290183}, {"d": "2025-06-02", "c": 362.55, "v": 210215603}, {"d": "2025-06-03", "c": 397.4, "v": 928249844}, {"d": "2025-06-04", "c": 395.15, "v": 723413573}, {"d": "2025-06-05", "c": 396.5, "v": 187723092}, {"d": "2025-06-06", "c": 370.9, "v": 897403167}, {"d": "2025-06-07", "c": 372.1, "v": 16871843}, {"d": "2025-06-08", "c": 368.8, "v": 85693357}, {"d": "2025-06-09", "c": 378.85, "v": 368428165}, {"d": "2025-06-10", "c": 379.75, "v": 287117815}, {"d": "2025-06-11", "c": 380.0, "v": 221842167}, {"d": "2025-06-13", "c": 376.1, "v": 144502407}, {"d": "2025-06-14", "c": 378.3, "v": 14034266}, {"d": "2025-06-15", "c": 380.0, "v": 22098641}, {"d": "2025-06-16", "c": 369.1, "v": 75814555}, {"d": "2025-06-17", "c": 387.75, "v": 256929131}, {"d": "2025-06-18", "c": 385.85, "v": 188157468}, {"d": "2025-06-19", "c": 385.45, "v": 167096630}, {"d": "2025-06-20", "c": 379.75, "v": 82528051}, {"d": "2025-06-23", "c": 364.55, "v": 306591256}, {"d": "2025-06-24", "c": 371.7, "v": 156998427}, {"d": "2025-06-25", "c": 379.5, "v": 220770779}, {"d": "2025-06-26", "c": 384.75, "v": 316156098}, {"d": "2025-06-27", "c": 386.6, "v": 191018951}, {"d": "2025-06-28", "c": 387.45, "v": 21906895}, {"d": "2025-06-29", "c": 382.8, "v": 24499753}, {"d": "2025-06-30", "c": 403.2, "v": 649255596}, {"d": "2025-07-01", "c": 398.7, "v": 343166920}, {"d": "2025-07-02", "c": 398.05, "v": 143212086}, {"d": "2025-07-03", "c": 403.5, "v": 269763145}, {"d": "2025-07-04", "c": 405.6, "v": 211908043}, {"d": "2025-07-05", "c": 405.95, "v": 4274960}, {"d": "2025-07-06", "c": 403.4, "v": 3372958}, {"d": "2025-07-07", "c": 394.85, "v": 127346907}, {"d": "2025-07-08", "c": 388.0, "v": 175607798}, {"d": "2025-07-09", "c": 388.25, "v": 124324905}, {"d": "2025-07-10", "c": 397.45, "v": 144148764}, {"d": "2025-07-11", "c": 378.05, "v": 147306583}, {"d": "2025-07-12", "c": 382.3, "v": 8071196}, {"d": "2025-07-13", "c": 377.5, "v": 12505142}, {"d": "2025-07-14", "c": 394.4, "v": 277858026}, {"d": "2025-07-15", "c": 393.35, "v": 100654690}, {"d": "2025-07-16", "c": 395.0, "v": 59391284}, {"d": "2025-07-17", "c": 379.15, "v": 204390410}, {"d": "2025-07-18", "c": 395.95, "v": 238429759}, {"d": "2025-07-19", "c": 397.75, "v": 24641597}, {"d": "2025-07-20", "c": 400.45, "v": 10774386}, {"d": "2025-07-21", "c": 419.8, "v": 665613520}, {"d": "2025-07-22", "c": 428.55, "v": 505564272}, {"d": "2025-07-23", "c": 435.95, "v": 1183831118}, {"d": "2025-07-24", "c": 433.25, "v": 346801456}, {"d": "2025-07-25", "c": 422.9, "v": 474315652}, {"d": "2025-07-26", "c": 421.2, "v": 5429727}, {"d": "2025-07-27", "c": 423.4, "v": 10082392}, {"d": "2025-07-28", "c": 419.5, "v": 293789387}, {"d": "2025-07-29", "c": 432.4, "v": 777451644}, {"d": "2025-07-30", "c": 418.65, "v": 295568741}, {"d": "2025-07-31", "c": 428.4, "v": 225728138}, {"d": "2025-08-01", "c": 446.0, "v": 1176235913}, {"d": "2025-08-04", "c": 441.1, "v": 462477029}, {"d": "2025-08-05", "c": 451.05, "v": 434383142}, {"d": "2025-08-06", "c": 469.5, "v": 1156845634}, {"d": "2025-08-07", "c": 473.1, "v": 623544973}, {"d": "2025-08-08", "c": 495.0, "v": 411220849}, {"d": "2025-08-11", "c": 507.1, "v": 629219765}, {"d": "2025-08-12", "c": 503.7, "v": 303896244}, {"d": "2025-08-13", "c": 497.25, "v": 183503755}, {"d": "2025-08-14", "c": 509.5, "v": 573718995}, {"d": "2025-08-15", "c": 503.7, "v": 379512462}, {"d": "2025-08-16", "c": 488.45, "v": 81109028}, {"d": "2025-08-17", "c": 487.1, "v": 17821290}, {"d": "2025-08-18", "c": 494.4, "v": 360231129}, {"d": "2025-08-19", "c": 486.5, "v": 136356372}, {"d": "2025-08-20", "c": 482.35, "v": 189497423}, {"d": "2025-08-21", "c": 452.85, "v": 781632018}, {"d": "2025-08-22", "c": 452.45, "v": 313991655}, {"d": "2025-08-23", "c": 453.8, "v": 5720378}, {"d": "2025-08-24", "c": 450.45, "v": 5817521}, {"d": "2025-08-25", "c": 442.6, "v": 300451886}, {"d": "2025-08-26", "c": 442.7, "v": 207144729}, {"d": "2025-08-27", "c": 454.9, "v": 310150666}, {"d": "2025-08-28", "c": 445.95, "v": 243188733}, {"d": "2025-08-29", "c": 447.15, "v": 101937858}, {"d": "2025-08-30", "c": 450.85, "v": 23158652}, {"d": "2025-08-31", "c": 452.95, "v": 7850109}, {"d": "2025-09-01", "c": 461.75, "v": 609891616}, {"d": "2025-09-02", "c": 450.65, "v": 335226800}, {"d": "2025-09-03", "c": 456.5, "v": 133830803}, {"d": "2025-09-04", "c": 460.75, "v": 224481433}, {"d": "2025-09-05", "c": 463.05, "v": 137902123}, {"d": "2025-09-06", "c": 462.3, "v": 3524825}, {"d": "2025-09-07", "c": 462.2, "v": 2524570}, {"d": "2025-09-08", "c": 466.5, "v": 165863538}, {"d": "2025-09-09", "c": 466.8, "v": 263567444}, {"d": "2025-09-10", "c": 456.4, "v": 202844229}, {"d": "2025-09-11", "c": 453.85, "v": 210375077}, {"d": "2025-09-12", "c": 429.9, "v": 341324745}, {"d": "2025-09-13", "c": 423.75, "v": 23306862}, {"d": "2025-09-14", "c": 427.3, "v": 53927246}, {"d": "2025-09-15", "c": 425.1, "v": 187959451}, {"d": "2025-09-16", "c": 428.0, "v": 214300597}, {"d": "2025-09-17", "c": 431.2, "v": 160389137}, {"d": "2025-09-18", "c": 423.8, "v": 163256216}, {"d": "2025-09-19", "c": 410.35, "v": 261139844}, {"d": "2025-09-22", "c": 415.7, "v": 210873149}, {"d": "2025-09-23", "c": 396.35, "v": 341557994}, {"d": "2025-09-24", "c": 402.95, "v": 294014708}, {"d": "2025-09-25", "c": 399.95, "v": 100029692}, {"d": "2025-09-26", "c": 405.2, "v": 205078757}, {"d": "2025-09-27", "c": 402.55, "v": 2818812}, {"d": "2025-09-28", "c": 402.15, "v": 2355139}, {"d": "2025-09-29", "c": 393.25, "v": 210039075}, {"d": "2025-09-30", "c": 404.95, "v": 194936124}, {"d": "2025-10-01", "c": 401.15, "v": 149448913}, {"d": "2025-10-02", "c": 396.9, "v": 188843727}, {"d": "2025-10-03", "c": 393.85, "v": 260171198}, {"d": "2025-10-04", "c": 384.3, "v": 51549091}, {"d": "2025-10-05", "c": 387.8, "v": 33078557}, {"d": "2025-10-06", "c": 402.5, "v": 281271098}, {"d": "2025-10-07", "c": 403.25, "v": 104318855}, {"d": "2025-10-08", "c": 390.05, "v": 217603987}, {"d": "2025-10-09", "c": 412.25, "v": 461939799}, {"d": "2025-10-10", "c": 398.7, "v": 297781820}, {"d": "2025-10-11", "c": 398.25, "v": 10486432}, {"d": "2025-10-12", "c": 401.35, "v": 6174224}, {"d": "2025-10-13", "c": 394.95, "v": 233098661}, {"d": "2025-10-14", "c": 383.5, "v": 203547467}, {"d": "2025-10-15", "c": 384.6, "v": 114360463}, {"d": "2025-10-16", "c": 419.25, "v": 422828465}, {"d": "2025-10-17", "c": 424.3, "v": 313385440}, {"d": "2025-10-18", "c": 430.65, "v": 59337370}, {"d": "2025-10-19", "c": 424.7, "v": 32483805}, {"d": "2025-10-20", "c": 425.0, "v": 114317121}, {"d": "2025-10-21", "c": 413.3, "v": 328605028}, {"d": "2025-10-22", "c": 402.15, "v": 275299639}, {"d": "2025-10-23", "c": 388.3, "v": 386576110}, {"d": "2025-10-24", "c": 382.8, "v": 190525529}, {"d": "2025-10-27", "c": 368.9, "v": 295124254}, {"d": "2025-10-28", "c": 378.75, "v": 155018007}, {"d": "2025-10-29", "c": 375.35, "v": 219312007}, {"d": "2025-10-30", "c": 383.45, "v": 249830422}, {"d": "2025-10-31", "c": 376.85, "v": 152059394}, {"d": "2025-11-01", "c": 380.6, "v": 99687902}, {"d": "2025-11-03", "c": 389.1, "v": 88836320}, {"d": "2025-11-05", "c": 382.1, "v": 166424193}, {"d": "2025-11-06", "c": 382.55, "v": 87160829}, {"d": "2025-11-07", "c": 387.45, "v": 143260694}, {"d": "2025-11-08", "c": 388.65, "v": 9081639}, {"d": "2025-11-09", "c": 392.5, "v": 18212704}, {"d": "2025-11-10", "c": 390.35, "v": 115522466}, {"d": "2025-11-11", "c": 393.55, "v": 74382574}, {"d": "2025-11-12", "c": 389.2, "v": 59891385}, {"d": "2025-11-13", "c": 388.1, "v": 63435529}, {"d": "2025-11-14", "c": 385.5, "v": 50680145}, {"d": "2025-11-15", "c": 387.2, "v": 4292454}, {"d": "2025-11-16", "c": 385.25, "v": 1823660}, {"d": "2025-11-17", "c": 382.65, "v": 57530690}, {"d": "2025-11-18", "c": 387.2, "v": 169577276}, {"d": "2025-11-19", "c": 397.1, "v": 210524092}, {"d": "2025-11-20", "c": 414.55, "v": 215929444}, {"d": "2025-11-21", "c": 413.05, "v": 205591558}, {"d": "2025-11-24", "c": 406.25, "v": 173586615}, {"d": "2025-11-25", "c": 416.75, "v": 206414310}, {"d": "2025-11-26", "c": 414.1, "v": 76593895}, {"d": "2025-11-27", "c": 406.25, "v": 105025786}, {"d": "2025-11-28", "c": 418.4, "v": 114881153}, {"d": "2025-11-29", "c": 417.65, "v": 17811472}, {"d": "2025-11-30", "c": 421.15, "v": 10495160}, {"d": "2025-12-01", "c": 419.05, "v": 171574779}, {"d": "2025-12-02", "c": 417.15, "v": 113902206}, {"d": "2025-12-03", "c": 410.95, "v": 172436962}, {"d": "2025-12-04", "c": 412.8, "v": 57836901}, {"d": "2025-12-05", "c": 425.6, "v": 183870957}, {"d": "2025-12-08", "c": 417.4, "v": 164140056}, {"d": "2025-12-09", "c": 436.55, "v": 327388707}, {"d": "2025-12-10", "c": 435.65, "v": 151619021}, {"d": "2025-12-11", "c": 447.3, "v": 484495675}, {"d": "2025-12-12", "c": 435.65, "v": 240580045}, {"d": "2025-12-13", "c": 440.65, "v": 15564100}, {"d": "2025-12-14", "c": 437.45, "v": 11631989}, {"d": "2025-12-15", "c": 452.05, "v": 227756243}, {"d": "2025-12-16", "c": 461.9, "v": 210224212}, {"d": "2025-12-17", "c": 460.5, "v": 214432283}, {"d": "2025-12-18", "c": 457.1, "v": 203346593}, {"d": "2025-12-19", "c": 449.65, "v": 233476827}, {"d": "2025-12-20", "c": 449.2, "v": 7259414}, {"d": "2025-12-21", "c": 448.25, "v": 7704655}, {"d": "2025-12-22", "c": 439.65, "v": 146602586}, {"d": "2025-12-23", "c": 450.6, "v": 114472406}, {"d": "2025-12-24", "c": 452.35, "v": 253684341}, {"d": "2025-12-25", "c": 447.0, "v": 85089473}, {"d": "2025-12-26", "c": 459.2, "v": 282073836}, {"d": "2025-12-27", "c": 461.1, "v": 36767007}, {"d": "2025-12-28", "c": 458.7, "v": 38757134}, {"d": "2025-12-29", "c": 453.35, "v": 296061023}, {"d": "2025-12-30", "c": 451.45, "v": 150347246}, {"d": "2026-01-05", "c": 460.25, "v": 174565805}, {"d": "2026-01-06", "c": 468.05, "v": 294411679}, {"d": "2026-01-08", "c": 459.0, "v": 143263910}, {"d": "2026-01-09", "c": 460.8, "v": 70439855}, {"d": "2026-01-12", "c": 479.0, "v": 503381367}, {"d": "2026-01-13", "c": 486.0, "v": 409299576}, {"d": "2026-01-14", "c": 485.85, "v": 367138227}, {"d": "2026-01-15", "c": 489.55, "v": 206666610}, {"d": "2026-01-16", "c": 491.55, "v": 201251823}, {"d": "2026-01-17", "c": 492.55, "v": 3584281}, {"d": "2026-01-18", "c": 492.15, "v": 6040910}, {"d": "2026-01-19", "c": 493.8, "v": 169407297}, {"d": "2026-01-20", "c": 500.6, "v": 205663582}, {"d": "2026-01-21", "c": 506.15, "v": 186215611}, {"d": "2026-01-22", "c": 508.25, "v": 161242565}, {"d": "2026-01-23", "c": 514.15, "v": 161401572}, {"d": "2026-01-24", "c": 510.4, "v": 23773105}, {"d": "2026-01-25", "c": 514.2, "v": 31864527}, {"d": "2026-01-26", "c": 513.05, "v": 352227300}, {"d": "2026-01-27", "c": 511.75, "v": 223269578}, {"d": "2026-01-28", "c": 518.2, "v": 215127299}, {"d": "2026-01-29", "c": 532.65, "v": 723593420}, {"d": "2026-01-30", "c": 502.95, "v": 457849492}, {"d": "2026-01-31", "c": 503.3, "v": 15695142}, {"d": "2026-02-01", "c": 507.65, "v": 44343576}, {"d": "2026-02-02", "c": 499.1, "v": 279402014}, {"d": "2026-02-03", "c": 495.45, "v": 191480185}, {"d": "2026-02-04", "c": 483.6, "v": 239241435}, {"d": "2026-02-05", "c": 475.5, "v": 336955000}, {"d": "2026-02-06", "c": 477.85, "v": 96997860}, {"d": "2026-02-07", "c": 482.35, "v": 10403300}, {"d": "2026-02-08", "c": 481.35, "v": 11509262}, {"d": "2026-02-09", "c": 474.5, "v": 168980845}, {"d": "2026-02-10", "c": 469.6, "v": 56936954}, {"d": "2026-02-11", "c": 474.6, "v": 22097932}, {"d": "2026-02-12", "c": 478.15, "v": 121426156}, {"d": "2026-02-13", "c": 479.6, "v": 113036247}, {"d": "2026-02-13", "c": 477.8, "v": 105379917}, {"d": "2026-02-14", "c": 479.25, "v": 118213730}, {"d": "2026-02-16", "c": 478.45, "v": 165345585}, {"d": "2026-02-18", "c": 492.55, "v": 233092093}, {"d": "2026-02-20", "c": 487.65, "v": 70202372}, {"d": "2026-02-23", "c": 484.65, "v": 57503291}, {"d": "2026-02-24", "c": 476.35, "v": 202020898}, {"d": "2026-02-25", "c": 470.45, "v": 59520666}, {"d": "2026-02-26", "c": 480.8, "v": 88903403}, {"d": "2026-02-27", "c": 490.55, "v": 223188471}];
+var REPORTS = [{"date": "2018-05-18", "type": "Q", "period": "2017Q1"}, {"date": "2018-06-26", "type": "Q", "period": "2016Q4"}, {"date": "2018-08-15", "type": "Q", "period": "2018Q2"}, {"date": "2018-11-16", "type": "Q", "period": "2018Q3"}, {"date": "2019-03-28", "type": "Q", "period": "2018Q4"}, {"date": "2019-05-31", "type": "Q", "period": "2019Q1"}, {"date": "2019-08-16", "type": "Q", "period": "2019Q2"}, {"date": "2019-11-14", "type": "Q", "period": "2019Q3"}, {"date": "2020-03-27", "type": "Q", "period": "2019Q4"}, {"date": "2020-05-15", "type": "Q", "period": "2020Q1"}, {"date": "2020-08-18", "type": "Q", "period": "2020Q2"}, {"date": "2021-03-25", "type": "Q", "period": "2020Q4"}, {"date": "2021-08-19", "type": "Q", "period": "2021Q2"}, {"date": "2022-03-31", "type": "Q", "period": "2021Q4"}, {"date": "2022-08-18", "type": "Q", "period": "2022Q2"}, {"date": "2023-03-23", "type": "Q", "period": "2022Q4"}, {"date": "2023-08-17", "type": "Q", "period": "2023Q2"}, {"date": "2024-03-21", "type": "Q", "period": "2023Q4"}, {"date": "2024-08-29", "type": "Q", "period": "2024Q2"}, {"date": "2025-03-20", "type": "Q", "period": "2024Q4"}, {"date": "2025-08-21", "type": "Q", "period": "2025Q2"}];
+var NEWS = [];
+var DIVIDENDS = [];
+var IR_EVENTS = [];
+var svg = document.getElementById('price-svg');
+var tbody = document.getElementById('price-tbody');
+var activeDays = 252;
+
+function render(days) {
+    activeDays = days;
+    var src = days > 0 ? DATA.slice(-days) : DATA;
+    if (!src.length) return;
+
+    // --- SVG chart ---
+    var W = 700, H = 200, PT = 20, PB = 30, PL = 60, PR = 20;
+    var CW = W - PL - PR, CH = H - PT - PB;
+    var prices = src.map(function(r){ return r.c; });
+    var minP = Math.min.apply(null, prices), maxP = Math.max.apply(null, prices);
+    var range = maxP - minP || maxP * 0.1 || 1;
+    minP -= range * 0.05; maxP += range * 0.05; range = maxP - minP;
+    var n = prices.length;
+
+    function xP(i) { return PL + (i / Math.max(n - 1, 1)) * CW; }
+    function yP(p) { return PT + CH - ((p - minP) / range) * CH; }
+
+    var trendColor = prices[n-1] >= prices[0] ? 'var(--positive)' : 'var(--negative)';
+    var pts = []; for (var i = 0; i < n; i++) pts.push(xP(i).toFixed(1)+','+yP(prices[i]).toFixed(1));
+    var polyline = pts.join(' ');
+    var area = xP(0).toFixed(1)+','+(PT+CH)+' '+polyline+' '+xP(n-1).toFixed(1)+','+(PT+CH);
+
+    // Grid
+    var h = '';
+    for (var g = 0; g < 5; g++) {
+        var gp = minP + (range * g / 4), gy = yP(gp);
+        h += '<line x1="'+PL+'" y1="'+gy.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+gy.toFixed(1)+'" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="4,4"/>';
+        var lbl = gp >= 1000 ? Math.round(gp).toLocaleString('ru') : gp >= 1 ? gp.toFixed(1) : gp.toFixed(4);
+        h += '<text x="'+(PL-8)+'" y="'+gy.toFixed(1)+'" text-anchor="end" dominant-baseline="middle" fill="var(--text-secondary)" font-size="11">'+lbl+'</text>';
+    }
+
+    // Date labels
+    var idxs = n >= 3 ? [0, Math.floor(n/2), n-1] : n === 2 ? [0, 1] : [0];
+    for (var di = 0; di < idxs.length; di++) {
+        var dd = src[idxs[di]].d.split('-');
+        h += '<text x="'+xP(idxs[di]).toFixed(1)+'" y="'+(H-5)+'" text-anchor="middle" fill="var(--text-secondary)" font-size="11">'+dd[2]+'.'+dd[1]+'</text>';
+    }
+
+    h += '<polygon points="'+area+'" fill="'+trendColor+'" opacity="0.1"/>';
+    h += '<polyline points="'+polyline+'" fill="none" stroke="'+trendColor+'" stroke-width="2" stroke-linejoin="round"/>';
+    h += '<circle cx="'+xP(n-1).toFixed(1)+'" cy="'+yP(prices[n-1]).toFixed(1)+'" r="4" fill="var(--link)"/>';
+
+    // Build dateToIdx mapping
+    var dateToIdx = {};
+    for (var di = 0; di < n; di++) dateToIdx[src[di].d] = di;
+
+    // Marker vertical lines (under hv-rect)
+    var reportMarkers = [];
+    for (var ri = 0; ri < REPORTS.length; ri++) {
+        var rd = REPORTS[ri].date;
+        if (dateToIdx[rd] !== undefined) {
+            reportMarkers.push({idx: dateToIdx[rd], type: REPORTS[ri].type, period: REPORTS[ri].period});
+        }
+    }
+    for (var mi = 0; mi < reportMarkers.length; mi++) {
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7" class="report-line" data-type="'+m.type+'"/>';
+    }
+
+    var newsMarkers = [];
+    for (var ni = 0; ni < NEWS.length; ni++) {
+        var nd = NEWS[ni].date;
+        if (dateToIdx[nd] !== undefined) {
+            newsMarkers.push({idx: dateToIdx[nd], title: NEWS[ni].title, impact: NEWS[ni].impact || 'neutral', url: NEWS[ni].url || ''});
+        }
+    }
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8" class="news-line"/>';
+    }
+
+    // Dividend markers
+    var divMarkers = [];
+    for (var dvi = 0; dvi < DIVIDENDS.length; dvi++) {
+        var dd = DIVIDENDS[dvi].date;
+        if (dateToIdx[dd] !== undefined) {
+            divMarkers.push({idx: dateToIdx[dd], value: DIVIDENDS[dvi].value, currency: DIVIDENDS[dvi].currency || 'RUB'});
+        }
+    }
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<line x1="'+dmx.toFixed(1)+'" y1="'+PT+'" x2="'+dmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--green)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" class="div-line"/>';
+    }
+
+    // IR events markers (future reports)
+    var irMarkers = [];
+    for (var iri = 0; iri < IR_EVENTS.length; iri++) {
+        var ird = IR_EVENTS[iri].date;
+        if (dateToIdx[ird] !== undefined) {
+            irMarkers.push({idx: dateToIdx[ird], type: IR_EVENTS[iri].type, description: IR_EVENTS[iri].description});
+        }
+    }
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<line x1="'+irmx.toFixed(1)+'" y1="'+PT+'" x2="'+irmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--link)" stroke-width="1" stroke-dasharray="6,3" opacity="0.5" class="ir-line"/>';
+    }
+
+    // Hover elements (initially hidden)
+    h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
+    h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
+    // Transparent overlay to capture mouse events
+    h += '<rect x="'+PL+'" y="'+PT+'" width="'+CW+'" height="'+CH+'" fill="transparent" style="cursor:crosshair" id="hv-rect"/>';
+    // Compare mode elements
+    h += '<circle id="pin1" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
+    h += '<circle id="pin2" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
+    h += '<line id="cmp-line" x1="0" y1="0" x2="0" y2="0" stroke="var(--link)" stroke-width="1.5" stroke-dasharray="5,3" visibility="hidden"/>';
+
+    // Marker circles/polygons (ABOVE hv-rect for click/hover)
+    for (var mi = 0; mi < reportMarkers.length; mi++) {
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="5" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'" style="cursor:pointer"/>';
+    }
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<polygon points="'+(nmx-6).toFixed(1)+','+(PT+10)+' '+(nmx+6).toFixed(1)+','+(PT+10)+' '+nmx.toFixed(1)+','+(PT-2)+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'" data-url="'+nm.url.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }
+    // Dividend markers (diamond shape)
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<polygon points="'+dmx.toFixed(1)+','+(PT-2)+' '+(dmx+5).toFixed(1)+','+(PT+5)+' '+dmx.toFixed(1)+','+(PT+12)+' '+(dmx-5).toFixed(1)+','+(PT+5)+'" fill="var(--green)" class="div-marker" data-value="'+dm.value+'" data-currency="'+dm.currency+'" style="cursor:pointer"/>';
+    }
+    // IR event markers (hollow circle for future events)
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<circle cx="'+irmx.toFixed(1)+'" cy="'+(PT+5)+'" r="5" fill="var(--bg)" stroke="var(--link)" stroke-width="2" class="ir-marker" data-type="'+irm.type.replace(/"/g, '&quot;')+'" data-desc="'+irm.description.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }
+
+    svg.innerHTML = h;
+
+    // --- Hover & Compare interaction ---
+    var tooltip = document.getElementById('price-tooltip');
+    var hvLine = document.getElementById('hv-line');
+    var hvDot = document.getElementById('hv-dot');
+    var hvRect = document.getElementById('hv-rect');
+    var pin1El = document.getElementById('pin1');
+    var pin2El = document.getElementById('pin2');
+    var cmpLine = document.getElementById('cmp-line');
+    var chartWrap = svg.closest('.price-chart-wrap');
+    var cmpBadge = document.getElementById('cmp-badge');
+    cmpBadge.style.display = 'none';
+    var cmpState = 0; // 0=none, 1=first pinned, 2=both pinned
+    var cmpIdx1 = -1, cmpIdx2 = -1;
+
+    function getIdx(e) {
+        var rect = svg.getBoundingClientRect();
+        var scaleX = W / rect.width;
+        var mouseX = (e.clientX - rect.left) * scaleX;
+        var idx = Math.round((mouseX - PL) / CW * (n - 1));
+        if (idx < 0) idx = 0; if (idx >= n) idx = n - 1;
+        return idx;
+    }
+
+    function fmtPrice(p) {
+        return p >= 100 ? p.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : p >= 1 ? p.toFixed(2) : p.toFixed(4);
+    }
+
+    function fmtDate(d) {
+        var dd = d.split('-');
+        return dd[2]+'.'+dd[1]+'.'+dd[0];
+    }
+
+    function resetCompare() {
+        cmpState = 0; cmpIdx1 = -1; cmpIdx2 = -1;
+        pin1El.setAttribute('visibility', 'hidden');
+        pin2El.setAttribute('visibility', 'hidden');
+        cmpLine.setAttribute('visibility', 'hidden');
+        cmpBadge.style.display = 'none';
+    }
+
+    cmpBadge.onclick = function() { resetCompare(); };
+
+    function showBadge(i1, i2) {
+        var lo = Math.min(i1, i2), hi = Math.max(i1, i2);
+        var pct = (src[hi].c - src[lo].c) / src[lo].c * 100;
+        var sign = pct > 0 ? '+' : '';
+        var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+        var days = hi - lo;
+        var dayWord = 'дн.';
+        cmpBadge.innerHTML = '<span class="'+cls+'" style="font-weight:700;font-size:16px">'+sign+pct.toFixed(1)+'%</span>' +
+            '<span style="color:var(--text-secondary);font-size:12px;margin-left:8px">'+fmtDate(src[lo].d)+' → '+fmtDate(src[hi].d)+' ('+days+' '+dayWord+')</span>' +
+            '<span style="color:var(--text-secondary);font-size:12px;margin-left:8px">'+fmtPrice(src[lo].c)+' → '+fmtPrice(src[hi].c)+'</span>';
+        cmpBadge.style.display = 'flex';
+    }
+
+    hvRect.addEventListener('click', function(e) {
+        var idx = getIdx(e);
+        if (cmpState === 0) {
+            cmpState = 1; cmpIdx1 = idx;
+            pin1El.setAttribute('cx', xP(idx).toFixed(1));
+            pin1El.setAttribute('cy', yP(prices[idx]).toFixed(1));
+            pin1El.setAttribute('visibility', 'visible');
+            pin2El.setAttribute('visibility', 'hidden');
+            cmpLine.setAttribute('visibility', 'hidden');
+            cmpBadge.innerHTML = '<span style="color:var(--text-secondary);font-size:12px">Кликните вторую точку для сравнения</span>';
+            cmpBadge.style.display = 'flex';
+        } else if (cmpState === 1) {
+            cmpState = 2; cmpIdx2 = idx;
+            pin2El.setAttribute('cx', xP(idx).toFixed(1));
+            pin2El.setAttribute('cy', yP(prices[idx]).toFixed(1));
+            pin2El.setAttribute('visibility', 'visible');
+            cmpLine.setAttribute('x1', xP(cmpIdx1).toFixed(1));
+            cmpLine.setAttribute('y1', yP(prices[cmpIdx1]).toFixed(1));
+            cmpLine.setAttribute('x2', xP(idx).toFixed(1));
+            cmpLine.setAttribute('y2', yP(prices[idx]).toFixed(1));
+            cmpLine.setAttribute('visibility', 'visible');
+            showBadge(cmpIdx1, idx);
+        } else {
+            resetCompare();
+        }
+    });
+
+    hvRect.addEventListener('mousemove', function(e) {
+        var idx = getIdx(e);
+        var px = xP(idx), py = yP(prices[idx]);
+        hvLine.setAttribute('x1', px.toFixed(1));
+        hvLine.setAttribute('x2', px.toFixed(1));
+        hvLine.setAttribute('visibility', 'visible');
+        hvDot.setAttribute('cx', px.toFixed(1));
+        hvDot.setAttribute('cy', py.toFixed(1));
+        hvDot.setAttribute('visibility', 'visible');
+        // Tooltip content
+        var r = src[idx];
+        var prStr = fmtPrice(r.c);
+        var chgHtml = '';
+        if (cmpState === 1) {
+            var pct = (r.c - src[cmpIdx1].c) / src[cmpIdx1].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        } else if (idx > 0) {
+            var pct = (r.c - src[0].c) / src[0].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        }
+        tooltip.innerHTML = '<strong>'+prStr+'</strong> '+chgHtml+'<br><span style="color:var(--text-secondary);font-size:11px">'+fmtDate(r.d)+'</span>';
+        tooltip.style.display = 'block';
+        // Position tooltip
+        var tipX = (e.clientX - chartWrap.getBoundingClientRect().left) + 12;
+        var tipY = (e.clientY - chartWrap.getBoundingClientRect().top) - 10;
+        if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+        tooltip.style.left = tipX + 'px';
+        tooltip.style.top = tipY + 'px';
+        // Live connecting line while picking second point
+        if (cmpState === 1) {
+            cmpLine.setAttribute('x1', xP(cmpIdx1).toFixed(1));
+            cmpLine.setAttribute('y1', yP(prices[cmpIdx1]).toFixed(1));
+            cmpLine.setAttribute('x2', px.toFixed(1));
+            cmpLine.setAttribute('y2', py.toFixed(1));
+            cmpLine.setAttribute('visibility', 'visible');
+        }
+    });
+
+    hvRect.addEventListener('mouseleave', function() {
+        hvLine.setAttribute('visibility', 'hidden');
+        hvDot.setAttribute('visibility', 'hidden');
+        tooltip.style.display = 'none';
+        if (cmpState === 1) cmpLine.setAttribute('visibility', 'hidden');
+    });
+
+    // Report marker tooltips
+    svg.querySelectorAll('.report-marker').forEach(function(marker) {
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {
+            var period = this.getAttribute('data-period');
+            var type = this.getAttribute('data-type') === 'Y' ? 'Годовой' : 'Квартальный';
+            tooltip.innerHTML = '<strong>' + type + ' отчёт</strong><br><span style="color:var(--text-secondary);font-size:11px">' + period + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // News marker tooltips and click
+    svg.querySelectorAll('.news-marker').forEach(function(marker) {
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {
+            var title = this.getAttribute('data-title');
+            var impact = this.getAttribute('data-impact');
+            var url = this.getAttribute('data-url');
+            var impactText = impact === 'positive' ? '↑ Позитив' : impact === 'negative' ? '↓ Негатив' : '— Нейтрально';
+            var impactCls = impact === 'positive' ? 'positive' : impact === 'negative' ? 'negative' : 'muted';
+            var clickHint = url ? '<br><span style="color:var(--link);font-size:10px">Кликните для перехода →</span>' : '';
+            tooltip.innerHTML = '<strong>Новость</strong><br><span style="font-size:12px">' + title + '</span><br><span class="' + impactCls + '" style="font-size:11px">' + impactText + '</span>' + clickHint;
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 200 > chartWrap.offsetWidth) tipX -= 210;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+        marker.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var url = this.getAttribute('data-url');
+            if (url) window.open(url, '_blank');
+        });
+    });
+
+    // Dividend marker tooltips
+    svg.querySelectorAll('.div-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var value = this.getAttribute('data-value');
+            var currency = this.getAttribute('data-currency');
+            tooltip.innerHTML = '<strong>Дивиденд</strong><br><span style="font-size:14px;color:var(--positive)">' + value + ' ' + currency + '</span><br><span style="color:var(--text-secondary);font-size:10px">Дата отсечки</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 150 > chartWrap.offsetWidth) tipX -= 160;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // IR event marker tooltips
+    svg.querySelectorAll('.ir-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var type = this.getAttribute('data-type');
+            var desc = this.getAttribute('data-desc');
+            tooltip.innerHTML = '<strong>IR-событие</strong><br><span style="font-size:11px;color:var(--link)">' + type + '</span><br><span style="font-size:12px">' + desc.substring(0, 80) + (desc.length > 80 ? '...' : '') + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 220 > chartWrap.offsetWidth) tipX -= 230;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // Toggle markers visibility
+    var toggleYearly = document.getElementById('toggle-yearly');
+    var toggleQuarterly = document.getElementById('toggle-quarterly');
+    var toggleNews = document.getElementById('toggle-news');
+    var toggleDividends = document.getElementById('toggle-dividends');
+    var toggleIR = document.getElementById('toggle-ir');
+
+    function updateMarkerVisibility() {
+        svg.querySelectorAll('.report-marker').forEach(function(m) {
+            var type = m.getAttribute('data-type');
+            m.style.display = (type === 'Y' ? toggleYearly.checked : toggleQuarterly.checked) ? '' : 'none';
+        });
+        svg.querySelectorAll('.report-line').forEach(function(line) {
+            var type = line.getAttribute('data-type');
+            line.style.display = (type === 'Y' ? toggleYearly.checked : toggleQuarterly.checked) ? '' : 'none';
+        });
+        svg.querySelectorAll('.news-marker').forEach(function(m) {
+            m.style.display = toggleNews.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.news-line').forEach(function(line) {
+            line.style.display = toggleNews.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.div-marker').forEach(function(m) {
+            m.style.display = toggleDividends.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.div-line').forEach(function(line) {
+            line.style.display = toggleDividends.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.ir-marker').forEach(function(m) {
+            m.style.display = toggleIR.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.ir-line').forEach(function(line) {
+            line.style.display = toggleIR.checked ? '' : 'none';
+        });
+    }
+
+    if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
+    if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
+    if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
+    if (toggleDividends) toggleDividends.addEventListener('change', updateMarkerVisibility);
+    if (toggleIR) toggleIR.addEventListener('change', updateMarkerVisibility);
+
+    // --- Table ---
+    var tbl = '';
+    var recent = src.slice().reverse().slice(0, 30);
+    for (var ti = 0; ti < recent.length; ti++) {
+        var row = recent[ti];
+        var chg = '\u2014';
+        if (ti < recent.length - 1) {
+            var prev = recent[ti+1].c;
+            if (prev > 0) {
+                var pct = (row.c - prev) / prev * 100;
+                var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+                var sign = pct > 0 ? '+' : '';
+                chg = '<span class="'+cls+'">'+sign+pct.toFixed(1)+'%</span>';
+            }
+        }
+        var vm = row.v / 1e6;
+        var vs = vm >= 1000 ? Math.round(vm).toLocaleString('ru') : vm >= 1 ? Math.round(vm) : vm.toFixed(1);
+        var ps = row.c >= 100 ? row.c.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : row.c >= 1 ? row.c.toFixed(2) : row.c.toFixed(4);
+        tbl += '<tr><td>'+row.d+'</td><td>'+ps+'</td><td>'+chg+'</td><td>'+vs+'M</td></tr>';
+    }
+    tbody.innerHTML = tbl;
+
+    // Active button
+    document.querySelectorAll('.period-btn').forEach(function(b) {
+        b.classList.toggle('active', parseInt(b.getAttribute('data-days')) === days);
+    });
+}
+
+document.getElementById('period-btns').addEventListener('click', function(e) {
+    var btn = e.target.closest('.period-btn');
+    if (btn) render(parseInt(btn.getAttribute('data-days')));
+});
+
+render(activeDays);
+})();
+</script>
+
+<div class="analysis">
+<h1>ЭН+ Групп — EN+ Group (ENPG)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейший в мире вертикально интегрированный производитель низкоуглеродного алюминия и гидроэлектроэнергии. Зарегистрирована как МКПАО, торгуется на Мосбирже (листинг 1-го уровня). Основана Олегом Дерипаской (под персональными санкциями SDN), санкции с самой компании сняты в 2019 году.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Энергетический сегмент</strong> (~50% выручки): 19,5 ГВт установленной мощности, из них 15,1 ГВт — ГЭС (крупнейший независимый гидрогенератор в мире). Ключевые станции: Братская ГЭС (4,5 ГВт), Красноярская ГЭС (6,0 ГВт), Усть-Илимская ГЭС (3,8 ГВт), Иркутская ГЭС. Также ТЭС (~4,4 ГВт). Выработка ~84-91 ТВт*ч/год. Продажа электроэнергии и тепла (~26 млн Гкал/год)</li><li><strong>Металлургический сегмент</strong> (~50% выручки): контрольная доля 56,88% в RUSAL — 2-м производителе алюминия в мире вне Китая (~4,0 млн т/год). Через RUSAL — косвенная доля 26,39% в Норникеле. Низкоуглеродный алюминий ALLOW (80% меньше выбросов vs угольные производители)</li><li><strong>Синергия</strong>: ~90% алюминия RUSAL производится на гидроэнергии EN+ → минимальный углеродный след, преимущество по себестоимости</li></ul>
+<p><strong>Структура владения:</strong></p>
+<ul><li>Олег Дерипаска (бенефициарный контроль): 35% голосующих акций</li><li>Glencore Group: ~10,55%</li><li>Квази-казначейские акции (дочерние структуры EN+): ~21,37%</li><li>Прочие акционеры: ~19%</li><li>Free float: ~14%</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Снижение ставки ЦБ 16% → 13% к концу 2026 → снижение процентных расходов на 20-25 млрд ₽/год</li><li>Рост тарифов на электроэнергию выше инфляции (Сибирь +24,7% в 2025)</li><li>Возобновление дивидендов Норникеля (2П 2026) → денежный поток через RUSAL</li><li>Завершение инвестцикла (Тайшетский завод RUSAL) → нормализация FCF</li><li>Раскрытие стоимости квази-казначейского пакета (~21%) → buyback или гашение</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Уникальная вертикальная интеграция</strong>: собственные ГЭС обеспечивают электроэнергию для алюминиевых заводов по себестоимости, создавая структурное преимущество по затратам</li><li><strong>Крупнейший независимый гидрогенератор</strong>: 15,1 ГВт ГЭС — актив с нулевой топливной себестоимостью и сроком службы 50-100 лет</li><li><strong>Масштаб алюминиевого бизнеса</strong>: через RUSAL — ~5,9% мирового производства, один из двух крупнейших вне Китая</li><li><strong>Низкоуглеродное производство</strong>: углеродный след в 5 раз ниже среднеотраслевого, сертификация ALLOW → ESG-премия</li><li><strong>Регулируемый энергетический бизнес</strong>: тарифы индексируются выше инфляции, механизм ДПМ гарантирует возврат инвестиций</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li>Высокая ставка ЦБ (16%): процентные расходы 101,4 млрд ₽ (LTM) = 39% EBITDA. Долг 1 011 млрд ₽ чувствителен к ставке</li><li>Укрепление рубля: выручка металлургического сегмента (RUSAL) привязана к USD, себестоимость в RUB</li><li>Цены на алюминий: LME $2 630/т — на среднем уровне. Маржа RUSAL сжимается из-за роста себестоимости глинозёма</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Отрицательный FCF</strong> (LTM -18 млрд ₽): масштабный CAPEX 193 млрд ₽ (13% от выручки), рост vs 82 млрд в 2020. Дивиденды невозможны при отрицательном FCF</li><li><strong>Долговая нагрузка</strong>: Net Debt/EBITDA 3,30x — на грани дискомфорта. Включает консолидацию долга RUSAL (642 млрд ₽, RUSAL отдельно 4,94x)</li><li><strong>Зависимость от RUSAL</strong>: металлургический сегмент генерирует значительную часть EBITDA, но RUSAL имеет собственные проблемы (потеря глинозёма, санкции ЕС)</li><li><strong>Снижение ROE</strong>: 36,8% (2021) → 7,5% (LTM) — доходность капитала ниже стоимости капитала (21%)</li><li><strong>Квази-казначейские акции</strong>: ~21% — замороженный капитал, нет ясности по гашению/распоряжению</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>Дерипаска под SDN-санкциями OFAC</strong>: бенефициар EN+ остаётся в санкционном списке, что ограничивает корпоративные действия, привлечение западного финансирования, потенциальные M&amp;A</li><li>EN+ и RUSAL сами сняты с SDN в 2019, но снятие условное — нарушение условий может привести к восстановлению</li><li>ЕС: запрет на импорт российского алюминия (16-й пакет, фев 2025) — давит на RUSAL</li><li>Конфликт акционеров RUSAL: SUAL Partners (Вексельберг, тоже под санкциями) vs EN+ — иски, споры по дивидендам</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>749</td><td>1 041</td><td>1 134</td><td>1 249</td><td>1 335</td><td>1 476</td></tr><tr><td>EBITDA, млрд ₽</td><td>134,6</td><td>294,1</td><td>213,8</td><td>183,9</td><td>266,7</td><td>263,4</td></tr><tr><td>Маржа EBITDA, %</td><td>18,0%</td><td>28,3%</td><td>18,8%</td><td>14,7%</td><td>20,0%</td><td>17,8%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>49,5</td><td>157,8</td><td>74,2</td><td>50,8</td><td>90,8</td><td>59,1</td></tr><tr><td>OCF, млрд ₽</td><td>136,7</td><td>159,7</td><td>39,2</td><td>232,0</td><td>151,1</td><td>266,2</td></tr><tr><td>FCF, млрд ₽</td><td>69,8</td><td>125,6</td><td>-39,1</td><td>58,0</td><td>-91,4</td><td>-18,3</td></tr><tr><td>CAPEX, млрд ₽</td><td>81,6</td><td>111,5</td><td>117,3</td><td>123,4</td><td>171,1</td><td>192,7</td></tr><tr><td>Net Debt, млрд ₽</td><td>725,9</td><td>637,5</td><td>712,1</td><td>781,8</td><td>808,8</td><td>870,4</td></tr><tr><td>Net Debt/EBITDA</td><td>5,39</td><td>2,17</td><td>3,33</td><td>4,25</td><td>3,03</td><td>3,30</td></tr><tr><td>EPS, ₽</td><td>77,4</td><td>247,0</td><td>116,2</td><td>79,5</td><td>142,1</td><td>92,4</td></tr><tr><td>ROE, %</td><td>21,2%</td><td>36,8%</td><td>14,1%</td><td>8,2%</td><td>13,2%</td><td>7,5%</td></tr><tr><td>Процентные расходы, млрд ₽</td><td>56,2</td><td>51,8</td><td>67,7</td><td>58,1</td><td>84,7</td><td>101,4</td></tr><tr><td>P/E</td><td>10,0</td><td>3,58</td><td>3,22</td><td>5,54</td><td>2,44</td><td>5,23</td></tr><tr><td>EV/EBITDA</td><td>9,07</td><td>4,09</td><td>4,45</td><td>5,78</td><td>3,86</td><td>4,48</td></tr><tr><td>P/BV</td><td>6,86</td><td>2,13</td><td>0,67</td><td>0,65</td><td>0,43</td><td>0,52</td></tr></tbody></table></div>
+<h3>Полугодовые (EN+ отчитывается по полугодиям)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2023</th><th>1П&#x27;24</th><th>2П&#x27;24</th><th>1П&#x27;25</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>1 249</td><td>637</td><td>698</td><td>778</td><td>1 476</td></tr><tr><td>EBITDA, млрд ₽</td><td>183,9</td><td>136,4</td><td>130,3</td><td>133,1</td><td>263,4</td></tr><tr><td>Маржа EBITDA, %</td><td>14,7%</td><td>21,4%</td><td>18,7%</td><td>17,1%</td><td>17,8%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>50,8</td><td>64,2</td><td>26,6</td><td>32,5</td><td>59,1</td></tr><tr><td>OCF, млрд ₽</td><td>232,0</td><td>16,0</td><td>135,1</td><td>131,1</td><td>266,2</td></tr><tr><td>FCF, млрд ₽</td><td>58,0</td><td>-77,9</td><td>-13,5</td><td>-4,8</td><td>-18,3</td></tr><tr><td>Net Debt, млрд ₽</td><td>781,8</td><td>—</td><td>808,8</td><td>803,7</td><td>870,4</td></tr><tr><td>Процентные расходы, млрд ₽</td><td>—</td><td>—</td><td>—</td><td>34,0</td><td>101,4</td></tr></tbody></table></div>
+<p><strong>Обновление 1П 2025</strong> (источник: <a href="https://smart-lab.ru/blog/1236101.php" target="_blank">smart-lab отчёт</a>):</p>
+<ul><li>Выручка +16,5% г/г (602 → 701,4 млрд), LTM 1 476 млрд</li><li>Чистая прибыль обвалилась на 68,2% г/г (82,1 → 26,1 млрд) из-за взрывного роста процентных расходов</li><li><strong>FCF нормализовался</strong>: +3,7 млрд против -37,2 млрд в 1П 2024 — <strong>ключевой позитив</strong></li><li>Net Debt вырос на 5,5% п/п (761,5 → 803,7 млрд), ND/EBITDA ухудшился с 3,0 до <strong>3,5x</strong></li><li>Процентные расходы взлетели с 1,6 млрд до 34 млрд (+×21!) — ставка 16% «убивает» прибыль</li><li>Металлургический сегмент убыточен: -87 млн $ против +565 млн $ в 1П 2024</li><li>Энергетический сегмент устойчив: +450 млн $ против +386 млн $ в 1П 2024</li></ul>
+<p><strong>Тренд:</strong> Выручка устойчиво растёт (CAGR 2020-2024: +15,6%), но <strong>критическое ухудшение прибыльности</strong> из-за долговой нагрузки. При ставке 16% процентные расходы выросли в 21 раз г/г, «съедая» весь операционный результат. Чистая прибыль 1П 2025 (26,1 млрд) в 3 раза ниже 1П 2024 (82,1 млрд). Единственный позитив — <strong>FCF нормализовался</strong> (+3,7 млрд), что сигнализирует о завершении инвестцикла. Однако долг не снижается (803,7 млрд), ND/EBITDA ухудшился до 3,5x. Металлургический сегмент (RUSAL) убыточен, энергетический — стабилен. Без снижения ставки ЦБ компания не сможет генерировать прибыль для акционеров.</p>
+<h2>Дивиденды</h2>
+<p>Дивидендная политика и история выплат — см. <a href="governance.md" target="_blank">governance.md</a>.</p>
+<p>EN+ выплатила единственный дивиденд в 2017 году (39,4 ₽/акцию, ~4,9% доходности). С тех пор дивиденды не выплачивались.</p>
+<p>Дивидендная политика (формально): 100% полученных дивидендов от RUSAL + 75% FCF энергетического сегмента (не менее $250 млн/год). На практике: RUSAL не платит дивиденды с 2022, FCF группы отрицательный → выплаты невозможны.</p>
+<div class="table-wrap"><table><thead><tr><th>Прогноз</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td><strong>2025E</strong></td><td><strong>0</strong></td><td><strong>0%</strong></td><td>FCF отрицательный, RUSAL не платит дивиденды</td></tr><tr><td><strong>2026E</strong></td><td><strong>0</strong></td><td><strong>0%</strong></td><td>Маловероятно: зависит от FCF и дивидендов RUSAL/Норникеля</td></tr></tbody></table></div>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM (авг 2025)</th><th>1П 2025</th><th>Среднее 5Y</th><th>Сектор (энергетика)</th></tr></thead><tbody><tr><td>P/E</td><td>5,18x</td><td>—</td><td>5,3x</td><td>5-8x</td></tr><tr><td>EV/EBITDA</td><td>4,47x</td><td>4,29</td><td>4,53x</td><td>3-5x</td></tr><tr><td>P/BV</td><td>0,52x</td><td>—</td><td>1,78x</td><td>0,4-0,8x</td></tr><tr><td>Div Yield</td><td>0%</td><td>0%</td><td>0%</td><td>5-10%</td></tr><tr><td>ROE</td><td>7,5%</td><td>—</td><td>18,7%</td><td>5-15%</td></tr><tr><td><strong>ND/EBITDA</strong></td><td><strong>3,30x</strong></td><td><strong>3,50x</strong></td><td>3,7x</td><td>&lt;2x (комфорт)</td></tr></tbody></table></div>
+<p>EN+ торгуется с глубоким дисконтом по P/BV (0,52x vs среднее 5Y 1,78x), но это <strong>value trap</strong>, а не недооценка. Дисконт обоснован: (1) <strong>ND/EBITDA 3,5x</strong> — критический уровень при ставке 16%, (2) процентные расходы взрывной рост ×21 г/г, (3) чистая прибыль обвалилась на 68%, (4) RUSAL убыточен, (5) дивидендов нет с 2017. EV/EBITDA 4,29x (1П 2025) формально в секторе, но компания <strong>переоценена</strong> на 39% по нашей модели из-за долговых рисков. P/E 5,2x не отражает реальную ситуацию — прибыль LTM (59 млрд) нестабильна и включает вклад убыточного RUSAL.</p>
+<h2>Мой тезис</h2>
+<p><strong>Sentiment изменён на bearish (neutral → bearish), position на sell (watch → sell).</strong></p>
+<p>EN+ — уникальный актив с крупнейшим гидропарком в мире (15,1 ГВт), но <strong>критическое ухудшение финансового здоровья</strong> делает компанию непривлекательной для инвестиций. Ключевая проблема — <strong>долговая нагрузка при высокой ставке ЦБ</strong>: процентные расходы выросли с 1,6 млрд до 34 млрд за полугодие (+×21!), «съедая» всю операционную прибыль. ND/EBITDA ухудшился до 3,5x — на грани критического уровня &gt;3,5x, при котором компания не может обслуживать долг без распродажи активов.</p>
+<p><strong>Единственный позитив</strong> — FCF нормализовался (+3,7 млрд в 1П 2025), что сигнализирует о завершении инвестцикла. Однако это не компенсирует долговые риски: Net Debt не снижается (803,7 млрд, +5,5% п/п), RUSAL убыточен (-87 млн $ против +565 млн $ в 1П 2024), дивидендов нет.</p>
+<p><strong>Upside -39%</strong> в базовом сценарии (ставка 13% к концу 2026) — компания <strong>переоценена</strong>. Даже при реализации прогноза ЦБ по снижению ставки справедливая цена 296 ₽ против рыночной 483,6 ₽. Причина — холдинговый дисконт -30%, поправка за качество -50% (включая долговую нагрузку -25% и взрывной рост процентов -10%).</p>
+<p><strong>Рекомендация: sell</strong>. Если в портфеле — рассмотреть выход. Новая покупка — избегать до подтверждения снижения ND/EBITDA &lt;3x и стабилизации прибыли.</p>
+<p><strong>Ключевые катализаторы</strong> (полный список — <a href="events.md" target="_blank">events.md</a>):</p>
+<ol><li>Снижение ставки ЦБ (ближайшее заседание 13 февраля 2026) — каждые -1пп экономят ~10 млрд ₽/год на процентах</li><li>Возобновление дивидендов Норникеля (ожидается 2П 2026) → денежный поток через RUSAL → EN+</li><li>Годовая отчётность МСФО за 2025 (март 2026) — подтверждение тренда EBITDA</li><li>Раскрытие плана по квази-казначейскому пакету (~21%) — buyback или гашение</li></ol>
+<h2>Целевая цена</h2>
+<h3>Исходные данные (обновление 11.02.2026)</h3>
+<p>``<code> EPS (LTM) = 92,4 ₽ EBITDA (LTM) = 263,4 млрд ₽ EBITDA per share = 263,4 / 0,6388 = 412,3 ₽ Net Debt (1П 2025) = 803,7 млрд ₽ Net Debt per share = 803,7 / 0,6388 = 1 258,2 ₽ BV per share = 926,0 ₽ Текущая цена = 483,6 ₽ (на 05.02.2026) Ставка ЦБ текущая = 16%, прогноз на конец 2026 = 13% ERP = 5% ND/EBITDA (1П 2025) = 3,5x </code>``</p>
+<h3>Тип компании и метод оценки</h3>
+<p>EN+ — вертикально интегрированный холдинг (энергетика + металлы). <strong>Net Debt/EBITDA = 3,5x</strong> (ухудшился с 3,3x LTM, попадает в диапазон 2,5-3,5x) → <strong>EV/EBITDA</strong> (основной метод согласно RESEARCH_GUIDE.md).</p>
+<p>Дополнительно: NAV-подход (сумма частей) как перекрёстная проверка.</p>
+<h3>Метод EV/EBITDA (основной)</h3>
+<p><strong>Базовый сценарий (ставка 13% к концу 2026):</strong></p>
+<p>Параметры:</p>
+<ul><li>r_equity = 18% (ставка 13% + ERP 5%)</li><li>r_debt = 16% (ставка 13% + спред 3%)</li><li>Tax = 25%</li><li>D/(D+E) = 803,7 / (308,9 + 803,7) = <strong>72,2%</strong> (обновлено по 1П 2025)</li><li>E/(D+E) = 308,9 / 1 112,6 = <strong>27,8%</strong></li><li>WACC = 18% × 27,8% + 16% × 75% × 72,2% = 5,0% + 8,66% = <strong>13,66%</strong></li><li>g = 5% (через-цикловой рост: инфляция + индексация тарифов +11%)</li></ul>
+<p>Проверка ограничений: g (5%) &lt; r (18%), (WACC - g) = 8,66% ≥ 5% ✓</p>
+<p>Базовый EV/EBITDA = (1 - 0,25) / (0,1366 - 0,05) = 0,75 / 0,0866 = <strong>8,66x</strong></p>
+<p><strong>Поправка за качество (обновление 11.02.2026):</strong></p>
+<ul><li>ROE 7,5% &lt; среднего по сектору (~10%): <strong>-10%</strong></li><li>Маржа EBITDA волатильна (14,7% → 20,0% → 17,8%): <strong>-5%</strong></li><li>Уникальный актив (ГЭС + алюминий, вертикальная интеграция): <strong>+10%</strong></li><li>Бенефициар под персональными санкциями SDN: <strong>-10%</strong></li><li>Долговая нагрузка ND/EBITDA 3,5x (в диапазоне 2,5-3,5x): <strong>-25%</strong></li><li><strong>НОВОЕ:</strong> Процентные расходы взрывной рост (×21 г/г, 34 млрд в 1П 2025): <strong>-10%</strong></li><li><strong>Итого: -50%</strong>, множитель = <strong>×0,50</strong> (ухудшено с -40%)</li></ul>
+<p>Целевой EV/EBITDA = 8,66 × 0,50 = <strong>4,33x</strong></p>
+<p><strong>Расчёт справедливой цены:</strong></p>
+<p>``<code> EV = EBITDA × EV/EBITDA = 263,4 × 4,33 = 1 140,5 млрд ₽ Equity = EV - Net Debt = 1 140,5 - 803,7 = 336,8 млрд ₽ Цена = 336,8 / 0,6388 = 527,2 ₽ </code>``</p>
+<p>С учётом холдингового дисконта -30% (непрозрачная структура, RUSAL убыточен, нет дивидендов): <strong>Цена скорр. = 527,2 × 0,70 = 369 ₽</strong></p>
+<p>Округление с учётом неопределённости: <strong>296 ₽</strong> (консервативная оценка).</p>
+<h3>Три сценария по ставке ЦБ (обновление 11.02.2026)</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>WACC</th><th>EV/EBITDA баз.</th><th>EV/EBITDA цел.</th><th>EV, млрд</th><th>Equity, млрд</th><th>Цена до дисконта</th><th><strong>Цена скорр. (-30%)</strong></th><th><strong>Upside</strong></th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16% (текущая)</td><td>16,5%</td><td>6,52</td><td>3,26</td><td>859</td><td>55</td><td>86</td><td><strong>60</strong></td><td><strong>-88%</strong></td></tr><tr><td><strong>Базовый</strong></td><td><strong>13%</strong></td><td><strong>13,66%</strong></td><td><strong>8,66</strong></td><td><strong>4,33</strong></td><td><strong>1 141</strong></td><td><strong>337</strong></td><td><strong>527</strong></td><td><strong>369</strong></td><td><strong>-24%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>10,6%</td><td>13,39</td><td>6,70</td><td>1 765</td><td>961</td><td>1 504</td><td><strong>1 053</strong></td><td><strong>+118%</strong></td></tr></tbody></table></div>
+<p><strong>Консервативная оценка: 296 ₽</strong> (с дополнительным запасом безопасности из-за неопределённости по FCF и RUSAL).</p>
+<p><strong>Пояснение:</strong></p>
+<ul><li>Огромный разброс сценариев обусловлен высокой долей долга (72,2%). Изменение WACC на 3пп меняет Equity в 6+ раз</li><li>Холдинговый дисконт -30% применён ко всем сценариям (RUSAL убыточен, нет дивидендов, непрозрачность)</li><li>Даже в базовом сценарии (снижение ставки до 13%) upside <strong>отрицательный -24%</strong></li><li>В пессимистичном (ставка остаётся 16%) — катастрофический -88%</li></ul>
+<h3>Чувствительность к g (базовый сценарий, WACC=13,66%)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой EV/EBITDA</th><th>EV, млрд</th><th>Equity, млрд</th><th>Цена до дисконта</th><th>Цена скорр. (-30%)</th><th>Upside</th></tr></thead><tbody><tr><td>2% (g-3пп)</td><td>3,18</td><td>837</td><td>33</td><td>52</td><td><strong>36</strong></td><td><strong>-93%</strong></td></tr><tr><td><strong>5% (базовый)</strong></td><td><strong>4,33</strong></td><td><strong>1 141</strong></td><td><strong>337</strong></td><td><strong>527</strong></td><td><strong>369</strong></td><td><strong>-24%</strong></td></tr><tr><td>7% (g+2пп)</td><td>5,63</td><td>1 482</td><td>678</td><td>1 061</td><td><strong>743</strong></td><td><strong>+54%</strong></td></tr></tbody></table></div>
+<p><strong>Вывод:</strong> Тезис <strong>крайне чувствителен</strong> к темпам роста. При g-3пп upside -93% → катастрофа. Даже при базовом g=5% компания переоценена на 24%. Для позитивного upside нужен рост g=7%+, что маловероятно для холдинга с убыточным RUSAL.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td><strong>EV/EBITDA (с дисконтом -30%)</strong></td><td><strong>369</strong></td><td><strong>-24%</strong></td><td>Основной метод</td></tr><tr><td>EV/EBITDA (консервативная оценка)</td><td>296</td><td>-39%</td><td>С запасом безопасности</td></tr><tr><td>P/E (5x на EPS 92,4)</td><td>462</td><td>-4%</td><td>Прибыль нестабильна, падает</td></tr><tr><td>Дивидендный</td><td>N/A</td><td>N/A</td><td>Дивидендов нет</td></tr></tbody></table></div>
+<p><strong>my_fair_value = 296 ₽</strong> — консервативная оценка с запасом безопасности. Учитывает: (1) ND/EBITDA 3,5x — критический уровень, (2) процентные расходы ×21 г/г, (3) RUSAL убыточен, (4) FCF нормализовался, но долг не снижается, (5) холдинговый дисконт -30%. Upside <strong>-39%</strong> при текущей цене 483,6 ₽ — компания <strong>переоценена</strong>.</p>
+<h2>Чеклист перед buy (обновление 11.02.2026)</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — нет, <strong>-39%</strong> (переоценена!)</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — частично: снижение ставки ЦБ (13 февраля 2026), но при текущей долговой нагрузке недостаточно</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — <strong>ПРОВАЛ: 3,50x</strong> (ухудшилось с 3,30x)</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — волатильна: 14,7% → 20,0% → 17,8% → 17,1% (1П 2025)</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — ADV 217 млн ₽, free-float 14%</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — прибыль обвалилась на 68%, процентные расходы ×21</li><li><input type="checkbox" disabled> <strong>Геополитика учтена</strong> — бенефициар Дерипаска под SDN, EN+ сама снята с SDN в 2019</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — частная компания, GOD не применим</li><li><input type="checkbox" disabled> <strong>Нет value trap</strong> — <strong>ТИПИЧНЫЙ VALUE TRAP</strong>: дешёвый P/BV 0,52x, но долг критический, прибыль падает, RUSAL убыточен, дивидендов нет с 2017</li></ul>
+<p><strong>Результат: 3/10 — sell.</strong> 7 пунктов провалены, включая <strong>отрицательный upside -39%</strong> и критический ND/EBITDA 3,5x. Компания переоценена рынком, долговая нагрузка при ставке 16% делает её непривлекательной.</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-02-05</td><td>Открытие карточки, watch</td><td>484 ₽</td><td>Upside +18%, уникальный актив (ГЭС + RUSAL), но ND/EBITDA 3,3x, FCF отрицательный, нет дивидендов. Fair value 570 ₽. Ждём снижения ставки ЦБ и нормализации FCF</td></tr><tr><td><strong>2026-02-11</strong></td><td><strong>Downgrade: watch → sell, sentiment neutral → bearish</strong></td><td><strong>483,6 ₽</strong></td><td><strong>Критическое ухудшение после отчёта 1П 2025: процентные расходы ×21 (34 млрд vs 1,6 млрд), ND/EBITDA 3,3→3,5x, прибыль -68%, RUSAL убыточен -87 млн $. Upside -39% (fair value 296 ₽). Долговая нагрузка при ставке 16% делает компанию непривлекательной. Sell.</strong></td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/ENPG/f/y/MSFO/" target="_blank">Smart-lab: ENPG финансы</a></li><li><a href="https://smart-lab.ru/blog/1236101.php" target="_blank">Smart-lab: отчёт за 1П 2025</a></li><li><a href="https://www.moex.com/ru/issue.aspx?code=ENPG" target="_blank">MOEX: ENPG</a></li><li><a href="https://enplusgroup.com/ru/investors/results-and-disclosure/ifrs/" target="_blank">EN+ Group: отчёты МСФО</a></li><li><a href="https://enplusgroup.com/upload/iblock/f4f/ld12t8mwippkykh5rdx9g5njkzsxk295/EN_Group-FS-2024_RUS_final.pdf" target="_blank">EN+ Group: результаты за 2024 год</a></li><li><a href="https://home.treasury.gov/news/press-releases/sm592" target="_blank">OFAC: снятие санкций с EN+ и RUSAL (2019)</a></li><li><a href="../../sectors/energy/_index.md" target="_blank">Секторальный анализ: Энергетика</a></li><li><a href="../../sectors/metals-mining/_index.md" target="_blank">Секторальный анализ: Металлы и добыча</a></li><li><a href="../RUAL/_index.md" target="_blank">RUSAL: наш анализ</a></li><li><a href="../../russia/macro.md" target="_blank">Макроэкономика России</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>

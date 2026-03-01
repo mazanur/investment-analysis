@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fix Price (Фикс Прайс) (FIXP) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* История цен */
+.price-history {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.price-history h3 { margin-bottom: 12px; font-size: 16px; }
+.period-btns { display: flex; gap: 6px; margin-bottom: 16px; }
+.period-btn {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 12px; cursor: pointer; color: var(--text-secondary); font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+}
+.period-btn:hover { border-color: var(--link); color: var(--text); }
+.period-btn.active { background: var(--link); color: #fff; border-color: var(--link); }
+.price-chart-wrap { margin-bottom: 16px; position: relative; }
+.price-chart { width: 100%; height: auto; }
+.price-tooltip {
+    display: none; position: absolute; pointer-events: none;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.cmp-badge {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 8px 12px; margin-top: 6px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; cursor: pointer;
+}
+.cmp-badge:hover { border-color: var(--link); }
+.price-table-wrap { max-height: 400px; overflow-y: auto; }
+.price-table { font-size: 13px; }
+.price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>Fix Price (Фикс Прайс)</h1>
+<div class="ticker">FIXP &middot; Ритейл</div>
+<div class="badges">
+<span class="badge badge-neutral">neutral</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">580</div></div><div class="metric"><div class="label">Цель</div><div class="value">740</div></div><div class="metric"><div class="label">Upside</div><div class="value">+28%</div></div><div class="metric"><div class="label">P/E</div><div class="value">4.3</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0</div></div><div class="metric"><div class="label">ROE</div><div class="value">30.7</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">58</div></div><div class="metric"><div class="label">P/BV</div><div class="value">2.2</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">1.5</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">0.3</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:40%">&#x25B2; 40%</div>
+<div class="flat" style="width:20%">20%</div>
+<div class="decline" style="width:40%">&#x25BC; 40%</div>
+</div>
+</div>
+
+<div class="price-history">
+<h3>История цен</h3>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+<div class="period-btns" id="period-btns" style="margin-bottom:0">
+<button class="period-btn" data-days="21">1М</button>
+<button class="period-btn" data-days="63">3М</button>
+<button class="period-btn" data-days="126">6М</button>
+<button class="period-btn active" data-days="252">1Г</button>
+<button class="period-btn" data-days="0">Всё</button>
+</div>
+<div class="marker-toggles" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap">
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-yearly" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue)"></span>Годовой
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-quarterly" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow)"></span>Квартальный
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-news" checked style="cursor:pointer">
+<span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive)"></span>Новость
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-dividends" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;background:var(--green);transform:rotate(45deg)"></span>Дивиденд
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-ir" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border:2px solid var(--link);border-radius:50%;background:transparent"></span>IR-события
+</label>
+</div>
+</div>
+<div class="price-chart-wrap">
+<svg id="price-svg" viewBox="0 0 700 200" class="price-chart"></svg>
+<div id="price-tooltip" class="price-tooltip"></div>
+</div>
+<div id="cmp-badge" class="cmp-badge" style="display:none"></div>
+<div class="table-wrap price-table-wrap"><table class="price-table">
+<thead><tr><th>Дата</th><th>Цена</th><th>Изм.</th><th>Объём</th></tr></thead>
+<tbody id="price-tbody"></tbody>
+</table></div>
+</div>
+
+<script>
+(function() {
+var DATA = [{"d": "2025-02-10", "c": 180.0, "v": 29655826}, {"d": "2025-02-11", "c": 182.8, "v": 16120335}, {"d": "2025-02-12", "c": 192.3, "v": 160482514}, {"d": "2025-02-13", "c": 188.9, "v": 58199791}, {"d": "2025-02-14", "c": 184.3, "v": 159586713}, {"d": "2025-02-17", "c": 191.5, "v": 314367235}, {"d": "2025-02-18", "c": 186.8, "v": 68114894}, {"d": "2025-02-19", "c": 187.4, "v": 128205259}, {"d": "2025-02-20", "c": 191.0, "v": 86515088}, {"d": "2025-02-21", "c": 187.9, "v": 70656383}, {"d": "2025-02-24", "c": 191.0, "v": 158024552}, {"d": "2025-02-25", "c": 198.5, "v": 356304575}, {"d": "2025-02-26", "c": 190.2, "v": 225332666}, {"d": "2025-02-27", "c": 179.2, "v": 180769255}, {"d": "2025-02-28", "c": 181.5, "v": 61108017}, {"d": "2025-03-03", "c": 179.0, "v": 42157530}, {"d": "2025-03-04", "c": 182.0, "v": 66079982}, {"d": "2025-03-05", "c": 180.4, "v": 45481231}, {"d": "2025-03-06", "c": 179.8, "v": 31190263}, {"d": "2025-03-07", "c": 181.5, "v": 22538214}, {"d": "2025-03-10", "c": 184.5, "v": 40120409}, {"d": "2025-03-11", "c": 181.3, "v": 29777342}, {"d": "2025-03-12", "c": 177.0, "v": 27433796}, {"d": "2025-03-13", "c": 177.2, "v": 36848556}, {"d": "2025-03-14", "c": 178.6, "v": 21437263}, {"d": "2025-03-17", "c": 183.0, "v": 23984321}, {"d": "2025-03-18", "c": 179.6, "v": 31431932}, {"d": "2025-03-19", "c": 187.7, "v": 47198278}, {"d": "2025-03-20", "c": 184.8, "v": 27726143}, {"d": "2025-03-21", "c": 182.3, "v": 24000793}, {"d": "2025-03-24", "c": 181.6, "v": 21862379}, {"d": "2025-03-25", "c": 181.5, "v": 29846445}, {"d": "2025-03-26", "c": 177.3, "v": 27350638}, {"d": "2025-03-27", "c": 173.6, "v": 26731379}, {"d": "2025-03-28", "c": 169.8, "v": 25731060}, {"d": "2025-03-31", "c": 170.3, "v": 25678370}, {"d": "2025-04-01", "c": 169.2, "v": 94906486}, {"d": "2025-04-02", "c": 174.3, "v": 29058639}, {"d": "2025-04-03", "c": 171.5, "v": 41436417}, {"d": "2025-04-04", "c": 159.3, "v": 106046981}, {"d": "2025-04-07", "c": 154.7, "v": 66094707}, {"d": "2025-04-08", "c": 151.1, "v": 41600013}, {"d": "2025-04-09", "c": 157.2, "v": 162627133}, {"d": "2025-04-10", "c": 156.0, "v": 19979068}, {"d": "2025-04-11", "c": 160.7, "v": 89048732}, {"d": "2025-04-14", "c": 159.0, "v": 23240030}, {"d": "2025-04-15", "c": 160.3, "v": 23999266}, {"d": "2025-04-16", "c": 162.6, "v": 25833198}, {"d": "2025-04-17", "c": 163.1, "v": 21444323}, {"d": "2025-04-18", "c": 160.1, "v": 27581790}, {"d": "2025-04-21", "c": 161.7, "v": 17534709}, {"d": "2025-04-22", "c": 163.7, "v": 27191079}, {"d": "2025-04-23", "c": 160.6, "v": 29080477}, {"d": "2025-04-24", "c": 160.2, "v": 9393400}, {"d": "2025-04-25", "c": 162.2, "v": 13694479}, {"d": "2025-04-28", "c": 159.9, "v": 43658007}, {"d": "2025-04-29", "c": 157.2, "v": 18215195}, {"d": "2025-04-30", "c": 156.0, "v": 32966360}, {"d": "2025-05-02", "c": 151.5, "v": 17620019}, {"d": "2025-05-05", "c": 151.8, "v": 16908348}, {"d": "2025-05-06", "c": 154.3, "v": 16424762}, {"d": "2025-05-07", "c": 158.2, "v": 65247343}, {"d": "2025-05-08", "c": 158.9, "v": 10127747}, {"d": "2025-05-12", "c": 160.0, "v": 14989488}, {"d": "2025-05-13", "c": 158.2, "v": 7231485}, {"d": "2025-05-14", "c": 154.6, "v": 39050983}, {"d": "2025-05-15", "c": 156.9, "v": 26177504}, {"d": "2025-05-16", "c": 155.9, "v": 15257185}, {"d": "2025-05-19", "c": 154.3, "v": 70213233}, {"d": "2025-05-20", "c": 152.1, "v": 33480668}, {"d": "2025-05-21", "c": 150.5, "v": 11321438}, {"d": "2025-05-22", "c": 148.2, "v": 17705602}, {"d": "2025-05-23", "c": 148.1, "v": 10825762}, {"d": "2025-05-26", "c": 144.0, "v": 20284824}, {"d": "2025-05-27", "c": 146.4, "v": 12750486}, {"d": "2025-05-28", "c": 147.8, "v": 28111239}, {"d": "2025-05-29", "c": 145.4, "v": 13980261}, {"d": "2025-05-30", "c": 146.6, "v": 15904069}, {"d": "2025-06-02", "c": 148.5, "v": 14147969}, {"d": "2025-06-03", "c": 150.1, "v": 21744603}, {"d": "2025-06-04", "c": 149.8, "v": 61933861}, {"d": "2025-06-05", "c": 149.6, "v": 60932941}, {"d": "2025-06-06", "c": 147.3, "v": 35868090}, {"d": "2025-06-09", "c": 145.0, "v": 23755399}, {"d": "2025-06-10", "c": 143.8, "v": 4594772}, {"d": "2025-06-11", "c": 143.7, "v": 79296129}, {"d": "2025-06-13", "c": 142.3, "v": 18037793}, {"d": "2025-06-16", "c": 137.0, "v": 44293187}, {"d": "2025-06-17", "c": 132.0, "v": 56738582}, {"d": "2025-06-18", "c": 133.1, "v": 40569522}, {"d": "2025-06-19", "c": 134.0, "v": 17070518}, {"d": "2025-06-20", "c": 137.4, "v": 23796319}];
+var REPORTS = [];
+var NEWS = [];
+var DIVIDENDS = [];
+var IR_EVENTS = [];
+var svg = document.getElementById('price-svg');
+var tbody = document.getElementById('price-tbody');
+var activeDays = 252;
+
+function render(days) {
+    activeDays = days;
+    var src = days > 0 ? DATA.slice(-days) : DATA;
+    if (!src.length) return;
+
+    // --- SVG chart ---
+    var W = 700, H = 200, PT = 20, PB = 30, PL = 60, PR = 20;
+    var CW = W - PL - PR, CH = H - PT - PB;
+    var prices = src.map(function(r){ return r.c; });
+    var minP = Math.min.apply(null, prices), maxP = Math.max.apply(null, prices);
+    var range = maxP - minP || maxP * 0.1 || 1;
+    minP -= range * 0.05; maxP += range * 0.05; range = maxP - minP;
+    var n = prices.length;
+
+    function xP(i) { return PL + (i / Math.max(n - 1, 1)) * CW; }
+    function yP(p) { return PT + CH - ((p - minP) / range) * CH; }
+
+    var trendColor = prices[n-1] >= prices[0] ? 'var(--positive)' : 'var(--negative)';
+    var pts = []; for (var i = 0; i < n; i++) pts.push(xP(i).toFixed(1)+','+yP(prices[i]).toFixed(1));
+    var polyline = pts.join(' ');
+    var area = xP(0).toFixed(1)+','+(PT+CH)+' '+polyline+' '+xP(n-1).toFixed(1)+','+(PT+CH);
+
+    // Grid
+    var h = '';
+    for (var g = 0; g < 5; g++) {
+        var gp = minP + (range * g / 4), gy = yP(gp);
+        h += '<line x1="'+PL+'" y1="'+gy.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+gy.toFixed(1)+'" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="4,4"/>';
+        var lbl = gp >= 1000 ? Math.round(gp).toLocaleString('ru') : gp >= 1 ? gp.toFixed(1) : gp.toFixed(4);
+        h += '<text x="'+(PL-8)+'" y="'+gy.toFixed(1)+'" text-anchor="end" dominant-baseline="middle" fill="var(--text-secondary)" font-size="11">'+lbl+'</text>';
+    }
+
+    // Date labels
+    var idxs = n >= 3 ? [0, Math.floor(n/2), n-1] : n === 2 ? [0, 1] : [0];
+    for (var di = 0; di < idxs.length; di++) {
+        var dd = src[idxs[di]].d.split('-');
+        h += '<text x="'+xP(idxs[di]).toFixed(1)+'" y="'+(H-5)+'" text-anchor="middle" fill="var(--text-secondary)" font-size="11">'+dd[2]+'.'+dd[1]+'</text>';
+    }
+
+    h += '<polygon points="'+area+'" fill="'+trendColor+'" opacity="0.1"/>';
+    h += '<polyline points="'+polyline+'" fill="none" stroke="'+trendColor+'" stroke-width="2" stroke-linejoin="round"/>';
+    h += '<circle cx="'+xP(n-1).toFixed(1)+'" cy="'+yP(prices[n-1]).toFixed(1)+'" r="4" fill="var(--link)"/>';
+
+    // Build dateToIdx mapping
+    var dateToIdx = {};
+    for (var di = 0; di < n; di++) dateToIdx[src[di].d] = di;
+
+    // Marker vertical lines (under hv-rect)
+    var reportMarkers = [];
+    for (var ri = 0; ri < REPORTS.length; ri++) {
+        var rd = REPORTS[ri].date;
+        if (dateToIdx[rd] !== undefined) {
+            reportMarkers.push({idx: dateToIdx[rd], type: REPORTS[ri].type, period: REPORTS[ri].period});
+        }
+    }
+    for (var mi = 0; mi < reportMarkers.length; mi++) {
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7" class="report-line" data-type="'+m.type+'"/>';
+    }
+
+    var newsMarkers = [];
+    for (var ni = 0; ni < NEWS.length; ni++) {
+        var nd = NEWS[ni].date;
+        if (dateToIdx[nd] !== undefined) {
+            newsMarkers.push({idx: dateToIdx[nd], title: NEWS[ni].title, impact: NEWS[ni].impact || 'neutral', url: NEWS[ni].url || ''});
+        }
+    }
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8" class="news-line"/>';
+    }
+
+    // Dividend markers
+    var divMarkers = [];
+    for (var dvi = 0; dvi < DIVIDENDS.length; dvi++) {
+        var dd = DIVIDENDS[dvi].date;
+        if (dateToIdx[dd] !== undefined) {
+            divMarkers.push({idx: dateToIdx[dd], value: DIVIDENDS[dvi].value, currency: DIVIDENDS[dvi].currency || 'RUB'});
+        }
+    }
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<line x1="'+dmx.toFixed(1)+'" y1="'+PT+'" x2="'+dmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--green)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" class="div-line"/>';
+    }
+
+    // IR events markers (future reports)
+    var irMarkers = [];
+    for (var iri = 0; iri < IR_EVENTS.length; iri++) {
+        var ird = IR_EVENTS[iri].date;
+        if (dateToIdx[ird] !== undefined) {
+            irMarkers.push({idx: dateToIdx[ird], type: IR_EVENTS[iri].type, description: IR_EVENTS[iri].description});
+        }
+    }
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<line x1="'+irmx.toFixed(1)+'" y1="'+PT+'" x2="'+irmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--link)" stroke-width="1" stroke-dasharray="6,3" opacity="0.5" class="ir-line"/>';
+    }
+
+    // Hover elements (initially hidden)
+    h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
+    h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
+    // Transparent overlay to capture mouse events
+    h += '<rect x="'+PL+'" y="'+PT+'" width="'+CW+'" height="'+CH+'" fill="transparent" style="cursor:crosshair" id="hv-rect"/>';
+    // Compare mode elements
+    h += '<circle id="pin1" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
+    h += '<circle id="pin2" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
+    h += '<line id="cmp-line" x1="0" y1="0" x2="0" y2="0" stroke="var(--link)" stroke-width="1.5" stroke-dasharray="5,3" visibility="hidden"/>';
+
+    // Marker circles/polygons (ABOVE hv-rect for click/hover)
+    for (var mi = 0; mi < reportMarkers.length; mi++) {
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="5" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'" style="cursor:pointer"/>';
+    }
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<polygon points="'+(nmx-6).toFixed(1)+','+(PT+10)+' '+(nmx+6).toFixed(1)+','+(PT+10)+' '+nmx.toFixed(1)+','+(PT-2)+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'" data-url="'+nm.url.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }
+    // Dividend markers (diamond shape)
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<polygon points="'+dmx.toFixed(1)+','+(PT-2)+' '+(dmx+5).toFixed(1)+','+(PT+5)+' '+dmx.toFixed(1)+','+(PT+12)+' '+(dmx-5).toFixed(1)+','+(PT+5)+'" fill="var(--green)" class="div-marker" data-value="'+dm.value+'" data-currency="'+dm.currency+'" style="cursor:pointer"/>';
+    }
+    // IR event markers (hollow circle for future events)
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<circle cx="'+irmx.toFixed(1)+'" cy="'+(PT+5)+'" r="5" fill="var(--bg)" stroke="var(--link)" stroke-width="2" class="ir-marker" data-type="'+irm.type.replace(/"/g, '&quot;')+'" data-desc="'+irm.description.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }
+
+    svg.innerHTML = h;
+
+    // --- Hover & Compare interaction ---
+    var tooltip = document.getElementById('price-tooltip');
+    var hvLine = document.getElementById('hv-line');
+    var hvDot = document.getElementById('hv-dot');
+    var hvRect = document.getElementById('hv-rect');
+    var pin1El = document.getElementById('pin1');
+    var pin2El = document.getElementById('pin2');
+    var cmpLine = document.getElementById('cmp-line');
+    var chartWrap = svg.closest('.price-chart-wrap');
+    var cmpBadge = document.getElementById('cmp-badge');
+    cmpBadge.style.display = 'none';
+    var cmpState = 0; // 0=none, 1=first pinned, 2=both pinned
+    var cmpIdx1 = -1, cmpIdx2 = -1;
+
+    function getIdx(e) {
+        var rect = svg.getBoundingClientRect();
+        var scaleX = W / rect.width;
+        var mouseX = (e.clientX - rect.left) * scaleX;
+        var idx = Math.round((mouseX - PL) / CW * (n - 1));
+        if (idx < 0) idx = 0; if (idx >= n) idx = n - 1;
+        return idx;
+    }
+
+    function fmtPrice(p) {
+        return p >= 100 ? p.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : p >= 1 ? p.toFixed(2) : p.toFixed(4);
+    }
+
+    function fmtDate(d) {
+        var dd = d.split('-');
+        return dd[2]+'.'+dd[1]+'.'+dd[0];
+    }
+
+    function resetCompare() {
+        cmpState = 0; cmpIdx1 = -1; cmpIdx2 = -1;
+        pin1El.setAttribute('visibility', 'hidden');
+        pin2El.setAttribute('visibility', 'hidden');
+        cmpLine.setAttribute('visibility', 'hidden');
+        cmpBadge.style.display = 'none';
+    }
+
+    cmpBadge.onclick = function() { resetCompare(); };
+
+    function showBadge(i1, i2) {
+        var lo = Math.min(i1, i2), hi = Math.max(i1, i2);
+        var pct = (src[hi].c - src[lo].c) / src[lo].c * 100;
+        var sign = pct > 0 ? '+' : '';
+        var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+        var days = hi - lo;
+        var dayWord = 'дн.';
+        cmpBadge.innerHTML = '<span class="'+cls+'" style="font-weight:700;font-size:16px">'+sign+pct.toFixed(1)+'%</span>' +
+            '<span style="color:var(--text-secondary);font-size:12px;margin-left:8px">'+fmtDate(src[lo].d)+' → '+fmtDate(src[hi].d)+' ('+days+' '+dayWord+')</span>' +
+            '<span style="color:var(--text-secondary);font-size:12px;margin-left:8px">'+fmtPrice(src[lo].c)+' → '+fmtPrice(src[hi].c)+'</span>';
+        cmpBadge.style.display = 'flex';
+    }
+
+    hvRect.addEventListener('click', function(e) {
+        var idx = getIdx(e);
+        if (cmpState === 0) {
+            cmpState = 1; cmpIdx1 = idx;
+            pin1El.setAttribute('cx', xP(idx).toFixed(1));
+            pin1El.setAttribute('cy', yP(prices[idx]).toFixed(1));
+            pin1El.setAttribute('visibility', 'visible');
+            pin2El.setAttribute('visibility', 'hidden');
+            cmpLine.setAttribute('visibility', 'hidden');
+            cmpBadge.innerHTML = '<span style="color:var(--text-secondary);font-size:12px">Кликните вторую точку для сравнения</span>';
+            cmpBadge.style.display = 'flex';
+        } else if (cmpState === 1) {
+            cmpState = 2; cmpIdx2 = idx;
+            pin2El.setAttribute('cx', xP(idx).toFixed(1));
+            pin2El.setAttribute('cy', yP(prices[idx]).toFixed(1));
+            pin2El.setAttribute('visibility', 'visible');
+            cmpLine.setAttribute('x1', xP(cmpIdx1).toFixed(1));
+            cmpLine.setAttribute('y1', yP(prices[cmpIdx1]).toFixed(1));
+            cmpLine.setAttribute('x2', xP(idx).toFixed(1));
+            cmpLine.setAttribute('y2', yP(prices[idx]).toFixed(1));
+            cmpLine.setAttribute('visibility', 'visible');
+            showBadge(cmpIdx1, idx);
+        } else {
+            resetCompare();
+        }
+    });
+
+    hvRect.addEventListener('mousemove', function(e) {
+        var idx = getIdx(e);
+        var px = xP(idx), py = yP(prices[idx]);
+        hvLine.setAttribute('x1', px.toFixed(1));
+        hvLine.setAttribute('x2', px.toFixed(1));
+        hvLine.setAttribute('visibility', 'visible');
+        hvDot.setAttribute('cx', px.toFixed(1));
+        hvDot.setAttribute('cy', py.toFixed(1));
+        hvDot.setAttribute('visibility', 'visible');
+        // Tooltip content
+        var r = src[idx];
+        var prStr = fmtPrice(r.c);
+        var chgHtml = '';
+        if (cmpState === 1) {
+            var pct = (r.c - src[cmpIdx1].c) / src[cmpIdx1].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        } else if (idx > 0) {
+            var pct = (r.c - src[0].c) / src[0].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        }
+        tooltip.innerHTML = '<strong>'+prStr+'</strong> '+chgHtml+'<br><span style="color:var(--text-secondary);font-size:11px">'+fmtDate(r.d)+'</span>';
+        tooltip.style.display = 'block';
+        // Position tooltip
+        var tipX = (e.clientX - chartWrap.getBoundingClientRect().left) + 12;
+        var tipY = (e.clientY - chartWrap.getBoundingClientRect().top) - 10;
+        if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+        tooltip.style.left = tipX + 'px';
+        tooltip.style.top = tipY + 'px';
+        // Live connecting line while picking second point
+        if (cmpState === 1) {
+            cmpLine.setAttribute('x1', xP(cmpIdx1).toFixed(1));
+            cmpLine.setAttribute('y1', yP(prices[cmpIdx1]).toFixed(1));
+            cmpLine.setAttribute('x2', px.toFixed(1));
+            cmpLine.setAttribute('y2', py.toFixed(1));
+            cmpLine.setAttribute('visibility', 'visible');
+        }
+    });
+
+    hvRect.addEventListener('mouseleave', function() {
+        hvLine.setAttribute('visibility', 'hidden');
+        hvDot.setAttribute('visibility', 'hidden');
+        tooltip.style.display = 'none';
+        if (cmpState === 1) cmpLine.setAttribute('visibility', 'hidden');
+    });
+
+    // Report marker tooltips
+    svg.querySelectorAll('.report-marker').forEach(function(marker) {
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {
+            var period = this.getAttribute('data-period');
+            var type = this.getAttribute('data-type') === 'Y' ? 'Годовой' : 'Квартальный';
+            tooltip.innerHTML = '<strong>' + type + ' отчёт</strong><br><span style="color:var(--text-secondary);font-size:11px">' + period + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // News marker tooltips and click
+    svg.querySelectorAll('.news-marker').forEach(function(marker) {
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {
+            var title = this.getAttribute('data-title');
+            var impact = this.getAttribute('data-impact');
+            var url = this.getAttribute('data-url');
+            var impactText = impact === 'positive' ? '↑ Позитив' : impact === 'negative' ? '↓ Негатив' : '— Нейтрально';
+            var impactCls = impact === 'positive' ? 'positive' : impact === 'negative' ? 'negative' : 'muted';
+            var clickHint = url ? '<br><span style="color:var(--link);font-size:10px">Кликните для перехода →</span>' : '';
+            tooltip.innerHTML = '<strong>Новость</strong><br><span style="font-size:12px">' + title + '</span><br><span class="' + impactCls + '" style="font-size:11px">' + impactText + '</span>' + clickHint;
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 200 > chartWrap.offsetWidth) tipX -= 210;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+        marker.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var url = this.getAttribute('data-url');
+            if (url) window.open(url, '_blank');
+        });
+    });
+
+    // Dividend marker tooltips
+    svg.querySelectorAll('.div-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var value = this.getAttribute('data-value');
+            var currency = this.getAttribute('data-currency');
+            tooltip.innerHTML = '<strong>Дивиденд</strong><br><span style="font-size:14px;color:var(--positive)">' + value + ' ' + currency + '</span><br><span style="color:var(--text-secondary);font-size:10px">Дата отсечки</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 150 > chartWrap.offsetWidth) tipX -= 160;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // IR event marker tooltips
+    svg.querySelectorAll('.ir-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var type = this.getAttribute('data-type');
+            var desc = this.getAttribute('data-desc');
+            tooltip.innerHTML = '<strong>IR-событие</strong><br><span style="font-size:11px;color:var(--link)">' + type + '</span><br><span style="font-size:12px">' + desc.substring(0, 80) + (desc.length > 80 ? '...' : '') + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 220 > chartWrap.offsetWidth) tipX -= 230;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // Toggle markers visibility
+    var toggleYearly = document.getElementById('toggle-yearly');
+    var toggleQuarterly = document.getElementById('toggle-quarterly');
+    var toggleNews = document.getElementById('toggle-news');
+    var toggleDividends = document.getElementById('toggle-dividends');
+    var toggleIR = document.getElementById('toggle-ir');
+
+    function updateMarkerVisibility() {
+        svg.querySelectorAll('.report-marker').forEach(function(m) {
+            var type = m.getAttribute('data-type');
+            m.style.display = (type === 'Y' ? toggleYearly.checked : toggleQuarterly.checked) ? '' : 'none';
+        });
+        svg.querySelectorAll('.report-line').forEach(function(line) {
+            var type = line.getAttribute('data-type');
+            line.style.display = (type === 'Y' ? toggleYearly.checked : toggleQuarterly.checked) ? '' : 'none';
+        });
+        svg.querySelectorAll('.news-marker').forEach(function(m) {
+            m.style.display = toggleNews.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.news-line').forEach(function(line) {
+            line.style.display = toggleNews.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.div-marker').forEach(function(m) {
+            m.style.display = toggleDividends.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.div-line').forEach(function(line) {
+            line.style.display = toggleDividends.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.ir-marker').forEach(function(m) {
+            m.style.display = toggleIR.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.ir-line').forEach(function(line) {
+            line.style.display = toggleIR.checked ? '' : 'none';
+        });
+    }
+
+    if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
+    if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
+    if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
+    if (toggleDividends) toggleDividends.addEventListener('change', updateMarkerVisibility);
+    if (toggleIR) toggleIR.addEventListener('change', updateMarkerVisibility);
+
+    // --- Table ---
+    var tbl = '';
+    var recent = src.slice().reverse().slice(0, 30);
+    for (var ti = 0; ti < recent.length; ti++) {
+        var row = recent[ti];
+        var chg = '\u2014';
+        if (ti < recent.length - 1) {
+            var prev = recent[ti+1].c;
+            if (prev > 0) {
+                var pct = (row.c - prev) / prev * 100;
+                var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+                var sign = pct > 0 ? '+' : '';
+                chg = '<span class="'+cls+'">'+sign+pct.toFixed(1)+'%</span>';
+            }
+        }
+        var vm = row.v / 1e6;
+        var vs = vm >= 1000 ? Math.round(vm).toLocaleString('ru') : vm >= 1 ? Math.round(vm) : vm.toFixed(1);
+        var ps = row.c >= 100 ? row.c.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : row.c >= 1 ? row.c.toFixed(2) : row.c.toFixed(4);
+        tbl += '<tr><td>'+row.d+'</td><td>'+ps+'</td><td>'+chg+'</td><td>'+vs+'M</td></tr>';
+    }
+    tbody.innerHTML = tbl;
+
+    // Active button
+    document.querySelectorAll('.period-btn').forEach(function(b) {
+        b.classList.toggle('active', parseInt(b.getAttribute('data-days')) === days);
+    });
+}
+
+document.getElementById('period-btns').addEventListener('click', function(e) {
+    var btn = e.target.closest('.period-btn');
+    if (btn) render(parseInt(btn.getAttribute('data-days')));
+});
+
+render(activeDays);
+})();
+</script>
+
+<div class="analysis">
+<h1>Fix Price (FIXP)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейшая российская сеть магазинов в формате <strong>value-ритейл</strong> (фиксированные низкие цены). Модель «всё по одной цене» с несколькими ценовыми порогами (от 59 до 499 ₽).</p>
+<ul><li><strong>Формат</strong>: магазины «у дома» с ассортиментом ~1 800 SKU — товары для дома, продукты питания, косметика, игрушки, канцелярия, сезонные товары</li><li><strong>Сеть</strong>: 7 567 магазинов (на 30.09.2025), +10,5% YoY; торговая площадь 1,64 млн кв.м</li><li><strong>География</strong>: Россия (~90%), Беларусь, Казахстан, Узбекистан, Кыргызстан, Латвия, Грузия. Готовится выход в Сербию</li><li><strong>Каналы</strong>: 95%+ — розничная выручка, ~12% — оптовая (франчайзинг и B2B)</li><li><strong>Целевая аудитория</strong>: массовый сегмент, покупатели с фокусом на экономию</li><li><strong>Программа лояльности</strong>: 31,9 млн участников (+14,3% YoY), доля покупок с картой 70%</li></ul>
+<p>Бизнес-модель основана на <strong>высокой оборачиваемости</strong> при низких ценах, собственной импортной логистике и прямых закупках у производителей (преимущественно Китай, Турция). Маржинальность значительно выше food-ритейлеров за счёт non-food ассортимента.</p>
+<h2>Конкурентные преимущества</h2>
+<ol><li><strong>Уникальная ниша</strong> — единственный публичный value-ритейлер в РФ, нет прямых аналогов (ближайший — Светофор, не публичный)</li><li><strong>Высокая маржинальность</strong> — валовая маржа ~32-34%, EBITDA margin ~14-17% (втрое выше food-ритейлеров)</li><li><strong>Низкая долговая нагрузка</strong> — Net Debt/EBITDA 0,3x (IAS17), один из самых низких в секторе</li><li><strong>Масштаб закупок</strong> — прямые закупки у 750+ поставщиков, собственная логистика (12 распределительных центров)</li><li><strong>Антициклическая модель</strong> — в кризис трафик растёт за счёт перетока из более дорогих форматов</li><li><strong>Высокий ROE</strong> — ~30,7% (LTM), значительно выше среднего по ритейлу</li></ol>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li><strong>Замедление LFL-продаж</strong> — LFL за 9М2025 всего +1,3% (трафик -4,2%, средний чек +5,5%). Рост обеспечивается только инфляцией среднего чека, реальный трафик падает</li><li><strong>Давление на маржу из-за роста ФОТ</strong> — расходы на персонал достигли 20,1% от выручки (9М2025), рост 2,8 п.п. YoY. Дефицит кадров в ритейле — системная проблема</li><li><strong>Рост финансовых расходов</strong> — нетто финансовые расходы выросли в 9 раз за 9М2025 (с 0,4 до 4 млрд руб.) на фоне высокой ставки ЦБ</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Зависимость от импорта</strong> — значительная доля ассортимента закупается в Китае и Турции. Курсовые колебания и логистические проблемы влияют на себестоимость</li><li><strong>Каннибализация трафика</strong> — жёсткие дискаунтеры (Чижик, Светофор) конкурируют за тот же ценовой сегмент</li><li><strong>Сложность масштабирования маржи</strong> — при 7 500+ магазинах потенциал «лёгкого» роста исчерпывается, новые открытия в менее выгодных локациях</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>НДС 22%</strong> — с 01.01.2026, увеличивает себестоимость non-food товаров</li><li><strong>Маркировка</strong> — расширение «Честного знака» на новые категории увеличивает операционные расходы</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th></tr></thead><tbody><tr><td>Выручка, млрд руб</td><td>230.5</td><td>277.6</td><td>291.9</td><td>314.9</td></tr><tr><td>EBITDA (IFRS16), млрд руб</td><td>44.2</td><td>54.2</td><td>53.1</td><td>53.1</td></tr><tr><td>Маржа EBITDA, %</td><td>19.2</td><td>19.5</td><td>18.2</td><td>16.8</td></tr><tr><td>Чистая прибыль, млрд руб</td><td>21.4</td><td>21.4</td><td>35.7</td><td>22.2</td></tr><tr><td>Маржа чистой прибыли, %</td><td>9.3</td><td>7.7</td><td>12.2</td><td>7.0</td></tr><tr><td>Валовая маржа, %</td><td>—</td><td>—</td><td>33.6</td><td>33.9</td></tr><tr><td>Магазинов (конец года)</td><td>~5 200</td><td>~5 850</td><td>6 414</td><td>7 165</td></tr><tr><td>LFL-продажи, %</td><td>—</td><td>—</td><td>-4.1</td><td>+1.5</td></tr></tbody></table></div>
+<p>Примечание: чистая прибыль 2023 завышена из-за базового эффекта (разовые резервы 2022), нормализованная прибыль ~20-22 млрд руб.</p>
+<h3>LTM (Q4 2024 + 9М2025)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Значение</th></tr></thead><tbody><tr><td>Выручка</td><td>~316 млрд руб</td></tr><tr><td>EBITDA (IFRS16)</td><td>~44.5 млрд руб</td></tr><tr><td>EBITDA (IAS17)</td><td>~25 млрд руб</td></tr><tr><td>Чистая прибыль</td><td>~13.5 млрд руб</td></tr><tr><td>Net Debt</td><td>~9.4 млрд руб</td></tr><tr><td>Net Debt/EBITDA (IAS17)</td><td>0.3x</td></tr><tr><td>FCF (9М2025)</td><td>11.9 млрд руб</td></tr><tr><td>CAPEX (9М2025)</td><td>7.1 млрд руб (3.1% выручки)</td></tr></tbody></table></div>
+<h3>Квартальная динамика 2025 (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q1 2025</th><th>Q2 2025</th><th>Q3 2025</th></tr></thead><tbody><tr><td>Выручка, млрд</td><td>74.4</td><td>73.8</td><td>79.6</td></tr><tr><td>Рост выручки YoY</td><td>+3.9%</td><td>+5.2%</td><td>+5.9%</td></tr><tr><td>EBITDA (IFRS16), млрд</td><td>10.2</td><td>6.2</td><td>10.0</td></tr><tr><td>Чистая прибыль, млрд</td><td>3.4</td><td>0.5</td><td>2.5</td></tr><tr><td>LFL-продажи</td><td>+0.6%</td><td>+1.7%</td><td>+1.7%</td></tr></tbody></table></div>
+<p>Тренд: рост выручки ускоряется (Q1 +3,9% → Q3 +5,9%), но прибыльность под давлением — маржа чистой прибыли сжалась с 7% (FY2024) до 2,8% (9М2025).</p>
+<h2>Дивиденды</h2>
+<div class="table-wrap"><table><thead><tr><th>Период</th><th>DPS</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2022-2023 (промежуточные)</td><td>9.84 руб/GDR</td><td>—</td><td>Разовая выплата после редомициляции</td></tr><tr><td>2024 (декабрь)</td><td>0.2235 руб/акция</td><td>~3-4%</td><td>Первая выплата по новой структуре</td></tr><tr><td>2025E</td><td>—</td><td>—</td><td>Политика: ≥50% NI по МСФО</td></tr></tbody></table></div>
+<p><strong>Дивидендная политика:</strong> не менее 50% чистой прибыли по МСФО, выплата 2 раза в год. Политика утверждена в 2025 году. Первые регулярные дивиденды по итогам FY2025 — ожидаются в 2026 году.</p>
+<p><strong>Редомициляция:</strong> Кипр → Казахстан (2024) → Россия (2025). Компания стала ПАО «Фикс Прайс». GDR конвертированы в обыкновенные акции (тикер FIXR). Консолидация акций 1000:1 запланирована на 26.02.2026 (100 млрд → 100 млн акций).</p>
+<p><strong>Buyback:</strong> программа выкупа до 1 млрд акций (~870 млн руб.), объявлена в августе 2025. Выкуплено 79,7 млн акций.</p>
+<h2>Оценка</h2>
+<h3>Сравнение с историей</h3>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>Текущее (LTM)</th><th>2024</th><th>2023</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>4.3x</td><td>2.6x</td><td>1.6x</td><td>Рост на редомициляции, но всё ещё дёшево</td></tr><tr><td>EV/EBITDA (IFRS16)</td><td>1.5x</td><td>~1.3x</td><td>~1.1x</td><td>Экстремально низко</td></tr><tr><td>EBITDA Margin (IFRS16)</td><td>~14%</td><td>16.8%</td><td>18.2%</td><td>Устойчивое сжатие</td></tr><tr><td>Net Debt/EBITDA (IAS17)</td><td>0.3x</td><td>0.4x</td><td>—</td><td>Минимальный долг</td></tr><tr><td>ROE</td><td>~30%</td><td>45.5%</td><td>—</td><td>Высокий за счёт low equity base</td></tr></tbody></table></div>
+<h3>Сравнение с сектором retail</h3>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>FIXP</th><th>Сектор (среднее)</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E</td><td>4.3x</td><td>~6x</td><td>Дешевле сектора</td></tr><tr><td>EV/EBITDA</td><td>1.5x</td><td>~3x</td><td>Значительный дисконт</td></tr><tr><td>EBITDA Margin</td><td>~14%</td><td>5-7% (food)</td><td>Втрое выше food-ритейлеров</td></tr><tr><td>ND/EBITDA</td><td>0.3x</td><td>0-2.4x</td><td>Один из самых низких</td></tr><tr><td>Рост выручки</td><td>5-8%</td><td>7-12%</td><td>Ниже сектора, замедление</td></tr><tr><td>ROE</td><td>~30%</td><td>~15-20%</td><td>Выше сектора</td></tr></tbody></table></div>
+<p>Дисконт FIXP к сектору обусловлен: (1) замедлением роста LFL, (2) сжатием маржи из-за ФОТ, (3) завершение редомициляции не привело к полной переоценке.</p>
+<h2>Мой тезис</h2>
+<p>Fix Price — <strong>качественный бизнес с высокой маржой и минимальным долгом</strong>, который торгуется с глубоким дисконтом к сектору и к собственной истории. Однако инвестиционная привлекательность ограничена <strong>замедлением органического роста</strong> (LFL +1,3%, трафик -4,2%) и <strong>устойчивым сжатием маржинальности</strong> (EBITDA margin с 19,5% до ~14% за 3 года, расходы на персонал 20%+ от выручки).</p>
+<p>Факторы «за»:</p>
+<ol><li><strong>Экстремально дешёвая оценка</strong> — P/E 4.3x, EV/EBITDA 1.5x при марже 14%</li><li><strong>Минимальный долг</strong> — ND/EBITDA 0.3x, нет процентного риска</li><li><strong>Антициклическая модель</strong> — при ухудшении экономики трафик растёт</li><li><strong>Начало дивидендных выплат</strong> — с 2026 года ≥50% NI, потенциальная доходность 5-7%</li></ol>
+<p>Факторы «против»:</p>
+<ol><li><strong>Трафик падает</strong> — LFL-трафик -4,2%, рост только за счёт инфляции чека</li><li><strong>Маржа сжимается системно</strong> — зарплатная инфляция +28% YoY в ритейле — это не разовый фактор</li><li><strong>Чистая прибыль LTM обвалилась</strong> — 13,5 млрд vs 22,2 млрд годом ранее (-39%)</li><li><strong>Рост финансовых расходов 9x</strong> — частично временный (ставка ЦБ), но давит на прибыль</li></ol>
+<p><strong>Position: WATCH</strong> — upside 28% в базовом сценарии. Тезис хрупкий: при продолжении сжатия маржи upside может уйти в минус. Ждём отчёт за FY2025 (25 февраля 2026) для подтверждения стабилизации прибыли. Катализаторы: снижение ставки ЦБ к 13%, начало регулярных дивидендов, стабилизация LFL-трафика.</p>
+<h2>Целевая цена</h2>
+<p>Все расчёты приведены в пост-консолидационных ценах (после обратного сплита 1000:1, запланированного на 26.02.2026). Текущая цена 0,58 руб/акция × 1000 = <strong>580 руб</strong> (эквивалент).</p>
+<h3>Выбор метода</h3>
+<p>Net Debt/EBITDA = 0,3x &lt; 2,0x → <strong>основной метод P/E</strong>.</p>
+<h3>Расчёт EPS</h3>
+<ul><li>Чистая прибыль LTM = 13,5 млрд руб (депрессивная из-за роста финансовых расходов)</li><li>Количество акций (после консолидации) = 100 млн</li><li><strong>EPS LTM = 135 руб</strong></li></ul>
+<p>Примечание: FY2024 NI = 22,2 млрд (EPS = 222 руб) — более репрезентативный уровень. Используем LTM для консервативности. При нормализации ставки ЦБ NI может вернуться к 18-20 млрд (EPS 180-200 руб).</p>
+<h3>Параметры оценки</h3>
+<ul><li><strong>r</strong> = ставка ЦБ + ERP (5%)</li><li><strong>g</strong> = 5% — зрелый value-ритейлер, рост выручки замедлился до 5-8%, маржа сжимается. CAGR выручки 2021-2024 = 11%, но тренд нисходящий (2023: +5%, 2024: +8%, 9М2025: +5%). Рост прибыли ≈ инфляция</li><li><strong>Спред r−g</strong> проверяется: минимум ≥ 5%</li></ul>
+<h3>Поправка за качество</h3>
+<div class="table-wrap"><table><thead><tr><th>Фактор</th><th>Критерий</th><th>Поправка</th></tr></thead><tbody><tr><td>ROE ~30%</td><td>Выше среднего по сектору (15-20%)</td><td>+10%</td></tr><tr><td>Рост выручки 5-8%</td><td>На уровне сектора (7-12%)</td><td>0%</td></tr><tr><td>Маржа EBITDA падает 3+ кварталов</td><td>19.5% → 14% за 3 года</td><td>-10%</td></tr><tr><td>Долговая нагрузка</td><td>ND/EBITDA 0.3x &lt; 1.5x</td><td>0%</td></tr><tr><td><strong>Итого поправка</strong></td><td></td><td><strong>0% (×1.00)</strong></td></tr></tbody></table></div>
+<h3>Метод P/E (основной)</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>g</th><th>r−g</th><th>Базовый P/E</th><th>Целевой P/E (×1.00)</th><th>Цена (EPS×P/E)</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>16%</td><td>21%</td><td>5%</td><td>16%</td><td>6.3x</td><td>6.3x</td><td>851</td><td>+47%</td></tr><tr><td><strong>Базовый</strong></td><td>13%</td><td>18%</td><td>5%</td><td>13%</td><td>7.7x</td><td>7.7x</td><td><strong>740</strong></td><td><strong>+28%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>5%</td><td>10%</td><td>10.0x</td><td>10.0x</td><td>1 350</td><td>+133%</td></tr></tbody></table></div>
+<p>Примечание: в пессимистичном сценарии upside всё ещё &gt;30% из-за экстремально низкой базы LTM-прибыли. Если прибыль продолжит падать (маржа &lt; 3%), оценка изменится радикально.</p>
+<h3>Чувствительность к g (базовый сценарий ставки 13%)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>r−g</th><th>Целевой P/E</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>2% (g−3п.п.)</td><td>16%</td><td>6.3x</td><td>851</td><td>+47%</td></tr><tr><td><strong>5% (базовый)</strong></td><td>13%</td><td>7.7x</td><td><strong>740</strong></td><td><strong>+28%</strong></td></tr><tr><td>7% (g+2п.п.)</td><td>11%</td><td>9.1x</td><td>1 229</td><td>+112%</td></tr></tbody></table></div>
+<p>Тезис устойчив к снижению g, поскольку акция торгуется с глубоким дисконтом даже при минимальных допущениях о росте.</p>
+<h3>Перекрёстная проверка</h3>
+<p><strong>EV/EBITDA:</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>EV/EBITDA</th><th>EV, млрд</th><th>Net Debt</th><th>Equity</th><th>Цена (пост-конс.)</th><th>Upside</th></tr></thead><tbody><tr><td>Консервативный (4.0x)</td><td>4.0x</td><td>178</td><td>9.4</td><td>168.6</td><td>1 686</td><td>+191%</td></tr><tr><td>Текущий сектор (3.0x)</td><td>3.0x</td><td>133.5</td><td>9.4</td><td>124.1</td><td>1 241</td><td>+114%</td></tr></tbody></table></div>
+<p>EV/EBITDA подтверждает значительную недооценку по мультипликаторам.</p>
+<p><strong>Дивидендный:</strong></p>
+<p>При NI LTM = 13,5 млрд и payout 50%: DPS ≈ 67,5 руб (пост-конс.). При целевой дивдоходности 8% (r−g = 18−5 = 13%, но дивы только начинаются → берём 8%): целевая цена = 67,5 / 0,08 = <strong>844 руб</strong> (+46%).</p>
+<h3>Итог перекрёстной проверки</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена (пост-конс.)</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td><strong>P/E базовый (основной)</strong></td><td><strong>740</strong></td><td><strong>+28%</strong></td><td>my_fair_value</td></tr><tr><td>EV/EBITDA 3.0x</td><td>1 241</td><td>+114%</td><td>Существенно выше — текущий EV/EBITDA 1.5x аномально низок</td></tr><tr><td>Дивидендный</td><td>844</td><td>+46%</td><td>Подтверждает недооценку</td></tr></tbody></table></div>
+<p>Расхождение P/E и EV/EBITDA &gt;30% — объясняется тем, что LTM прибыль депрессивная (финансовые расходы 9x). При нормализации ставки P/E и EV/EBITDA сблизятся.</p>
+<p><strong>my_fair_value = 740 руб</strong> (P/E базовый сценарий, консервативный LTM EPS)</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-29</td><td>Анализ</td><td>580 (пост-конс. эквивалент)</td><td>Первичное исследование</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://ir.fix-price.com/ru/investors/results_center/" target="_blank">IR Fix Price</a></li><li><a href="https://media.fix-price.com/news/fix-price-obyavlyaet-klyuchevye-operatsionnye-i-finansovye-rezultaty-za-4-kvartal-i-12-mesyacev-202/?back=7729" target="_blank">Fix Price — результаты 4Q и FY2024</a></li><li><a href="https://media.fix-price.com/news/pao-fiks-prays-obyavlyaet-klyuchevye-operatsionnye-i-finansovye-rezultaty-za-3-kvartal-i-9-mesyatsev/?back=9281" target="_blank">Fix Price — результаты 3Q и 9М2025</a></li><li><a href="https://marketpower.pro/post/fix-price-otchet-za-9-mes-2025-po-msfo" target="_blank">MarketPower — отчёт 9М2025</a></li><li><a href="https://smart-lab.ru/q/FIXP/" target="_blank">Smart-lab FIXP</a></li><li><a href="https://www.moex.com/en/issue.aspx?board=tqbr&amp;code=fixr" target="_blank">MOEX: FIXR</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+{
+  "ticker": "SIBN",
+  "company_name": "Газпром нефть",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2013-08-25",
+      "value": 4.09,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2014-06-23",
+      "value": 5.29,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2014-10-17",
+      "value": 4.62,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-06-22",
+      "value": 1.85,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-10-16",
+      "value": 5.92,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-06-27",
+      "value": 0.55,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-06-26",
+      "value": 10.68,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-12-29",
+      "value": 10,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-06-26",
+      "value": 5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-12-28",
+      "value": 22.05,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-07-01",
+      "value": 7.95,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-10-18",
+      "value": 18.14,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-06-26",
+      "value": 19.82,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-12-29",
+      "value": 5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-06-25",
+      "value": 10,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-12-28",
+      "value": 40,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-07-08",
+      "value": 16,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-12-30",
+      "value": 69.78,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-07-10",
+      "value": 12.16,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-12-27",
+      "value": 82.94,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-07-08",
+      "value": 19.49,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-10-14",
+      "value": 51.96,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-08",
+      "value": 27.21,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

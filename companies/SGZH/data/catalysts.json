@@ -1,0 +1,101 @@
+{
+  "ticker": "SGZH",
+  "company_name": "SGZH",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Вертикальная интеграция и крупнейший лесопромышленный холдинг РФ — масштаб и лесные участки",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ снизит процентные расходы при рефинансировании долга",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Допэмиссия 2025 сократила чистый долг втрое — устранена непосредственная угроза дефолта",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Диверсификация продукции (бумага, упаковка, пиломатериалы, фанера, CLT)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Хронические убытки 11+ кварталов, OIBDA не покрывает процентные расходы (~4 vs ~11 млрд/год)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Net Debt/EBITDA = 27x (LTM) — критический уровень долговой нагрузки",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Допэмиссия 2025 размыла миноритариев в 5 раз, free float снизился до 5%",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Полная зависимость от поддержки АФК «Система» — без неё риск дефолта",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Слабый спрос в Китае и укрепление рубля давят на экспортную выручку (~50%)",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "positive": 4,
+    "negative": 5,
+    "mixed": 2
+  }
+}

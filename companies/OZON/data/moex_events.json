@@ -1,0 +1,264 @@
+{
+  "ticker": "OZON",
+  "company_name": "Озон",
+  "date": "2026-02-19",
+  "dividends": [],
+  "ir_events": [
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2026-10-28",
+      "event_type": "Публикация отчетности",
+      "description": "Финансовые результаты за 3 квартал 2026 года (предварительная дата)",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2026-08-12",
+      "event_type": "Публикация отчетности",
+      "description": "Финансовые результаты за 2 квартал 2026 года (предварительная дата)",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2026-05-14",
+      "event_type": "Публикация отчетности",
+      "description": "Финансовые результаты за 1 квартал 2026 года (предварительная дата)",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН ФАРМАЦЕВТИКА\"",
+      "inn": "6320080729",
+      "event_date": "2026-04-16",
+      "event_type": "IR событие (очное)",
+      "description": "День Инвестора",
+      "link": "https://ozonpharm.ru/investors/shareholders/events/#tabs-past"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2026-02-26",
+      "event_type": "Публикация отчетности",
+      "description": "Финансовые результаты за 4 квартал и 2025 год (предварительная дата)",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-12-10",
+      "event_type": "Собрания владельцев ценных бумаг",
+      "description": "Общее собрание акционеров",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН ФАРМАЦЕВТИКА\"",
+      "inn": "6320080729",
+      "event_date": "2025-12-03",
+      "event_type": "IR событие (online)",
+      "description": "Вебинар Sber CIB",
+      "link": "https://ozonpharm.ru/investors/shareholders/events/#tabs-past"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-11-26",
+      "event_type": "IR событие (online)",
+      "description": "Альфа-инвестиции: эфир с топ-менеджером Озон",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН ФАРМАЦЕВТИКА\"",
+      "inn": "6320080729",
+      "event_date": "2025-11-25",
+      "event_type": "Публикация отчетности",
+      "description": "Презентация финансовых и операционных результатов за 3 квартал и 9 месяцев 2025 года",
+      "link": "https://ozonpharm.ru/investors/shareholders/events/#tabs-past"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-11-10",
+      "event_type": "Публикация отчетности",
+      "description": "Финансовые результаты за 3 квартал 2025 года",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН ФАРМАЦЕВТИКА\"",
+      "inn": "6320080729",
+      "event_date": "2025-10-25",
+      "event_type": "IR событие (очное)",
+      "description": "Smart-Lab CONF 2025",
+      "link": "https://ozonpharm.ru/investors/shareholders/events/#tabs-past"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-10-25",
+      "event_type": "IR событие (очное)",
+      "description": "Smart-Lab Conf 2025",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-09-24",
+      "event_type": "IR событие (очное)",
+      "description": "Инвестиционный форум ВТБ «Россия зовёт!»",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН ФАРМАЦЕВТИКА\"",
+      "inn": "6320080729",
+      "event_date": "2025-08-29",
+      "event_type": "Публикация отчетности",
+      "description": "Презентация финансовых и операционных результатов за 2 квартал и 1 полугодие 2025 года",
+      "link": "https://ozonpharm.ru/investors/shareholders/events/#tabs-past"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-08-07",
+      "event_type": "IR событие (online)",
+      "description": "Альфа-Инвестиции: эфир с топ-менеджментом Ozon",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-08-07",
+      "event_type": "IR событие (online)",
+      "description": "Эфир по результатам 2 квартала 2025 года",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-08-07",
+      "event_type": "Публикация отчетности",
+      "description": "Финансовые результаты за 2 квартал 2025 года",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-07-12",
+      "event_type": "IR событие (очное)",
+      "description": "Инвест - weekend РБК",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-07-02",
+      "event_type": "IR событие (очное)",
+      "description": "Финансовый конгресс Банка России",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН ФАРМАЦЕВТИКА\"",
+      "inn": "6320080729",
+      "event_date": "2025-06-28",
+      "event_type": "IR событие (очное)",
+      "description": "Smart-Lab CONF 2025",
+      "link": "https://ozonpharm.ru/investors/shareholders/events/#tabs-past"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-06-28",
+      "event_type": "IR событие (очное)",
+      "description": "Smart-Lab Conf 2025",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН ФАРМАЦЕВТИКА\"",
+      "inn": "6320080729",
+      "event_date": "2025-06-18",
+      "event_type": "IR событие (очное)",
+      "description": "Петербургский международный экономический форум. Сессия РБК «Фармацевтика возможностей»",
+      "link": "https://ozonpharm.ru/investors/shareholders/events/#tabs-past"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-06-05",
+      "event_type": "IR событие (очное)",
+      "description": "COM.E ON Forum",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-06-03",
+      "event_type": "IR событие (online)",
+      "description": "Альфа-Инвестиции: эфир с топ-менеджментом Ozon",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН ФАРМАЦЕВТИКА\"",
+      "inn": "6320080729",
+      "event_date": "2025-05-28",
+      "event_type": "Публикация отчетности",
+      "description": "Презентация финансовых и операционных результатов за 1 квартал 2025 года",
+      "link": "https://ozonpharm.ru/investors/shareholders/events/#tabs-past"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-04-29",
+      "event_type": "Публикация отчетности",
+      "description": "Финансовые результаты за 1 квартал 2025 года",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-04-29",
+      "event_type": "IR событие (online)",
+      "description": "Эфир по результатам 1 квартала 2025 года",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-02-27",
+      "event_type": "Публикация отчетности",
+      "description": "Финансовые результаты за 4 квартал и 2024 год",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-02-27",
+      "event_type": "IR событие (online)",
+      "description": "SberCIB: эфир с топ-менеджментом Ozon",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "2025-02-27",
+      "event_type": "IR событие (online)",
+      "description": "Эфир для розничных инвесторов по результатам 4 квартала и 2024 года",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Форум инновационных финансовых технологий Финополис",
+      "link": "https://ir.ozon.com/ru/events"
+    },
+    {
+      "company_name": "МЕЖДУНАРОДНАЯ КОМПАНИЯ ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"ОЗОН\"",
+      "inn": "3900045916",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Петербургский международный экономический форум (ПМЭФ)",
+      "link": "https://ir.ozon.com/ru/events"
+    }
+  ]
+}

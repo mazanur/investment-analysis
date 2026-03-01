@@ -1,0 +1,28 @@
+{
+  "ticker": "MDMG",
+  "company_name": "Мать и дитя (MD Medical Group)",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2024-06-20",
+      "value": 141,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-09-09",
+      "value": 22,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-11-29",
+      "value": 20,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-05-19",
+      "value": 22,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

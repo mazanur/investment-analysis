@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-02-28",
+    "trigger": "ЦБ ужесточит регулирование кредитования крупных компаний — надбавка к коэффициентам риска до 100% для высокозакредитованных",
+    "trigger_url": "https://1prime.ru/20260301/tsb-867906517.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость (regulation), но рынок не отреагировал (price_move -1.44%, volume 0.46× ADV). Сценарий long-oversold не сработал — падение < 5%. Новость подтверждает уже известный risk (критический долг 1 491 млрд ₽, процентные расходы 80% EBITDA), не ломает тезис. Position = watch, нет спекулятивного окна."
+  }
+]

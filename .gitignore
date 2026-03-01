@@ -1,0 +1,22 @@
+.claude/
+.idea/
+.DS_Store
+__pycache__/
+*.pyc
+
+# Большие файлы данных (можно regenerate)
+*_posts.json
+subtitles*.vtt
+
+# Экспорт и генерируемые данные
+
+# Структура data/ для новых компаний
+# Сами данные коммитим — используются в дашборде
+#!companies/*/data/.gitkeep
+
+# Временные файлы скриптов
+reports_new_tickers.txt
+
+# ralphex progress logs
+progress*.txt
+.env

@@ -1,0 +1,93 @@
+{
+  "ticker": "TRNFP",
+  "company_name": "TRNFP",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Дивидендная доходность ~13-14% при стабильном payout 50%",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Нет чистого долга (net cash ~202 млрд ₽) — финансовая устойчивость",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Ставка ЦБ снижена до 15,5% (14.02.2026), прогноз к концу 2026 — 10-14% — мощная переоценка",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Рост объёмов при ослаблении квот ОПЕК+ со 2П 2026",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Налог на прибыль 40% на 2025-2030 — снижает чистую прибыль и дивидендную базу на ~20%",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Сокращение объёмов транспортировки из-за ОПЕК+ — прямое влияние на загрузку системы",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Тарифная индексация ниже инфляции — 5,1% в 2026 vs инфляция 5,5-6%",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Высокий CAPEX на обновление инфраструктуры — давит на FCF",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "positive": 4,
+    "negative": 4,
+    "mixed": 2
+  }
+}

@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Brent превысила $81/барр. впервые за 8 месяцев — 12-я новость Ормузского кластера, Иран заявил о непланировании закрытия пролива",
+    "trigger_url": "https://www.kommersant.ru/doc/8477667",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "12-я и последняя новость Ормузского кластера — фактический рост Brent до $81, но Иран заявил, что не планирует закрывать пролив (ограничивает дальнейший рост). Позитив уже в цене: price_move +3.0% (506.9→522.1 ₽), volume_ratio ~3.1× ADV. Матрица: 2-5% + >2× ADV → «в цене» для позитива → skip. ОПЕК+ наращивает добычу (+124 тыс. б/с март, +166 апрель). Тезис не изменён (sentiment: neutral, position: hold)."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Brent превысила $80/барр. после ударов по Ирану — 11-я новость Ормузского кластера за день",
     "trigger_url": "https://ria.ru/20260302/neft-2077760743.html",
     "signal": "skip",

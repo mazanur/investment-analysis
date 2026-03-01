@@ -1,0 +1,145 @@
+{
+  "ticker": "MGNT",
+  "company_name": "Магнит",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2013-08-09",
+      "value": 46.06,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2014-06-13",
+      "value": 89.15,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2014-10-10",
+      "value": 78.3,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2014-10-29",
+      "value": 152.07,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2014-12-30",
+      "value": 152.07,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-06-19",
+      "value": 132.57,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2015-10-09",
+      "value": 88.4,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-01-08",
+      "value": 179.77,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-06-17",
+      "value": 42.3,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-09-23",
+      "value": 84.6,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2016-12-23",
+      "value": 126.12,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-06-23",
+      "value": 67.41,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2017-09-15",
+      "value": 115.51,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-07-06",
+      "value": 135.5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-12-21",
+      "value": 137.38,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-06-14",
+      "value": 166.78,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-01-10",
+      "value": 147.19,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-06-19",
+      "value": 157,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-01-08",
+      "value": 245.31,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-06-25",
+      "value": 245.31,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-12-31",
+      "value": 294.37,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-01-11",
+      "value": 412.13,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-07-15",
+      "value": 412.13,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-01-09",
+      "value": 560,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": [
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"МАГНИТ\"",
+      "inn": "2309085638",
+      "event_date": "2025-08-29",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные и финансовые результаты деятельности за 1 полугодие 2025 года",
+      "link": "https://www.magnit.com/ru/shareholders-and-investors/investor-calendar/"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"МАГНИТ\"",
+      "inn": "2309085638",
+      "event_date": "2025-04-29",
+      "event_type": "Публикация отчетности",
+      "description": "Операционные и финансовые результаты деятельности за 2024 год",
+      "link": "https://www.magnit.com/ru/shareholders-and-investors/investor-calendar/"
+    }
+  ]
+}

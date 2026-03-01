@@ -1,0 +1,53 @@
+{
+  "ticker": "BSPB",
+  "company_name": "БСП ао",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2019-06-10",
+      "value": 3.71,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-12-11",
+      "value": 3.33,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-06-07",
+      "value": 4.56,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-08-29",
+      "value": 11.81,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-05-10",
+      "value": 21.16,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-10-09",
+      "value": 19.08,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-05-06",
+      "value": 23.37,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-09-30",
+      "value": 27.26,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-05-05",
+      "value": 29.72,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

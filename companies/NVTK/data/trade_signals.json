@@ -1,0 +1,31 @@
+[
+  {
+    "date": "2026-02-27",
+    "trigger": "Годовой отчёт МСФО 2025: выручка -6,5%, ЧП -63% (186 млрд), но OCF +40,9% (503 млрд), чистый долг отрицательный (-39 млрд)",
+    "trigger_url": "https://smart-lab.ru/blog/1270585.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Результаты смешанные (results, strength: high, impact: neutral): ЧП -63% из-за курсовых списаний, но OCF рекордный и Net Debt отрицательный. Рынок не отреагировал (price_move +1,0%). Однако long невозможен: fair value 1 000 ₽ ниже текущей цены 1 197 ₽ (downside -16,5%), sentiment bearish, position sell. Данные уже учтены в _index.md. Нет target для спекулятивной покупки."
+  },
+  {
+    "date": "2026-02-24",
+    "trigger": "Великобритания ввела санкции против СПГ-завода «Криогаз-Высоцк» (дочка НОВАТЭКа)",
+    "trigger_url": "https://www.kommersant.ru/doc/8461313",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная regulation-новость (strength: high), но рынок не отреагировал (price_move -0,3%, volume_ratio 0,8×). Ни long-positive (новость негативная), ни long-oversold (нет падения >5%) не применимы. Инкрементальный негатив к уже учтённым санкционным рискам в key_risks (Арктик СПГ-2, запрет ЕС). Тезис не меняется: sentiment bearish, fair value 1 000 ₽ < текущей 1 197 ₽."
+  }
+
+]

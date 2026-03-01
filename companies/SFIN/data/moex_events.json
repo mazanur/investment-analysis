@@ -1,0 +1,38 @@
+{
+  "ticker": "SFIN",
+  "company_name": "SFI Holding",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2019-06-08",
+      "value": 14.5,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-12-14",
+      "value": 39.42,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-06-17",
+      "value": 20.6000025833549,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-11-30",
+      "value": 113.8,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-12-23",
+      "value": 227.6,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-06-09",
+      "value": 83.5,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

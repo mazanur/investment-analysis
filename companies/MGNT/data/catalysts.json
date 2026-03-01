@@ -1,0 +1,109 @@
+{
+  "ticker": "MGNT",
+  "company_name": "MGNT",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Второй по масштабу ритейлер РФ с выручкой 3.26 трлн и сетью 32 589 магазинов",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ до 10-13% может сэкономить 15-30 млрд на процентных расходах",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "E-commerce растёт ~2x г/г, GMV 77.6 млрд за H1 2025",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Приобретение Азбуки Вкуса добавляет 171 премиальный магазин",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Доля СТМ >25% — маржинальность на 5-15 п.п. выше брендов",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "EBITDA-маржа снижается 5 лет подряд: 7.2% → 5.1% (H1 2025)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Чистая прибыль обвалилась на 70% (H1 2025), процентные расходы съедают прибыль",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Дивиденды не выплачиваются с 2022 года, кворум на ВОСА не набирается",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "FCF глубоко отрицательный: -129.7 млрд (LTM) из-за агрессивного CAPEX",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "ROE 13.9% — ниже стоимости капитала (~20.5%)",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "positive": 5,
+    "negative": 5,
+    "mixed": 2
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "ticker": "POSI",
+  "company_name": "Positive Technologies",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2022-05-08",
+      "value": 14.4,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2022-11-14",
+      "value": 5.16,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-04-16",
+      "value": 37.87,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-05-22",
+      "value": 18.94,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-12-03",
+      "value": 15.8,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-04-20",
+      "value": 47.3,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-05-24",
+      "value": 47.33,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

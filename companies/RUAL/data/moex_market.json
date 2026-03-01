@@ -1,0 +1,38 @@
+{
+  "ticker": "RUAL",
+  "date": "2026-02-04",
+  "shortname": "РУСАЛ ао",
+  "secname": "РУСАЛ ОК МКПАО ао",
+  "price": {
+    "last": 37.96,
+    "open": 39.29,
+    "high": 39.455,
+    "low": 37.705,
+    "waprice": 38.575,
+    "prev_close": 39.01
+  },
+  "volume": {
+    "shares_today": 36838660,
+    "value_today_rub": 1421136299,
+    "num_trades_today": 52340
+  },
+  "liquidity": {
+    "adv_30d_rub": 2454501555,
+    "adv_30d_mln_rub": 2454.5,
+    "bid_ask_spread_pct": 0.0132
+  },
+  "capitalization": {
+    "market_cap_rub": 577258599681.69,
+    "market_cap_bln_rub": 577.3,
+    "shares_outstanding": 15193014862
+  },
+  "range_52w": {
+    "high": 44,
+    "low": 27.6
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 10
+  }
+}

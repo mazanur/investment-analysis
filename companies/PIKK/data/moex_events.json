@@ -1,0 +1,33 @@
+{
+  "ticker": "PIKK",
+  "company_name": "ПИК",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2014-11-05",
+      "value": 4.16,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2018-09-04",
+      "value": 22.71,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-06-03",
+      "value": 22.71,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-10-12",
+      "value": 22.71,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-05-17",
+      "value": 22.51,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": []
+}

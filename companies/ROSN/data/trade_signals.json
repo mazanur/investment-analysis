@@ -1,6 +1,34 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Brent $81+ впервые за 8 месяцев на фоне ударов по Ирану — позитив для Роснефти как экспортёра",
+    "trigger_url": "https://www.kommersant.ru/doc/8477667",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная macro-новость (strength: medium) — Brent $81+ на геополитике Ирана. Дубль кластера 28.02: позитив уже в цене (price_move +2,85%, 394,6→405,85, volume 3,2× ADV). Иран заявил о неготовности перекрывать Ормуз — потенциал роста цен ограничен. R/R = 1,83 (target 480, stop −10% = 365) < 2,0. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-02-28",
+    "trigger": "Котировки Роснефти в верхних ценовых планках, в стакане нет продавцов — реакция на удары по Ирану",
+    "trigger_url": "https://smart-lab.ru/blog/news/1271077.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная macro-новость (strength: medium) — дубль «Удары США и Израиля по Ирану» (уже обработан). Позитив уже в цене: price_move +2,85% (394,6→405,85), volume_ratio 3,2× ADV. По матрице 2–5% + volume >2× = «в цене» для позитива → skip. R/R = 1,83 < 2,0. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Эксперты ожидают ослабления рубля до 80–85 ₽/$ во II кв. и до 90 ₽/$ к концу 2026 после корректировки бюджетного правила (отсечка $40–50/барр.)",
     "trigger_url": "https://www.vedomosti.ru/economics/articles/2026/03/02/1179913-eksperti-ozhidayut-oslableniya-rublya-posle-korrektirovki-byudzhetnogo-pravila",
     "signal": "skip",

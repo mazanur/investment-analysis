@@ -1,0 +1,93 @@
+{
+  "ticker": "LENT",
+  "company_name": "LENT",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Выручка 2025: 1,104 трлн ₽ (+24,2% YoY) — лучший рост в food-ритейле",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Лучшая маржа EBITDA в секторе (~7,5% LTM vs 5-6% у конкурентов)",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Ставка ЦБ снижена до 15,5% — цикл смягчения ускоряется, позитив для оценки",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Завершение интеграций 2023-2025 → стабилизация FCF в 2026",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Полные данные МСФО 2025 (EBITDA, ЧП) ожидаются в марте 2026 — неопределённость по Q4",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "FCF нестабилен из-за агрессивного capex (LTM 20,2 млрд при ЧП 31,2 млрд)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Нет дивидендов — первые выплаты не ранее 2028 года",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Зависимость от мажоритария Севергрупп (81.5%), free-float 18.5%",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "positive": 4,
+    "negative": 4,
+    "mixed": 2
+  }
+}

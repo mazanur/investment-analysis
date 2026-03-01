@@ -1,0 +1,101 @@
+{
+  "ticker": "NVTK",
+  "company_name": "NVTK",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Рекордный FCF 353 млрд (+115% г/г) — компания генерирует кэш несмотря на бумажные убытки",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Ямал СПГ работает на 110%+ мощности — стабильный генератор кэша",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Низкая себестоимость добычи < $1/mcf благодаря сухому газу ЯНАО",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Частная компания — менеджмент-владелец заинтересован в росте капитализации",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Маржа EBITDA падает третий год подряд (65.2% → 59.4%) — системная потеря эффективности",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Арктик СПГ-2 под санкциями США, отгрузки со скидкой 30-40%, 3-я линия перенесена на 2028",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Запрет ЕС на СПГ с апреля 2026 (краткосрочные контракты) и с 2027 (долгосрочные)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Укрепление рубля обрушило рублёвую прибыль на 63% в 2025 из-за курсовых разниц",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Дефицит ледовых танкеров Arc7 ограничивает логистику СПГ по Севморпути",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "positive": 4,
+    "negative": 5,
+    "mixed": 2
+  }
+}

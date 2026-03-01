@@ -1,0 +1,109 @@
+{
+  "ticker": "SMLT",
+  "company_name": "SMLT",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Крупнейший земельный банк в РФ (~41,5 млн кв. м) — стратегический актив при восстановлении рынка",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Опцион на снижение ставки ЦБ: при ставке <14% оживёт рыночная ипотека и маржа восстановится",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Крупнейший девелопер РФ по текущему строительству, №1 по вводу в 2025",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Семейная ипотека 6% до 2030 поддерживает базовый спрос",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Q4 2025: денежные поступления +83% г/г — признаки оживления",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Экстремальная долговая нагрузка: Net Debt/EBITDA 3,2x, отрицательный собственный капитал",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Чистая прибыль в свободном падении: H1 2025 = 1,84 млрд (-61% г/г)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Уголовные расследования (СК, Бастрыкин) и задержки сдачи объектов",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Риск частичного огосударствления — просьба о блокпакете государству",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Рыночная ипотека недоступна при ставке 15,5%, спрос держится только на льготных программах",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "positive": 5,
+    "negative": 5,
+    "mixed": 2
+  }
+}

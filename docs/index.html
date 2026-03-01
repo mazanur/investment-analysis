@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* История цен */
+.price-history {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.price-history h3 { margin-bottom: 12px; font-size: 16px; }
+.period-btns { display: flex; gap: 6px; margin-bottom: 16px; }
+.period-btn {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 12px; cursor: pointer; color: var(--text-secondary); font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+}
+.period-btn:hover { border-color: var(--link); color: var(--text); }
+.period-btn.active { background: var(--link); color: #fff; border-color: var(--link); }
+.price-chart-wrap { margin-bottom: 16px; position: relative; }
+.price-chart { width: 100%; height: auto; }
+.price-tooltip {
+    display: none; position: absolute; pointer-events: none;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.cmp-badge {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 8px 12px; margin-top: 6px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; cursor: pointer;
+}
+.cmp-badge:hover { border-color: var(--link); }
+.price-table-wrap { max-height: 400px; overflow-y: auto; }
+.price-table { font-size: 13px; }
+.price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+<div class="header-left">
+<h1>Инвестиционный дашборд</h1>
+<div class="updated">Обновлено: 2026-02-27</div>
+</div>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</header>
+
+<div class="stats">
+<div class="stat-card"><div class="label">Всего компаний</div><div class="value">59</div></div>
+<div class="stat-card"><div class="label">Заполнено</div><div class="value green">59</div></div>
+<div class="stat-card"><div class="label">Bullish</div><div class="value green">17</div></div>
+<div class="stat-card"><div class="label">Buy</div><div class="value blue">11</div></div>
+<div class="stat-card"><div class="label">Средний upside</div><div class="value green">+23%</div></div>
+</div>
+
+<div class="filters">
+<select id="f-sector"><option value="">Все секторы</option><option value="agro">Агросектор</option><option value="construction">Строительство</option><option value="energy">Энергетика</option><option value="finance">Финансы</option><option value="food">food</option><option value="forestry">forestry</option><option value="healthcare">Медицина и фармацевтика</option><option value="it-telecom">IT и Телеком</option><option value="metals-mining">Металлы и добыча</option><option value="oil-gas">Нефтегаз</option><option value="retail">Ритейл</option><option value="transport">Транспорт</option></select>
+<select id="f-sentiment"><option value="">Все sentiment</option><option value="bearish">bearish</option><option value="bullish">bullish</option><option value="neutral">neutral</option></select>
+<select id="f-position"><option value="">Все position</option><option value="avoid">avoid</option><option value="buy">buy</option><option value="hold">hold</option><option value="sell">sell</option><option value="watch">watch</option></select>
+<input id="f-search" type="text" placeholder="Поиск по тикеру или названию...">
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr>
+<th data-col="ticker">Тикер <span class="sort-arrow"></span></th>
+<th data-col="name">Компания <span class="sort-arrow"></span></th>
+<th data-col="sectorName">Сектор <span class="sort-arrow"></span></th>
+<th data-col="sentiment">Sentiment <span class="sort-arrow"></span></th>
+<th data-col="position">Position <span class="sort-arrow"></span></th>
+<th data-col="price">Цена <span class="sort-arrow"></span></th>
+<th data-col="target">Цель <span class="sort-arrow"></span></th>
+<th data-col="upside">Upside <span class="sort-arrow"></span></th>
+<th data-col="pe">P/E <span class="sort-arrow"></span></th>
+<th data-col="divYield">Див. дох. <span class="sort-arrow"></span></th>
+<th data-col="updated">Обновлено <span class="sort-arrow"></span></th>
+</tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+</div>
+
+<script>
+const DATA = [{"ticker": "AFKS", "name": "АФК «Система» (AFK Sistema)", "sector": "finance", "sectorName": "Финансы", "sentiment": "neutral", "position": "watch", "price": "13.89", "target": "21", "upside": 62, "pe": -0.81, "divYield": "0", "updated": "2026-02-11", "isStub": false}, {"ticker": "AFLT", "name": "Аэрофлот", "sector": "transport", "sectorName": "Транспорт", "sentiment": "neutral", "position": "watch", "price": "55.84", "target": "69", "upside": 23, "pe": 5.6, "divYield": "9.4", "updated": "2026-02-11", "isStub": false}, {"ticker": "AKRN", "name": "Акрон", "sector": "agro", "sectorName": "Агросектор", "sentiment": "neutral", "position": "watch", "price": "19156", "target": "19800", "upside": 7, "pe": 14.5, "divYield": "3.9%", "updated": "2026-02-11", "isStub": false}, {"ticker": "ALRS", "name": "Алроса", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "bearish", "position": "watch", "price": "40.31", "target": "54", "upside": 34, "pe": 11.8, "divYield": "0%", "updated": "2026-02-11", "isStub": false}, {"ticker": "AQUA", "name": "Инарктика", "sector": "food", "sectorName": "food", "sentiment": "neutral", "position": "hold", "price": "489.1", "target": "580", "upside": 18, "pe": 3.45, "divYield": "0.0", "updated": "2026-02-11", "isStub": false}, {"ticker": "BANEP", "name": "Башнефть (привилегированные)", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "bullish", "position": "buy", "price": "901.5", "target": "1300", "upside": 39, "pe": 1.3, "divYield": "15.7", "updated": "2026-01-30", "isStub": false}, {"ticker": "BELU", "name": "Novabev Group (Белуга Групп)", "sector": "retail", "sectorName": "Ритейл", "sentiment": "bullish", "position": "watch", "price": "445.4", "target": "529", "upside": 25, "pe": 11.5, "divYield": "4.7", "updated": "2026-02-11", "isStub": false}, {"ticker": "BSPB", "name": "Банк Санкт-Петербург", "sector": "finance", "sectorName": "Финансы", "sentiment": "bullish", "position": "buy", "price": "341.22", "target": "504", "upside": 55, "pe": 3.14, "divYield": "14.3", "updated": "2026-02-11", "isStub": false}, {"ticker": "CBOM", "name": "Московский кредитный банк (МКБ)", "sector": "finance", "sectorName": "Финансы", "sentiment": "bearish", "position": "avoid", "price": "6.04", "target": "4.5", "upside": -25, "pe": 9.3, "divYield": "0", "updated": "2026-02-11", "isStub": false}, {"ticker": "CHMF", "name": "Северсталь", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "bearish", "position": "sell", "price": "969", "target": "200", "upside": -79, "pe": 25.0, "divYield": "0%", "updated": "2026-02-11", "isStub": false}, {"ticker": "CNRU", "name": "МКПАО Циан", "sector": "it-telecom", "sectorName": "IT и Телеком", "sentiment": "bullish", "position": "watch", "price": "608.6", "target": "730", "upside": 29, "pe": 15.7, "divYield": "8.8", "updated": "2026-02-11", "isStub": false}, {"ticker": "DOMRF", "name": "ДОМ.РФ", "sector": "finance", "sectorName": "Финансы", "sentiment": "neutral", "position": "watch", "price": "2305.5", "target": "2900", "upside": 40, "pe": 5.3, "divYield": "7.1", "updated": "2026-02-11", "isStub": false}, {"ticker": "ENPG", "name": "ЭН+ Групп (EN+ Group)", "sector": "energy", "sectorName": "Энергетика", "sentiment": "bearish", "position": "sell", "price": "490.55", "target": "296", "upside": -39, "pe": 5.18, "divYield": "0", "updated": "2026-02-11", "isStub": false}, {"ticker": "EUTR", "name": "ЕвроТранс", "sector": "retail", "sectorName": "Ритейл", "sentiment": "bullish", "position": "buy", "price": "133.25", "target": "210", "upside": 52, "pe": 2.7, "divYield": "15%", "updated": "2026-02-11", "isStub": false}, {"ticker": "FIVE", "name": "X5 Retail Group N.V. (GDR)", "sector": "retail", "sectorName": "Ритейл", "sentiment": "neutral", "position": "avoid", "price": "", "target": "", "upside": null, "pe": null, "divYield": "", "updated": "2026-01-30", "isStub": false}, {"ticker": "FIXP", "name": "Fix Price (Фикс Прайс)", "sector": "retail", "sectorName": "Ритейл", "sentiment": "neutral", "position": "watch", "price": "580", "target": "740", "upside": 28, "pe": 4.3, "divYield": "0", "updated": "2026-01-29", "isStub": false}, {"ticker": "FLOT", "name": "Совкомфлот", "sector": "transport", "sectorName": "Транспорт", "sentiment": "bearish", "position": "avoid", "price": "76.42", "target": "60", "upside": -20, "pe": -5.66, "divYield": "0", "updated": "2026-02-11", "isStub": false}, {"ticker": "GAZP", "name": "Газпром", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "bearish", "position": "watch", "price": "127.16", "target": "235", "upside": 89, "pe": 2.3, "divYield": "0%", "updated": "2026-02-11", "isStub": false}, {"ticker": "GCHE", "name": "Группа Черкизово", "sector": "agro", "sectorName": "Агросектор", "sentiment": "bullish", "position": "buy", "price": "3574", "target": "5446", "upside": 54, "pe": 7.65, "divYield": "0", "updated": "2026-02-25", "isStub": false}, {"ticker": "GMKN", "name": "Норникель", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "neutral", "position": "hold", "price": "165.08", "target": "150", "upside": -7, "pe": 20.0, "divYield": "0%", "updated": "2026-02-11", "isStub": false}, {"ticker": "HEAD", "name": "HeadHunter (Хэдхантер)", "sector": "it-telecom", "sectorName": "IT и Телеком", "sentiment": "neutral", "position": "watch", "price": "2972", "target": "3500", "upside": 18, "pe": 6.8, "divYield": "7.8%", "updated": "2026-01-29", "isStub": false}, {"ticker": "HNFG", "name": "Henderson", "sector": "retail", "sectorName": "Ритейл", "sentiment": "bullish", "position": "watch", "price": "491.6", "target": "690", "upside": 37, "pe": 7.4, "divYield": "6.4", "updated": "2026-02-18", "isStub": false}, {"ticker": "HYDR", "name": "РусГидро", "sector": "energy", "sectorName": "Энергетика", "sentiment": "bearish", "position": "watch", "price": "0.45", "target": "0.79", "upside": 82, "pe": 2.6, "divYield": "0", "updated": "2026-02-18", "isStub": false}, {"ticker": "IRAO", "name": "Интер РАО", "sector": "energy", "sectorName": "Энергетика", "sentiment": "bullish", "position": "watch", "price": "3.29", "target": "4.38", "upside": 32, "pe": 2.34, "divYield": "10.6", "updated": "2026-02-18", "isStub": false}, {"ticker": "LENT", "name": "Лента", "sector": "retail", "sectorName": "Ритейл", "sentiment": "bullish", "position": "buy", "price": "2106.5", "target": "3580", "upside": 72, "pe": 7.76, "divYield": "0", "updated": "2026-02-18", "isStub": false}, {"ticker": "LKOH", "name": "Лукойл", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "neutral", "position": "hold", "price": "5194", "target": "6200", "upside": 19, "pe": 9.1, "divYield": "11", "updated": "2026-02-18", "isStub": false}, {"ticker": "MAGN", "name": "ММК", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "bearish", "position": "watch", "price": "31.49", "target": "25", "upside": -21, "pe": -25.0, "divYield": "0%", "updated": "2026-02-27", "isStub": false}, {"ticker": "MDMG", "name": "Мать и дитя (MD Medical Group)", "sector": "healthcare", "sectorName": "Медицина и фармацевтика", "sentiment": "bullish", "position": "buy", "price": "1465.9", "target": "2170", "upside": 43, "pe": 11.4, "divYield": "5.5", "updated": "2026-02-18", "isStub": false}, {"ticker": "MGNT", "name": "Магнит", "sector": "retail", "sectorName": "Ритейл", "sentiment": "bearish", "position": "watch", "price": "3359.5", "target": "4100", "upside": 23, "pe": 13.9, "divYield": "0%", "updated": "2026-02-18", "isStub": false}, {"ticker": "MOEX", "name": "Мосбиржа", "sector": "finance", "sectorName": "Финансы", "sentiment": "neutral", "position": "watch", "price": "184.29", "target": "213", "upside": 18, "pe": 6.6, "divYield": "11.5%", "updated": "2026-02-19", "isStub": false}, {"ticker": "MSNG", "name": "Мосэнерго", "sector": "energy", "sectorName": "Энергетика", "sentiment": "neutral", "position": "hold", "price": "2.29", "target": "2.60", "upside": 3, "pe": 48.7, "divYield": "8.9", "updated": "2026-02-19", "isStub": false}, {"ticker": "MTSS", "name": "МТС", "sector": "it-telecom", "sectorName": "IT и Телеком", "sentiment": "neutral", "position": "watch", "price": "231.45", "target": "265", "upside": 17, "pe": 30.0, "divYield": "15.4%", "updated": "2026-02-19", "isStub": false}, {"ticker": "NLMK", "name": "НЛМК", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "bearish", "position": "sell", "price": "112.68", "target": "89", "upside": -18, "pe": 7.71, "divYield": "0%", "updated": "2026-02-19", "isStub": false}, {"ticker": "NVTK", "name": "Новатэк", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "bearish", "position": "sell", "price": "1197", "target": "1000", "upside": -14, "pe": 19.2, "divYield": "3.1%", "updated": "2026-02-19", "isStub": false}, {"ticker": "OZON", "name": "Озон", "sector": "it-telecom", "sectorName": "IT и Телеком", "sentiment": "bullish", "position": "buy", "price": "4711", "target": "6840", "upside": 44, "pe": null, "divYield": "3.1%", "updated": "2026-02-26", "isStub": false}, {"ticker": "PHOR", "name": "ФосАгро", "sector": "agro", "sectorName": "Агросектор", "sentiment": "neutral", "position": "watch", "price": "6893", "target": "8000", "upside": 23, "pe": 7.25, "divYield": "6.8", "updated": "2026-02-19", "isStub": false}, {"ticker": "PIKK", "name": "ПИК", "sector": "construction", "sectorName": "Строительство", "sentiment": "bearish", "position": "watch", "price": "474.4", "target": "560", "upside": 19, "pe": 6.6, "divYield": "0%", "updated": "2026-02-19", "isStub": false}, {"ticker": "PLZL", "name": "Полюс", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "neutral", "position": "watch", "price": "2504 481", "target": "2 990", "upside": 21, "pe": 10.4, "divYield": "5.9%", "updated": "2026-02-19", "isStub": false}, {"ticker": "POLY", "name": "Polymetal (Solidcore Resources)", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "bearish", "position": "avoid", "price": "—", "target": "—", "upside": null, "pe": null, "divYield": "0%", "updated": "2026-01-30", "isStub": false}, {"ticker": "POSI", "name": "Positive Technologies", "sector": "it-telecom", "sectorName": "IT и Телеком", "sentiment": "neutral", "position": "watch", "price": "1243.6", "target": "1480", "upside": 32, "pe": 25.0, "divYield": "0%", "updated": "2026-02-19", "isStub": false}, {"ticker": "RENI", "name": "Ренессанс Страхование", "sector": "finance", "sectorName": "Финансы", "sentiment": "bullish", "position": "buy", "price": "95.2", "target": "155", "upside": 62, "pe": 3.85, "divYield": "10.9", "updated": "2026-02-19", "isStub": false}, {"ticker": "ROSN", "name": "Роснефть", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "neutral", "position": "watch", "price": "394.8", "target": "480", "upside": 23, "pe": 9.5, "divYield": "6.8%", "updated": "2026-02-19", "isStub": false}, {"ticker": "RTKM", "name": "Ростелеком", "sector": "it-telecom", "sectorName": "IT и Телеком", "sentiment": "neutral", "position": "hold", "price": "64.86", "target": "74", "upside": 14, "pe": 19.6, "divYield": "2.7%", "updated": "2026-02-27", "isStub": false}, {"ticker": "RUAL", "name": "Русал", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "bearish", "position": "sell", "price": "40.45", "target": "20", "upside": -48, "pe": -26.1, "divYield": "0", "updated": "2026-02-19", "isStub": false}, {"ticker": "SBER", "name": "Сбербанк", "sector": "finance", "sectorName": "Финансы", "sentiment": "bullish", "position": "buy", "price": "315.1", "target": "520", "upside": 63, "pe": 4.03, "divYield": "12.4", "updated": "2026-02-26", "isStub": false}, {"ticker": "SFIN", "name": "SFI Holding", "sector": "finance", "sectorName": "Финансы", "sentiment": "bearish", "position": "sell", "price": "909.4", "target": "753", "upside": -20, "pe": 4.63, "divYield": "0", "updated": "2026-02-19", "isStub": false}, {"ticker": "SGZH", "name": "Сегежа Групп", "sector": "forestry", "sectorName": "forestry", "sentiment": "bearish", "position": "avoid", "price": "1.3", "target": "0.90", "upside": -25, "pe": null, "divYield": "0%", "updated": "2026-02-19", "isStub": false}, {"ticker": "SIBN", "name": "Газпром нефть", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "neutral", "position": "hold", "price": "506.6", "target": "655", "upside": 2, "pe": 9.4, "divYield": "6.9%", "updated": "2026-02-19", "isStub": false}, {"ticker": "SMLT", "name": "Самолёт", "sector": "construction", "sectorName": "Строительство", "sentiment": "bearish", "position": "watch", "price": "866", "target": "1100", "upside": 32, "pe": null, "divYield": "0%", "updated": "2026-02-19", "isStub": false}, {"ticker": "SNGS", "name": "Сургутнефтегаз", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "neutral", "position": "watch", "price": "22.14", "target": "60", "upside": 177, "pe": 0.84, "divYield": "4.2", "updated": "2026-02-19", "isStub": false}, {"ticker": "SVCB", "name": "Совкомбанк", "sector": "finance", "sectorName": "Финансы", "sentiment": "bullish", "position": "watch", "price": "13.89", "target": "22.5", "upside": 61, "pe": 5.93, "divYield": "2.5", "updated": "2026-02-19", "isStub": false}, {"ticker": "TATN", "name": "Татнефть", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "neutral", "position": "watch", "price": "546.5", "target": "625", "upside": 6, "pe": 15.3, "divYield": "3.8", "updated": "2026-02-19", "isStub": false}, {"ticker": "TCSG", "name": "Т-Технологии (Т-Банк)", "sector": "finance", "sectorName": "Финансы", "sentiment": "bullish", "position": "buy", "price": "3329", "target": "5500", "upside": 65, "pe": 5.78, "divYield": "4.3", "updated": "2026-01-30", "isStub": false}, {"ticker": "TRNFP", "name": "Транснефть (привилегированные)", "sector": "oil-gas", "sectorName": "Нефтегаз", "sentiment": "neutral", "position": "watch", "price": "1426.6", "target": "1650", "upside": 14, "pe": 3.37, "divYield": "13.5", "updated": "2026-02-19", "isStub": false}, {"ticker": "UGLD", "name": "Южуралзолото Группа Компаний (ЮГК)", "sector": "metals-mining", "sectorName": "Металлы и добыча", "sentiment": "neutral", "position": "watch", "price": "0.8", "target": "0.80", "upside": 3, "pe": 16.7, "divYield": "0", "updated": "2026-02-19", "isStub": false}, {"ticker": "VKCO", "name": "VK", "sector": "it-telecom", "sectorName": "IT и Телеком", "sentiment": "bearish", "position": "avoid", "price": "314", "target": "44", "upside": -86, "pe": null, "divYield": "0%", "updated": "2026-02-19", "isStub": false}, {"ticker": "VTBR", "name": "ВТБ", "sector": "finance", "sectorName": "Финансы", "sentiment": "neutral", "position": "watch", "price": "87.11", "target": "135", "upside": 52, "pe": 1.88, "divYield": "10-20%", "updated": "2026-02-25", "isStub": false}, {"ticker": "X5", "name": "КЦ ИКС 5", "sector": "retail", "sectorName": "Ритейл", "sentiment": "bullish", "position": "buy", "price": "2427.5", "target": "3650", "upside": 46, "pe": 7.99, "divYield": "18.5%", "updated": "2026-02-19", "isStub": false}, {"ticker": "YDEX", "name": "Яндекс", "sector": "it-telecom", "sectorName": "IT и Телеком", "sentiment": "bullish", "position": "watch", "price": "4781.5", "target": "5600", "upside": 15, "pe": 13.4, "divYield": "2.3", "updated": "2026-02-19", "isStub": false}];
+
+const tbody = document.getElementById('tbody');
+const fSector = document.getElementById('f-sector');
+const fSentiment = document.getElementById('f-sentiment');
+const fPosition = document.getElementById('f-position');
+const fSearch = document.getElementById('f-search');
+
+let sortCol = 'ticker';
+let sortAsc = true;
+
+function esc(s) {
+    if (s === null || s === undefined) return '';
+    var d = document.createElement('div');
+    d.textContent = String(s);
+    return d.innerHTML;
+}
+
+function badgeHTML(type, value) {
+    if (!value) return '<span class="badge badge-stub">\u2014</span>';
+    return '<span class="badge badge-' + esc(value) + '">' + esc(value) + '</span>';
+}
+
+function upsideHTML(val) {
+    if (val === null || val === undefined) return '<span class="muted">\u2014</span>';
+    const cls = val > 0 ? 'positive' : val < 0 ? 'negative' : 'muted';
+    const sign = val > 0 ? '+' : '';
+    return '<span class="' + cls + '">' + sign + val + '%</span>';
+}
+
+function render() {
+    const sector = fSector.value;
+    const sentiment = fSentiment.value;
+    const position = fPosition.value;
+    const search = fSearch.value.toLowerCase();
+
+    let filtered = DATA.filter(function(c) {
+        if (sector && c.sector !== sector) return false;
+        if (sentiment && c.sentiment !== sentiment) return false;
+        if (position && c.position !== position) return false;
+        if (search && c.ticker.toLowerCase().indexOf(search) === -1 && c.name.toLowerCase().indexOf(search) === -1) return false;
+        return true;
+    });
+
+    filtered.sort(function(a, b) {
+        let va = a[sortCol], vb = b[sortCol];
+        if (va === null || va === undefined) va = sortAsc ? Infinity : -Infinity;
+        if (vb === null || vb === undefined) vb = sortAsc ? Infinity : -Infinity;
+        if (typeof va === 'string') va = va.toLowerCase();
+        if (typeof vb === 'string') vb = vb.toLowerCase();
+        if (va < vb) return sortAsc ? -1 : 1;
+        if (va > vb) return sortAsc ? 1 : -1;
+        return 0;
+    });
+
+    let html = '';
+    for (let i = 0; i < filtered.length; i++) {
+        const c = filtered[i];
+        const cls = c.isStub ? ' class="stub"' : '';
+        html += '<tr' + cls + '>';
+        html += '<td><a href="companies/' + esc(c.ticker) + '.html">' + esc(c.ticker) + '</a></td>';
+        html += '<td>' + esc(c.name) + (c.isStub ? ' <span class="badge badge-stub">Заглушка</span>' : '') + '</td>';
+        html += '<td>' + (c.sectorName ? esc(c.sectorName) : '<span class="muted">\u2014</span>') + '</td>';
+        html += '<td>' + badgeHTML('sentiment', c.sentiment) + '</td>';
+        html += '<td>' + badgeHTML('position', c.position) + '</td>';
+        html += '<td>' + (c.price ? esc(c.price) : '<span class="muted">\u2014</span>') + '</td>';
+        html += '<td>' + (c.target ? esc(c.target) : '<span class="muted">\u2014</span>') + '</td>';
+        html += '<td>' + upsideHTML(c.upside) + '</td>';
+        html += '<td>' + (c.pe !== null && c.pe !== undefined ? esc(c.pe) : '<span class="muted">\u2014</span>') + '</td>';
+        html += '<td>' + (c.divYield ? esc(c.divYield) : '<span class="muted">\u2014</span>') + '</td>';
+        html += '<td>' + (c.updated ? esc(c.updated) : '<span class="muted">\u2014</span>') + '</td>';
+        html += '</tr>';
+    }
+    tbody.innerHTML = html;
+}
+
+// Сортировка по клику на заголовок
+document.querySelectorAll('th[data-col]').forEach(function(th) {
+    th.addEventListener('click', function() {
+        const col = this.getAttribute('data-col');
+        if (sortCol === col) {
+            sortAsc = !sortAsc;
+        } else {
+            sortCol = col;
+            sortAsc = true;
+        }
+        document.querySelectorAll('th .sort-arrow').forEach(function(s) { s.textContent = ''; });
+        this.querySelector('.sort-arrow').textContent = sortAsc ? '\u25B2' : '\u25BC';
+        render();
+    });
+});
+
+fSector.addEventListener('change', render);
+fSentiment.addEventListener('change', render);
+fPosition.addEventListener('change', render);
+fSearch.addEventListener('input', render);
+
+// Тема
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+
+render();
+</script>
+</body>
+</html>

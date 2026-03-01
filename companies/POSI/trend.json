@@ -1,0 +1,8 @@
+{
+  "ticker": "POSI",
+  "sentiment": "neutral",
+  "upside": 0.32,
+  "growth_probability": 0.45,
+  "decline_probability": 0.4,
+  "updated": "2026-02-27"
+}

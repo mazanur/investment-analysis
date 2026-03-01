@@ -1,0 +1,472 @@
+{
+  "ticker": "SVCB",
+  "company_name": "Совкомбанк",
+  "date": "2026-02-19",
+  "dividends": [
+    {
+      "registryclosedate": "2018-11-08",
+      "value": 0.0801497515821,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-01-21",
+      "value": 0.1602995031642,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-05-11",
+      "value": 0.0507767680824497,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-07-01",
+      "value": 0.088859344144287,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2019-09-26",
+      "value": 0.116786566589634,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2020-01-04",
+      "value": 0.111708889781389,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-02-14",
+      "value": 0.2792722244534733,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2021-07-11",
+      "value": 0.0660097985071846,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2023-11-13",
+      "value": 0.262531330926804,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2024-07-08",
+      "value": 1.14,
+      "currencyid": "RUB"
+    },
+    {
+      "registryclosedate": "2025-07-08",
+      "value": 0.35,
+      "currencyid": "RUB"
+    }
+  ],
+  "ir_events": [
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-05-15",
+      "event_type": "Публикация отчетности",
+      "description": "Отчетность МСФО за1 квартал 2026",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-04-15",
+      "event_type": "IR событие (очное)",
+      "description": "II Российский форум драгоценных металлов Cbonds",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-04-08",
+      "event_type": "IR событие (очное)",
+      "description": "II Cbonds ЦФА Конгресс",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-03-25",
+      "event_type": "IR событие (очное)",
+      "description": "IV Российский Форум Финансового Рынка",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-03-13",
+      "event_type": "Публикация отчетности",
+      "description": "Отчетность МСФО за 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-02-28",
+      "event_type": "IR событие (очное)",
+      "description": "Конференция Smart-Lab & Cbonds PRO облигации 2.0",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-02-26",
+      "event_type": "IR событие (очное)",
+      "description": "Конференция IPO – 2026",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-02-18",
+      "event_type": "IR событие (очное)",
+      "description": "Будущее рынка акций",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2026-02-04",
+      "event_type": "IR событие (очное)",
+      "description": "XII Российский ипотечный конгресс",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-11-14",
+      "event_type": "Публикация отчетности",
+      "description": "Отчетность МСФО за 9 месяцев 2025 года",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-10-25",
+      "event_type": "IR событие (очное)",
+      "description": "Smart-Lab Conf 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-10-02",
+      "event_type": "IR событие (очное)",
+      "description": "III Форум «Цифровые финансы: новая экономическая реальность»",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-10-01",
+      "event_type": "IR событие (очное)",
+      "description": "Investfunds Forum",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-09-19",
+      "event_type": "IR событие (очное)",
+      "description": "Х Московский финансовый форум",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-09-18",
+      "event_type": "IR событие (очное)",
+      "description": "XX Форум «Российский рынок производных финансовых инструментов», Derivatives – 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-09-10",
+      "event_type": "IR событие (очное)",
+      "description": "Capital Markets",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-09-10",
+      "event_type": "IR событие (очное)",
+      "description": "Будущее страхового рынка",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-08-15",
+      "event_type": "Публикация отчетности",
+      "description": "Отчетность МСФО за 1 полугодие 2025 года",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-07-24",
+      "event_type": "IR событие (очное)",
+      "description": "Рынок коллективных инвестиций 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-07-12",
+      "event_type": "IR событие (очное)",
+      "description": "ИНВЕST Weekend",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-06-28",
+      "event_type": "IR событие (очное)",
+      "description": "Smart-Lab Conf 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-06-27",
+      "event_type": "Собрания владельцев ценных бумаг",
+      "description": "Годовое Общее собрание акционеров ",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-05-18",
+      "event_type": "IR событие (очное)",
+      "description": "2я Ярмарка эмитентов",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-05-16",
+      "event_type": "Публикация отчетности",
+      "description": "Отчетность МСФО за 1 квартал 2025 года",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-04-22",
+      "event_type": "IR событие (очное)",
+      "description": "XV Российский M&A Конгресс",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-04-22",
+      "event_type": "IR событие (очное)",
+      "description": "2 Российский риск-форум",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-04-12",
+      "event_type": "IR событие (очное)",
+      "description": "Profit Conf 4.0",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-04-03",
+      "event_type": "IR событие (очное)",
+      "description": "I Cbonds ЦФА Конгресс",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-04-02",
+      "event_type": "IR событие (очное)",
+      "description": "3й ежегодный Форум Стратегическая сессия Финансового рынка",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-03-21",
+      "event_type": "IR событие (очное)",
+      "description": "Ритейл 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-03-18",
+      "event_type": "IR событие (очное)",
+      "description": "I Российский форум драгоценных металлов Cbonds",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-03-14",
+      "event_type": "Публикация отчетности",
+      "description": "Отчетность МСФО за 2024 год",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-03-13",
+      "event_type": "IR событие (очное)",
+      "description": "3й Российский Форум Финансового рынка",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-03-01",
+      "event_type": "IR событие (очное)",
+      "description": "Cbonds & Smart-Lab PRO облигации",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-02-27",
+      "event_type": "IR событие (очное)",
+      "description": "Конференция IPO – 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-02-14",
+      "event_type": "IR событие (очное)",
+      "description": "Социальные инвестиции",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "2025-02-06",
+      "event_type": "IR событие (очное)",
+      "description": "XI Российский ипотечный конгресс",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Международный финансовый конгресс стран-партнеров БРИКС",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Investfunds Forum XVI — конференция институциональных инвесторов",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Финансовый конгресс Банка России",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Цифровые технологии и инновации на российском страховом рынке Insurtech Day 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Восточный экономический форум",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Финополис 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "XXII Международный банковский форум в Сочи",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "14й ежегодный съезд лизинговой отрасли России",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "4-й международный конгресс и выставка Золото России и СНГ",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Неделя Российского ритейла - 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "VIII Банковский форум «Казначейство», Treasury – 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "XXIII Российский облигационный конгресс",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "ПМЭФ 2025",
+      "link": "https://sovcombank.ru/about/info"
+    },
+    {
+      "company_name": "ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"СОВКОМБАНК\"",
+      "inn": "4401116480",
+      "event_date": "",
+      "event_type": "IR событие (очное)",
+      "description": "Международный  конгресс финансистов",
+      "link": "https://sovcombank.ru/about/info"
+    }
+  ]
+}

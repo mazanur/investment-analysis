@@ -1,0 +1,38 @@
+{
+  "ticker": "TRNFP",
+  "date": "2026-02-05",
+  "shortname": "Транснф ап",
+  "secname": "Транснефть ПАО акц.пр.",
+  "price": {
+    "last": 1404,
+    "open": 1407.8,
+    "high": 1421.6,
+    "low": 1403.2,
+    "waprice": 1412,
+    "prev_close": 1405.8
+  },
+  "volume": {
+    "shares_today": 422893,
+    "value_today_rub": 597149745,
+    "num_trades_today": 28212
+  },
+  "liquidity": {
+    "adv_30d_rub": 504868129,
+    "adv_30d_mln_rub": 504.9,
+    "bid_ask_spread_pct": 0
+  },
+  "capitalization": {
+    "market_cap_rub": 218304450000,
+    "market_cap_bln_rub": 218.3,
+    "shares_outstanding": 155487500
+  },
+  "range_52w": {
+    "high": 1499,
+    "low": 1105.6
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 1
+  }
+}

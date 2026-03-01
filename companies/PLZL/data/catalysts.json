@@ -1,0 +1,109 @@
+{
+  "ticker": "PLZL",
+  "company_name": "PLZL",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Сухой Лог — крупнейшее неразработанное месторождение в мире, удвоение добычи к 2030",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Рекордные цены на золото ($3 000+/oz) напрямую увеличивают выручку и прибыль",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Маржа EBITDA 77% — одна из самых высоких среди мировых золотодобытчиков",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Защитный актив: золото растёт при геополитической нестабильности и инфляции",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Долг снижается: Net Debt/EBITDA = 0.88x — лучший уровень с 2021",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "TCC вырос до $653/oz в H1 2025 (+54% г/г) — теряется преимущество сверхнизкой себестоимости",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Снижение добычи 2025-2027: прогноз 2.5-2.6 млн унций vs 3.0 млн в 2024 (-13-17%)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "CAPEX на Сухой Лог ~$6 млрд давит на FCF, риски задержки и перерасхода",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Концентрация ~50% добычи на одном активе (Олимпиада)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Buyback 2023 за 580 млрд — спорная экономическая целесообразность для миноритариев",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "positive": 5,
+    "negative": 5,
+    "mixed": 2
+  }
+}

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПИК (PIKK) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* История цен */
+.price-history {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.price-history h3 { margin-bottom: 12px; font-size: 16px; }
+.period-btns { display: flex; gap: 6px; margin-bottom: 16px; }
+.period-btn {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 12px; cursor: pointer; color: var(--text-secondary); font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+}
+.period-btn:hover { border-color: var(--link); color: var(--text); }
+.period-btn.active { background: var(--link); color: #fff; border-color: var(--link); }
+.price-chart-wrap { margin-bottom: 16px; position: relative; }
+.price-chart { width: 100%; height: auto; }
+.price-tooltip {
+    display: none; position: absolute; pointer-events: none;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.cmp-badge {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 8px 12px; margin-top: 6px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; cursor: pointer;
+}
+.cmp-badge:hover { border-color: var(--link); }
+.price-table-wrap { max-height: 400px; overflow-y: auto; }
+.price-table { font-size: 13px; }
+.price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>ПИК</h1>
+<div class="ticker">PIKK &middot; Строительство</div>
+<div class="badges">
+<span class="badge badge-bearish">bearish</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">474.4</div></div><div class="metric"><div class="label">Цель</div><div class="value">560</div></div><div class="metric"><div class="label">Upside</div><div class="value">+19%</div></div><div class="metric"><div class="label">P/E</div><div class="value">6.6</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0%</div></div><div class="metric"><div class="label">ROE</div><div class="value">11.5%</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">311 млрд</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.76</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">2.3</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">-0.3</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:20%">&#x25B2; 20%</div>
+<div class="flat" style="width:15%">15%</div>
+<div class="decline" style="width:65%">&#x25BC; 65%</div>
+</div>
+</div>
+
+<div class="price-history">
+<h3>История цен</h3>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+<div class="period-btns" id="period-btns" style="margin-bottom:0">
+<button class="period-btn" data-days="21">1М</button>
+<button class="period-btn" data-days="63">3М</button>
+<button class="period-btn" data-days="126">6М</button>
+<button class="period-btn active" data-days="252">1Г</button>
+<button class="period-btn" data-days="0">Всё</button>
+</div>
+<div class="marker-toggles" style="display:flex;gap:12px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap">
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-yearly" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue)"></span>Годовой
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-quarterly" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow)"></span>Квартальный
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-news" checked style="cursor:pointer">
+<span style="display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--positive)"></span>Новость
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-dividends" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;background:var(--green);transform:rotate(45deg)"></span>Дивиденд
+</label>
+<label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+<input type="checkbox" id="toggle-ir" checked style="cursor:pointer">
+<span style="display:inline-block;width:8px;height:8px;border:2px solid var(--link);border-radius:50%;background:transparent"></span>IR-события
+</label>
+</div>
+</div>
+<div class="price-chart-wrap">
+<svg id="price-svg" viewBox="0 0 700 200" class="price-chart"></svg>
+<div id="price-tooltip" class="price-tooltip"></div>
+</div>
+<div id="cmp-badge" class="cmp-badge" style="display:none"></div>
+<div class="table-wrap price-table-wrap"><table class="price-table">
+<thead><tr><th>Дата</th><th>Цена</th><th>Изм.</th><th>Объём</th></tr></thead>
+<tbody id="price-tbody"></tbody>
+</table></div>
+</div>
+
+<script>
+(function() {
+var DATA = [{"d": "2025-02-10", "c": 681.8, "v": 1210265736}, {"d": "2025-02-11", "c": 710.0, "v": 1360949759}, {"d": "2025-02-12", "c": 744.0, "v": 3348150945}, {"d": "2025-02-13", "c": 740.4, "v": 2080689211}, {"d": "2025-02-14", "c": 742.6, "v": 8929453832}, {"d": "2025-02-17", "c": 762.0, "v": 2067214956}, {"d": "2025-02-18", "c": 708.3, "v": 2462909288}, {"d": "2025-02-19", "c": 691.1, "v": 3396944274}, {"d": "2025-02-20", "c": 682.9, "v": 1070640584}, {"d": "2025-02-21", "c": 707.0, "v": 1910426661}, {"d": "2025-02-24", "c": 703.7, "v": 1458325145}, {"d": "2025-02-25", "c": 692.2, "v": 2715257452}, {"d": "2025-02-26", "c": 664.0, "v": 2002035371}, {"d": "2025-02-27", "c": 644.8, "v": 2335760991}, {"d": "2025-02-28", "c": 658.6, "v": 1856156448}, {"d": "2025-03-01", "c": 660.5, "v": 24190779}, {"d": "2025-03-02", "c": 658.0, "v": 20823814}, {"d": "2025-03-03", "c": 637.1, "v": 1243598951}, {"d": "2025-03-04", "c": 666.2, "v": 920003386}, {"d": "2025-03-05", "c": 668.9, "v": 1761478155}, {"d": "2025-03-06", "c": 665.7, "v": 1799878536}, {"d": "2025-03-07", "c": 661.2, "v": 929456094}, {"d": "2025-03-10", "c": 652.1, "v": 528610623}, {"d": "2025-03-11", "c": 634.4, "v": 1667618692}, {"d": "2025-03-12", "c": 608.8, "v": 1863508201}, {"d": "2025-03-13", "c": 604.5, "v": 2045327316}, {"d": "2025-03-14", "c": 615.0, "v": 1080163253}, {"d": "2025-03-15", "c": 617.0, "v": 15179961}, {"d": "2025-03-16", "c": 629.3, "v": 96397224}, {"d": "2025-03-17", "c": 646.2, "v": 1118290089}, {"d": "2025-03-18", "c": 628.4, "v": 1579737053}, {"d": "2025-03-19", "c": 640.1, "v": 1349393761}, {"d": "2025-03-20", "c": 626.3, "v": 2073331610}, {"d": "2025-03-21", "c": 590.0, "v": 4801468378}, {"d": "2025-03-24", "c": 549.3, "v": 3766647650}, {"d": "2025-03-25", "c": 563.7, "v": 3314922531}, {"d": "2025-03-26", "c": 549.9, "v": 1473049465}, {"d": "2025-03-27", "c": 525.7, "v": 1428322911}, {"d": "2025-03-28", "c": 513.6, "v": 1531348476}, {"d": "2025-03-29", "c": 504.0, "v": 93579508}, {"d": "2025-03-30", "c": 504.0, "v": 7663320}, {"d": "2025-03-31", "c": 534.1, "v": 2056585884}, {"d": "2025-04-01", "c": 508.4, "v": 2555152914}, {"d": "2025-04-02", "c": 529.8, "v": 1958345464}, {"d": "2025-04-03", "c": 525.4, "v": 1658693782}, {"d": "2025-04-04", "c": 493.8, "v": 1698108029}, {"d": "2025-04-05", "c": 501.0, "v": 95616167}, {"d": "2025-04-06", "c": 516.7, "v": 189323908}, {"d": "2025-04-07", "c": 472.5, "v": 3920952646}, {"d": "2025-04-08", "c": 444.0, "v": 1993091624}, {"d": "2025-04-09", "c": 464.1, "v": 4191712701}, {"d": "2025-04-10", "c": 425.6, "v": 3572933195}, {"d": "2025-04-11", "c": 429.9, "v": 4970944263}, {"d": "2025-04-12", "c": 439.4, "v": 591455068}, {"d": "2025-04-13", "c": 440.3, "v": 211904190}, {"d": "2025-04-14", "c": 424.1, "v": 3393396737}, {"d": "2025-04-15", "c": 423.5, "v": 3395160577}, {"d": "2025-04-16", "c": 428.1, "v": 1925854462}, {"d": "2025-04-17", "c": 439.3, "v": 1833498589}, {"d": "2025-04-18", "c": 433.2, "v": 1195358188}, {"d": "2025-04-21", "c": 450.0, "v": 1442264742}, {"d": "2025-04-22", "c": 478.2, "v": 5185547517}, {"d": "2025-04-23", "c": 471.4, "v": 2564741001}, {"d": "2025-04-24", "c": 504.6, "v": 5783656164}, {"d": "2025-04-25", "c": 511.6, "v": 9371629430}, {"d": "2025-04-26", "c": 514.2, "v": 592809310}, {"d": "2025-04-27", "c": 516.0, "v": 147838292}, {"d": "2025-04-28", "c": 503.7, "v": 2597046126}, {"d": "2025-04-29", "c": 484.2, "v": 1729637165}, {"d": "2025-04-30", "c": 477.3, "v": 2230030430}, {"d": "2025-05-02", "c": 442.0, "v": 1519193078}, {"d": "2025-05-03", "c": 448.3, "v": 306421911}, {"d": "2025-05-04", "c": 453.1, "v": 207065976}, {"d": "2025-05-05", "c": 444.7, "v": 1698968279}, {"d": "2025-05-06", "c": 465.0, "v": 2949670929}, {"d": "2025-05-07", "c": 480.5, "v": 3582038044}, {"d": "2025-05-08", "c": 474.5, "v": 1912599948}, {"d": "2025-05-10", "c": 478.3, "v": 179937564}, {"d": "2025-05-11", "c": 487.1, "v": 456838805}, {"d": "2025-05-12", "c": 503.0, "v": 2461143721}, {"d": "2025-05-13", "c": 497.2, "v": 1428506897}, {"d": "2025-05-14", "c": 496.4, "v": 3949877734}, {"d": "2025-05-15", "c": 497.2, "v": 1770273572}, {"d": "2025-05-16", "c": 483.2, "v": 4245649687}, {"d": "2025-05-17", "c": 493.0, "v": 435875658}, {"d": "2025-05-18", "c": 497.7, "v": 241204209}, {"d": "2025-05-19", "c": 485.1, "v": 1720247870}, {"d": "2025-05-20", "c": 480.5, "v": 962016614}, {"d": "2025-05-21", "c": 460.4, "v": 1594772786}, {"d": "2025-05-22", "c": 475.8, "v": 3092954594}, {"d": "2025-05-23", "c": 482.0, "v": 2000337038}, {"d": "2025-05-26", "c": 473.8, "v": 1191168394}, {"d": "2025-05-27", "c": 510.3, "v": 4503126035}, {"d": "2025-05-28", "c": 539.4, "v": 6500535405}, {"d": "2025-05-29", "c": 520.5, "v": 2973286979}, {"d": "2025-05-30", "c": 534.5, "v": 3127706426}, {"d": "2025-05-31", "c": 539.4, "v": 390583793}, {"d": "2025-06-01", "c": 519.3, "v": 1149103848}, {"d": "2025-06-02", "c": 573.0, "v": 7063023358}, {"d": "2025-06-03", "c": 597.0, "v": 9911168084}, {"d": "2025-06-04", "c": 588.0, "v": 6482406623}, {"d": "2025-06-05", "c": 586.7, "v": 2229750118}, {"d": "2025-06-06", "c": 541.4, "v": 17733796739}, {"d": "2025-06-07", "c": 544.2, "v": 387798159}, {"d": "2025-06-08", "c": 531.5, "v": 895657479}, {"d": "2025-06-09", "c": 550.8, "v": 5679681918}, {"d": "2025-06-10", "c": 542.4, "v": 6075626095}, {"d": "2025-06-11", "c": 551.3, "v": 4493878620}, {"d": "2025-06-13", "c": 541.2, "v": 1250851196}, {"d": "2025-06-14", "c": 539.1, "v": 475438690}, {"d": "2025-06-15", "c": 543.5, "v": 316006254}, {"d": "2025-06-16", "c": 540.9, "v": 1805099904}, {"d": "2025-06-17", "c": 566.6, "v": 4039291052}, {"d": "2025-06-18", "c": 562.7, "v": 2493189955}, {"d": "2025-06-19", "c": 563.3, "v": 2155708720}, {"d": "2025-06-20", "c": 538.0, "v": 3689493649}, {"d": "2025-06-23", "c": 531.8, "v": 2479612308}, {"d": "2025-06-24", "c": 549.1, "v": 1838639200}, {"d": "2025-06-25", "c": 552.5, "v": 2108426656}, {"d": "2025-06-26", "c": 552.7, "v": 1071402220}, {"d": "2025-06-27", "c": 564.5, "v": 2007704025}, {"d": "2025-06-28", "c": 564.4, "v": 268817306}, {"d": "2025-06-29", "c": 558.5, "v": 300408977}, {"d": "2025-06-30", "c": 598.8, "v": 6276195180}, {"d": "2025-07-01", "c": 600.1, "v": 4470846772}, {"d": "2025-07-02", "c": 605.4, "v": 2569281611}, {"d": "2025-07-03", "c": 626.4, "v": 5651757559}, {"d": "2025-07-04", "c": 628.2, "v": 3394669450}, {"d": "2025-07-05", "c": 630.1, "v": 271745616}, {"d": "2025-07-06", "c": 629.1, "v": 39132180}, {"d": "2025-07-07", "c": 608.2, "v": 2119666904}, {"d": "2025-07-08", "c": 613.7, "v": 6523640285}, {"d": "2025-07-09", "c": 631.3, "v": 5705514495}, {"d": "2025-07-10", "c": 636.1, "v": 4521404312}, {"d": "2025-07-11", "c": 617.2, "v": 3987610289}, {"d": "2025-07-12", "c": 620.6, "v": 97222236}, {"d": "2025-07-13", "c": 614.4, "v": 219553727}, {"d": "2025-07-14", "c": 650.4, "v": 4665826400}, {"d": "2025-07-15", "c": 656.2, "v": 3202597838}, {"d": "2025-07-16", "c": 648.6, "v": 3518432513}, {"d": "2025-07-17", "c": 650.9, "v": 2382120598}, {"d": "2025-07-18", "c": 660.8, "v": 3221372158}, {"d": "2025-07-19", "c": 665.0, "v": 278689997}, {"d": "2025-07-20", "c": 666.0, "v": 135732856}, {"d": "2025-07-21", "c": 656.0, "v": 2729334206}, {"d": "2025-07-22", "c": 655.0, "v": 1289704189}, {"d": "2025-07-23", "c": 653.9, "v": 1928037451}, {"d": "2025-07-24", "c": 645.0, "v": 1562300547}, {"d": "2025-07-25", "c": 618.3, "v": 5855534579}, {"d": "2025-07-26", "c": 614.4, "v": 402648539}, {"d": "2025-07-27", "c": 613.6, "v": 73275769}, {"d": "2025-07-28", "c": 602.1, "v": 4989066267}, {"d": "2025-07-29", "c": 618.7, "v": 2839411511}, {"d": "2025-07-30", "c": 611.4, "v": 2323784551}, {"d": "2025-07-31", "c": 616.6, "v": 1361887989}, {"d": "2025-08-01", "c": 610.8, "v": 1104722166}, {"d": "2025-08-04", "c": 618.1, "v": 892534646}, {"d": "2025-08-05", "c": 617.7, "v": 761585288}, {"d": "2025-08-06", "c": 633.0, "v": 3804979870}, {"d": "2025-08-07", "c": 636.9, "v": 2407328666}, {"d": "2025-08-08", "c": 641.0, "v": 945346909}, {"d": "2025-08-11", "c": 648.5, "v": 1336668442}, {"d": "2025-08-12", "c": 648.7, "v": 607452740}, {"d": "2025-08-13", "c": 639.0, "v": 725955987}, {"d": "2025-08-14", "c": 636.1, "v": 1372466737}, {"d": "2025-08-15", "c": 636.4, "v": 858226160}, {"d": "2025-08-16", "c": 632.4, "v": 393853019}, {"d": "2025-08-17", "c": 629.7, "v": 74827675}, {"d": "2025-08-18", "c": 650.6, "v": 2404913943}, {"d": "2025-08-19", "c": 658.6, "v": 1746486169}, {"d": "2025-08-20", "c": 654.7, "v": 1333089724}, {"d": "2025-08-21", "c": 642.5, "v": 1426423335}, {"d": "2025-08-22", "c": 659.7, "v": 1442725699}, {"d": "2025-08-23", "c": 661.2, "v": 63382320}, {"d": "2025-08-24", "c": 660.5, "v": 80270039}, {"d": "2025-08-25", "c": 672.9, "v": 2295302185}, {"d": "2025-08-26", "c": 666.7, "v": 1507637435}, {"d": "2025-08-27", "c": 670.1, "v": 1057568548}, {"d": "2025-08-28", "c": 654.7, "v": 1185580411}, {"d": "2025-08-29", "c": 659.0, "v": 1172804265}, {"d": "2025-08-30", "c": 658.6, "v": 17865395}, {"d": "2025-08-31", "c": 661.9, "v": 28427962}, {"d": "2025-09-01", "c": 666.6, "v": 764925117}, {"d": "2025-09-02", "c": 657.0, "v": 1628539937}, {"d": "2025-09-03", "c": 664.6, "v": 1233050555}, {"d": "2025-09-04", "c": 660.0, "v": 952723909}, {"d": "2025-09-05", "c": 651.2, "v": 847429486}, {"d": "2025-09-06", "c": 652.2, "v": 30097339}, {"d": "2025-09-07", "c": 655.1, "v": 63163276}, {"d": "2025-09-08", "c": 652.5, "v": 905070411}, {"d": "2025-09-09", "c": 651.9, "v": 1130290423}, {"d": "2025-09-10", "c": 632.4, "v": 1597887363}, {"d": "2025-09-11", "c": 622.3, "v": 1829759326}, {"d": "2025-09-12", "c": 602.3, "v": 3725782615}, {"d": "2025-09-13", "c": 590.6, "v": 247150123}, {"d": "2025-09-14", "c": 597.9, "v": 328732663}, {"d": "2025-09-15", "c": 580.1, "v": 1558068793}, {"d": "2025-09-16", "c": 593.9, "v": 1561771927}, {"d": "2025-09-17", "c": 607.3, "v": 1235358881}, {"d": "2025-09-18", "c": 587.7, "v": 1150077990}, {"d": "2025-09-19", "c": 576.6, "v": 1041083148}, {"d": "2025-09-22", "c": 559.5, "v": 1614291291}, {"d": "2025-09-23", "c": 537.4, "v": 2077695392}, {"d": "2025-09-24", "c": 565.9, "v": 2142268287}, {"d": "2025-09-25", "c": 554.0, "v": 893693658}, {"d": "2025-09-26", "c": 551.1, "v": 899196785}, {"d": "2025-09-27", "c": 555.4, "v": 32948804}, {"d": "2025-09-28", "c": 554.5, "v": 26442964}, {"d": "2025-09-29", "c": 530.8, "v": 1027512389}, {"d": "2025-09-30", "c": 535.2, "v": 1225237351}, {"d": "2025-10-01", "c": 529.2, "v": 847952181}, {"d": "2025-10-02", "c": 523.0, "v": 1161245901}, {"d": "2025-10-03", "c": 502.8, "v": 920481627}, {"d": "2025-10-04", "c": 497.7, "v": 332034670}, {"d": "2025-10-05", "c": 503.2, "v": 171832748}, {"d": "2025-10-06", "c": 532.7, "v": 2515700531}, {"d": "2025-10-07", "c": 539.6, "v": 1559604239}, {"d": "2025-10-08", "c": 486.9, "v": 5692240431}, {"d": "2025-10-09", "c": 460.0, "v": 7365478307}, {"d": "2025-10-10", "c": 421.1, "v": 4432409628}, {"d": "2025-10-11", "c": 416.2, "v": 675794390}, {"d": "2025-10-12", "c": 422.3, "v": 526153313}, {"d": "2025-10-13", "c": 418.8, "v": 2778481903}, {"d": "2025-10-14", "c": 379.3, "v": 5350274670}, {"d": "2025-10-15", "c": 370.0, "v": 6504640314}, {"d": "2025-10-16", "c": 404.9, "v": 7396018599}, {"d": "2025-10-17", "c": 406.1, "v": 5008740906}, {"d": "2025-10-18", "c": 417.4, "v": 676639196}, {"d": "2025-10-19", "c": 414.1, "v": 437340153}, {"d": "2025-10-20", "c": 426.3, "v": 2702138687}, {"d": "2025-10-21", "c": 399.2, "v": 5082990057}, {"d": "2025-10-22", "c": 391.3, "v": 2590068697}, {"d": "2025-10-23", "c": 402.8, "v": 2007928435}, {"d": "2025-10-24", "c": 394.2, "v": 3234543786}, {"d": "2025-10-27", "c": 371.5, "v": 2201251063}, {"d": "2025-10-28", "c": 380.2, "v": 1241077620}, {"d": "2025-10-29", "c": 386.3, "v": 838184523}, {"d": "2025-10-30", "c": 393.7, "v": 1051963744}, {"d": "2025-10-31", "c": 382.8, "v": 942151720}, {"d": "2025-11-01", "c": 384.4, "v": 239166636}, {"d": "2025-11-03", "c": 394.6, "v": 699197518}, {"d": "2025-11-05", "c": 407.0, "v": 1856709015}, {"d": "2025-11-06", "c": 411.0, "v": 1735188991}, {"d": "2025-11-07", "c": 417.4, "v": 1235941308}, {"d": "2025-11-08", "c": 417.0, "v": 38859939}, {"d": "2025-11-09", "c": 418.4, "v": 34762455}, {"d": "2025-11-10", "c": 412.5, "v": 1092437184}, {"d": "2025-11-11", "c": 404.7, "v": 1078250888}, {"d": "2025-11-12", "c": 400.3, "v": 851543531}, {"d": "2025-11-13", "c": 404.0, "v": 724468276}, {"d": "2025-11-14", "c": 400.1, "v": 632707883}, {"d": "2025-11-15", "c": 400.7, "v": 29035802}, {"d": "2025-11-16", "c": 401.9, "v": 15719612}, {"d": "2025-11-17", "c": 436.6, "v": 8774746524}, {"d": "2025-11-18", "c": 431.9, "v": 3170428613}, {"d": "2025-11-19", "c": 445.6, "v": 3686211297}, {"d": "2025-11-20", "c": 467.0, "v": 2435948839}, {"d": "2025-11-21", "c": 460.7, "v": 1343311241}, {"d": "2025-11-24", "c": 453.8, "v": 1374698893}, {"d": "2025-11-25", "c": 465.0, "v": 1266632247}, {"d": "2025-11-26", "c": 460.8, "v": 669253476}, {"d": "2025-11-27", "c": 453.1, "v": 679824049}, {"d": "2025-11-28", "c": 458.1, "v": 892558824}, {"d": "2025-11-29", "c": 458.7, "v": 28751160}, {"d": "2025-11-30", "c": 461.3, "v": 55998976}, {"d": "2025-12-01", "c": 460.6, "v": 737699150}, {"d": "2025-12-02", "c": 456.3, "v": 477888503}, {"d": "2025-12-03", "c": 452.3, "v": 803008591}, {"d": "2025-12-04", "c": 462.8, "v": 1408953459}, {"d": "2025-12-05", "c": 476.8, "v": 1619684993}, {"d": "2025-12-08", "c": 478.4, "v": 1894743734}, {"d": "2025-12-09", "c": 484.9, "v": 1330322926}, {"d": "2025-12-10", "c": 483.5, "v": 684775324}, {"d": "2025-12-11", "c": 494.0, "v": 1628225735}, {"d": "2025-12-12", "c": 489.5, "v": 2132171298}, {"d": "2025-12-13", "c": 493.8, "v": 161381707}, {"d": "2025-12-14", "c": 491.7, "v": 118722670}, {"d": "2025-12-15", "c": 502.3, "v": 1511341752}, {"d": "2025-12-16", "c": 519.0, "v": 1901208766}, {"d": "2025-12-17", "c": 513.8, "v": 3186540664}, {"d": "2025-12-18", "c": 511.5, "v": 1675138445}, {"d": "2025-12-19", "c": 490.4, "v": 3852496815}, {"d": "2025-12-20", "c": 487.8, "v": 418956513}, {"d": "2025-12-21", "c": 486.7, "v": 92980539}, {"d": "2025-12-22", "c": 477.6, "v": 1620970307}, {"d": "2025-12-23", "c": 494.6, "v": 1817152036}, {"d": "2025-12-24", "c": 491.4, "v": 1581910254}, {"d": "2025-12-25", "c": 481.7, "v": 785360820}, {"d": "2025-12-26", "c": 490.8, "v": 1139780186}, {"d": "2025-12-27", "c": 490.5, "v": 159221390}, {"d": "2025-12-28", "c": 489.9, "v": 105643964}, {"d": "2025-12-29", "c": 485.2, "v": 1472949543}, {"d": "2025-12-30", "c": 477.8, "v": 758142438}, {"d": "2026-01-05", "c": 469.0, "v": 892204244}, {"d": "2026-01-06", "c": 464.8, "v": 359435188}, {"d": "2026-01-08", "c": 458.9, "v": 678884765}, {"d": "2026-01-09", "c": 460.2, "v": 527598957}, {"d": "2026-01-12", "c": 455.2, "v": 551660653}, {"d": "2026-01-13", "c": 450.9, "v": 719581717}, {"d": "2026-01-14", "c": 454.2, "v": 1256940922}, {"d": "2026-01-15", "c": 458.6, "v": 855528408}, {"d": "2026-01-16", "c": 471.4, "v": 1283659638}, {"d": "2026-01-17", "c": 470.8, "v": 88677018}, {"d": "2026-01-18", "c": 471.9, "v": 65257066}, {"d": "2026-01-19", "c": 462.2, "v": 813628218}, {"d": "2026-01-20", "c": 463.2, "v": 1043643197}, {"d": "2026-01-21", "c": 475.2, "v": 1539418294}, {"d": "2026-01-22", "c": 467.9, "v": 678936279}, {"d": "2026-01-23", "c": 467.3, "v": 482605010}, {"d": "2026-01-24", "c": 465.3, "v": 234410258}, {"d": "2026-01-25", "c": 465.4, "v": 78088898}, {"d": "2026-01-26", "c": 465.9, "v": 931765760}, {"d": "2026-01-27", "c": 472.9, "v": 700789278}, {"d": "2026-01-28", "c": 473.0, "v": 902844261}, {"d": "2026-01-29", "c": 481.5, "v": 1334809147}, {"d": "2026-01-30", "c": 471.9, "v": 620928019}, {"d": "2026-01-31", "c": 473.3, "v": 50881993}, {"d": "2026-02-01", "c": 477.9, "v": 117292656}, {"d": "2026-02-02", "c": 474.8, "v": 497244229}, {"d": "2026-02-03", "c": 476.8, "v": 453573161}, {"d": "2026-02-04", "c": 467.4, "v": 2353190593}, {"d": "2026-02-05", "c": 468.1, "v": 1587541754}, {"d": "2026-02-06", "c": 467.4, "v": 994280751}, {"d": "2026-02-07", "c": 469.1, "v": 27495608}, {"d": "2026-02-08", "c": 469.5, "v": 23460383}, {"d": "2026-02-09", "c": 469.4, "v": 377335279}, {"d": "2026-02-10", "c": 469.4, "v": 297017033}, {"d": "2026-02-11", "c": 469.3, "v": 115145885}, {"d": "2026-02-12", "c": 471.1, "v": 532800355}, {"d": "2026-02-13", "c": 474.1, "v": 2289085640}, {"d": "2026-02-13", "c": 471.1, "v": 2183743739}, {"d": "2026-02-14", "c": 474.3, "v": 2384744398}, {"d": "2026-02-16", "c": 469.9, "v": 789694713}, {"d": "2026-02-18", "c": 463.5, "v": 670481987}, {"d": "2026-02-20", "c": 463.5, "v": 149004722}, {"d": "2026-02-23", "c": 462.8, "v": 59076495}, {"d": "2026-02-24", "c": 462.5, "v": 329111384}, {"d": "2026-02-25", "c": 463.6, "v": 703550656}, {"d": "2026-02-26", "c": 464.1, "v": 188325279}, {"d": "2026-02-27", "c": 474.4, "v": 1283111700}];
+var REPORTS = [{"date": "2018-04-16", "type": "Q", "period": "2016Q4"}, {"date": "2018-06-30", "type": "Q", "period": "2015Q4"}, {"date": "2018-07-09", "type": "Q", "period": "2013Q4"}, {"date": "2018-07-11", "type": "Q", "period": "2017Q2"}, {"date": "2018-08-29", "type": "Q", "period": "2018Q2"}, {"date": "2019-04-02", "type": "Q", "period": "2018Q4"}, {"date": "2019-08-29", "type": "Q", "period": "2019Q2"}, {"date": "2020-03-23", "type": "Q", "period": "2019Q4"}, {"date": "2020-08-31", "type": "Q", "period": "2020Q2"}, {"date": "2021-03-22", "type": "Q", "period": "2020Q4"}, {"date": "2021-08-30", "type": "Q", "period": "2021Q2"}, {"date": "2022-06-24", "type": "Q", "period": "2021Q4"}, {"date": "2023-08-29", "type": "Q", "period": "2023Q2"}, {"date": "2024-05-03", "type": "Q", "period": "2023Q4"}, {"date": "2025-04-14", "type": "Q", "period": "2024Q2"}, {"date": "2025-08-29", "type": "Q", "period": "2025Q2"}];
+var NEWS = [{"date": "2026-02-25", "title": "Акции «ПИКа» дорожают ввиду рассмотрения проекта дивидендной политики советом директоров", "type": "news", "url": "https://www.finam.ru/publications/item/aktsii-pika-dorozhayut-vvidu-rassmotreniya-proekta-dividendnoy-politiki-sovetom-direktorov-20260225-1023/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns", "impact": "neutral", "summary": "Акции ПИКа выросли на 1,14% на новости о рассмотрении советом директоров проекта дивидендной политики. Это позитивный сигнал для компании, которая не платит дивиденды с 2021 года, однако пока нет конкретных решений — только факт обсуждения вопроса 20 февраля.", "strength": "medium", "action": "monitor", "source": "rss-feeder"}, {"date": "2026-02-26", "title": "Рекордный январь на рынке новостроек", "type": "news", "url": "", "impact": "negative", "summary": "Статья сообщает, что ПИК показал отрицательную динамику продаж год к году в январе, в то время как рынок вырос на +76%. Это негативный сигнал: ПИК не смог воспользоваться ипотечным всплеском перед изменением условий «Семейной ипотеки», в отличие от региональных девелоперов, продемонстрировавших рост +91%. Отрицательная динамика на фоне общего рекордного роста рынка указывает на потерю рыночной доли и проблемы со столичной экспозицией.", "strength": "medium", "action": "sell", "source": "rss-feeder"}];
+var DIVIDENDS = [{"date": "2014-11-05", "value": 4.16, "currency": "RUB"}, {"date": "2018-09-04", "value": 22.71, "currency": "RUB"}, {"date": "2019-06-03", "value": 22.71, "currency": "RUB"}, {"date": "2020-10-12", "value": 22.71, "currency": "RUB"}, {"date": "2021-05-17", "value": 22.51, "currency": "RUB"}];
+var IR_EVENTS = [];
+var svg = document.getElementById('price-svg');
+var tbody = document.getElementById('price-tbody');
+var activeDays = 252;
+
+function render(days) {
+    activeDays = days;
+    var src = days > 0 ? DATA.slice(-days) : DATA;
+    if (!src.length) return;
+
+    // --- SVG chart ---
+    var W = 700, H = 200, PT = 20, PB = 30, PL = 60, PR = 20;
+    var CW = W - PL - PR, CH = H - PT - PB;
+    var prices = src.map(function(r){ return r.c; });
+    var minP = Math.min.apply(null, prices), maxP = Math.max.apply(null, prices);
+    var range = maxP - minP || maxP * 0.1 || 1;
+    minP -= range * 0.05; maxP += range * 0.05; range = maxP - minP;
+    var n = prices.length;
+
+    function xP(i) { return PL + (i / Math.max(n - 1, 1)) * CW; }
+    function yP(p) { return PT + CH - ((p - minP) / range) * CH; }
+
+    var trendColor = prices[n-1] >= prices[0] ? 'var(--positive)' : 'var(--negative)';
+    var pts = []; for (var i = 0; i < n; i++) pts.push(xP(i).toFixed(1)+','+yP(prices[i]).toFixed(1));
+    var polyline = pts.join(' ');
+    var area = xP(0).toFixed(1)+','+(PT+CH)+' '+polyline+' '+xP(n-1).toFixed(1)+','+(PT+CH);
+
+    // Grid
+    var h = '';
+    for (var g = 0; g < 5; g++) {
+        var gp = minP + (range * g / 4), gy = yP(gp);
+        h += '<line x1="'+PL+'" y1="'+gy.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+gy.toFixed(1)+'" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="4,4"/>';
+        var lbl = gp >= 1000 ? Math.round(gp).toLocaleString('ru') : gp >= 1 ? gp.toFixed(1) : gp.toFixed(4);
+        h += '<text x="'+(PL-8)+'" y="'+gy.toFixed(1)+'" text-anchor="end" dominant-baseline="middle" fill="var(--text-secondary)" font-size="11">'+lbl+'</text>';
+    }
+
+    // Date labels
+    var idxs = n >= 3 ? [0, Math.floor(n/2), n-1] : n === 2 ? [0, 1] : [0];
+    for (var di = 0; di < idxs.length; di++) {
+        var dd = src[idxs[di]].d.split('-');
+        h += '<text x="'+xP(idxs[di]).toFixed(1)+'" y="'+(H-5)+'" text-anchor="middle" fill="var(--text-secondary)" font-size="11">'+dd[2]+'.'+dd[1]+'</text>';
+    }
+
+    h += '<polygon points="'+area+'" fill="'+trendColor+'" opacity="0.1"/>';
+    h += '<polyline points="'+polyline+'" fill="none" stroke="'+trendColor+'" stroke-width="2" stroke-linejoin="round"/>';
+    h += '<circle cx="'+xP(n-1).toFixed(1)+'" cy="'+yP(prices[n-1]).toFixed(1)+'" r="4" fill="var(--link)"/>';
+
+    // Build dateToIdx mapping
+    var dateToIdx = {};
+    for (var di = 0; di < n; di++) dateToIdx[src[di].d] = di;
+
+    // Marker vertical lines (under hv-rect)
+    var reportMarkers = [];
+    for (var ri = 0; ri < REPORTS.length; ri++) {
+        var rd = REPORTS[ri].date;
+        if (dateToIdx[rd] !== undefined) {
+            reportMarkers.push({idx: dateToIdx[rd], type: REPORTS[ri].type, period: REPORTS[ri].period});
+        }
+    }
+    for (var mi = 0; mi < reportMarkers.length; mi++) {
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<line x1="'+mx.toFixed(1)+'" y1="'+PT+'" x2="'+mx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+markerColor+'" stroke-width="1" stroke-dasharray="4,2" opacity="0.7" class="report-line" data-type="'+m.type+'"/>';
+    }
+
+    var newsMarkers = [];
+    for (var ni = 0; ni < NEWS.length; ni++) {
+        var nd = NEWS[ni].date;
+        if (dateToIdx[nd] !== undefined) {
+            newsMarkers.push({idx: dateToIdx[nd], title: NEWS[ni].title, impact: NEWS[ni].impact || 'neutral', url: NEWS[ni].url || ''});
+        }
+    }
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<line x1="'+nmx.toFixed(1)+'" y1="'+PT+'" x2="'+nmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="'+newsColor+'" stroke-width="1.5" opacity="0.8" class="news-line"/>';
+    }
+
+    // Dividend markers
+    var divMarkers = [];
+    for (var dvi = 0; dvi < DIVIDENDS.length; dvi++) {
+        var dd = DIVIDENDS[dvi].date;
+        if (dateToIdx[dd] !== undefined) {
+            divMarkers.push({idx: dateToIdx[dd], value: DIVIDENDS[dvi].value, currency: DIVIDENDS[dvi].currency || 'RUB'});
+        }
+    }
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<line x1="'+dmx.toFixed(1)+'" y1="'+PT+'" x2="'+dmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--green)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" class="div-line"/>';
+    }
+
+    // IR events markers (future reports)
+    var irMarkers = [];
+    for (var iri = 0; iri < IR_EVENTS.length; iri++) {
+        var ird = IR_EVENTS[iri].date;
+        if (dateToIdx[ird] !== undefined) {
+            irMarkers.push({idx: dateToIdx[ird], type: IR_EVENTS[iri].type, description: IR_EVENTS[iri].description});
+        }
+    }
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<line x1="'+irmx.toFixed(1)+'" y1="'+PT+'" x2="'+irmx.toFixed(1)+'" y2="'+(PT+CH)+'" stroke="var(--link)" stroke-width="1" stroke-dasharray="6,3" opacity="0.5" class="ir-line"/>';
+    }
+
+    // Hover elements (initially hidden)
+    h += '<line id="hv-line" x1="0" y1="'+PT+'" x2="0" y2="'+(PT+CH)+'" stroke="var(--text-secondary)" stroke-width="0.5" stroke-dasharray="3,3" visibility="hidden"/>';
+    h += '<circle id="hv-dot" cx="0" cy="0" r="4" fill="var(--link)" visibility="hidden"/>';
+    // Transparent overlay to capture mouse events
+    h += '<rect x="'+PL+'" y="'+PT+'" width="'+CW+'" height="'+CH+'" fill="transparent" style="cursor:crosshair" id="hv-rect"/>';
+    // Compare mode elements
+    h += '<circle id="pin1" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
+    h += '<circle id="pin2" cx="0" cy="0" r="5" fill="var(--link)" stroke="var(--bg)" stroke-width="2" visibility="hidden"/>';
+    h += '<line id="cmp-line" x1="0" y1="0" x2="0" y2="0" stroke="var(--link)" stroke-width="1.5" stroke-dasharray="5,3" visibility="hidden"/>';
+
+    // Marker circles/polygons (ABOVE hv-rect for click/hover)
+    for (var mi = 0; mi < reportMarkers.length; mi++) {
+        var m = reportMarkers[mi];
+        var mx = xP(m.idx);
+        var markerColor = m.type === 'Y' ? 'var(--blue)' : 'var(--yellow)';
+        h += '<circle cx="'+mx.toFixed(1)+'" cy="'+PT+'" r="5" fill="'+markerColor+'" class="report-marker" data-period="'+m.period+'" data-type="'+m.type+'" style="cursor:pointer"/>';
+    }
+    for (var nmi = 0; nmi < newsMarkers.length; nmi++) {
+        var nm = newsMarkers[nmi];
+        var nmx = xP(nm.idx);
+        var newsColor = nm.impact === 'positive' ? 'var(--positive)' : nm.impact === 'negative' ? 'var(--negative)' : 'var(--text-secondary)';
+        h += '<polygon points="'+(nmx-6).toFixed(1)+','+(PT+10)+' '+(nmx+6).toFixed(1)+','+(PT+10)+' '+nmx.toFixed(1)+','+(PT-2)+'" fill="'+newsColor+'" class="news-marker" data-title="'+nm.title.replace(/"/g, '&quot;')+'" data-impact="'+nm.impact+'" data-url="'+nm.url.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }
+    // Dividend markers (diamond shape)
+    for (var dmi = 0; dmi < divMarkers.length; dmi++) {
+        var dm = divMarkers[dmi];
+        var dmx = xP(dm.idx);
+        h += '<polygon points="'+dmx.toFixed(1)+','+(PT-2)+' '+(dmx+5).toFixed(1)+','+(PT+5)+' '+dmx.toFixed(1)+','+(PT+12)+' '+(dmx-5).toFixed(1)+','+(PT+5)+'" fill="var(--green)" class="div-marker" data-value="'+dm.value+'" data-currency="'+dm.currency+'" style="cursor:pointer"/>';
+    }
+    // IR event markers (hollow circle for future events)
+    for (var irmi = 0; irmi < irMarkers.length; irmi++) {
+        var irm = irMarkers[irmi];
+        var irmx = xP(irm.idx);
+        h += '<circle cx="'+irmx.toFixed(1)+'" cy="'+(PT+5)+'" r="5" fill="var(--bg)" stroke="var(--link)" stroke-width="2" class="ir-marker" data-type="'+irm.type.replace(/"/g, '&quot;')+'" data-desc="'+irm.description.replace(/"/g, '&quot;')+'" style="cursor:pointer"/>';
+    }
+
+    svg.innerHTML = h;
+
+    // --- Hover & Compare interaction ---
+    var tooltip = document.getElementById('price-tooltip');
+    var hvLine = document.getElementById('hv-line');
+    var hvDot = document.getElementById('hv-dot');
+    var hvRect = document.getElementById('hv-rect');
+    var pin1El = document.getElementById('pin1');
+    var pin2El = document.getElementById('pin2');
+    var cmpLine = document.getElementById('cmp-line');
+    var chartWrap = svg.closest('.price-chart-wrap');
+    var cmpBadge = document.getElementById('cmp-badge');
+    cmpBadge.style.display = 'none';
+    var cmpState = 0; // 0=none, 1=first pinned, 2=both pinned
+    var cmpIdx1 = -1, cmpIdx2 = -1;
+
+    function getIdx(e) {
+        var rect = svg.getBoundingClientRect();
+        var scaleX = W / rect.width;
+        var mouseX = (e.clientX - rect.left) * scaleX;
+        var idx = Math.round((mouseX - PL) / CW * (n - 1));
+        if (idx < 0) idx = 0; if (idx >= n) idx = n - 1;
+        return idx;
+    }
+
+    function fmtPrice(p) {
+        return p >= 100 ? p.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : p >= 1 ? p.toFixed(2) : p.toFixed(4);
+    }
+
+    function fmtDate(d) {
+        var dd = d.split('-');
+        return dd[2]+'.'+dd[1]+'.'+dd[0];
+    }
+
+    function resetCompare() {
+        cmpState = 0; cmpIdx1 = -1; cmpIdx2 = -1;
+        pin1El.setAttribute('visibility', 'hidden');
+        pin2El.setAttribute('visibility', 'hidden');
+        cmpLine.setAttribute('visibility', 'hidden');
+        cmpBadge.style.display = 'none';
+    }
+
+    cmpBadge.onclick = function() { resetCompare(); };
+
+    function showBadge(i1, i2) {
+        var lo = Math.min(i1, i2), hi = Math.max(i1, i2);
+        var pct = (src[hi].c - src[lo].c) / src[lo].c * 100;
+        var sign = pct > 0 ? '+' : '';
+        var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+        var days = hi - lo;
+        var dayWord = 'дн.';
+        cmpBadge.innerHTML = '<span class="'+cls+'" style="font-weight:700;font-size:16px">'+sign+pct.toFixed(1)+'%</span>' +
+            '<span style="color:var(--text-secondary);font-size:12px;margin-left:8px">'+fmtDate(src[lo].d)+' → '+fmtDate(src[hi].d)+' ('+days+' '+dayWord+')</span>' +
+            '<span style="color:var(--text-secondary);font-size:12px;margin-left:8px">'+fmtPrice(src[lo].c)+' → '+fmtPrice(src[hi].c)+'</span>';
+        cmpBadge.style.display = 'flex';
+    }
+
+    hvRect.addEventListener('click', function(e) {
+        var idx = getIdx(e);
+        if (cmpState === 0) {
+            cmpState = 1; cmpIdx1 = idx;
+            pin1El.setAttribute('cx', xP(idx).toFixed(1));
+            pin1El.setAttribute('cy', yP(prices[idx]).toFixed(1));
+            pin1El.setAttribute('visibility', 'visible');
+            pin2El.setAttribute('visibility', 'hidden');
+            cmpLine.setAttribute('visibility', 'hidden');
+            cmpBadge.innerHTML = '<span style="color:var(--text-secondary);font-size:12px">Кликните вторую точку для сравнения</span>';
+            cmpBadge.style.display = 'flex';
+        } else if (cmpState === 1) {
+            cmpState = 2; cmpIdx2 = idx;
+            pin2El.setAttribute('cx', xP(idx).toFixed(1));
+            pin2El.setAttribute('cy', yP(prices[idx]).toFixed(1));
+            pin2El.setAttribute('visibility', 'visible');
+            cmpLine.setAttribute('x1', xP(cmpIdx1).toFixed(1));
+            cmpLine.setAttribute('y1', yP(prices[cmpIdx1]).toFixed(1));
+            cmpLine.setAttribute('x2', xP(idx).toFixed(1));
+            cmpLine.setAttribute('y2', yP(prices[idx]).toFixed(1));
+            cmpLine.setAttribute('visibility', 'visible');
+            showBadge(cmpIdx1, idx);
+        } else {
+            resetCompare();
+        }
+    });
+
+    hvRect.addEventListener('mousemove', function(e) {
+        var idx = getIdx(e);
+        var px = xP(idx), py = yP(prices[idx]);
+        hvLine.setAttribute('x1', px.toFixed(1));
+        hvLine.setAttribute('x2', px.toFixed(1));
+        hvLine.setAttribute('visibility', 'visible');
+        hvDot.setAttribute('cx', px.toFixed(1));
+        hvDot.setAttribute('cy', py.toFixed(1));
+        hvDot.setAttribute('visibility', 'visible');
+        // Tooltip content
+        var r = src[idx];
+        var prStr = fmtPrice(r.c);
+        var chgHtml = '';
+        if (cmpState === 1) {
+            var pct = (r.c - src[cmpIdx1].c) / src[cmpIdx1].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        } else if (idx > 0) {
+            var pct = (r.c - src[0].c) / src[0].c * 100;
+            var sign = pct > 0 ? '+' : '';
+            var ccls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+            chgHtml = '<span class="'+ccls+'" style="font-size:12px"> '+sign+pct.toFixed(1)+'%</span>';
+        }
+        tooltip.innerHTML = '<strong>'+prStr+'</strong> '+chgHtml+'<br><span style="color:var(--text-secondary);font-size:11px">'+fmtDate(r.d)+'</span>';
+        tooltip.style.display = 'block';
+        // Position tooltip
+        var tipX = (e.clientX - chartWrap.getBoundingClientRect().left) + 12;
+        var tipY = (e.clientY - chartWrap.getBoundingClientRect().top) - 10;
+        if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+        tooltip.style.left = tipX + 'px';
+        tooltip.style.top = tipY + 'px';
+        // Live connecting line while picking second point
+        if (cmpState === 1) {
+            cmpLine.setAttribute('x1', xP(cmpIdx1).toFixed(1));
+            cmpLine.setAttribute('y1', yP(prices[cmpIdx1]).toFixed(1));
+            cmpLine.setAttribute('x2', px.toFixed(1));
+            cmpLine.setAttribute('y2', py.toFixed(1));
+            cmpLine.setAttribute('visibility', 'visible');
+        }
+    });
+
+    hvRect.addEventListener('mouseleave', function() {
+        hvLine.setAttribute('visibility', 'hidden');
+        hvDot.setAttribute('visibility', 'hidden');
+        tooltip.style.display = 'none';
+        if (cmpState === 1) cmpLine.setAttribute('visibility', 'hidden');
+    });
+
+    // Report marker tooltips
+    svg.querySelectorAll('.report-marker').forEach(function(marker) {
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {
+            var period = this.getAttribute('data-period');
+            var type = this.getAttribute('data-type') === 'Y' ? 'Годовой' : 'Квартальный';
+            tooltip.innerHTML = '<strong>' + type + ' отчёт</strong><br><span style="color:var(--text-secondary);font-size:11px">' + period + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 130 > chartWrap.offsetWidth) tipX -= 140;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // News marker tooltips and click
+    svg.querySelectorAll('.news-marker').forEach(function(marker) {
+        marker.style.cursor = 'pointer';
+        marker.addEventListener('mouseenter', function(e) {
+            var title = this.getAttribute('data-title');
+            var impact = this.getAttribute('data-impact');
+            var url = this.getAttribute('data-url');
+            var impactText = impact === 'positive' ? '↑ Позитив' : impact === 'negative' ? '↓ Негатив' : '— Нейтрально';
+            var impactCls = impact === 'positive' ? 'positive' : impact === 'negative' ? 'negative' : 'muted';
+            var clickHint = url ? '<br><span style="color:var(--link);font-size:10px">Кликните для перехода →</span>' : '';
+            tooltip.innerHTML = '<strong>Новость</strong><br><span style="font-size:12px">' + title + '</span><br><span class="' + impactCls + '" style="font-size:11px">' + impactText + '</span>' + clickHint;
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 200 > chartWrap.offsetWidth) tipX -= 210;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+        marker.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var url = this.getAttribute('data-url');
+            if (url) window.open(url, '_blank');
+        });
+    });
+
+    // Dividend marker tooltips
+    svg.querySelectorAll('.div-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var value = this.getAttribute('data-value');
+            var currency = this.getAttribute('data-currency');
+            tooltip.innerHTML = '<strong>Дивиденд</strong><br><span style="font-size:14px;color:var(--positive)">' + value + ' ' + currency + '</span><br><span style="color:var(--text-secondary);font-size:10px">Дата отсечки</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 150 > chartWrap.offsetWidth) tipX -= 160;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // IR event marker tooltips
+    svg.querySelectorAll('.ir-marker').forEach(function(marker) {
+        marker.addEventListener('mouseenter', function(e) {
+            var type = this.getAttribute('data-type');
+            var desc = this.getAttribute('data-desc');
+            tooltip.innerHTML = '<strong>IR-событие</strong><br><span style="font-size:11px;color:var(--link)">' + type + '</span><br><span style="font-size:12px">' + desc.substring(0, 80) + (desc.length > 80 ? '...' : '') + '</span>';
+            tooltip.style.display = 'block';
+            var rect = chartWrap.getBoundingClientRect();
+            var tipX = (e.clientX - rect.left) + 12;
+            var tipY = (e.clientY - rect.top) - 10;
+            if (tipX + 220 > chartWrap.offsetWidth) tipX -= 230;
+            tooltip.style.left = tipX + 'px';
+            tooltip.style.top = tipY + 'px';
+        });
+        marker.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
+    // Toggle markers visibility
+    var toggleYearly = document.getElementById('toggle-yearly');
+    var toggleQuarterly = document.getElementById('toggle-quarterly');
+    var toggleNews = document.getElementById('toggle-news');
+    var toggleDividends = document.getElementById('toggle-dividends');
+    var toggleIR = document.getElementById('toggle-ir');
+
+    function updateMarkerVisibility() {
+        svg.querySelectorAll('.report-marker').forEach(function(m) {
+            var type = m.getAttribute('data-type');
+            m.style.display = (type === 'Y' ? toggleYearly.checked : toggleQuarterly.checked) ? '' : 'none';
+        });
+        svg.querySelectorAll('.report-line').forEach(function(line) {
+            var type = line.getAttribute('data-type');
+            line.style.display = (type === 'Y' ? toggleYearly.checked : toggleQuarterly.checked) ? '' : 'none';
+        });
+        svg.querySelectorAll('.news-marker').forEach(function(m) {
+            m.style.display = toggleNews.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.news-line').forEach(function(line) {
+            line.style.display = toggleNews.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.div-marker').forEach(function(m) {
+            m.style.display = toggleDividends.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.div-line').forEach(function(line) {
+            line.style.display = toggleDividends.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.ir-marker').forEach(function(m) {
+            m.style.display = toggleIR.checked ? '' : 'none';
+        });
+        svg.querySelectorAll('.ir-line').forEach(function(line) {
+            line.style.display = toggleIR.checked ? '' : 'none';
+        });
+    }
+
+    if (toggleYearly) toggleYearly.addEventListener('change', updateMarkerVisibility);
+    if (toggleQuarterly) toggleQuarterly.addEventListener('change', updateMarkerVisibility);
+    if (toggleNews) toggleNews.addEventListener('change', updateMarkerVisibility);
+    if (toggleDividends) toggleDividends.addEventListener('change', updateMarkerVisibility);
+    if (toggleIR) toggleIR.addEventListener('change', updateMarkerVisibility);
+
+    // --- Table ---
+    var tbl = '';
+    var recent = src.slice().reverse().slice(0, 30);
+    for (var ti = 0; ti < recent.length; ti++) {
+        var row = recent[ti];
+        var chg = '\u2014';
+        if (ti < recent.length - 1) {
+            var prev = recent[ti+1].c;
+            if (prev > 0) {
+                var pct = (row.c - prev) / prev * 100;
+                var cls = pct > 0 ? 'positive' : pct < 0 ? 'negative' : 'muted';
+                var sign = pct > 0 ? '+' : '';
+                chg = '<span class="'+cls+'">'+sign+pct.toFixed(1)+'%</span>';
+            }
+        }
+        var vm = row.v / 1e6;
+        var vs = vm >= 1000 ? Math.round(vm).toLocaleString('ru') : vm >= 1 ? Math.round(vm) : vm.toFixed(1);
+        var ps = row.c >= 100 ? row.c.toLocaleString('ru', {minimumFractionDigits:2, maximumFractionDigits:2}) : row.c >= 1 ? row.c.toFixed(2) : row.c.toFixed(4);
+        tbl += '<tr><td>'+row.d+'</td><td>'+ps+'</td><td>'+chg+'</td><td>'+vs+'M</td></tr>';
+    }
+    tbody.innerHTML = tbl;
+
+    // Active button
+    document.querySelectorAll('.period-btn').forEach(function(b) {
+        b.classList.toggle('active', parseInt(b.getAttribute('data-days')) === days);
+    });
+}
+
+document.getElementById('period-btns').addEventListener('click', function(e) {
+    var btn = e.target.closest('.period-btn');
+    if (btn) render(parseInt(btn.getAttribute('data-days')));
+});
+
+render(activeDays);
+})();
+</script>
+
+<div class="analysis">
+<h1>ПИК (PIKK)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейший девелопер жилой недвижимости в России по объёму ввода. Специализируется на массовом сегменте (комфорт-класс), работает в формате полного цикла: проектирование, строительство, продажа, управление.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Девелопмент жилья</strong> (~90% выручки): строительство многоквартирных домов комфорт-класса. Средняя цена — масс-маркет уровень, основной покупатель — семьи с использованием ипотеки</li><li><strong>Управление недвижимостью и сервисы</strong> (~10%): ПИК-Комфорт (управляющая компания), ПИК-Ремонт, цифровые сервисы</li></ul>
+<p><strong>География:</strong></p>
+<ul><li>Москва и Московская область — основной рынок (~70% продаж)</li><li>Регионы: Санкт-Петербург, Тюмень, Ростов-на-Дону и др.</li></ul>
+<p><strong>Структура собственности:</strong></p>
+<ul><li>Сергей Гордеев — контролирующий акционер (~75%)</li><li>Free float — 21%</li><li>Частная компания (GOD-дисконт не применяется)</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Снижение ставки ЦБ — главный триггер. ЦБ ускоряет цикл смягчения (15,5% сейчас, прогноз 10-14% к концу 2026). При ставке &lt; 13% оживёт рыночная ипотека. ПИК как масс-маркет лидер получит максимальный выигрыш</li><li>Семейная ипотека 6% до 2030 — поддерживает текущие продажи</li><li>Масштаб и эффективность — крупнейший застройщик с возможностью снижения себестоимости через промышленное строительство</li><li>Отложенный спрос — при нормализации ставок реализуется накопленный за 2024-2026 спрос на жильё</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Масштаб</strong>: крупнейший застройщик РФ по объёму ввода (~3 млн кв. м/год), эффект масштаба в закупках и производстве</li><li><strong>Индустриальная модель</strong>: собственное производство панелей, стандартизация проектов — ниже себестоимость</li><li><strong>Земельный банк</strong>: крупный портфель участков в Москве и регионах, обеспечивающий пайплайн на 5+ лет</li><li><strong>Цифровизация</strong>: одна из самых технологичных строительных компаний (ПИК-Дом, онлайн-продажи)</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li><strong>Ставка ЦБ 15,5%</strong>: ипотечные ставки на рыночных продуктах запретительно высоки. Льготная ипотека — основная поддержка</li><li><strong>Процентные расходы</strong>: 66,9 млрд ₽ LTM — сопоставимы с EBITDA H1 2025 (33,3 млрд ₽)</li><li><strong>Сезонность и цикличность</strong>: строительство — циклический бизнес, сейчас в фазе спада</li></ul>
+<h3>Операционные риски</h3>
+<ul><li><strong>Резкое сжатие маржи</strong>: EBITDA маржа H1 2025 обвалилась до 10,1% — исторический минимум (vs 22,1% H1 2024, 23,7% 2023 FY). Снижение 4+ полугодий подряд</li><li><strong>Рост себестоимости</strong>: стройматериалы и ФОТ продолжают расти</li><li><strong>Отрицательный FCF</strong>: по итогам LTM -93,5 млрд ₽, хотя H2 2024 дал положительный FCF (+10,4 млрд ₽) — первый раз за несколько лет</li></ul>
+<h3>Регуляторные риски</h3>
+<ul><li><strong>Санкции США (SDN, с февраля 2024) и ЕС (с декабря 2024)</strong>: операционно влияние минимально (бизнес внутренний), но усиливает дисконт и ограничивает международный капитал</li><li><strong>Ужесточение семейной ипотеки</strong>: с 01.02.2026 — одна ипотека на семью, запрет «донорских» схем — сокращает спрос на 10-15%</li><li><strong>Отсутствие дивидендов</strong>: не платит с 2021 года, нет чёткого плана по возобновлению</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2020</th><th>2021</th><th>2023</th><th>2024</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>380,2</td><td>487,8</td><td>585,3</td><td>675,1</td><td>738,4</td></tr><tr><td>EBITDA, млрд ₽</td><td>90,4</td><td>91,0</td><td>139,0</td><td>144,2</td><td>119,0</td></tr><tr><td>Маржа EBITDA, %</td><td>23,8%</td><td>18,7%</td><td>23,7%</td><td>21,4%</td><td>16,1%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>86,4</td><td>103,6</td><td>62,8</td><td>56,1</td><td>47,3</td></tr><tr><td>Чистая маржа, %</td><td>22,7%</td><td>21,2%</td><td>10,7%</td><td>8,3%</td><td>6,4%</td></tr><tr><td>Процентные расходы, млрд ₽</td><td>9,0</td><td>19,9</td><td>41,1</td><td>60,4</td><td>66,9</td></tr><tr><td>FCF, млрд ₽</td><td>-46,0</td><td>-201,0</td><td>-199,8</td><td>-114,6</td><td>-93,5</td></tr><tr><td>Долг, млрд ₽</td><td>232,0</td><td>447,3</td><td>661,0</td><td>648,8</td><td>720,8</td></tr><tr><td>Наличность, млрд ₽</td><td>186,8</td><td>333,2</td><td>511,7</td><td>621,5</td><td>758,5</td></tr><tr><td>Чистый долг, млрд ₽</td><td>45,2</td><td>114,1</td><td>149,3</td><td>27,3</td><td>-37,7</td></tr><tr><td>ROE, %</td><td>47,9%</td><td>40,4%</td><td>17,9%</td><td>14,7%</td><td>11,5%</td></tr><tr><td>EPS, ₽</td><td>130,8</td><td>156,9</td><td>95,1</td><td>85,0</td><td>71,6</td></tr><tr><td>BV/акцию, ₽</td><td>251,6</td><td>364,7</td><td>522,7</td><td>570,3</td><td>616,1</td></tr></tbody></table></div>
+<p>Примечание: 2022 год отсутствует — ПИК не публиковал МСФО за этот период.</p>
+<h3>Полугодовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>H1 2023</th><th>H2 2023</th><th>H1 2024</th><th>H2 2024</th><th>H1 2025</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>264,9</td><td>320,4</td><td>264,8</td><td>410,3</td><td>328,1</td><td>738,4</td></tr><tr><td>EBITDA, млрд ₽</td><td>55,3</td><td>83,8</td><td>58,5</td><td>85,7</td><td>33,3</td><td>119,0</td></tr><tr><td>Маржа EBITDA, %</td><td>20,9%</td><td>26,2%</td><td>22,1%</td><td>20,9%</td><td><strong>10,1%</strong></td><td>16,1%</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>27,7</td><td>24,7</td><td>40,7</td><td>15,4</td><td>31,9</td><td>47,3</td></tr><tr><td>Процентные расходы, млрд ₽</td><td>7,7</td><td>33,4</td><td>27,0</td><td>33,4</td><td>33,5</td><td>66,9</td></tr></tbody></table></div>
+<p><strong>Ключевой сигнал H1 2025:</strong> EBITDA маржа обвалилась до 10,1% — это исторический минимум. Выручка выросла на +24% YoY, но EBITDA упала на -43% YoY. Процентные расходы H1 2025 (33,5 млрд ₽) поглотили почти всю EBITDA за полугодие (33,3 млрд ₽). Это критическое давление высокой ставки.</p>
+<p>При этом положительный момент: FCF за H2 2024 составил +10,4 млрд ₽ (первый раз в плюсе за годы), хотя LTM FCF остаётся отрицательным (-93,5 млрд ₽).</p>
+<h2>Дивиденды</h2>
+<div class="table-wrap"><table><thead><tr><th>Год (за)</th><th>DPS, ₽</th><th>Доходность</th><th>Комментарий</th></tr></thead><tbody><tr><td>2020</td><td>45,22</td><td>7,6%</td><td>Последний крупный дивиденд</td></tr><tr><td>2021</td><td>22,92</td><td>2,1%</td><td>Снижение payout</td></tr><tr><td>2022</td><td>0</td><td>0%</td><td>Не публиковал МСФО</td></tr><tr><td>2023</td><td>0</td><td>0%</td><td>Приоритет — инвестиции и долг</td></tr><tr><td>2024</td><td>0</td><td>0%</td><td>Нет дивидендов</td></tr><tr><td>2025E</td><td>0</td><td>0%</td><td>Нет оснований для возобновления</td></tr></tbody></table></div>
+<p><strong>Дивидендная политика:</strong> фактически заморожена с 2022 года. Возврат к дивидендам возможен при снижении ставки и восстановлении маржи — вероятно не ранее 2027-2028 года.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>2024</th><th>2021</th><th>Среднее</th></tr></thead><tbody><tr><td>P/E</td><td>6,6x</td><td>5,8x</td><td>7,1x</td><td>5,9x</td></tr><tr><td>EV/EBITDA</td><td>2,3x</td><td>2,4x</td><td>9,3x</td><td>4,7x</td></tr><tr><td>P/BV</td><td>0,76x</td><td>0,86x</td><td>3,04x</td><td>1,5x</td></tr><tr><td>P/S</td><td>0,42x</td><td>0,48x</td><td>1,50x</td><td>0,8x</td></tr><tr><td>Div Yield</td><td>0%</td><td>0%</td><td>2,1%</td><td>2,4%</td></tr><tr><td>ROE</td><td>11,5%</td><td>14,7%</td><td>40,4%</td><td>26,1%</td></tr></tbody></table></div>
+<p>Компания торгуется ниже балансовой стоимости (P/BV 0,76x) — рынок закладывает продолжение давления на прибыль. При цикличном восстановлении P/BV исторически возвращался к 1,5-3,0x.</p>
+<h2>Мой тезис</h2>
+<p>ПИК переживает острейшую фазу циклического сжатия: EBITDA маржа H1 2025 упала до 10,1% (исторический минимум), процентные расходы за полугодие сравнялись с EBITDA, EPS LTM снизился до 71,6 ₽. При этом баланс остаётся относительно здоровым (чистый долг отрицательный, -37,7 млрд ₽), выручка растёт (+24% H1 2025 YoY), а ЦБ ускоряет цикл смягчения — прогноз 10-14% к концу 2026.</p>
+<p>Главный катализатор — снижение ставки ЦБ. При ставке 12% базовый upside составляет ~27%, что приближается к порогу buy. Однако сохраняются сдерживающие факторы: 4+ периодов падения маржи подряд, отсутствие дивидендов, санкции США/ЕС, ужесточение льготной ипотеки с 01.02.2026. Компания под санкциями ограничена в привлечении иностранного капитала.</p>
+<p><strong>Почему watch, а не buy:</strong> upside 19% к my_fair_value при текущей цене — ещё недостаточно для buy. Катализатор (снижение ставки) понятен, но сроки неопределённы. Нет дивидендов. Маржа падает 4+ периода. Санкции. При снижении ставки ниже 13% и стабилизации маржи — переход в buy.</p>
+<h2>Целевая цена</h2>
+<h3>Расчёт по методологии</h3>
+<p><strong>Исходные данные:</strong></p>
+<ul><li>Нормализованный EPS: 80 ₽ (среднее 2023-LTM, сглаживание цикла)</li><li>EPS LTM: 71,6 ₽</li><li>BV/share: 616,1 ₽</li><li>ROE LTM: 11,5%</li><li>Кол-во акций: 660,5 млн</li><li>Текущая цена: 471 ₽</li><li>g = 5% (циклическая компания, средний рост за цикл ≈ номинальный ВВП)</li><li>Net Debt/EBITDA = -0,3x → используем P/E (&lt; 2,5x)</li></ul>
+<p><strong>Метод 1: P/E (базовый сценарий, ставка 12%)</strong></p>
+<p>r = 12% + 5% = 17% Базовый P/E = 1 / (r - g) = 1 / (0,17 - 0,05) = <strong>8,33x</strong></p>
+<p><strong>Поправки за качество:</strong></p>
+<ul><li>Лидер сектора по масштабу (№1 по вводу жилья в РФ): +10%</li><li>Маржа EBITDA падает 4+ периода (23,7% → 21,4% → 10,1% H1 2025): -10%</li><li>Санкции США SDN + ЕС: -10%</li><li>Итого поправка: -10%</li></ul>
+<p>Целевой P/E = 8,33 × 0,90 = <strong>7,5x</strong></p>
+<p>Целевая цена (P/E, базовый) = 80 × 7,5 = <strong>600 ₽</strong></p>
+<p><strong>Метод 2: P/BV (ключевой для девелоперов)</strong></p>
+<p>Justified P/BV = ROE / (r - g) = 0,115 / (0,17 - 0,05) = <strong>0,96x</strong></p>
+<p>Целевая цена (P/BV) = 616,1 × 0,96 = <strong>591 ₽</strong></p>
+<h3>Три сценария (горизонт 12 мес.)</h3>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Ставка ЦБ</th><th>r</th><th>P/E (скорр.)</th><th>Цена (P/E)</th><th>P/BV (обоснов.)</th><th>Цена (P/BV)</th><th>Средняя</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>15,5%</td><td>20,5%</td><td>5,8x</td><td>464 ₽</td><td>0,74x</td><td>456 ₽</td><td><strong>460 ₽</strong></td><td>-2%</td></tr><tr><td><strong>Базовый</strong></td><td>12%</td><td>17%</td><td>7,5x</td><td>600 ₽</td><td>0,96x</td><td>591 ₽</td><td><strong>595 ₽</strong></td><td><strong>+27%</strong></td></tr><tr><td>Оптимистичный</td><td>10%</td><td>15%</td><td>9,0x</td><td>720 ₽</td><td>1,15x</td><td>708 ₽</td><td><strong>714 ₽</strong></td><td>+52%</td></tr></tbody></table></div>
+<h3>Чувствительность к g (базовый сценарий, ставка 12%)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой P/E</th><th>Цена (P/E)</th><th>P/BV</th><th>Цена (P/BV)</th><th>Средняя</th><th>Upside</th></tr></thead><tbody><tr><td>2%</td><td>6,0x</td><td>480 ₽</td><td>0,77x</td><td>474 ₽</td><td>477 ₽</td><td>+1%</td></tr><tr><td><strong>5%</strong></td><td><strong>7,5x</strong></td><td><strong>600 ₽</strong></td><td><strong>0,96x</strong></td><td><strong>591 ₽</strong></td><td><strong>595 ₽</strong></td><td><strong>+27%</strong></td></tr><tr><td>7%</td><td>10,0x</td><td>800 ₽</td><td>1,28x</td><td>789 ₽</td><td>795 ₽</td><td>+69%</td></tr></tbody></table></div>
+<p>При g=2% upside близок к нулю — тезис чувствителен к допущениям о росте.</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>P/E (пессим., ставка 15,5%)</td><td>464 ₽</td><td>-2%</td><td>EPS 80 × P/E 5,8x</td></tr><tr><td>P/BV (пессим., ставка 15,5%)</td><td>456 ₽</td><td>-3%</td><td>BV 616 × P/BV 0,74x</td></tr><tr><td>P/E (базовый, ставка 12%)</td><td>600 ₽</td><td>+27%</td><td>При снижении ставки</td></tr><tr><td>P/BV (базовый, ставка 12%)</td><td>591 ₽</td><td>+26%</td><td>При снижении ставки</td></tr><tr><td>Дивидендный</td><td>н/п</td><td>—</td><td>Дивиденды = 0</td></tr><tr><td><strong>my_fair_value</strong></td><td><strong>560 ₽</strong></td><td><strong>+19%</strong></td><td>Взвешенная оценка: пессим. сценарий + базовый, с акцентом на неопределённость темпов снижения ставки</td></tr></tbody></table></div>
+<p><strong>my_fair_value = 560 ₽</strong> — взвешенная оценка между пессимистичным (460 ₽) и базовым (595 ₽) сценариями. Учитывает, что снижение ставки уже в тренде (ЦБ 15,5%), но до 12% ещё далеко.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" disabled> <strong>Upside &gt; 30%</strong> — нет (+19% к my_fair_value; +27% в чистом базовом сценарии)</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ (понятный катализатор), но без дивидендов и с санкциями катализатор слабее</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — см. выше</li><li><input type="checkbox" checked disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — -0,3x (отрицательный чистый долг)</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — нет, EBITDA маржа H1 2025 обвалилась до 10,1% (4+ периодов падения подряд)</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — достаточная, free float 21%</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — FCF LTM отрицательный (-93,5 млрд ₽), хотя H2 2024 был положительным</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — санкции США/ЕС учтены (поправка -10%)</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — частная компания, GOD не применяется</li></ul>
+<p><strong>Результат: 5/9 — buy не подтверждён. Position = watch.</strong></p>
+<p>Для перехода в buy необходимо:</p>
+<ol><li>Снижение ставки ЦБ ниже 13%</li><li>Стабилизация EBITDA маржи (разворот тренда падения)</li><li>Upside &gt; 30% по расчёту (при ставке ~12% это выполняется)</li></ol>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-01-30</td><td><strong>WATCH</strong></td><td>473 ₽</td><td>Циклический спад, маржа падает, нет дивидендов, санкции. Upside 10% — мало для buy</td></tr><tr><td>2026-02-19</td><td><strong>WATCH</strong></td><td>471 ₽</td><td>Обновлено по H1 2025 МСФО. EBITDA маржа H1 2025 обвалилась до 10,1% (истмин). ЦБ снизил ставку до 15,5%, прогноз 10-14% к концу 2026. Upside вырос до 19% (my_fair_value 560 ₽). Сохраняем watch: маржа падает, нет дивидендов, санкции.</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/PIKK/f/y/MSFO/" target="_blank">Smart-lab: PIKK финансы МСФО (годовые)</a></li><li><a href="https://smart-lab.ru/q/PIKK/f/q/MSFO/" target="_blank">Smart-lab: PIKK финансы МСФО (квартальные)</a></li><li><a href="../../sectors/construction/_index.md" target="_blank">Секторальный анализ: Строительство</a></li><li><a href="../../russia/macro.md" target="_blank">Макроэкономика РФ</a></li><li><a href="opinions.md" target="_blank">Внешние мнения</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>

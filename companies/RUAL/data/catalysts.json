@@ -1,0 +1,117 @@
+{
+  "ticker": "RUAL",
+  "company_name": "RUAL",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Доля 26,39% в Норникеле (~628 млрд ₽) — потенциальные дивиденды от 2П 2026",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "LME вырос до ~$3 100/т (vs $2 630/т в предыдущем анализе) — улучшит маржу в 2П 2025",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "2-й по величине производитель алюминия в мире вне Китая (~4 млн т/год)",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Низкоуглеродный алюминий ALLOW (90%+ на ГЭС) — премия к цене",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Тайшетский завод (+428 тыс. т/год) — рост низкозатратных мощностей",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ до 15,5% (снизилась с 16%) — улучшает обслуживание долга",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Критический уровень долга (Net Debt/EBITDA ~5,1x LTM), стресс-тест провален: при +3пп ставки → 92% EBITDA на проценты",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "LTM чистая прибыль отрицательная (-22,1 млрд ₽), дивидендов нет с 2022",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Потеря 42% мощностей по глинозёму (Украина, Австралия) — покупка на спот-рынке съедает маржу",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Косвенные санкции ЕС 16-й пакет (запрет импорта алюминия, фев 2025) ограничивают экспорт",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Процентные расходы LTM 57,5 млрд ₽ (по 1П 2025: $472 млн/полугодие → ~$944 млн/год = ~94 млрд ₽ ann.)",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 13,
+    "positive": 6,
+    "negative": 5,
+    "mixed": 2
+  }
+}

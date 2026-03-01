@@ -1,0 +1,109 @@
+{
+  "ticker": "GCHE",
+  "company_name": "GCHE",
+  "generated": "2026-02-27",
+  "catalysts": [
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "ND/EBITDA снизился до 2.36x — ниже порога 2.5x дивполитики, возобновление дивидендов вероятно",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "EBITDA рекордная 56.5 млрд ₽ (+22% г/г), маржа 19.6% — подтверждение ценовой силы",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "FCF стал положительным (4.9 млрд ₽) после сокращения CAPEX на 34%",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Лидер российского мясного рынка (#1 по птице, топ-5 по свинине) с CAGR выручки 16.6%",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Снижение ставки ЦБ (15.5% → 10-13% к концу 2026) резко увеличит чистую прибыль",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Процентные расходы 28.8 млрд ₽ — 51% от EBITDA, ROE упал до 13%",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Free-float 2.5% — крайне низкая ликвидность, листинг 3-го уровня, ADV 9.8 млн ₽",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Ветеринарные риски: вспышка гриппа птиц на Васильевской птицефабрике в 2025",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Насыщение внутреннего рынка мяса (82-83 кг/чел — рекорд)",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Семья Михайловых контролирует ~87% — key-man risk, только 1 из 12 брокеров рекомендует",
+      "source": "index"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-03-20",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    },
+    {
+      "type": "cb_meeting",
+      "impact": "mixed",
+      "magnitude": "high",
+      "date": "2026-04-24",
+      "description": "Заседание ЦБ по ключевой ставке",
+      "source": "macro"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "positive": 5,
+    "negative": 5,
+    "mixed": 2
+  }
+}
