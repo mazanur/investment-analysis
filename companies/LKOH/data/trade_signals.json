@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "ОПЕК+ увеличил добычу нефти в марте на 125 тыс. б/с к февралю — дубль темы ОПЕК+ (Interfax)",
+    "trigger_url": "https://www.interfax.ru/world/1075442",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Дубль темы ОПЕК+ (уже покрыт сигналом по Vedomosti +206k б/с с апреля). Негативная макро-новость, но цена +4.5% на геополитике (Ормуз) — нет сценария (не long-positive: новость негативна; не long-oversold: цена не упала). Увеличение добычи скромное (+125k б/с), усиливает уже известный key_risk (Urals под давлением). R/R = 1.53 < 2.0."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Иран закрывает Ормузский пролив для ВСЕХ судов (военных, коммерческих, гражданских) — 20% мировых поставок нефти, Maersk приостановил рейсы",
     "trigger_url": "https://ria.ru/20260301/zakrytie-2077746586.html",
     "signal": "skip",
