@@ -1,6 +1,34 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Прогноз взлёта цен на нефть из-за ударов США по Ирану — косвенный позитив для энергосектора",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/sprognozirovan-vzlet-tsen-na-neft-iz-za-udarov-ssha-po-iranu/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Газпром — газовая компания, не нефтяная; прямое влияние роста цен на нефть минимально. Цена уже частично отреагировала (+2.1%, volume_ratio 1.52×). Новость не меняет bearish-тезис (отрицательный FCF, нет дивидендов 3 года, падающая выручка). При реалистичном target R/R < 0.5 — спекуляция не оправдана."
+  },
+  {
+    "date": "2026-03-01",
+    "trigger": "Газохранилища Германии и Франции опустели на 4/5 — ЕС пережил зиму без российского газа",
+    "trigger_url": "",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость подтверждает известный key_risk: потеря европейского рынка без замещения. Рынок не отреагировал — цена выросла на +2.5% вопреки негативу. Нет сценария: long-positive невозможен (новость негативная), long-oversold невозможен (нет падения). Тезис bearish/watch не изменился."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Прокачка газа по европейской нитке Турецкого потока в феврале сократилась на 2% г/г до 1,522 млрд куб. м",
     "trigger_url": "https://www.interfax.ru/business/1075333",
     "signal": "skip",
