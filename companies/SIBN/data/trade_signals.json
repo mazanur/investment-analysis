@@ -1,5 +1,33 @@
 [
   {
+    "date": "2026-03-01",
+    "trigger": "Эскалация конфликта Иран-Израиль: взрывы в Абу-Даби угрожают стабильности нефтяного рынка Ближнего Востока",
+    "trigger_url": "https://www.rbc.ru/politics/01/03/2026/69a41b709a794715d7a46097",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Макро-геополитика (Иран-Израиль, Абу-Даби) — позитив для нефтяных цен, но не катализатор для SIBN конкретно. Strength medium, связь косвенная (геополитика → нефть → выручка). Рынок ещё не открылся (новость в воскресенье), к понедельнику глобальные нефтяные рынки уже отреагируют. Offset негативом ОПЕК+ (+124 тыс. б/с). Position hold, sentiment neutral — нет фундаментального основания для спекуляции. Примечание: upside в _index.md (2%) устарел — фактический upside к fair value 25.5% (522→655 ₽), рекомендуется обновить _index.md."
+  },
+  {
+    "date": "2026-03-01",
+    "trigger": "Атака на нефтяной танкер у берегов Омана вблизи Ормузского пролива",
+    "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/01/1179855-neftyanoi-tanker-podvergsya",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Атака на танкер у Ормуза — позитив для нефтяных цен (20% мировых поставок через пролив), но strength medium и связь с SIBN косвенная. Price_move 0% (новость в воскресенье, рынок не работал). Формально R/R = 2.55 (entry 522, target 655, stop 470), но нет конкретного катализатора с датой — геополитическая премия может исчезнуть. Тезис не изменён. Offset негативом ОПЕК+ увеличения добычи."
+  },
+  {
     "date": "2026-02-28",
     "trigger": "ОПЕК+ увеличат добычу на 124 тыс. б/с в марте — впервые с декабря",
     "trigger_url": "https://1prime.ru/20260301/strany-867905821.html",
