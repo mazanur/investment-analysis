@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "ОПЕК+ договорились увеличить лимит добычи нефти на 411 тыс. б/с с апреля — подтверждение ранее обсуждаемого решения",
+    "trigger_url": "https://www.rbc.ru/politics/01/03/2026/69a41b709a794715d7a46097",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Macro-новость (strength: medium) — подтверждение ранее обсуждаемого решения ОПЕК+ (сигнал от 28.02 уже есть). Позитив (геополитика Ирана) уже в цене: price_move +2,85% (394,6→405,85), volume_ratio 3,2× ADV. R/R = 1,83 (target 480, stop −10% = 365) < 2,0. Само увеличение добычи ОПЕК+ — mixed: негатив для цен нефти, но позитив для объёмов Роснефти (ослабление квот). Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Аналитик: лидеры региона предупредили Трампа об угрозе нефти выше $100 — переупаковка геополитического позитива от ударов по Ирану",
     "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133351",
     "signal": "skip",
