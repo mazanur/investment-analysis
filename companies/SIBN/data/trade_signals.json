@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-01",
+    "trigger": "Атака на нефтяной танкер у берегов Омана вблизи Ормузского пролива — переупаковка геополитического позитива",
+    "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/01/1179855-neftyanoi-tanker-podvergsya",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная macro-новость (strength: medium) — переупаковка геополитического позитива в цепочке: удары по Ирану → угроза Ормузу → открытие пролива → атака танкера. Аналогичные новости skip для ROSN. Рынок уже отыграл +3.0% (506.9→522.1) на нефтяном позитиве 28.02 (прогноз $100/барр.). Для news-driven trade R/R ≈ 0.3 (ожидаемый +2-3% vs стоп 10%) — далеко ниже порога 2.0. Тезис не изменён, position hold сохраняется."
+  },
+  {
     "date": "2026-02-28",
     "trigger": "ОПЕК+ увеличат добычу на 124 тыс. б/с в марте — впервые с декабря",
     "trigger_url": "https://1prime.ru/20260301/strany-867905821.html",

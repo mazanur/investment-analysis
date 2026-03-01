@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Аэрофлот продлил отмену рейсов в ОАЭ до 3 марта из-за закрытия воздушного пространства на фоне иранских ударов",
+    "trigger_url": "https://www.kommersant.ru/doc/8477396",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Временное операционное ограничение (3 дня) из-за геополитики на Ближнем Востоке. Рынок не отреагировал: price_move −1.45%, volume_ratio 0.58×. Ни long-positive (новость негативная), ни long-oversold (падение < 5%) сценарий не применим. Тезис не сломан — ОАЭ лишь часть международного сегмента (24% выручки)."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Аэрофлот отменил рейсы в Дубай и Абу-Даби на 1 марта из-за закрытия воздушного пространства ОАЭ (иранские удары)",
     "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/01/1179833-aeroflot-otmenil",
     "signal": "skip",
