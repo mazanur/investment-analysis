@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Санкции США на иранскую нефть — эксперт допускает переход Китая на российскую нефть, дубль кластера Ормуз",
+    "trigger_url": "https://1prime.ru/20260302/ekspert-867924181.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise: экспертное мнение о санкциях на иранскую нефть и гипотетическом переходе Китая на российских поставщиков — 12-й сигнал кластера Ормуз/Иран. ЛУКОЙЛ не упомянут напрямую. Позитив уже в цене: +3.5% от пре-новостного уровня (5194→5376.5), volume ~2× ADV. R/R = 1.53 (upside 15.3% до fair value 6200, stop −10% = 4839) < минимума 2.0. Тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Эксперты ожидают ослабления рубля до 80–85 ₽/$ в Q2 и 90 ₽/$ к концу года после корректировки бюджетного правила — дубль темы рубля (Vedomosti)",
     "trigger_url": "https://www.vedomosti.ru/economics/articles/2026/03/02/1179913-eksperti-ozhidayut-oslableniya-rublya-posle-korrektirovki-byudzhetnogo-pravila",
     "signal": "skip",
