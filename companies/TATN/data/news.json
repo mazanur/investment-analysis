@@ -20,5 +20,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-01",
+    "title": "Reuters: сотни танкеров и контейнеровозов встали на ...",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/03/01/cimo-reuters-sotni-tankerov-i-kontejnerovozov-vstali-na-yakor-po-obe-storony-ormuzsko.html",
+    "impact": "positive",
+    "summary": "Эскалация вокруг Ормузского пролива усиливается: 150+ танкеров встали на якорь, несколько крупных нефтяных компаний приостановили проход судов. Это повышает вероятность перебоев с поставками нефти и сохраняет геополитическую премию в ценах на нефть ($73+ Brent). Для Татнефти как нефтепроизводителя это позитив — рост цен на нефть напрямую увеличивает выручку и ЧП.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
