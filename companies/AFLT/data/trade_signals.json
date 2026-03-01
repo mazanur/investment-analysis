@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-03-01",
+    "trigger": "Аэрофлот отменил рейсы в Дубай и Абу-Даби на 1 марта из-за закрытия воздушного пространства ОАЭ (иранские удары)",
+    "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/01/1179833-aeroflot-otmenil",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Временное операционное ограничение на 1 день — шум. Цена почти не отреагировала (−1.0%, volume_ratio 0.42×). Ни long-positive (новость негативная), ни long-oversold (падение < 5%) сценарий не применим. Тезис не сломан."
+  },
+  {
+    "date": "2026-03-01",
+    "trigger": "Аэрофлот забрал у iFly все летающие Airbus A330 — мокрый лизинг 4 бортов, но 17 из 41 на ТО, дефицит запчастей",
+    "trigger_url": "https://www.kommersant.ru/doc/8460842",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Strength medium + impact neutral → skip по фильтру. Новость подтверждает уже известный риск (санкции на авиапарк, дефицит запчастей), прописанный в key_risks. Не меняет тезис и не создаёт торговой возможности."
+  }
+]
