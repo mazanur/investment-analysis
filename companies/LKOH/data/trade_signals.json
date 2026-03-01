@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Прогноз роста цен на нефть после перекрытия Ормузского пролива — возможен переход Китая и Индии на российскую нефть",
+    "trigger_url": "https://lenta.ru/news/2026/03/01/tsenam-na-neft-sprognozirovali-rost-posle-perekrytiya-iranom-ormuzskogo-proliva/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Аналитический прогноз (noise) в рамках кластера Ормуз — не самостоятельный катализатор. Позитив уже в цене: +4.5% от пре-новостного уровня (5147→5376.5), volume ~2x ADV. R/R = 1.53 (upside 15.3% до fair value 6200, stop −10% = 4839) < минимума 2.0. Ожидаем FY2025 МСФО 4 марта."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Эскалация вокруг Ормузского пролива может поддержать цены на нефть и газ — Investing.com",
     "trigger_url": "https://ru.investing.com/news/economy-news/article-3133381",
     "signal": "skip",
@@ -96,6 +110,20 @@
     "risk_reward_ratio": null,
     "position_size": "skip",
     "reasoning": "Геополитический шок (Иран) — временный макро-фактор, не компанийный катализатор. Цена +4.5% от уровня до новости (5147→5376.5), volume ~2x ADV — частично в цене. R/R = 1.53 (upside 15.3% до fair value 6200, stop -10%) < минимума 2.0. Sentiment neutral, position hold — недостаточный upside для входа на временном факторе. Ближайший катализатор — FY2025 МСФО 4 марта."
+  },
+  {
+    "date": "2026-02-27",
+    "trigger": "Скачок цен на нефть Brent +2.7% до $72.76, акции ЛУКОЙЛ +1.47% — начало ралли на ближневосточной напряжённости",
+    "trigger_url": "https://www.finam.ru/publications/item/skachok-tsen-na-neft-okazal-podderzhku-rossiyskomu-rynku-aktsii-lukoyla-vyrosli-na-15-20260227-1928/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Обзорная статья — ЛУКОЙЛ не главный герой, упомянут как бенефициар роста нефти. Прекурсор ударов по Ирану 28.02. Позитив далее усилился (Ормуз) и уже в цене: +4.5% от 5147 до 5376.5, volume ~2x ADV. R/R = 1.53 < 2.0."
   },
   {
     "date": "2026-02-26",
