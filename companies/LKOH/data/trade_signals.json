@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Ставки фрахта танкеров Suezmax ×2.3 (WS225→WS525) на маршруте Ближний Восток→Китай — 31-й сигнал кластера Ормуз/Иран, негатив (рост логистических издержек)",
+    "trigger_url": "https://ru.investing.com/news/commodities-news/article-3134145",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "31-й сигнал кластера Ормуз/Иран. Негатив: рост фрахта Suezmax ×2.3 увеличивает логистические издержки экспортёров. Но цена +6.26% от пре-кластерного уровня (5194→5519.5) на позитиве от роста нефти — негатив полностью перекрыт. Volume 3× ADV (8.98 млрд ₽). Нет сценария: не long-positive (новость негативная), не long-oversold (цена не упала). R/R = 1.23 (upside 12.3% до fair value 6200, stop −10% = 4968) < минимума 2.0. Временный фактор (фрахт нормализуется при деэскалации), тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Bernstein: три сценария войны, Brent $80–110 при закрытии Ормуза — 30-й сигнал кластера Ормуз/Иран, noise (аналитический прогноз)",
     "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133865",
     "signal": "skip",
