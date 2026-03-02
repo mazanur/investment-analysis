@@ -284,5 +284,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "В феврале Россия продавала свою нефть на 28 долларов ...",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/03/02/cin3-v-fevrale-rossiya-prodavala-svoyu-neft-na-28-dollarov-deshevle-evropejskogo-etal.html",
+    "impact": "positive",
+    "summary": "Рост цен на российскую нефть Urals в феврале на $0,9-2,7 за баррель — позитив для Газпром нефти как экспортёра нефти, поскольку увеличивает выручку компании. Средняя цена Urals в Приморске достигла $42,807, а цена для налогообложения может составить $44,59 (+$3,64 к январю).",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
