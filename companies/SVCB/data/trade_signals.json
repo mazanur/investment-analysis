@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-02",
+    "trigger": "Хотимский (совладелец Совкомбанка): крепкий рубль — самый серьёзный вызов для банков сейчас",
+    "trigger_url": "https://smart-lab.ru/blog/1271705.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise/macro-комментарий: мнение совладельца о влиянии крепкого рубля на банки — не новое событие, а переупаковка известного макро-фактора. Рынок не отреагировал (price_move −0.14%, volume 2.3× ADV). Тезис не сломан: основной драйвер — снижение ставки ЦБ и переоценка облигационного портфеля. Ни long-positive (негативная новость), ни long-oversold (нет падения) не применимы."
+  }
+]
