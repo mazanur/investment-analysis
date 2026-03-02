@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "Индекс Мосбиржи вырос на фоне Ирана, SNGS в лидерах (+3%) — продолжение кластера нефть/рубль",
+    "trigger_url": "https://1prime.ru/20260302/torgi-867930303.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Продолжение кластера новостей 26.02–02.03 (рубль, Ормуз, Brent, Иран). Позитив уже в цене: +4.35% (21.74→22.685) при volume 2.78× ADV. Иран/нефть — косвенный фактор для SNGS, основной драйвер — кубышка $44 млрд. SDN-санкции ограничивают выгоду от нефти. Position = watch (value trap, 5/10 чеклист)."
+  },
+  {
     "date": "2026-03-01",
     "trigger": "Brent $81+ впервые за 8 месяцев на эскалации Ближнего Востока — косвенный позитив для выручки SNGS",
     "trigger_url": "https://www.kommersant.ru/doc/8477667",
