@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Brent +13% до $82.37 на эскалации конфликта США/Израиль–Иран и угрозе поставкам через Ормуз — косвенный позитив для выручки SNGS",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/02/cimp-tseny-na-neft-rezko-vyrosli-iz-za-eskalatsii-konflikta-ugrozhayuschej-postavkam.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Завершение кластера Иран/Ормуз (26.02–02.03). Кластер уже в цене: +4.23% (21.74→22.66) при volume 2.78× ADV. Конкретная новость: price_move −0.09% (22.68→22.66) — рынок не дал дополнительного движения, тема отыграна. Нефть — косвенный фактор для SNGS (основной драйвер — кубышка $44 млрд); SDN-санкции ограничивают выгоду от роста Brent. Position = watch (value trap, 5/10 чеклист)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Удар БПЛА по НПЗ Aramco в Саудовской Аравии — потенциальные перебои поставок нефти, косвенный позитив для SNGS",
     "trigger_url": "https://ria.ru/20260302/udar-2077807236.html",
     "signal": "skip",
