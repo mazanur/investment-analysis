@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Цены на европейский газ подскочили на 25% (до 38.44 EUR/МВт·ч) из-за угрозы поставкам через Ормузский пролив",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/02/cimq-tseny-na-evropejskij-gaz-podskochili-na-25-na-fone-ugrozy-mirovym-gazovym-potoka.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Формально позитивная новость для газовой отрасли, но шум для Газпрома: (1) европейский рынок практически потерян (экспорт с 150 до 17.8 млрд куб. м), (2) оставшиеся контракты привязаны к нефти, а не к спотовому TTF, (3) Газпром не упоминается в статье. Рынок корректно не отреагировал (price_move +1.9%, volume_ratio 2.3×). Bearish-тезис не изменился: отрицательный FCF, нет дивидендов 3 года, ROE < стоимости капитала."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Посольство РФ в Турции сообщило о попытках диверсий на «Голубом потоке» и «Турецком потоке» — повторное подтверждение инфраструктурных рисков",
     "trigger_url": "https://www.kommersant.ru/doc/8477751",
     "signal": "skip",
