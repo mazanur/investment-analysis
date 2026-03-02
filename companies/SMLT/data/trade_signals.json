@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-02",
+    "trigger": "Прогноз роста ввода жилья в РФ на 10% и снижения ипотечных ставок до 10-11% — общесекторальная макроновость",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/v-rossii-nachnut-stroit-bolshe-zhilya/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Новость — общий макропрогноз без конкретного катализатора для SMLT (компания не упоминается). Тезис о снижении ставки и восстановлении ипотеки уже заложен в fair value (1100 ₽). Цена -1.4% в день позитивной новости — рынок не воспринимает как событие. Sentiment bearish, position watch, ND/EBITDA 3.2x, чеклист buy 3/10 — структурные риски не позволяют входить на шуме."
+  }
+]
