@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Итоги недели: Ормузский пролив (20% мировой нефти), Brent может превысить $100, ОПЕК+ +206 тыс. б/с — 36-й сигнал кластера Ормуз/Иран, noise (еженедельный обзор, переупаковка)",
+    "trigger_url": "https://smart-lab.ru/company/centrocredit_bank/blog/1271844.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "36-й сигнал кластера Ормуз/Иран. Noise: еженедельный обзор рынка сырья, переупаковка уже известных тем (блокада Ормуза, рост Brent, ОПЕК+ +206k б/с). Позитив уже в цене: +6.24% от пре-кластерного уровня (5194→5518), volume 3× ADV (8.98 млрд ₽). Матрица: price_move >5% = «сильная реакция» → перекупленность для позитива. R/R = 1.24 (upside 12.4% до fair value 6200, stop −10% = 4966) < минимума 2.0. Тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Газ в Европе +28% до $515/тыс.м³ на остановке СПГ Катара и блокировке Ормуза — 35-й сигнал кластера Ормуз/Иран, noise (косвенный макро, газ ≠ бизнес LKOH)",
     "trigger_url": "https://lenta.ru/news/2026/03/02/gaz-v-evrope-podorozhal-do-maksimalnyh-otmetok/",
     "signal": "skip",
