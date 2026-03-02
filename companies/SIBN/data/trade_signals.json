@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Brent +13% до $82,37/барр. из-за эскалации на Ближнем Востоке и остановки поставок через Ормуз — 15-я новость Ормузского кластера (profinance.ru)",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/02/cimp-tseny-na-neft-rezko-vyrosli-iz-za-eskalatsii-konflikta-ugrozhayuschej-postavkam.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "15-я новость Ормузского кластера — переупаковка той же информации (Brent +13% до $82/барр. на фоне ударов по Ирану). Позитив уже в цене: price_move +2.4% (522.1→534.6 ₽), volume_ratio 5.9× ADV. Матрица: 2-5% + >2× ADV → «в цене» для позитива → skip. Компания не упоминается в статье — связь косвенная (геополитика → нефть → выручка). Тезис не изменён (sentiment: neutral, position: hold). Примечание: фактический upside к fair value 22.5% (534.6→655 ₽) — рекомендуется обновить _index.md (upside указан 2% при цене 644 ₽, но цена упала до 534.6 ₽)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Эксперт Родионов спрогнозировал падение Brent до $60/барр. при сделке США с Ираном и снятии эмбарго — гипотетический сценарий",
     "trigger_url": "https://lenta.ru/news/2026/03/02/cheap/",
     "signal": "skip",
