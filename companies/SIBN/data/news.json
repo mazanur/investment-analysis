@@ -251,5 +251,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Цены на нефть резко выросли из-за эскалации ...",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/03/02/cimp-tseny-na-neft-rezko-vyrosli-iz-za-eskalatsii-konflikta-ugrozhayuschej-postavkam.html",
+    "impact": "positive",
+    "summary": "Рост цен на нефть Brent на 13% до $82,37/барр. из-за эскалации конфликта на Ближнем Востоке и остановки поставок через Ормузский пролив — косвенный позитив для Газпром нефти как экспортёра нефти, однако компания не упоминается в статье — это новость о нефтяном рынке и геополитике.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
