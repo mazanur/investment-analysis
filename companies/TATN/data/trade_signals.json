@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "ОПЕК+ в апреле увеличит добычу на 206 000 б/с (investing.com) — 12-й дубль кластера, негатив не отразился на цене (+4.2% на геопремии Ирана)",
+    "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133364",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Дубль новости ОПЕК+ от Коммерсанта (уже skip). Негатив полностью перекрыт позитивом Иран/Ормуз: цена +4.2% от pre-news 546.5→569.3, volume 2.08× ADV. Ни long-positive (новость негативная), ни long-oversold (цена растёт, не падает) не применимы. R/R = 0.98 (upside 9.8% к fair value 625 ₽, стоп -10% macro) < 2.0. Position = watch, sentiment = neutral."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Индекс Мосбиржи вырос на фоне Ирана, Brent +5.7% до $77/барр. — 11-й дубль кластера Иран/Ормуз, позитив уже в цене (+3.8%, 2.08× ADV)",
     "trigger_url": "https://1prime.ru/20260302/torgi-867930303.html",
     "signal": "skip",
