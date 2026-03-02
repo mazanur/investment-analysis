@@ -7,7 +7,7 @@ subsector: oil
 updated: 2026-02-18
 author: AlmazNurmukhametov
 sentiment: neutral
-market_cap_rub: 3508
+market_cap_rub: 3694
 shares_outstanding: 674.6
 free_float: 55
 adv_rub_mln: 3000
@@ -18,8 +18,8 @@ dividend_yield: 11
 roe: 8
 net_debt_ebitda: -0.34
 my_fair_value: 6200
-current_price: 5489.5
-upside: 19
+current_price: 5475
+upside: 13
 position: hold
 gov_ownership: 0
 gov_discount: 0

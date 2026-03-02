@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Рубль немного подешевел в паре с юанем, Brent +7.44% до $78.26 — 40-й сигнал кластера Ормуз/Иран, macro/noise (общая макро-статья, ЛУКОЙЛ не упомянут)",
+    "trigger_url": "https://www.interfax.ru/business/1075620",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "40-й сигнал кластера Ормуз/Иран. Общая макро-статья о рубле и нефти — ЛУКОЙЛ не упомянут, не катализатор. Позитив уже в цене: +5.4% от пре-кластерного уровня (5194→5475), volume 3× ADV (8.98 млрд ₽). Матрица: price_move >5% = «сильная реакция» → перекупленность для позитива. R/R = 1.32 (upside 13.2% до fair value 6200, stop −10% = 4928) < минимума 2.0. Brent $78 ≠ Urals (дисконт $10–15). Временный макро-фактор, тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Эскалация на Ближнем Востоке продолжает разгонять акции нефтяников — ЛУКОЙЛ +5.7%, Brent +7.82% до $78.57, 39-й сигнал кластера Ормуз/Иран",
     "trigger_url": "https://www.finam.ru/publications/item/eskalatsiya-na-blizhnem-vostoke-prodolzhaet-razgonyat-aktsii-neftyanikov-20260302-1927/",
     "signal": "skip",
