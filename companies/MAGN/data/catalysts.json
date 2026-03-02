@@ -1,14 +1,14 @@
 {
   "ticker": "MAGN",
-  "company_name": "ММК",
-  "generated": "2026-02-27",
+  "company_name": "MAGN",
+  "generated": "2026-03-02",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Чистая денежная позиция (net cash ~73 млрд ₽) — финансовая устойчивость",
+      "description": "Чистая денежная позиция 82 млрд ₽ (улучшилась с 75.5 млрд) — финансовая устойчивость",
       "source": "index"
     },
     {
@@ -16,7 +16,23 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "P/BV 0.47x — торгуется ниже половины балансовой стоимости",
+      "description": "P/BV 0.53x — ниже половины балансовой стоимости",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "EBITDA стабилизировалась ~20 млрд/кв — подтверждение операционного дна",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "FCF положительный за 2025 (+5.1 млрд), Q4 сильный (+9.2 млрд)",
       "source": "index"
     },
     {
@@ -24,23 +40,7 @@
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Снижение ставки ЦБ до 15.5% — начало цикла смягчения, прогноз 10-14% к концу 2026",
-      "source": "index"
-    },
-    {
-      "type": "opportunity",
-      "impact": "positive",
-      "magnitude": "medium",
-      "date": null,
-      "description": "Низкий EV/EBITDA 3.3x — дёшево по мультипликатору предприятия",
-      "source": "index"
-    },
-    {
-      "type": "opportunity",
-      "impact": "positive",
-      "magnitude": "medium",
-      "date": null,
-      "description": "Отмена экспортных пошлин с 01.01.2025 улучшает экспортную маржу",
+      "description": "Снижение ставки ЦБ до 15.5%, прогноз 10-14% к концу 2026",
       "source": "index"
     },
     {
@@ -48,7 +48,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Прибыль обвалилась — LTM ~22.5 млрд vs 79.9 млрд за 2024 год (-72%)",
+      "description": "Первый годовой убыток с 2014 (-14.1 млрд ₽, обесценение угольного сегмента -28 млрд)",
       "source": "index"
     },
     {
@@ -56,7 +56,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "P/E 16x при падающей прибыли — дорого для циклической компании в спаде",
+      "description": "P/E неприменим (убыток), нормализованная прибыль 14 млрд — минимум за 5 лет",
       "source": "index"
     },
     {
@@ -64,7 +64,7 @@
       "impact": "negative",
       "magnitude": "high",
       "date": null,
-      "description": "Дивиденды за 2024 не выплачены, перспективы туманны",
+      "description": "Дивиденды за 2025 не будут выплачены (убыточный год)",
       "source": "index"
     },
     {
@@ -72,7 +72,7 @@
       "impact": "negative",
       "magnitude": "high",
       "date": null,
-      "description": "Внутренний спрос на сталь -14% в 9М 2025 из-за ставки ЦБ",
+      "description": "Внутренний спрос на сталь продолжает снижаться при ставке 15.5%",
       "source": "index"
     },
     {
@@ -80,7 +80,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "FCF отрицательный (9М 2025: -2.6 млрд ₽)",
+      "description": "CAPEX/выручка вырос до 15% — давит на FCF",
       "source": "index"
     },
     {

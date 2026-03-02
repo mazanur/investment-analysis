@@ -25,7 +25,7 @@ key_opportunities:
   - Импортозамещение — компании выходят на IPO на Мосбирже вместо зарубежных площадок
   - Кэш-машина: ~127 млрд рублей денежных средств, нулевой долг
 my_fair_value: 213
-current_price: 184.29
+current_price: 181.9
 upside: 18%
 position: watch
 ---
