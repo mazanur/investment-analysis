@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "Утренний дайджест: Brent $81+, эскалация ближневосточного конфликта (США vs Иран, Израиль vs Хезболла) — переупаковка новостей 28.02–01.03",
+    "trigger_url": "https://www.kommersant.ru/doc/8477706",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise (strength: medium) — утренний дайджест Коммерсанта, переупаковка геополитических новостей 28.02–01.03 (удары по Ирану, Brent $81+). Позитив уже в цене: price_move +2,85% (394,6→405,85), volume_ratio 3,2× ADV за 28.02. По матрице 2–5% + volume >2× = «в цене» для позитива → skip. R/R = 1,83 (target 480, stop −10% = 365) < 2,0. Нейтрализующие факторы: ОПЕК+ +411k б/с, открытие Ормуза, влияние косвенное (поставки РФ не через Ормуз). Тезис не сломан, position watch сохраняется."
+  },
+  {
     "date": "2026-03-01",
     "trigger": "Brent $81+ впервые за 8 месяцев на фоне ударов по Ирану — позитив для Роснефти как экспортёра",
     "trigger_url": "https://www.kommersant.ru/doc/8477667",
