@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Атака БПЛА на НПЗ Saudi Aramco в Рас-Тануре — небольшие повреждения, поставки не нарушены. 16-я новость Ормузского кластера",
+    "trigger_url": "https://ria.ru/20260302/aravija-2077892668.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise: 16-я новость Ормузского кластера — атака БПЛА на саудовский НПЗ с минимальными повреждениями, поставки не нарушены. Связь с SIBN тройная и косвенная (Saudi Aramco NPZ → геополитика → нефтяные цены → выручка SIBN). Price_move +1.23% (522.1→528.5 ₽), но это остаточное движение от Ормузского кризиса 28.02 (+3.0%). Volume_ratio ~6.1× ADV — высокий объём на весь кластер, не на эту новость. Тезис не изменён (sentiment: neutral, position: hold). ОПЕК+ наращивает добычу (+206 тыс. б/с в апреле), геополитическая премия хрупкая. Примечание: структурный upside к fair value 23.9% (528.5→655 ₽) — рекомендуется обновить _index.md (upside указан 2% при цене 644 ₽, цена упала до 528.5 ₽)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Brent +13% до $82,37/барр. из-за эскалации на Ближнем Востоке и остановки поставок через Ормуз — 15-я новость Ормузского кластера (profinance.ru)",
     "trigger_url": "https://www.profinance.ru/news/2026/03/02/cimp-tseny-na-neft-rezko-vyrosli-iz-za-eskalatsii-konflikta-ugrozhayuschej-postavkam.html",
     "signal": "skip",
