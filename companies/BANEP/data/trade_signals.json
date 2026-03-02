@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Атака Ирана на НПЗ Saudi Aramco — продление энергокризиса, прогноз Brent $100/барр., сокращение иранских поставок в Китай",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/raskryty-posledstviya-ataki-irana-na-odin-iz-krupneyshih-npz-v-mire/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Skip по трём причинам: (1) ADV 25 млн ₽ < 50 млн — неликвид, stop-условие по гайду; (2) позитив уже в цене (+4.05% на 7.85× ADV с 27.02) — сильная реакция рынка; (3) дублирует обработанный кластер Ормузский пролив / Иран-Израиль (24 предыдущих сигнала), не специфичен для BANEP."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Акции нефтяников +8.2% на фоне конфликта США/Израиль с Ираном — констатация ралли (Ведомости)",
     "trigger_url": "https://www.vedomosti.ru/investments/news/2026/03/02/1180005-aktsii-neftyanikov",
     "signal": "skip",
