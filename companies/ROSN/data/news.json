@@ -306,5 +306,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "На рынке горячо – акции нефтяных бумаг переписывают локальные максимумы",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/na-rynke-goryacho-aktsii-neftyanykh-bumag-perepisyvayut-lokalnye-maksimumy-20260302-1522/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Статья о росте российского фондового рынка и акций нефтегазовых компаний на фоне эскалации ближневосточного конфликта — Роснефть указана в списке лидеров роста с +7,85%, но это обзорная статья про рынок в целом, а не про компанию напрямую. Влияние косвенное — рост мировых цен на нефть (Brent +8,37% до $78,98) увеличивает валютную выручку экспортёров, включая Роснефть.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
