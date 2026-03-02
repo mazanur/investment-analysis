@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Задержка транзита нефти по «Дружбе» через Украину — Словакия сообщила о новой дате возобновления",
+    "trigger_url": "https://www.kommersant.ru/doc/8478522",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Новость напрямую про Транснефть (оператор «Дружбы»), но влияние ограничено: (1) доход от тарифов, не от объёмов транспортировки, (2) задержка временная — указана новая дата возобновления, (3) цена выросла на +1.4% (доминирует позитивный кластер Иран/нефть при 3.65× ADV). Нет сценария long-oversold (цена не упала). Риск сокращения объёмов уже учтён в key_risks. Sentiment neutral, position watch, upside 14%."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Brent +7,75% до $78,52 из-за эскалации на Ближнем Востоке (удар по Ирану, приостановка НПЗ Saudi Aramco, сокращение судоходства через Ормуз)",
     "trigger_url": "https://www.interfax.ru/business/1075617",
     "signal": "skip",
