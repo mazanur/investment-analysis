@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Средняя ставка по накопительному счету снизилась в феврале вслед за снижением ключевой ставки ЦБ до 15,5%",
+    "trigger_url": "https://www.vedomosti.ru/finance/news/2026/03/02/1180121-stavka-po-nakopitelnomu",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise — механическое следствие решения ЦБ (21% → 15,5%), уже заложено в тезис _index.md (key_opportunities[0]). Рынок не реагирует (price_move −0,40%, vol 1,36× ADV) — нет новой информации. Позиция BUY открыта с 29.01 (304 ₽, upside 65%), допслой не оправдан. Ближайший катализатор — заседание ЦБ 20.03.2026."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Ставки по ипотеке снизились на 1 п.п. с начала года, Сбер снизил на 0,5 п.п.",
     "trigger_url": "https://www.vedomosti.ru/finance/news/2026/03/02/1180081-stavki-po-ipoteke",
     "signal": "skip",
