@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-02",
+    "trigger": "США могут ввести пошлины 132,83% на импорт палладия из России",
+    "trigger_url": "https://1prime.ru/20260302/palladiy-867802640.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Акция переоценена (165.2 ₽ vs fair value 150 ₽, upside −7%) — target ниже entry, R/R отрицательный. Новость спекулятивная (\"могут ввести\"), эскалация уже учтённого риска (пошлины 50% в тезисе). Рынок не отреагировал (price_move +0.07%), но нет фундаментального основания для покупки."
+  }
+]

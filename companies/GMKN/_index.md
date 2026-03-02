@@ -25,7 +25,7 @@ key_opportunities:
   - FCF восстановился до 74 млрд LTM (×3 за год), долг снизился на 51 млрд
   - Ожидаемый дефицит меди и рост цен (медь +42% YTD)
 my_fair_value: 150
-current_price: 165.08
+current_price: 165.2
 upside: -7%
 position: hold
 ---
