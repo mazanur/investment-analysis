@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "Италия/ЕС переплатили 30+ млрд евро за нефть после отказа от российских поставок — подтверждение продолжающегося эмбарго",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/tsena-otkaza-evropeyskoy-strany-ot-rossiyskoy-nefti-okazalas-vnushitelnoy/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise — ретроспективная статья о переплате ЕС за нефть после эмбарго на российские поставки. Не новое событие, а переупаковка известного факта (эмбарго с 2022-23). Ценовое давление на Urals уже учтено в _index.md (key_risks: Urals $59/барр.). Цена TATN не упала (+1.4% на геопремии Ормуза). Upside к fair value 625 ₽ = 10.2%, стоп -10% → R/R = 1.02 < 2.0."
+  },
+  {
     "date": "2026-03-01",
     "trigger": "Эксперт: сделка Ирана с США может снизить нефть до $60/барр. — гипотетический сценарий, негатив для TATN при реализации",
     "trigger_url": "https://1prime.ru/20260302/sdelka-867925399.html",
