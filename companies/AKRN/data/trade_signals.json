@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "Минпромторг подтвердил: экспортные квоты на удобрения не корректируются, несмотря на остановку Дорогобужа (~40% мощностей Акрона)",
+    "trigger_url": "https://www.interfax.ru/russia/1075483",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Skip по трём причинам: (1) ADV ~11.5 млн ₽ — неликвид, порог 50 млн не пройден; (2) upside до fair value всего 3.8% при стопе −10%, R/R = 0.38; (3) новость нейтральная — подтверждение статус-кво по квотам (действуют до 31.05.2026), не создаёт нового катализатора. price_move −0.53%, рынок не отреагировал."
+  },
+  {
     "date": "2026-02-27",
     "trigger": "Атака на завод Дорогобуж (~40% мощностей Акрона) — дефицит на мировом рынке, но потеря производства",
     "trigger_url": "https://www.profinance.ru/news/2026/02/27/cimb-bloomberg-ukrainskaya-ataka-na-zavod-v-dorogobuzhe-povlechet-sereznye-posledstvi.html",
