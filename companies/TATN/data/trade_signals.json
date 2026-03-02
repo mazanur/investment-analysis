@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Индекс Мосбиржи достиг максимума с 12 сентября, TATN +5.9% на конфликте США/Израиль vs Иран, нефть $80-100/барр. — 14-й дубль кластера Иран/Ормуз, позитив уже в цене (+6.1%, 2.08× ADV)",
+    "trigger_url": "https://www.vedomosti.ru/investments/news/2026/03/02/1180038-indeks-mosbirzhi",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "14-й сигнал кластера Иран/Ормуз. Позитив полностью в цене: +6.1% от pre-news 546.5→579.9 (MOEX), volume 2.08× ADV. По матрице: >5% + любой volume = «сильная реакция» → перекупленность. R/R = 0.78 (upside 7.8% к fair value 625 ₽, стоп -10% macro) << 2.0. Геополитическая премия временная (иранские конфликты непродолжительны), ОПЕК+ наращивает добычу +206k б/с. Position = watch, sentiment = neutral."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Рубль укрепляется к юаню на фоне роста нефти из-за Ирана — 13-й дубль кластера Иран/Ормуз, позитив уже в цене (+5.5%, 2.08× ADV)",
     "trigger_url": "https://www.interfax.ru/business/1075489",
     "signal": "skip",
