@@ -196,5 +196,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Иранский кризис заставил Индию снова присмотреться к российской нефти",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/iranskiy-krizis-zastavil-indiyu-snova-prismotretsya-k-rossiyskoy-nefti-20260302-0852/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Иранский кризис, остановивший поставки через Ормузский пролив, вынуждает Индию увеличить закупки российской нефти — в водах Азии уже находится 9,5 млн баррелей. Это позитивно для Роснефти как крупнейшего экспортёра, так как рост спроса со стороны одного из ключевых покупателей может увеличить объём продаж и валютную выручку. Однако статья не про саму Роснефть, а про решение Индии — компания лишь упоминается как возможный бенефициар.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
