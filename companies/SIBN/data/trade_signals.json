@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Индия вернётся к закупкам российской нефти из-за проблем с Ормузским проливом — экспертное мнение, 17-я новость Ормузского кластера",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/strana-briks-okazalas-ne-gotova-k-otkazu-ot-rossiyskoy-nefti/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise: 17-я новость Ормузского кластера — экспертное мнение о гипотетическом переключении Индии на российскую нефть, не факт. Связь с SIBN тройная и косвенная (Индия → спрос → нефтяные цены → выручка SIBN). Позитив уже в цене: price_move +4.7% (506.9→530.95 ₽), volume_ratio ~6.1× ADV. Матрица: 2-5% + >2× ADV → «в цене» для позитива → skip. ОПЕК+ наращивает добычу (+206 тыс. б/с в апреле), геополитическая премия хрупкая. Тезис не изменён (sentiment: neutral, position: hold). Примечание: фактический upside к fair value 23.4% (530.95→655 ₽) — рекомендуется обновить _index.md (upside указан 2% при цене 644 ₽, цена упала до 531 ₽)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Атака БПЛА на НПЗ Saudi Aramco в Рас-Тануре — небольшие повреждения, поставки не нарушены. 16-я новость Ормузского кластера",
     "trigger_url": "https://ria.ru/20260302/aravija-2077892668.html",
     "signal": "skip",
