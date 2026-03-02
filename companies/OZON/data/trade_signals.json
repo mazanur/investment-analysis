@@ -1,0 +1,24 @@
+[
+  {
+    "date": "2026-03-02",
+    "trigger": "FY2025 МСФО: EBITDA 156,4 млрд (beat гайденса 140 млрд на 12%), выручка +63% до 998 млрд, ПВЗ +40%, склады +33%",
+    "trigger_url": "https://www.vedomosti.ru/business/news/2026/03/02/1179990-kolichestvo-punktov-ozon",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "high",
+    "entry": {
+      "condition": "По рынку",
+      "price": 4665
+    },
+    "exit": {
+      "take_profit": 6840,
+      "stop_loss": 4200,
+      "time_limit_days": 10,
+      "exit_trigger": "Заседание ЦБ (апрель 2026) или Q1'26 отчёт"
+    },
+    "expected_return_pct": 46.6,
+    "risk_reward_ratio": 4.67,
+    "position_size": "full",
+    "reasoning": "FY2025 EBITDA 156,4 млрд — beat гайденса на 12% и прогноза аналитиков на 5%. Рынок не отреагировал: цена −1,9% от pre-news (4754→4665), объём 0,8× ADV. Upside до fair value 6840 ₽ = 46,6%, stop-loss −10% = 4200 ₽, R/R = 4,67. Ближайшие катализаторы: снижение ставки ЦБ (апрель), гайденс EBITDA 200 млрд в 2026, первая годовая прибыль."
+  }
+]
