@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "СД рекомендовал дивиденды 47,23 руб/акцию за 2025 (совокупно 82,73 руб, доходность ~7,1%)",
+    "trigger_url": "https://www.finam.ru/publications/item/aktsioneram-novateka-predlozheno-utverdit-dividendy-v-4723-rublya-na-aktsiyu-20260302-1007/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная dividend-новость (strength: high), но уже в цене: price_move +4,2%, volume 2,6× ADV. Дивиденды 82,73 руб (выше прогноза ~70 руб), но доходность 6,6% — ниже сектора (8-10%). Fair value 1 000 ₽ << текущей 1 247 ₽ (downside -20%). Sentiment bearish, position sell. Покупка дивидендной новости на переоценённой бумаге — антипаттерн."
+  },
+  {
     "date": "2026-02-27",
     "trigger": "Годовой отчёт МСФО 2025: выручка -6,5%, ЧП -63% (186 млрд), но OCF +40,9% (503 млрд), чистый долг отрицательный (-39 млрд)",
     "trigger_url": "https://smart-lab.ru/blog/1270585.php",
