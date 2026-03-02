@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Обзор Финам: нефтяные бумаги переписывают локальные максимумы, ROSN +7,85% — noise, переупаковка кластера Ормуз 28.02–01.03",
+    "trigger_url": "https://www.finam.ru/publications/item/na-rynke-goryacho-aktsii-neftyanykh-bumag-perepisyvayut-lokalnye-maksimumy-20260302-1522/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise (macro, strength: medium) — обзорная статья Финам о ралли нефтяного сектора, ROSN лишь в списке лидеров (+7,85%). Переупаковка иранского кластера 28.02–01.03. Позитив уже в цене: price_move +9,9% (394,6→433,7), volume_ratio 5,8× ADV (6,26 млрд vs ADV ~1,08 млрд). По матрице >5% = сильная реакция / перекупленность для позитива → skip. R/R = 1,07 (target 480, stop −10% = 390,3) < 2,0. Влияние косвенное: российская нефть не идёт через Ормуз. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Китай может компенсировать дефицит иранской нефти за счёт России — условная гипотеза экспертов, переупаковка иранского кластера 28.02–01.03",
     "trigger_url": "https://lenta.ru/news/2026/03/02/ne-strashno/",
     "signal": "skip",
