@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "ОПЕК+ в апреле увеличит добычу нефти на 206 000 б/с — обновление предыдущей оценки 166 тыс. б/с",
+    "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133364",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негатив (ОПЕК+ +206k б/с в апреле, ранее 166k), но рынок полностью проигнорировал — price_move +2.4% ВВЕРХ (522.1→534.7 ₽), volume_ratio 5.8× ADV. Позитив Ормузского кризиса доминирует. Дополнительные +40k б/с vs предыдущей оценки маргинальны (~0.04% мирового предложения). Ни long-positive (новость негативная), ни long-oversold (цена выросла, нет паники) не применимы. Тезис не изменён (sentiment: neutral, position: hold). Примечание: фактический upside к fair value 22.5% (534.7→655 ₽) — рекомендуется обновить _index.md."
+  },
+  {
     "date": "2026-03-01",
     "trigger": "Brent +13% до $82/барр. после ударов США и Израиля по Ирану — 13-я новость Ормузского кластера, атаки на танкеры в Ормузском проливе",
     "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133403",
