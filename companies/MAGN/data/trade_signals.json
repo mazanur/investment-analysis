@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-02",
+    "trigger": "Годовой МСФО 2025: чистый убыток 14.9 млрд ₽ (обесценение угольного сегмента -28 млрд), выручка -21%, EBITDA -47%",
+    "trigger_url": "https://smart-lab.ru/blog/1271982.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативный годовой отчёт уже учтён в bearish-оценке (fair value 25 ₽, downside -21%). Рынок практически не отреагировал (price_move -2.0%, volume_ratio 0.7x) — нет oversold-сценария. Лонг противоречит фундаменталу: fair value ниже текущей цены. Вторая новость (Smart-lab анализ угольного сегмента) — переупаковка известных данных из того же отчёта."
+  }
+]
