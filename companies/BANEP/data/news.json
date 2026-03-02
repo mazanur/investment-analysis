@@ -218,5 +218,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Акции российских нефтяников летят вверх на резком удорожании «черного золота»",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/aktsii-rossiyskikh-neftyanikov-letyat-vverkh-na-rezkom-udorozhanii-chernogo-zolota-20260302-1019/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Рост нефти Brent на 9,3% до $79,65 из-за обострения конфликта на Ближнем Востоке привёл к росту акций Башнефти на 6,85%. Для нефтедобывающей компании это позитив — рост мировых цен на нефть увеличивает выручку и дивидендный потенциал (особенно учитывая дисконт Urals к Brent).",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
