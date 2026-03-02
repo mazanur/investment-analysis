@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Акции нефтяников летят вверх на Brent +9.3% до $79.65/барр. — завершающий сигнал кластера Ормуз/Иран (23-й)",
+    "trigger_url": "https://www.finam.ru/publications/item/aktsii-rossiyskikh-neftyanikov-letyat-vverkh-na-rezkom-udorozhanii-chernogo-zolota-20260302-1019/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "23-й сигнал кластера Ормуз/Иран. Позитив уже в цене: +6.02% от пре-новостного уровня (5194→5507), volume 3× ADV (8.98 млрд ₽). Матрица: price_move >5% = «сильная реакция» → перекупленность для позитива. R/R = 1.26 (upside 12.6% до fair value 6200, stop −10% = 4956) < минимума 2.0. Brent $80 ≠ Urals $80 (дисконт $10–15). Временный макро-фактор, тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "JPMorgan: коллапс добычи на Ближнем Востоке через 25 дней при блокировке Ормузского пролива — завершающий сигнал кластера Ормуз/Иран (22-й)",
     "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133515",
     "signal": "skip",
