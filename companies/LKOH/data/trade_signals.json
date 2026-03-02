@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Скидки на нефть Urals в феврале выросли на $0,9-2,7/барр. к январю, абсолютная цена Urals в Приморске +$2,75 до $42,807 — backward-looking статистика, Urals всё ещё ниже потолка G7 $44,1",
+    "trigger_url": "https://www.interfax.ru/business/1075567",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Смешанный сигнал: абсолютная цена Urals выросла (+$2,75 до $42,807), но дисконты к Brent расширились ($0,9-2,7). Urals $42,8 всё ещё ниже потолка G7 $44,1 — подтверждает key_risk, тезис не изменён. Позитив уже в цене: +2,39% от пре-новостного уровня (5376,5→5505), volume 3× ADV (8,98 млрд ₽). Матрица: price_move 2-5% + volume >2× = «в цене» для позитива → skip. R/R = 1,26 (upside 12,6% до fair value 6200, stop −10% = 4954) < минимума 2,0. Backward-looking данные, не катализатор. Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Ставки фрахта танкеров Suezmax ×2.3 (WS225→WS525) на маршруте Ближний Восток→Китай — 31-й сигнал кластера Ормуз/Иран, негатив (рост логистических издержек)",
     "trigger_url": "https://ru.investing.com/news/commodities-news/article-3134145",
     "signal": "skip",
