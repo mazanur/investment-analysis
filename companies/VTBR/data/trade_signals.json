@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "ВТБ разместил лишь 10,75% облигаций (10,75 из 100 млрд) — слабый спрос на долговые инструменты банка",
+    "trigger_url": "https://www.moex.com/n98055",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Новость medium-negative: слабое размещение облигаций подтверждает известный риск низкого CET1 (6,3%), но не ломает тезис — ВТБ не зависит от данного выпуска (депозиты 27,9 трлн). Рынок не отреагировал (price_move −1,24%, vol 0,54× ADV). Ни long-positive, ни long-oversold сценарий не применим. Предыдущий buy-сигнал (2026-02-28, R/R 5,65) остаётся актуальным."
+  },
+  {
     "date": "2026-03-01",
     "trigger": "Bearish-статья о разводнении миноритариев при конвертации (50%→25%) + секторальное ужесточение требований ЦБ к капиталу банков",
     "trigger_url": "https://smart-lab.ru/blog/1271199.php",
