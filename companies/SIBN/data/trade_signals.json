@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Цена Urals в феврале выросла на $0,9-2,7/барр. к январю, средняя $42,8 в Приморске — подтверждение ожидаемого диапазона $40-45",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/02/cin3-v-fevrale-rossiya-prodavala-svoyu-neft-na-28-dollarov-deshevle-evropejskogo-etal.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise: рост Urals на $0,9-2,7/барр. к январю (до $42,8) — в пределах ожиданий тезиса ($40-45), не катализатор. Позитив уже в цене через Ормузский кластер: price_move +4.7% (506.9→530.65 ₽), volume_ratio ~6× ADV. Матрица: 2-5% + >2× ADV → «в цене» для позитива → skip. Urals всё ещё вблизи EU price ceiling ($44/барр.), маржинальное улучшение. Тезис не изменён (sentiment: neutral, position: hold). Примечание: фактический upside к fair value 23.4% (530.65→655 ₽) — рекомендуется обновить _index.md (upside указан 2% при цене 644 ₽, цена упала до 531 ₽)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Индия вернётся к закупкам российской нефти из-за проблем с Ормузским проливом — экспертное мнение, 17-я новость Ормузского кластера",
     "trigger_url": "https://lenta.ru/news/2026/03/02/strana-briks-okazalas-ne-gotova-k-otkazu-ot-rossiyskoy-nefti/",
     "signal": "skip",
