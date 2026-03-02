@@ -1,6 +1,34 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Прогноз: нефть может подскочить до $80/барр. на фоне эскалации Иран-Израиль",
+    "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133568",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Skip по трём причинам: (1) ADV 25 млн ₽ < 50 млн — неликвид, stop-условие по гайду; (2) noise — экспертный прогноз гипотетического роста нефти до $80, не реальный катализатор; (3) позитив уже в цене (+4.5% на 7.8× ADV с 27.02), дублирует обработанный кластер Ормузский пролив / Иран-Израиль (21 предыдущий сигнал)."
+  },
+  {
+    "date": "2026-03-02",
+    "trigger": "Цены на европейский газ подскочили на 25% на фоне угрозы мировым газовым потокам через Ормузский пролив",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/02/cimq-tseny-na-evropejskij-gaz-podskochili-na-25-na-fone-ugrozy-mirovym-gazovym-potoka.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Skip по трём причинам: (1) ADV 25 млн ₽ < 50 млн — неликвид, stop-условие по гайду; (2) noise — новость о газе, а BANEP — нефтяная компания, косвенное влияние минимально; (3) позитив уже в цене (+4.5% на 7.8× ADV с 27.02), дублирует обработанный кластер Ормузский пролив / Иран-Израиль."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Акции нефтяников летят вверх: Brent +9.3% до $79.65, BANEP +6.85% — констатация ралли",
     "trigger_url": "https://www.finam.ru/publications/item/aktsii-rossiyskikh-neftyanikov-letyat-vverkh-na-rezkom-udorozhanii-chernogo-zolota-20260302-1019/",
     "signal": "skip",
