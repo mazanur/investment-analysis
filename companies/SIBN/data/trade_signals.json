@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Прогноз роста нефти до $100/барр. при блокаде Ормуза + риск глобальной рецессии — 28-я новость Ормузского кластера",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/risk-globalnogo-spada-iz-za-blokady-ormuzskogo-proliva-otsenili/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise: 28-я новость Ормузского кластера — аналитический материал о гипотетическом росте нефти до $100 и рецессии, не факт. Сама статья акцентирует негативные последствия (рецессия), ограничивая позитив. Позитив уже в цене: price_move +4.8% (506.9→531.2 ₽), volume_ratio ~6.1× ADV. Матрица: 2-5% + >2× ADV → «в цене» для позитива → skip. Связь с SIBN косвенная (геополитика → нефть → выручка). Тезис не изменён (sentiment: neutral, position: hold). Примечание: фактический upside к fair value 23.3% (531→655 ₽) — рекомендуется обновить _index.md (upside указан 2% при цене 644 ₽, цена упала до 531 ₽)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Цена Urals в феврале выросла на $0,9-2,7/барр. к январю, средняя $42,8 в Приморске — подтверждение ожидаемого диапазона $40-45",
     "trigger_url": "https://www.profinance.ru/news/2026/03/02/cin3-v-fevrale-rossiya-prodavala-svoyu-neft-na-28-dollarov-deshevle-evropejskogo-etal.html",
     "signal": "skip",
