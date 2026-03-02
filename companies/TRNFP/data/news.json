@@ -31,5 +31,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Citigroup: цена нефти Brent подскочит до $90 за баррель",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/03/02/cimx-citigroup-tsena-nefti-brent-podskochit-do-90-za-barrel.html",
+    "impact": "positive",
+    "summary": "Статья о прогнозе Citigroup по росту цен на нефть Brent до $85/барр. из-за конфликта США и Израиля с Ираном. Для Транснефти это косвенный позитив — рост нефтяных котировок при геополитической эскалации и потенциальном увеличении объёмов транспортировки через систему компании может положительно сказаться на загрузке трубопроводов, хотя основной доход Транснефти формируется от тарифов, а не от цены на нефть.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
