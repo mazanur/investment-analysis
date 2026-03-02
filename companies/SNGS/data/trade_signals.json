@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Удар БПЛА по НПЗ Aramco в Саудовской Аравии — потенциальные перебои поставок нефти, косвенный позитив для SNGS",
+    "trigger_url": "https://ria.ru/20260302/udar-2077807236.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Продолжение геополитического кластера Иран/Ормуз (26.02–02.03). Весь кластер уже в цене: +6.37% (21.74→23.125) при volume 2.78× ADV — сильная реакция. SDN-санкции ограничивают выгоду от роста нефти. Основной драйвер SNGS — кубышка $44 млрд, не нефтяные котировки. Position = watch (value trap, 5/10 чеклист)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Smart-Lab: «И что теперь?» — прогноз Brent $100-130 при блокаде Ормуза, косвенный позитив для SNGS как нефтеэкспортёра",
     "trigger_url": "https://smart-lab.ru/blog/1271504.php",
     "signal": "skip",
