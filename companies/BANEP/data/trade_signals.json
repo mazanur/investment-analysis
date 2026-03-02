@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Акции нефтяников летят вверх: Brent +9.3% до $79.65, BANEP +6.85% — констатация ралли",
+    "trigger_url": "https://www.finam.ru/publications/item/aktsii-rossiyskikh-neftyanikov-letyat-vverkh-na-rezkom-udorozhanii-chernogo-zolota-20260302-1019/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Skip по трём причинам: (1) ADV 25 млн ₽ < 50 млн — неликвид, stop-условие по гайду; (2) позитив уже в цене (+5.38% на 7.85× ADV с 27.02) — сильная реакция, перекупленность; (3) noise — констатация факта роста акций нефтяников, дублирует обработанный кластер Ормузский пролив / Иран (20 предыдущих сигналов), не специфичен для BANEP."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Прогноз Brent $60 при снятии эмбарго на иранскую нефть — угроза высоким ценам",
     "trigger_url": "https://lenta.ru/news/2026/03/02/cheap/",
     "signal": "skip",
