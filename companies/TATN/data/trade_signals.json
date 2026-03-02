@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Smart-lab: не рекомендует покупать нефтянку — профицит нефти 2-3.7 млн б/с, дисконт Urals 25-30$, нефтебочка 4262 ₽ (шум, переупаковка известных рисков)",
+    "trigger_url": "https://smart-lab.ru/blog/1271686.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise — аналитическая статья с мнением о секторе (не событие-катализатор). Все аргументы (профицит нефти, дисконт Urals $25-30, нефтебочка 4262 ₽, снижение геопремии) уже учтены в key_risks _index.md. Цена TATN +4.1% вопреки негативу (рынок игнорирует, позитив от Ирана/Ормуза перевешивает). Ни long-positive (новость негативная), ни long-oversold (цена растёт) не применимы. R/R = 0.73 (upside 7.3% к fair value 625 ₽, стоп -10%) << 2.0."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Индекс Мосбиржи достиг максимума с 12 сентября, TATN +5.9% на конфликте США/Израиль vs Иран, нефть $80-100/барр. — 14-й дубль кластера Иран/Ормуз, позитив уже в цене (+6.1%, 2.08× ADV)",
     "trigger_url": "https://www.vedomosti.ru/investments/news/2026/03/02/1180038-indeks-mosbirzhi",
     "signal": "skip",
