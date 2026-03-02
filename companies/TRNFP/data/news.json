@@ -64,5 +64,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Bloomberg: Индия пытается получить у США временное ...",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/03/02/cin5-bloomberg-indiya-pytaetsya-poluchit-u-ssha-vremennoe-razreshenie-na-pokupku-ross.html",
+    "impact": "negative",
+    "summary": "Статья не про Транснефть — компания не упоминается в тексте. Статья о сокращении Индией импорта российской нефти до 1 млн б/д из-за давления США и торгового соглашения. Для Транснефти это косвенный негатив — снижение экспорта российской нефти в Индию может уменьшить объёмы транспортировки через систему компании (хотя основной доход Транснефти формируется от тарифов, а не от объёмов экспорта).",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
