@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Bloomberg: Индия сокращает импорт российской нефти до 1 млн б/д из-за давления США и торгового соглашения",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/02/cin5-bloomberg-indiya-pytaetsya-poluchit-u-ssha-vremennoe-razreshenie-na-pokupku-ross.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость, но цена выросла на +1.4% (доминирует позитивный кластер Иран/нефть). Нет сценария long-oversold (цена не упала). Влияние косвенное — Транснефть зарабатывает на тарифах, не на объёмах экспорта в Индию. Снижение с 1.2 до 1 млн б/д — частичное подтверждение известного риска (ОПЕК+). Sentiment neutral, position watch, upside 14%."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Urals +$0.9-2.7/барр. в феврале, цена для налогообложения $44.59 (+$3.64 к январю)",
     "trigger_url": "https://www.profinance.ru/news/2026/03/02/cin3-v-fevrale-rossiya-prodavala-svoyu-neft-na-28-dollarov-deshevle-evropejskogo-etal.html",
     "signal": "skip",
