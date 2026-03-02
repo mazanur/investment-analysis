@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Smart-Lab: «И что теперь?» — прогноз Brent $100-130 при блокаде Ормуза, косвенный позитив для SNGS как нефтеэкспортёра",
+    "trigger_url": "https://smart-lab.ru/blog/1271504.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Продолжение геополитического кластера Иран/Ормуз (26.02–02.03). Кластер уже в цене: +4.81% (21.74→22.785) при volume 2.78× ADV. Конкретно эта статья: price_move +0.46% (22.68→22.785) — рынок не отреагировал, т.к. тема отыграна ранее. SDN-санкции ограничивают выгоду от нефти. Основной драйвер SNGS — кубышка $44 млрд, не нефтяные котировки. Position = watch (value trap, 5/10 чеклист)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Индекс Мосбиржи вырос на фоне Ирана, SNGS в лидерах (+3%) — продолжение кластера нефть/рубль",
     "trigger_url": "https://1prime.ru/20260302/torgi-867930303.html",
     "signal": "skip",
@@ -54,5 +68,19 @@
     "risk_reward_ratio": null,
     "position_size": "skip",
     "reasoning": "Обе новости (26.02 и 01.03) — одна тема: прогноз ослабления рубля. Позитив уже в цене: +4.33% от 21.74 до 22.68, volume 2× ADV. Новости — мнения аналитиков (noise), не конкретный катализатор с датой. Position = watch (5/10 чеклист), value trap не снят."
+  },
+  {
+    "date": "2026-02-26",
+    "trigger": "Префы SNGS +4% на ослаблении рубля после заявлений Силуанова о бюджетном правиле, прогноз дивдоходности до 24%",
+    "trigger_url": null,
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитив для SNGSP (преф), не SNGS (обыкн.) — дивиденд по ОА всего 2-3% от прибыли. На дату новости SNGS +0.74% (21.74→21.90), к 02.03 кластер +4.81% (21.74→22.785) при volume 2.78× ADV — окно закрыто. Прогноз курса 95-100 ₽/$ — мнение аналитиков, не конкретный катализатор с датой. Position = watch (value trap, 5/10 чеклист)."
   }
 ]
