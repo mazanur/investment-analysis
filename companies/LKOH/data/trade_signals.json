@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Топливный шок: дизель +17%, Brent +13% из-за блокировки Ормузского пролива — завершающий сигнал кластера Ормуз/Иран (21-й)",
+    "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133502",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "21-й сигнал кластера Ормуз/Иран. Позитив уже в цене: +4.54% от пре-новостного уровня (5194→5430), volume 3× ADV (8.98 млрд ₽). Матрица: price_move 2–5% + volume >2× = «в цене», для позитива → skip. R/R = 1.42 (upside 14.2% до fair value 6200, stop −10% = 4887) < минимума 2.0. Brent $80 ≠ Urals $80 (дисконт $10–15). Временный макро-фактор, тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "ОПЕК+ в апреле увеличит добычу на 206 тыс. б/с — дубль Vedomosti/Interfax, 3-й сигнал ОПЕК+ в кластере",
     "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133364",
     "signal": "skip",
