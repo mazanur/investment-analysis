@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Smart-lab не рекомендует покупать нефтяников: профицит 2–3.7 млн б/с, дисконт Urals $25–30, нефтебочка 4262 ₽ — noise, переупаковка key_risks",
+    "trigger_url": "https://smart-lab.ru/blog/1271686.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise: мнение блогера Smart-lab, переупаковка уже известных key_risks (Urals discount $25–30, профицит ОПЕК+ 2–3.7 млн б/с, низкая рублёвая нефтебочка 4262 ₽). Все факторы учтены в fair value 6200. Цена +5.27% от пре-кластерного уровня (5194→5468) на геополитике Ормуз, volume 3× ADV — рынок полностью игнорирует негатив. Ни long-positive (новость негативная), ни long-oversold (цена не упала) — нет сценария. R/R = 1.34 (upside 13.4% до fair value 6200, stop −10% = 4921) < минимума 2.0. Тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Нефть по 150 — спекулятивный прогноз роста Brent до $150/барр. при эскалации Иран/Ормуз, 25-й сигнал кластера",
     "trigger_url": "https://smart-lab.ru/blog/1271616.php",
     "signal": "skip",
