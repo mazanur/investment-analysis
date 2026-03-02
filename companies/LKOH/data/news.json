@@ -394,5 +394,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Катар остановил производство СПГ",
+    "type": "news",
+    "url": "https://lenta.ru/news/2026/03/02/katar-ostanovil-rabotu-atakovannogo-iranom-proizvodstva-spg/",
+    "impact": "positive",
+    "summary": "Статья о геополитическом конфликте на Ближнем Востоке: Иран атаковал НПЗ Saudi Aramco и объекты QatarEnergy в Катаре, что приводит к перебоям с поставками нефти и СПГ на мировой рынок. Для Лукойла это позитив как для нефтяного экспортёра, поскольку сокращение предложения на глобальном рынке поддерживает высокие мировые цены на нефть, от которых компания напрямую выигрывает.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
