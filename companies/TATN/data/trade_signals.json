@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Российский рынок позитивно реагирует на международную повестку — Brent +7.9% до $78.64 на конфликте Ирана/Ормуз, 16-й дубль кластера, позитив уже в цене (+6.7%, 2.08× ADV)",
+    "trigger_url": "https://smart-lab.ru/company/freedom_finance_global/blog/1271731.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "16-й сигнал кластера Иран/Ормуз (Freedom Finance). Позитив полностью в цене: +6.7% от pre-news 546.5→583, volume 2.08× ADV. По матрице: >5% + любой volume = «сильная реакция» → перекупленность. R/R = 0.72 (upside 7.2% к fair value 625 ₽, стоп -10% macro) << 2.0. Геополитическая премия временная, ОПЕК+ наращивает добычу +206k б/с в апреле. Position = watch, sentiment = neutral."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Smart-lab: не рекомендует покупать нефтянку — профицит нефти 2-3.7 млн б/с, дисконт Urals 25-30$, нефтебочка 4262 ₽ (шум, переупаковка известных рисков)",
     "trigger_url": "https://smart-lab.ru/blog/1271686.php",
     "signal": "skip",
