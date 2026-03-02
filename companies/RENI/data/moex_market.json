@@ -1,0 +1,38 @@
+{
+  "ticker": "RENI",
+  "date": "2026-03-02",
+  "shortname": "Ренессанс",
+  "secname": "Ренессанс Страхование ао",
+  "price": {
+    "last": 94.46,
+    "open": 94.9,
+    "high": 95.1,
+    "low": 93.5,
+    "waprice": 94.18,
+    "prev_close": 94.9
+  },
+  "volume": {
+    "shares_today": 1954960,
+    "value_today_rub": 184123532,
+    "num_trades_today": 11412
+  },
+  "liquidity": {
+    "adv_30d_rub": 109250880,
+    "adv_30d_mln_rub": 109.3,
+    "bid_ask_spread_pct": 0.0635
+  },
+  "capitalization": {
+    "market_cap_rub": 52476090931.6,
+    "market_cap_bln_rub": 52.5,
+    "shares_outstanding": 556952780
+  },
+  "range_52w": {
+    "high": 141.06,
+    "low": 90.12
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 10
+  }
+}
