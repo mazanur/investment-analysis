@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-03-02",
+    "trigger": "Ипотечные ставки снизились на 1 п.п. с начала года",
+    "trigger_url": "https://www.vedomosti.ru/finance/news/2026/03/02/1180081-stavki-po-ipoteke",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Снижение ипотечных ставок −1 п.п. — следствие решения ЦБ, уже учтено в тезисе (key_opportunity: снижение ставки ЦБ до 13%). Статья не про ДОМ.РФ — компания лишь источник статистики, noise. Position = watch, условия для buy не выполнены (CoR 1.0% > 0.8%, просрочка 90+ растёт). Цена −2.3% в день новости — рынок не считает значимой."
+  },
+  {
+    "date": "2026-02-24",
+    "trigger": "ДОМ.РФ перевыполнил план по прибыли за 2025 (88.8 vs 88.1 млрд), ROE 21.6%, дивдоходность 11.4%",
+    "trigger_url": "https://smart-lab.ru/blog/1269204.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Перевыполнение плана прибыли на 0.8% — noise-уровень. Позитив компенсируется ростом CoR с 0.5% до 0.7% и увеличением резервов на 70%, что подтверждает основной риск тезиса. Цена −0.56% при volume 2.5× ADV — рынок absorbed как neutral. Position = watch, BUY не открыт."
+  }
+]
