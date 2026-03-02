@@ -229,5 +229,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Цены на европейский газ подскочили на 25% на фоне ...",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/03/02/cimq-tseny-na-evropejskij-gaz-podskochili-na-25-na-fone-ugrozy-mirovym-gazovym-potoka.html",
+    "impact": "positive",
+    "summary": "Статья о росте цен на европейский газ на 25% из-за угрозы поставкам через Ормузский пролив (20% мирового экспорта СПГ). Башнефть не упоминается напрямую, но статья также указывает на рост цен на нефть из-за того же конфликта. Для нефтедобывающей компании это косвенно позитивно — рост мировых цен на нефть увеличивает выручку и дивидендный потенциал (особенно учитывая дисконт Urals к Brent).",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
