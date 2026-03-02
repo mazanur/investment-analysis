@@ -207,5 +207,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Рынки во власти динамики нефти",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/rynki-vo-vlasti-dinamiki-nefti-20260302-2100/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Рост цен на нефть Brent до $82 за баррель из-за эскалации ближневосточного конфликта напрямую увеличивает выручку и ЧП Татнефти как нефтепроизводителя. Статья также отмечает рост акций Татнефти на 9,47% — это позитивное ценовое движение на фоне геополитического фактора, который может поддержать котировки компании.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
