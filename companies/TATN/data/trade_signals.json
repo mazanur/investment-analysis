@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Индекс Мосбиржи вырос на фоне Ирана, Brent +5.7% до $77/барр. — 11-й дубль кластера Иран/Ормуз, позитив уже в цене (+3.8%, 2.08× ADV)",
+    "trigger_url": "https://1prime.ru/20260302/torgi-867930303.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "11-й сигнал кластера Иран/Ормуз. Позитив уже в цене: +3.8% от pre-news (546.5→567.1), volume 2.08× ADV. По матрице: 2-5% + volume >2× = «в цене» для позитива → skip. R/R = 1.02 (upside 10.2% к fair value 625 ₽, стоп -10% macro-тип) < 2.0. Position = watch, sentiment = neutral — нет оснований для override."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Италия/ЕС переплатили 30+ млрд евро за нефть после отказа от российских поставок — подтверждение продолжающегося эмбарго",
     "trigger_url": "https://lenta.ru/news/2026/03/02/tsena-otkaza-evropeyskoy-strany-ot-rossiyskoy-nefti-okazalas-vnushitelnoy/",
     "signal": "skip",
