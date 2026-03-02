@@ -262,5 +262,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Раскрыты последствия атаки Ирана на один из крупнейших НПЗ в мире",
+    "type": "news",
+    "url": "https://lenta.ru/news/2026/03/02/raskryty-posledstviya-ataki-irana-na-odin-iz-krupneyshih-npz-v-mire/",
+    "impact": "positive",
+    "summary": "Статья о продлении энергокризиса из-за атаки Ирана на НПЗ Saudi Aramco позитивна для Башнефти — рост цен на нефть (до $100/баррель) увеличивает выручку и дивидендный потенциал, а возможное сокращение иранских поставок в Китай усилит конкуренцию за российскую нефть и снизит дисконт Urals.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
