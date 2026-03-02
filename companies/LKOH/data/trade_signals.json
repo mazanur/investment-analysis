@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "ОПЕК+ в апреле увеличит добычу на 206 тыс. б/с — дубль Vedomosti/Interfax, 3-й сигнал ОПЕК+ в кластере",
+    "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133364",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Дубль новости ОПЕК+ (уже покрыт сигналами Vedomosti и Interfax). Негативная макро-новость, но цена +4.5% на геополитике Ормуз (5194→5429.5), volume 3× ADV — нет сценария (не long-positive: новость негативная; не long-oversold: цена не упала). R/R = 1.42 (upside 14.2% до fair value 6200, stop −10% = 4887) < минимума 2.0. Тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Трамп ожидает длительность операции в Иране ~4 недели — потери 200–300 млн барр., трафик Ормуза −38–50%, завершающий сигнал кластера",
     "trigger_url": "https://smart-lab.ru/blog/1271473.php",
     "signal": "skip",
