@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Рынок акций РФ начал неделю с роста вслед за нефтью — ЛУКОЙЛ +5.8%, Brent $80/барр., 38-й сигнал кластера Ормуз/Иран",
+    "trigger_url": "https://www.interfax.ru/business/1075616",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "38-й сигнал кластера Ормуз/Иран. Позитив уже в цене: +6.55% от пре-кластерного уровня (5147→5484), volume 3× ADV (8.98 млрд ₽). Матрица: price_move >5% = «сильная реакция» → перекупленность для позитива. R/R = 1.31 (upside 13.1% до fair value 6200, stop −10% = 4936) < минимума 2.0. Brent $80 ≠ Urals $80 (дисконт $10–15). Временный макро-фактор, тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "4 сценария для Ирана после Хаменеи — Brent $80–100+ при 3 из 4 сценариев, 37-й сигнал кластера Ормуз/Иран, noise (аналитический прогноз)",
     "trigger_url": "https://ru.investing.com/news/economy-news/article-3134559",
     "signal": "skip",
