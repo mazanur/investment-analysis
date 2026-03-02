@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Saudi Aramco остановила работу НПЗ (550k б/с) после иранского удара — рост нефти ~10%, но влияние на ROSN косвенное (поставки РФ не через Ормуз)",
+    "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133636",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная macro-новость (strength: medium) — эскалация иранского кластера 28.02–01.03: удар Ирана по НПЗ Saudi Aramco (550k б/с). Позитив уже в цене: price_move +4,78% (405,85→425,25), volume_ratio 5,7× ADV (6,26 млрд vs ADV ~1,1 млрд). По матрице 2–5% + volume >2× = «в цене» для позитива → skip. R/R = 1,29 (target 480, stop −10% = 382,73) < 2,0. Влияние косвенное: российская нефть не идёт через Ормуз. Нейтрализующие факторы: ОПЕК+ +411k б/с в апреле, эксперты оценивают блокаду Ормуза как маловероятную. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Нефть по 150 — спекулятивная статья о возможном росте нефти до $150/барр. из-за эскалации Иран/Израиль. Переупаковка иранского кластера 28.02–01.03",
     "trigger_url": "https://smart-lab.ru/blog/1271616.php",
     "signal": "skip",
