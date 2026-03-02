@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Иранский кризис заставил Индию присмотреться к российской нефти — 9,5 млн баррелей уже в водах Азии",
+    "trigger_url": "https://www.finam.ru/publications/item/iranskiy-krizis-zastavil-indiyu-snova-prismotretsya-k-rossiyskoy-nefti-20260302-0852/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная macro-новость (strength: medium) — noise, переупаковка иранского кластера 28.02–01.03. Индия 'может увеличить закупки' — условная гипотеза, не подтверждённый факт. Позитив уже в цене: price_move +5,26% (394,6→415,35), volume_ratio 6,26× ADV. По матрице >5% = сильная реакция / перекупленность → skip. R/R = 1,56 (target 480, stop −10% = 373,8) < 2,0. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Утренний дайджест: Brent $81+, эскалация ближневосточного конфликта (США vs Иран, Израиль vs Хезболла) — переупаковка новостей 28.02–01.03",
     "trigger_url": "https://www.kommersant.ru/doc/8477706",
     "signal": "skip",
