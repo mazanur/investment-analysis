@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Командование США уничтожило 11 иранских кораблей в Оманском заливе — 41-й сигнал кластера Ормуз/Иран, эскалация (macro)",
+    "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/02/1180265-ob-unichtozhenii-korablei",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "41-й сигнал кластера Ормуз/Иран. Позитив уже в цене: +7.5% от пре-кластерного уровня (5147→5532.5), volume 3× ADV (8.98 млрд ₽). Матрица: price_move >5% = «сильная реакция» → перекупленность для позитива. R/R = 1.21 (upside 12.1% до fair value 6200, stop −10% = 4979) < минимума 2.0. Brent $80 ≠ Urals (дисконт $10–15), Urals ~$42–43 ниже потолка G7 $44.1. Временный макро-фактор, тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Рубль немного подешевел в паре с юанем, Brent +7.44% до $78.26 — 40-й сигнал кластера Ормуз/Иран, macro/noise (общая макро-статья, ЛУКОЙЛ не упомянут)",
     "trigger_url": "https://www.interfax.ru/business/1075620",
     "signal": "skip",
