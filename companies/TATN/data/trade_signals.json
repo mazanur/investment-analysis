@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-01",
+    "trigger": "Эксперт: сделка Ирана с США может снизить нефть до $60/барр. — гипотетический сценарий, негатив для TATN при реализации",
+    "trigger_url": "https://1prime.ru/20260302/sdelka-867925399.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise — прогноз эксперта о гипотетическом сценарии (IF сделка Ирана с США). Риск падения нефти до $60/барр. уже учтён в _index.md (key_risks: Urals $59/барр. в 1П 2025). Цена TATN не упала (+2.4% на геопремии Ормуза), ни long-positive, ни long-oversold не применимы. R/R = 1.17 (upside 11.7% к fair value 625 ₽, стоп -10%) < 2.0. 9-й сигнал кластера Иран/Ормуз — ничего нового."
+  },
+  {
+    "date": "2026-03-01",
     "trigger": "Brent превысил $80/барр. (+10.4%) после ударов по Тегерану — прямой позитив для TATN как нефтепроизводителя, но дубль кластера Иран/Ормуз",
     "trigger_url": "https://ria.ru/20260302/neft-2077760743.html",
     "signal": "skip",
