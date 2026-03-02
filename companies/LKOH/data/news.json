@@ -449,5 +449,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Эскалация на Ближнем Востоке продолжает разгонять акции нефтяников",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/eskalatsiya-na-blizhnem-vostoke-prodolzhaet-razgonyat-aktsii-neftyanikov-20260302-1927/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Рост акций ЛУКОЙЛа на 5,7% вслед за эскалацией ближневосточного конфликта и ростом цен на нефть (Brent +7,82% до $78,57) — прямой позитив для компании как нефтяного экспортёра, поскольку рост мировых котировок увеличивает выручку и прибыль от экспорта.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
