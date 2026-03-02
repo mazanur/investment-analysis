@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "Нежелание россиян тратить сбережения — статья подтверждает сохранение высоких ставок ЦБ дольше ожиданий",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/nezhelanie-rossiyan-tratit-sberezheniya-ob-yasnili/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise — общая макро-статья о потребительском поведении, не касается AFKS напрямую. Косвенная связь через ставку ЦБ уже полностью заложена в тезис (key_risks #1). Рынок не отреагировал (price_move −0.54%, volume 0.83× ADV). Ни long-positive, ни long-oversold сценарий не применим."
+  },
+  {
     "date": "2026-02-28",
     "trigger": "ЦБ ужесточит регулирование кредитования крупных компаний — надбавка к коэффициентам риска до 100% для высокозакредитованных",
     "trigger_url": "https://1prime.ru/20260301/tsb-867906517.html",
