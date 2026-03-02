@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Аналитик прогнозирует Brent $100 при блокировке Ормуза — 27-й сигнал кластера Ормуз/Иран, noise (мнение аналитика)",
+    "trigger_url": "https://ria.ru/20260302/tsena-2077870878.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "27-й сигнал кластера Ормуз/Иран. Noise: аналитический прогноз Brent $100 — мнение, не катализатор. Позитив уже в цене: +5.44% от пре-кластерного уровня (5194→5476.5), volume 3× ADV (8.98 млрд ₽). Матрица: price_move >5% = «сильная реакция» → перекупленность для позитива. Brent $79 ≠ Urals $79 (дисконт $10–15), при Urals ~$65 fair value ~5775 (+5.5%). R/R = 1.32 (upside 13.2% до fair value 6200, stop −10% = 4929) < минимума 2.0. Временный макро-фактор, тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Smart-lab не рекомендует покупать нефтяников: профицит 2–3.7 млн б/с, дисконт Urals $25–30, нефтебочка 4262 ₽ — noise, переупаковка key_risks",
     "trigger_url": "https://smart-lab.ru/blog/1271686.php",
     "signal": "skip",
