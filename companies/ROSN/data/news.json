@@ -229,5 +229,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Весна принесла на рынки нервозность",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/vesna-prinesla-na-rynki-nervoznost-20260302-0941/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Рост цен на нефть Brent до $78+ на фоне конфликта США и Израиля с Ираном и угрозы перекрытия Ормузского пролива позитивен для Роснефти как крупнейшего российского экспортёра — рост мировых цен увеличивает валютную выручку. Статья фиксирует рост акций Роснефти на 5,2% в рамках общего подъёма нефтяного сектора.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
