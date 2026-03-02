@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Цены на газ в Европе +24% на фоне конфликта Израиля и США с Ираном",
+    "trigger_url": "https://www.vedomosti.ru/business/news/2026/03/02/1180047-stoimost-gaza-virosla",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Macro-новость (strength: medium, impact: positive), но эффект ограничен: ЕС запретил российский СПГ с апреля 2026, основные поставки NVTK — в Азию, а не через Ормузский пролив. Позитив уже в цене (+4,5%, volume 2,8× ADV — движение на дивидендной новости). Fair value 1 000 ₽ << текущей 1 252 ₽ (downside -20%), sentiment bearish, position sell. Нет target для long."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "СД рекомендовал дивиденды 47,23 руб/акцию за 2025 (совокупно 82,73 руб, доходность ~7,1%)",
     "trigger_url": "https://www.finam.ru/publications/item/aktsioneram-novateka-predlozheno-utverdit-dividendy-v-4723-rublya-na-aktsiyu-20260302-1007/",
     "signal": "skip",
