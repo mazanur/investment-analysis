@@ -27,7 +27,7 @@ key_opportunities:
   - Технологическое лидерство в ГРП и горизонтальном бурении
   - Сильный ритейл-сегмент: 1 900+ АЗС с устойчивым внутренним спросом
 my_fair_value: 655
-current_price: 534.7
+current_price: 533.25
 upside: 2%
 position: hold
 gov_ownership: 96

@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Эксперт Родионов спрогнозировал падение Brent до $60/барр. при сделке США с Ираном и снятии эмбарго — гипотетический сценарий",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/cheap/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise: экспертный прогноз о гипотетическом падении Brent до $60 при сделке США-Иран и выходе ОПЕК+ из ограничений — мнение, не факт. Рынок полностью проигнорировал: price_move +2.1% ВВЕРХ (522.1→533.25 ₽), volume_ratio 6.1× ADV — доминирует позитив Ормузского кризиса. Ни long-positive (новость негативная), ни long-oversold (нет паники, цена выросла) не применимы. Тезис не изменён (sentiment: neutral, position: hold). Примечание: фактический upside к fair value 22.8% (533→655 ₽) — рекомендуется обновить _index.md."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "ОПЕК+ в апреле увеличит добычу нефти на 206 000 б/с — обновление предыдущей оценки 166 тыс. б/с",
     "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133364",
     "signal": "skip",
