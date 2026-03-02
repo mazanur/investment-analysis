@@ -97,5 +97,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "Цена отказа европейской страны от российской нефти оказалась внушительной",
+    "type": "news",
+    "url": "https://lenta.ru/news/2026/03/02/tsena-otkaza-evropeyskoy-strany-ot-rossiyskoy-nefti-okazalas-vnushitelnoy/",
+    "impact": "negative",
+    "summary": "Статья о том, что Италия и ЕС переплатили 30+ млрд евро за нефть после отказа от российских поставок — это косвенно негативно для Татнефти, так как подтверждает продолжающийся отказ Европы от российской нефти, что усиливает ценовое давление на Urals и ограничивает экспортные возможности российских производителей.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
