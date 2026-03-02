@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Brent +7,75% до $78,52 из-за эскалации на Ближнем Востоке (удар по Ирану, приостановка НПЗ Saudi Aramco, сокращение судоходства через Ормуз)",
+    "trigger_url": "https://www.interfax.ru/business/1075617",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": 1.54,
+    "position_size": "skip",
+    "reasoning": "Дубликат иранского кластера (8-я новость из того же события). Влияние на TRNFP косвенное — доход от тарифов, не от цены нефти. Spike & fade: цена 1463→1430 при 3× ADV. R/R = 1.54 < 2.0 при upside 14% (sentiment neutral, position watch)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Bloomberg: Индия сокращает импорт российской нефти до 1 млн б/д из-за давления США и торгового соглашения",
     "trigger_url": "https://www.profinance.ru/news/2026/03/02/cin5-bloomberg-indiya-pytaetsya-poluchit-u-ssha-vremennoe-razreshenie-na-pokupku-ross.html",
     "signal": "skip",
