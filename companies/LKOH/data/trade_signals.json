@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Катар остановил производство СПГ после атаки Ирана на объекты QatarEnergy — 34-й сигнал кластера Ормуз/Иран",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/katar-ostanovil-rabotu-atakovannogo-iranom-proizvodstva-spg/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "34-й сигнал кластера Ормуз/Иран. Позитив уже в цене: +5.84% от пре-кластерного уровня (5194→5497.5), volume 3× ADV (8.98 млрд ₽). Матрица: price_move >5% = «сильная реакция» → перекупленность для позитива. R/R = 1.28 (upside 12.8% до fair value 6200, stop −10% = 4948) < минимума 2.0. Новость не специфична для ЛУКОЙЛ (СПГ Катара ≠ бизнес LKOH). Временный макро-фактор, тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Страна БРИКС не готова к отказу от российской нефти — 33-й сигнал кластера Ормуз/Иран, noise (переупаковка темы роста нефти до $200 и переключения Индии на РФ)",
     "trigger_url": "https://lenta.ru/news/2026/03/02/strana-briks-okazalas-ne-gotova-k-otkazu-ot-rossiyskoy-nefti/",
     "signal": "skip",
