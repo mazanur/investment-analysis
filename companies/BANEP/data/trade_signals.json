@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "ОПЕК+ в апреле увеличит добычу нефти на 206 000 б/с — дубль решения, другой источник",
+    "trigger_url": "https://ru.investing.com/news/commodities-news/article-3133364",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Skip по трём причинам: (1) ADV 25 млн ₽ < 50 млн — неликвид, stop-условие по гайду; (2) дубль уже обработанной новости ОПЕК+ +206k б/с (Коммерсантъ, 01.03) — одно решение, другой источник (investing.com); (3) позитив от геополитики уже в цене (+3.44% на 5.68× ADV), ОПЕК+ не изменил направление."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Италия переплатила 30+ млрд евро за нефть после отказа от российских поставок — ретроспективный анализ",
     "trigger_url": "https://lenta.ru/news/2026/03/02/tsena-otkaza-evropeyskoy-strany-ot-rossiyskoy-nefti-okazalas-vnushitelnoy/",
     "signal": "skip",
