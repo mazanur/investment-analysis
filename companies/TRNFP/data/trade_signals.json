@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Citigroup прогнозирует рост Brent до $85-90 из-за конфликта с Ираном — косвенный позитив для загрузки трубопроводов",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/02/cimx-citigroup-tsena-nefti-brent-podskochit-do-90-za-barrel.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": 1.46,
+    "position_size": "skip",
+    "reasoning": "Шум: прогноз аналитика Citigroup по нефти, не катализатор для TRNFP (доход от тарифов, не от цены нефти). Дубликат иранского события, уже проанализированного 01-03 и 02-03. Рынок отреагировал спайком до 1463 (+2.56%, 3× ADV) и откатился к 1439. R/R = 1.46 < 2.0 при upside 14% (sentiment neutral, position watch)."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Индекс Мосбиржи вырос на фоне ситуации в Иране — Brent +5.7% до $77, косвенный позитив для загрузки трубопроводов",
     "trigger_url": "https://1prime.ru/20260302/torgi-867930303.html",
     "signal": "skip",
