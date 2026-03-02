@@ -229,5 +229,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-02",
+    "title": "ОПЕК+ в апреле увеличит добычу нефти на 206 000 б/с",
+    "type": "news",
+    "url": "https://ru.investing.com/news/commodities-news/article-3133364",
+    "impact": "negative",
+    "summary": "Увеличение добычи ОПЕК+ на 206 тыс. б/с в апреле может усилить давление на мировые цены на нефть, что негативно для Газпром нефти как экспортёра нефти — рост предложения на глобальном рынке снижает выручку компании.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
