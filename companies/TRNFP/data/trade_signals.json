@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-02",
+    "trigger": "Индекс Мосбиржи вырос на фоне ситуации в Иране — Brent +5.7% до $77, косвенный позитив для загрузки трубопроводов",
+    "trigger_url": "https://1prime.ru/20260302/torgi-867930303.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": 1.40,
+    "position_size": "skip",
+    "reasoning": "Продолжение того же геополитического события (Иран), уже проанализированного 03-01. Транснефть не упоминается в статье — влияние косвенное. Цена откатилась с 1463 до 1447 при объёме 3.65× ADV (фиксация прибыли). R/R = 1.40 < 2.0 при upside 14% (sentiment neutral, position watch)."
+  },
+  {
     "date": "2026-03-01",
     "trigger": "Военная операция США/Израиля против Ирана — ожидается рост Brent выше $80, ОПЕК+ увеличивает добычу на 206 тыс. б/с",
     "trigger_url": "https://www.kommersant.ru/doc/8477536",
