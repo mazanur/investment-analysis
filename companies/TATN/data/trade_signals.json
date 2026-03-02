@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "ЦБ понизил курс доллара до 77,17 ₽/$, ожидания ослабления рубля до 80-85 ₽/$ во 2К — рутинная публикация, не катализатор",
+    "trigger_url": "https://www.vedomosti.ru/finance/news/2026/03/02/1180180-ponizil-kursi",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "19-й сигнал кластера. Macro/noise — рутинная публикация курсов ЦБ, не событие-катализатор. Ожидания ослабления рубля к 80-85 ₽/$ уже в key_opportunities (85-95 ₽/$), текущий курс 77,17 далёк от целевого. Позитив полностью в цене: +9.0% от pre-news 546.5→595.7, volume 2.08× ADV. R/R = 0.49 (upside 4.9% к fair value 625 ₽, стоп -10% macro) << 2.0. Position = watch, sentiment = neutral."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "T-Invest: обзор стратегий трейдеров на фоне войны в Иране, Brent до $77 — 18-й дубль кластера Иран/Ормуз, позитив полностью в цене (+9.1%, 2.08× ADV)",
     "trigger_url": "https://smart-lab.ru/company/t_invest/blog/1271815.php",
     "signal": "skip",
