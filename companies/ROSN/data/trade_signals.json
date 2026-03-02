@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Весна принесла нервозность: ROSN +5,2% в рамках ралли нефтяного сектора на фоне Brent $78+ (конфликт Иран/Ормуз) — переупаковка кластера 28.02–01.03",
+    "trigger_url": "https://www.finam.ru/publications/item/vesna-prinesla-na-rynki-nervoznost-20260302-0941/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Noise (macro, strength: medium) — статья Финам фиксирует рост ROSN +5,2%, переупаковка иранского кластера 28.02–01.03. Позитив уже в цене: price_move +6,07% (394,6→418,55), volume_ratio 5,7× ADV (6,26 млрд vs ADV ~1,1 млрд). По матрице >5% = сильная реакция / перекупленность для позитива → skip. R/R = 1,47 (target 480, stop −10% = 376,7) < 2,0. Влияние косвенное: российская нефть не идёт через Ормуз. Нейтрализующие факторы: ОПЕК+ +411k б/с, открытие Ормуза, эксперты не ждут блокады. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Обзор Smart-Lab: атака на Иран, Brent $80+, влияние на нефтянку РФ — переупаковка новостей 28.02–01.03",
     "trigger_url": "https://smart-lab.ru/blog/1271534.php",
     "signal": "skip",
