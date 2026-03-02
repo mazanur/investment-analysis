@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-02",
+    "trigger": "Снижение вылова лососевых в 1.5 раза в 2026, прогноз подорожания рыбы на 4%/год",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/upadet/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": 1.82,
+    "position_size": "skip",
+    "reasoning": "Новость — отраслевой прогноз (noise): циклическое снижение вылова дикого лосося + комментарий менеджмента о росте цен на 4%. Не катализатор с конкретной датой. R/R 1.82 < 2.0 (upside 18% при stop -10%). Sentiment neutral, position hold — структурные проблемы (отрицательный FCF, маржа EBITDA падает 5 кварталов, выручка LTM -26%) не решаются ростом цен на рыбу."
+  }
+]
