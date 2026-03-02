@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-02",
+    "trigger": "Страна БРИКС не готова к отказу от российской нефти — 33-й сигнал кластера Ормуз/Иран, noise (переупаковка темы роста нефти до $200 и переключения Индии на РФ)",
+    "trigger_url": "https://lenta.ru/news/2026/03/02/strana-briks-okazalas-ne-gotova-k-otkazu-ot-rossiyskoy-nefti/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "33-й сигнал кластера Ормуз/Иран. Noise: переупаковка темы роста нефти до $200 и переключения Индии на российскую нефть — мнение экспертов, не катализатор. Позитив уже в цене: +5.83% от пре-кластерного уровня (5194→5497), volume 3× ADV (8.98 млрд ₽). Матрица: price_move >5% = «сильная реакция» → перекупленность для позитива. R/R = 1.28 (upside 12.8% до fair value 6200, stop −10% = 4947) < минимума 2.0. Тезис не изменён (neutral/hold). Ожидаем FY2025 МСФО 4 марта — основной катализатор."
+  },
+  {
+    "date": "2026-03-02",
     "trigger": "Скидки на нефть Urals в феврале выросли на $0,9-2,7/барр. к январю, абсолютная цена Urals в Приморске +$2,75 до $42,807 — backward-looking статистика, Urals всё ещё ниже потолка G7 $44,1",
     "trigger_url": "https://www.interfax.ru/business/1075567",
     "signal": "skip",
