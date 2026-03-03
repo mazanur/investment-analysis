@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-03",
+    "trigger": "Расширение Талнахской ОФ с 7.6 до 18 млн т/год к 2030-2031 (+30% первая очередь, medium buy)",
+    "trigger_url": "https://www.finam.ru/publications/item/nornikel-udvaivaet-moshchnosti-20260303-1001/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": {"condition": "нет точки входа — R/R < 2.0", "price": 157.36},
+    "exit": {"take_profit": 165.2, "stop_loss": 149.49, "time_limit_days": 0},
+    "expected_return_pct": 4.98,
+    "risk_reward_ratio": 1.0,
+    "position_size": "skip",
+    "reasoning": "Акция упала -4.7% на позитивной новости (расширение ОФ, реальный эффект — только к 2030+). Паттерн не соответствует правилам: long-positive требует price_move < 2%, long-oversold требует негативную новость. Target по правилам — pre_news 165.2 ₽, но R/R = 1.0 при стопе -5% и 0.5 при стопе -10% — оба ниже порога 2.0. Рынок рационально продаёт: расширение подразумевает рост CAPEX сейчас при отдаче через 5+ лет, что дольше удерживает дивиденды замороженными. Дополнительно против: fair value 150 ₽ ниже текущей цены (апсайда нет), никель в структурном профиците 209-261 тыс. т в 2025-2026, санкционный дисконт сохраняется."
+  },
+  {
     "date": "2026-03-02",
     "trigger": "США могут ввести пошлины 132,83% на импорт палладия из России",
     "trigger_url": "https://1prime.ru/20260302/palladiy-867802640.html",
