@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-03",
+    "trigger": "Венгрия после атаки на «Дружбу» получила украинскую нефть — временная замена российского транзита",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/03/cina-vengriya-zayavlyaet-chto-posle-ataki-na-truboprovod-druzhba-poluchila-ukrainskuy.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Дубликат темы «Дружба» — 5-й skip по той же теме (02.03 ×1, 03.03 ×4). Правило дубликата → skip автоматически. Дополнительно: (1) action=sell, short не предусмотрен системой; для long-oversold нужна просадка < -5% — текущий дневной move лишь -1.1%; (2) влияние косвенное — Транснефть зарабатывает на тарифах, а не на объёмах транзита, доходная база структурно защищена; (3) замена российской нефти украинской Венгрией — временная аварийная мера (атака на насосные станции), не структурное изменение маршрутов; (4) R/R < 2.0 при любом long: upside к pre_news 1446.6 = +1.1% против stop -5% → R/R ≈ 0.22; (5) накопленный cluster move +0.3% — рынок игнорирует всю серию новостей по «Дружбе»."
+  },
+  {
+    "date": "2026-03-03",
     "trigger": "Зеленский отказался возобновлять поставки нефти по «Дружбе» без перемирия",
     "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/03/1180344-zelenskii-otkazalsya",
     "signal": "skip",
