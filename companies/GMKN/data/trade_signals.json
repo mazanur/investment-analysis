@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-03",
+    "trigger": "Глобальное падение металлов + анонс 3-й очереди Талнахской ОФ (крупный капекс давит на FCF и дивиденды)",
+    "trigger_url": "https://smart-lab.ru/company/freedom_finance_global/blog/1272277.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": {"condition": "нет точки входа — цена выше fair value, R/R < 2.0", "price": 158.78},
+    "exit": {"take_profit": null, "stop_loss": null, "time_limit_days": null},
+    "expected_return_pct": 0,
+    "risk_reward_ratio": 0,
+    "position_size": "skip",
+    "reasoning": "Тройной skip: (1) Цена выше fair value (158.78 > 150 ₽) — target на fair value даёт отрицательную доходность; для long-oversold target = pre_news 165.1 ₽, но R/R = 3.98%/5% = 0.8 или 3.98%/10% = 0.4 — оба ниже порога 2.0. (2) Накопленный cluster move -3.8% не достигает порога oversold -5% — ещё не паника. (3) Тема расширения Талнахской ОФ уже дала skip-сигнал сегодня (2026-03-03): капекс на горизонте 5+ лет продолжает давить на FCF и удерживает дивиденды замороженными до 2027+. Фон усугублён: никель -0.89%, медь -1.95%, палладий -4.23%, платина -7.64% — широкое снижение товарных цен без краткосрочного катализатора разворота."
+  },
+  {
+    "date": "2026-03-03",
     "trigger": "Расширение Талнахской ОФ с 7.6 до 18 млн т/год к 2030-2031 (+30% первая очередь, medium buy)",
     "trigger_url": "https://www.finam.ru/publications/item/nornikel-udvaivaet-moshchnosti-20260303-1001/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
     "signal": "skip",
