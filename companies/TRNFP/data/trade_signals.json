@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-03",
+    "trigger": "Орбан не видит препятствий для возобновления поставок нефти по «Дружбе»",
+    "trigger_url": "https://www.interfax.ru/world/1075721",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Дубликат темы «Дружба» — уже 2 skip-а по той же теме 02.03 и 1 skip 03.03. Правило дубликата → skip. Рынок не реагирует на позитив: -0.4% при 2.2× ADV. Доход Транснефти формируется от тарифов, а не от объёмов — возобновление украинского транзита имеет маргинальное прямое влияние на финансы. Заявление Орбана политическое, не коммерческое соглашение; реализация неопределённа. Накопленный cluster move +1.0% < 2%, формально условие для long-positive выполнено, но перевешивает правило дубликата темы. Confidence low → skip."
+  },
+  {
+    "date": "2026-03-03",
     "trigger": "На Западе предрекли ответ Европы на остановку «Дружбы» — возможное возобновление транзита через Украину",
     "trigger_url": "https://lenta.ru/news/2026/03/03/na-zapade-predrekli-otvet-evropy-na-ostanovku-truboprovoda-druzhba/",
     "signal": "skip",
