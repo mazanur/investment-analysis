@@ -328,5 +328,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-03",
+    "title": "Акции сырьевых компаний растут на фоне эскалации на Ближнем Востоке",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/aktsii-syrevykh-kompaniy-rastut-na-fone-eskalatsii-na-blizhnem-vostoke-20260303-0930/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Газпром нефть не упоминается в статье напрямую — перечислены другие нефтяники (Башнефть, Татнефть, Роснефть, ЛУКОЙЛ) и материнская структура Газпром. Статья о росте российского рынка и конкретных компаниях-лидерах; Газпром нефть — не главный герой. Рост мировых цен на нефть Brent до $79,65 и геополитические риски вокруг Ормузского пролива косвенно позитивны для всех российских нефтяных экспортёров, включая Газпром нефть, но компания не выделена в статье.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
