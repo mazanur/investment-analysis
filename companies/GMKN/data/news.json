@@ -9,5 +9,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-03",
+    "title": "\"Норникель\" удваивает мощности",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/nornikel-udvaivaet-moshchnosti-20260303-1001/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Расширение Талнахской ОФ с 7,6 до 11,2 млн т/год (+30%) и планируемый рост до 18 млн т/год к 2030-2031 гг. обеспечит полную загрузку талнахских рудников и увеличение объёмов переработки уникальных вкрапленных руд — это позитив для долгосрочных перспектив компании, хотя эффект реализуется только в конце десятилетия.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
