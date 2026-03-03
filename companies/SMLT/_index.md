@@ -27,7 +27,7 @@ key_opportunities:
   - Семейная ипотека 6% до 2030 поддерживает базовый спрос
   - Q4 2025: денежные поступления +83% г/г — признаки оживления
 my_fair_value: 1100
-current_price: 850.4
+current_price: 843.4
 upside: 32%
 position: watch
 gov_ownership: 0

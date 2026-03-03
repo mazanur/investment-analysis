@@ -7,7 +7,7 @@ sentiment: bearish
 position: sell
 updated: 2026-02-19
 author: AlmazNurmukhametov
-current_price: 110.42
+current_price: 111.3
 my_fair_value: 89
 upside: -18%
 p_e: 7.71

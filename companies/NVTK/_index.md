@@ -26,7 +26,7 @@ key_opportunities:
   - Низкая себестоимость добычи < $1/mcf благодаря сухому газу ЯНАО
   - Частная компания — менеджмент-владелец заинтересован в росте капитализации
 my_fair_value: 1000
-current_price: 1277.5
+current_price: 1286.6
 upside: -20%
 position: sell
 gov_ownership: 0

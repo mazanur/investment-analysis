@@ -6,7 +6,7 @@ sentiment: neutral
 position: watch
 updated: 2026-02-11
 author: AlmazNurmukhametov
-current_price: 19350
+current_price: 19624
 my_fair_value: 19800
 upside: 7%
 p_e: 14.5
