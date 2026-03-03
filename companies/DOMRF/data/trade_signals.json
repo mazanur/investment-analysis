@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-03",
+    "trigger": "Анонс публикации отчётности ДОМ.РФ за январь 2026 — ключевое событие дня",
+    "trigger_url": "https://www.finam.ru/publications/item/otchetnosti-domrf-i-fiks-prays-osnovnye-sobytiya-3-marta-20260303-0900/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Падение -4.0% не дотягивает до порога long-oversold (<-5%), сентимент neutral — long-positive тоже не применим. R/R форсированного oversold: target=2305.5 (pre-news), stop=-5%=2103.4 → R/R=0.82, ниже минимума 2.0 → skip по правилу. Новость — лишь анонс отчётности, не сам отчёт; результаты выходят сегодня, что создаёт бинарный риск до закрытия. Объём 1.8×ADV свидетельствует о целенаправленных продажах на ожиданиях. Фундаментал ухудшается: NPL 90+ вырос 0.7%→1.2%, CoR=1.0% — исторический максимум. Низкий free float (10.1%) усиливает проскальзывание. Ждём отчётных данных."
+  },
+  {
     "date": "2026-03-02",
     "trigger": "Ипотечные ставки снизились на 1 п.п. с начала года",
     "trigger_url": "https://www.vedomosti.ru/finance/news/2026/03/02/1180081-stavki-po-ipoteke",
