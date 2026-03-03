@@ -383,5 +383,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-03",
+    "title": "Зеленский назвал условие возобновления поставок по «Дружбе»",
+    "type": "news",
+    "url": "https://lenta.ru/news/2026/03/03/zelenskiy-nazval-uslovie-vozobnovleniya-postavok-po-druzhbe/",
+    "impact": "positive",
+    "summary": "Статья о геополитике вокруг трубопровода «Дружба», где Газпром нефть не упоминается напрямую. Новость о возможном восстановлении транзита российской нефти в Европу косвенно позитивна для компании как экспортёра, но не главный герой статьи.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
