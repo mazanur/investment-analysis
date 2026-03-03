@@ -145,8 +145,14 @@ endif
 	@echo "$(CYAN)Обновление цены $(TICKER)...$(NC)"
 	@python3 scripts/update_prices.py $(TICKER)
 	@echo ""
-	@echo "$(CYAN)Запуск Claude для анализа новостей $(TICKER)...$(NC)"
-	@claude $(CLAUDE_FLAGS) -p "Прочитай companies/NEWS_REACTION_GUIDE.md. Проанализируй последние новости из companies/$(TICKER)/data/news.json и определи, есть ли спекулятивная возможность. Запиши результат в companies/$(TICKER)/data/trade_signals.json." | $(CLAUDE_LOG)
+	@PROMPT=$$(python3 scripts/prepare_news_context.py $(TICKER) $(CURDIR)); \
+	if [ "$$PROMPT" = "SKIP" ]; then \
+		echo "$(YELLOW)Skipped $(TICKER) (pre-filter)$(NC)"; \
+	else \
+		echo "$(CYAN)Запуск Claude (sonnet) для анализа $(TICKER)...$(NC)"; \
+		cd /tmp && claude --model sonnet $(CLAUDE_FLAGS) -p "$$PROMPT"; \
+	fi
+
 
 update-macro:
 	@echo "$(CYAN)Запуск Claude для обновления macro.md...$(NC)"
