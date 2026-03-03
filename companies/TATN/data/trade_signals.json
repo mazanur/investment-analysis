@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-03",
+    "trigger": "Рынок РФ +0.5%, TATN +5.2% лидер роста — Brent выше $80 на эскалации США/Иран и угрозах блокировки Ормузского пролива (21-й дубль кластера, +10.8% уже в цене при 12.1× ADV)",
+    "trigger_url": "https://www.interfax.ru/business/1075701",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": -0.67,
+    "risk_reward_ratio": 0.0,
+    "position_size": "skip",
+    "reasoning": "21-й сигнал кластера Иран/Ормуз (Интерфакс, strength=high, action=buy). Позитив полностью в цене: +10.8% от pre-news 567.7→629.2 ₽, volume 12.1× ADV — классический blow-off top геополитической премии. Критично: цена 629.2 ₽ уже ВЫШЕ fair value 625.0 ₽, апсайд отрицательный (-0.67%). R/R = -0.67% / 5% стоп = отрицательный << порога 2.0. Ни long-positive (price_move +10.8% >> порога <2%), ни long-oversold (цена растёт, не падает на -5%) не применимы. Структурные риски сохраняются: UK-санкции дек. 2025, CEO в SDN-списке OFAC, Urals $59/барр. в 1П 2025, ОПЕК+ +206k б/сут в апреле 2026. Геополитическая премия Ормуза исторически краткосрочна. Position = watch до отката к уровням 560-575 ₽ с R/R ≥ 2.0."
+  },
+  {
+    "date": "2026-03-03",
     "trigger": "TATN +10.7% на эскалации Ближнего Востока, Brent $79.65/барр. (12.1× ADV) — цена 628.1 ₽ выше fair value 625 ₽, R/R отрицательный",
     "trigger_url": "https://www.finam.ru/publications/item/aktsii-syrevykh-kompaniy-rastut-na-fone-eskalatsii-na-blizhnem-vostoke-20260303-0930/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
     "signal": "skip",
