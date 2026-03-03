@@ -9,5 +9,16 @@
     "strength": "high",
     "action": "monitor",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-03",
+    "title": "“Фикс Прайс” может направить на дивиденды-2025 до 0,11 рубля на акцию",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/fiks-prays-mozhet-napravit-na-dividendy-2025-do-011-rublya-na-aktsiyu-20260303-1002/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Статья объявляет о первой в истории Fix Price дивидендной выплате — до 11 млрд рублей (0,11 руб/акция) по итогам 2025 года, что реализует заявленный катализатор начала дивидендных выплат с 2026 года и подтверждает переход компании к политике распределения ≥50% чистой прибыли.",
+    "strength": "high",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
