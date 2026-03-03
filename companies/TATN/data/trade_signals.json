@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-03",
+    "trigger": "TATN +10.7% на эскалации Ближнего Востока, Brent $79.65/барр. (12.1× ADV) — цена 628.1 ₽ выше fair value 625 ₽, R/R отрицательный",
+    "trigger_url": "https://www.finam.ru/publications/item/aktsii-syrevykh-kompaniy-rastut-na-fone-eskalatsii-na-blizhnem-vostoke-20260303-0930/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": -0.49,
+    "risk_reward_ratio": 0.0,
+    "position_size": "skip",
+    "reasoning": "Позитивная новость (Brent $79.65, Финам, strength=high, action=buy), но вход невозможен: 1) Цена 628.1 ₽ уже ВЫШЕ fair value 625.0 ₽ — апсайд отрицательный (-0.49%), таргет для long-positive не существует; 2) price_move = +10.6% от pre-news 567.7 ₽ — правило long-positive требует <2%, весь ход уже произошёл; 3) R/R = -3.1 ₽ / 31.4 ₽ (стоп -5%) = отрицательный << порога 2.0 → hard skip по правилам; 4) Volume 12.1× ADV при однодневном +10.6% — классический blow-off top геополитической премии, высока вероятность отката; 5) Структурные риски сохраняются: UK-санкции декабрь 2025, CEO в SDN-списке OFAC, Urals $59/барр. в 1П 2025, ОПЕК+ наращивает добычу +206k б/с в апреле 2026; 6) Геополитическая премия Ормуза исторически краткосрочна. Позиция = watch до появления нового входного уровня (откат к 560-570 ₽ с R/R ≥ 2.0)."
+  },
+  {
+    "date": "2026-03-03",
     "trigger": "Эксперт: Brent ~$80/барр. при профиците нефти в 2025 — для роста до $90+ нужны реальные сокращения поставок, не геополитика; негатив для TATN, но +11.4% уже в цене при 12× ADV",
     "trigger_url": "https://1prime.ru/20260303/ekspert-867959548.html",
     "signal": "skip",
