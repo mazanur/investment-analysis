@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-03",
+    "trigger": "Нефтяное ралли: Brent +6.05% до $82.47, Urals +9.56% до $64.91 на перекрытии Ормуза — TATN +3.66%, но 22-й дубль кластера Иран/Ормуз, накопленный move +15.2%, цена выше fair value",
+    "trigger_url": "https://smart-lab.ru/company/freedom_finance_global/blog/1272277.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": -0.14,
+    "risk_reward_ratio": 0.0,
+    "position_size": "skip",
+    "reasoning": "22-й сигнал кластера Иран/Ормуз (Freedom Finance, strength=high, action=buy). Тройное основание для skip: 1) Кластерный move +15.2% (543.3→625.9 ₽ с 24 фев) >> порога <2% для long-positive — весь позитив давно в цене; 2) Цена 625.9 ₽ ВЫШЕ fair value 625.0 ₽ — апсайд отрицательный (-0.14%), таргет long-positive не существует; 3) R/R = -0.9 ₽ / 31.3 ₽ (стоп -5%) = отрицательный << 2.0 — hard skip по правилам; 4) Volume 17.7× ADV при внутридневном +10.3% — классический blow-off top геополитической премии, высока вероятность разворота; 5) По той же теме 21 предыдущий skip — правило повтора темы однозначно skip. Структурные риски сохраняются: UK-санкции дек.2025, CEO в SDN-списке OFAC, Urals $64.91 — выше $59 1П2025 но ниже $69 1П2024, ОПЕК+ +206k б/с в апреле. Position = watch до отката к 560-575 ₽ с R/R ≥ 2.0."
+  },
+  {
+    "date": "2026-03-03",
     "trigger": "Рынок РФ +0.5%, TATN +5.2% лидер роста — Brent выше $80 на эскалации США/Иран и угрозах блокировки Ормузского пролива (21-й дубль кластера, +10.8% уже в цене при 12.1× ADV)",
     "trigger_url": "https://www.interfax.ru/business/1075701",
     "signal": "skip",
