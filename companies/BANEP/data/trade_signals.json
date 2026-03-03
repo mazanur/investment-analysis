@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-03",
+    "trigger": "\"Утекают нефть и деньги\": к чему готовится Ближний Восток прямо сейчас",
+    "trigger_url": "https://1prime.ru/20260303/krizis-867941397.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=35M < 50M"
+  },
+  {
     "date": "2026-03-02",
     "trigger": "Рост нефти на фоне войны Ирана, США и Израиля — закрытие залива, нефтегаз как драйвер индекса Мосбиржи",
     "trigger_url": "https://smart-lab.ru/blog/1271963.php",
