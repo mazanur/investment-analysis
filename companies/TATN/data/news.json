@@ -229,5 +229,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-03",
+    "title": "Акции сырьевых компаний растут на фоне эскалации на Ближнем Востоке",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/aktsii-syrevykh-kompaniy-rastut-na-fone-eskalatsii-na-blizhnem-vostoke-20260303-0930/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Акции Татнефти выросли на 10,68% (ао) и 8,91% (ап) на фоне геополитической эскалации на Ближнем Востоке, угрожающей поставкам нефти через Ормузский пролив. Рост мировых цен на нефть Brent до $79,65/барр. напрямую увеличивает выручку и денежный поток компании как нефтепроизводителя.",
+    "strength": "high",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
