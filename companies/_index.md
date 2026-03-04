@@ -68,7 +68,7 @@ updated: 2026-02-05
 | [NLMK](NLMK/) | НЛМК | neutral | hold | 1 |
 | [CHMF](CHMF/) | Северсталь | bearish | watch | 2 |
 | [MAGN](MAGN/) | ММК | bearish | watch | 1 |
-| [ALRS](ALRS/) | Алроса | bearish | watch | 3 |
+| [ALRS](ALRS/) | Алроса | bearish | sell | 3 |
 | [PLZL](PLZL/) | Полюс | bullish | watch | 2 |
 | [POLY](POLY/) | Polymetal (Solidcore) | bearish | avoid (делистинг) | 1 |
 | [RUAL](RUAL/) | Русал | bearish | sell | 3 |
