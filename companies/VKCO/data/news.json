@@ -20,5 +20,16 @@
     "strength": "medium",
     "action": "hold",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-26",
+    "title": "VK сохраняет планы вывести на IPO свою технологическую структуру VK Tech",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/vk-sokhranyaet-plany-vyvesti-na-ipo-svoyu-tekhnologicheskuyu-strukturu-vk-tech-20260226-1242/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Планы IPO VK Tech создают позитивный фон для VK, так как это позволит привлечь капитал в быстрорастущий B2B-сегмент (+39% YoY) и потенциально раскрыть стоимость технологического актива отдельно от рекламного бизнеса.",
+    "strength": "high",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
