@@ -1,14 +1,22 @@
 {
   "ticker": "ALRS",
-  "company_name": "Алроса",
-  "generated": "2026-03-03",
+  "company_name": "ALRS",
+  "generated": "2026-03-04",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Крупнейший производитель алмазов в мире (~30% мировой добычи) с низкой себестоимостью",
+      "description": "Крупнейший производитель алмазов (~30% мировой добычи) с низкой себестоимостью",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Цикл снижения ставки ЦБ (15.5% → 10-14%) снизит процентные расходы на 6-8 млрд ₽/год",
       "source": "index"
     },
     {
@@ -16,7 +24,15 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Сокращение мирового предложения алмазов до многолетних минимумов",
+      "description": "Алмазный рынок на многолетних минимумах — потенциал циклического recovery",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "P/BV 0.72x — ниже балансовой стоимости, поддержка активами",
       "source": "index"
     },
     {
@@ -28,11 +44,27 @@
       "source": "index"
     },
     {
-      "type": "opportunity",
-      "impact": "positive",
+      "type": "risk",
+      "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Ослабление рубля позитивно для экспортной выручки",
+      "description": "EBITDA маржа обвалилась до 24.6% — исторический минимум, падает 5+ полугодий подряд",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Процентные расходы удвоились до 19.1 млрд ₽ при Net Debt/EBITDA 1.53x",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "FCF отрицательный 2-й год подряд (-30 млрд ₽ за 2025)",
       "source": "index"
     },
     {
@@ -49,30 +81,6 @@
       "magnitude": "high",
       "date": null,
       "description": "Санкции G7 закрыли >50% традиционных рынков сбыта (ЕС, США)",
-      "source": "index"
-    },
-    {
-      "type": "risk",
-      "impact": "negative",
-      "magnitude": "medium",
-      "date": null,
-      "description": "Отрицательный FCF (-64 млрд ₽ LTM), бизнес не генерирует денежный поток",
-      "source": "index"
-    },
-    {
-      "type": "risk",
-      "impact": "negative",
-      "magnitude": "medium",
-      "date": null,
-      "description": "Рост долга с 9.5 млрд до 60.9 млрд за 3 года",
-      "source": "index"
-    },
-    {
-      "type": "risk",
-      "impact": "negative",
-      "magnitude": "medium",
-      "date": null,
-      "description": "Маржа EBITDA упала с 47.6% до 27.5% за 4+ кварталов",
       "source": "index"
     },
     {
@@ -93,8 +101,8 @@
     }
   ],
   "summary": {
-    "total": 11,
-    "positive": 4,
+    "total": 12,
+    "positive": 5,
     "negative": 5,
     "mixed": 2
   }
