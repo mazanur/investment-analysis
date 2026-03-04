@@ -64,5 +64,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-04",
+    "title": "Выручка «Аэрофлота» по МСФО в 2025 году выросла до 902,3 млрд рублей",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/vyruchka-aeroflota-po-msfo-v-2025-godu-vyrosla-do-9023-mlrd-rubley-20260304-0941/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "neutral",
+    "summary": "Годовая отчётность Аэрофлота по МСФО за 2025 показывает смешанные результаты: выручка выросла на 5,3% (позитив), однако скорректированная прибыль упала на 64,8%, а EBITDA снизилась на 22,1% с сокращением рентабельности до 20,5% (негатив). Одновременно долг снизился на 13,4%. Ухудшение операционной рентабельности является ключевым негативным фактором, нивелирующим рост выручки.",
+    "strength": "high",
+    "action": "hold",
+    "source": "rss-feeder"
   }
 ]
