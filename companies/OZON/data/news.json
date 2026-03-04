@@ -20,5 +20,16 @@
     "strength": "high",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-26",
+    "title": "Ozon ожидает чистую прибыль по итогам 2026 года",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/ozon-ozhidaet-chistuyu-pribyl-po-itogam-2026-goda-20260226-1000/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Статья о прогнозе Ozon получить чистую прибыль по итогам 2026 года — это позитивный сигнал, подтверждающий ожидания из гайденса (EBITDA ~200 млрд, чистая прибыль). Прогноз первой годовой прибыли в истории компании является ключевым катализатором, который усиливает уже позитивный нарратив трансформации модели из убыточного маркетплейса в прибыльную экосистемную платформу.",
+    "strength": "high",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
