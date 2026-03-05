@@ -20,5 +20,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-04",
+    "title": "Ажиотаж в нефтегазе сник - лидеры и аутсайдеры меняются местами",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/azhiotazh-v-neftegaze-snik-lidery-i-autsaydery-menyayutsya-mestami-20260304-2122/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Рост акций Русала на +3,33% на фоне обновления цен на алюминий до $3418,50/т (максимум с апреля 2022) напрямую улучшает выручку и маржу компании, так как она является производителем алюминия и выигрывает от роста мировых цен на свою продукцию.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
