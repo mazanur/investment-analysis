@@ -8,7 +8,7 @@ position: avoid
 updated: 2026-02-19
 author: AlmazNurmukhametov
 my_fair_value: 44
-current_price: 301.3
+current_price: 302.2
 upside: -86%
 p_e: n/a
 ev_ebitda: 14.3
