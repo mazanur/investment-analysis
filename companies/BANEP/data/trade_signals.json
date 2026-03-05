@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-05",
+    "trigger": "Ажиотаж в нефтегазе сник - лидеры и аутсайдеры меняются местами",
+    "trigger_url": "https://www.finam.ru/publications/item/azhiotazh-v-neftegaze-snik-lidery-i-autsaydery-menyayutsya-mestami-20260304-2122/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=35M < 50M"
+  },
+  {
+    "date": "2026-03-05",
     "trigger": "Brent подешевела до $81,18 за баррель",
     "trigger_url": "https://www.interfax.ru/business/1076121",
     "signal": "skip",
