@@ -636,5 +636,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Bloomberg сообщил о возобновлении поставок российской нефти в Индию",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/bloomberg-soobshchil-o-vozobnovlenii-postavok-rossiyskoy-nefti-v-indiyu-20260305-0837/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Статья о возобновлении поставок российской нефти Urals в Индию (1,4 млн баррелей) на фоне конфликта США и Израиля с Ираном. Роснефть не указана напрямую — новость о российском экспорте в целом. Для крупнейшего экспортёра Роснефти это косвенно позитивно: переориентация на индийский рынок вместо восточноазиатского расширяет сбыт и может сократить дисконт Urals к Brent. Но компания — не главный герой статьи.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
