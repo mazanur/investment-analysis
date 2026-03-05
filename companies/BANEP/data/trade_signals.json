@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-05",
+    "trigger": "«Никто помогать не хотел». Что рассказали РБК вернувшиеся из ОАЭ туристы",
+    "trigger_url": "https://www.rbc.ru/politics/02/03/2026/69a5b59f9a79476860d61d64",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=35M < 50M"
+  },
+  {
+    "date": "2026-03-05",
     "trigger": "FT: американская сланцевая нефть не сможет быстро заместить ближневосточные поставки",
     "trigger_url": "https://www.kommersant.ru/doc/8479883",
     "signal": "skip",
