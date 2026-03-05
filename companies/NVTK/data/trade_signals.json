@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-05",
+    "trigger": "США готовы обеспечить безопасный проход танкеров через Ормузский пролив",
+    "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/04/1180706-obespechit-prohod-tankerov",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Новость косвенно негативна для Новатэка: деэскалация в Ормузском проливе может снизить мировые цены на СПГ, от которых NVTK выигрывает. Однако direct impact ограничен — основные поставки в Азию через Севморпуть, ЕС запретил российский СПГ, Арктик СПГ-2 под санкциями со скидкой 30-40%. Рынок уже вырос на +9.2% с начала кластера (1184.9→1294 ₽), текущая цена 1294 ₽ значительно выше fair value 1000 ₽ (downside -22.7%). Sentiment bearish, позиция sell. Нет точки входа для спекуляции."
+  },
+  {
     "date": "2026-03-02",
     "trigger": "Цены на газ в Европе +24% на фоне конфликта Израиля и США с Ираном",
     "trigger_url": "https://www.vedomosti.ru/business/news/2026/03/02/1180047-stoimost-gaza-virosla",
@@ -55,5 +69,4 @@
     "position_size": "skip",
     "reasoning": "Негативная regulation-новость (strength: high), но рынок не отреагировал (price_move -0,3%, volume_ratio 0,8×). Ни long-positive (новость негативная), ни long-oversold (нет падения >5%) не применимы. Инкрементальный негатив к уже учтённым санкционным рискам в key_risks (Арктик СПГ-2, запрет ЕС). Тезис не меняется: sentiment bearish, fair value 1 000 ₽ < текущей 1 197 ₽."
   }
-
 ]
