@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-04",
+    "trigger": "Росавиация рекомендовала российским авиакомпаниям приостановить до 7 марта продажу билетов в страны Ближнего Востока (6 стран) из-за закрытия воздушного пространства",
+    "trigger_url": "https://www.finam.ru/publications/item/rosaviatsiya-rekomendovala-rossiyskim-aviakompaniyam-priostanovit-do-7-marta-prodazhu-biletov-v-strany-blizhnego-vostoka-20260304-1614/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Кластерный move -5.3% (с 55.8₽ до 52.86₽) формально подходит под long-oversold (порог -5%). Однако: (1) новость ПОВТОРЯЕТ тему предыдущих 5 skip-ов — ближневосточные ограничения идут с 01.03, это 6+ новость по той же теме; (2) фундаментал проблемный — санкции на парк Boeing/Airbus, рост расходов +18%, задержки МС-21; (3) по правилу 'новость повторяет тему предыдущих skip-ов → skip'. Повторное ограничение — не новый катализатор, а эскалация уже учтённого риска. Position остаётся watch."
+  },
+  {
     "date": "2026-03-05",
     "trigger": "Аэропорт Краснодара приостановил полеты — временное закрытие аэропортов Ульяновска и Волгограда из-за атак дронов",
     "trigger_url": "https://www.rbc.ru/rbcfreenews/69a7925f9a79473c6c1761f6",
