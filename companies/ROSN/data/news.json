@@ -493,5 +493,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-04",
+    "title": "Обострение ситуации на Ближнем Востоке играет на руку российскому рынку",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/obostrenie-situatsii-na-blizhnem-vostoke-igraet-na-ruku-rossiyskomu-rynku-20260304-1525/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Рост нефти на фоне эскалации вокруг Ормузского пролива (Brent +3,1% до $83,96) позитивен для Роснефти как крупнейшего нефтяного экспортёра РФ — высокие мировые цены увеличивают валютную выручку и сокращают дисконт Urals к Brent, хотя в статье компания упомянута в ряду других эмитентов сектора",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
