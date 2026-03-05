@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-05",
+    "trigger": "Аэропорт Краснодара приостановил полеты — временное закрытие аэропортов Ульяновска и Волгограда из-за атак дронов",
+    "trigger_url": "https://www.rbc.ru/rbcfreenews/69a7925f9a79473c6c1761f6",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Накопленный negative move -5.1% (кластер с 01.03) + локальная негативная новость — формально подходит под long-oversold. Однако R/R = 0.77 (stop-loss -5% к 50.37₽ vs target pre_news 54.1₽) ниже порога 2.0. Новость временная и локализованная (3 аэропорта из 100+), фундаментал цел (fair value 69₽, дивиденды 9.4%). При such low R/R — skip. Position остаётся watch."
+  },
+  {
     "date": "2026-03-02",
     "trigger": "Аэрофлот отменил рейсы ОАЭ–Россия (СПб, Екатеринбург, Краснодар) до 8 марта — продление ограничений из-за конфликта в Персидском заливе",
     "trigger_url": "https://ria.ru/20260302/reysa-2078004455.html",
