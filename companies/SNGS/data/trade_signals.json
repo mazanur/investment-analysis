@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-05",
+    "trigger": "Минфин приостанавливает валютные интервенции — ослабление рубля до 92-100 ₽/$ позитивно для кубышки $44 млрд SNGS",
+    "trigger_url": "https://smart-lab.ru/blog/1272977.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Новость позитивна для SNGS (валюта кубышки $44 млрд в рублях вырастет), НО: кластерный move +3.2% (21.7→22.43) > 2% — позитив уже в цене. Это развитие темы рубля/валюты (26.02, 01.03), по которой уже были skip. Правило: кластерный move > 2% при позитиве = skip. Position = watch."
+  },
+  {
+    "date": "2026-03-05",
     "trigger": "Немецкая разведка (BND) оценила дефицит российского бюджета — снижение нефтегазовых доходов РФ",
     "trigger_url": "https://lenta.ru/news/2026/03/04/kto-to-neprav/",
     "signal": "skip",
