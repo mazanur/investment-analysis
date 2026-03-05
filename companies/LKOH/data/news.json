@@ -834,5 +834,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-04",
+    "title": "Bloomberg: объем нефтепереработки в России опустился до ...",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/03/04/ciny-bloomberg-obem-neftepererabotki-v-rossii-opustilsya-do-samogo-nizkogo-urovnya-s-.html",
+    "impact": "negative",
+    "summary": "Атаки украинских дронов на НПЗ Лукойла в Волгограде и Ухте привели к снижению объёма нефтепереработки в России до 5,1 млн б/д — минимума за три месяца. Это негатив для компании, так как снижение загрузки НПЗ напрямую сокращает производство нефтепродуктов и выручку. При этом в Волгограде постепенное восстановление, а в Ухте переработка остановлена полностью.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
