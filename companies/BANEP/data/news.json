@@ -438,5 +438,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-04",
+    "title": "Ажиотаж в нефтегазе сник - лидеры и аутсайдеры меняются местами",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/azhiotazh-v-neftegaze-snik-lidery-i-autsaydery-menyayutsya-mestami-20260304-2122/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "negative",
+    "summary": "Акции Башнефти упали на 2,22% на фоне коррекции нефтегазового сектора — это движение цены на конкретном событии (смена лидеров и аутсайдеров в секторе), которое усиливает давление на и без того дешёвую бумагу с P/E 1,3x и дисконтом 30% к сектору",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
