@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-05",
+    "trigger": "Bloomberg сообщил о возобновлении поставок российской нефти в Индию",
+    "trigger_url": "https://www.finam.ru/publications/item/bloomberg-soobshchil-o-vozobnovlenii-postavok-rossiyskoy-nefti-v-indiyu-20260305-0837/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "medium",
+    "entry": {"condition": "по рынку", "price": 1424},
+    "exit": {"take_profit": 1650, "stop_loss": 1352.8, "time_limit_days": 10},
+    "expected_return_pct": 15.9,
+    "risk_reward_ratio": 3.18,
+    "position_size": "half",
+    "reasoning": "Кластерный price_move -0.2% (< 2%) — позитив не в цене. Новость НЕ дублирует тему «Дружба» (поставки в Индию — другой катализатор). Фундаментал крепкий: нет долга (net cash 202 млрд₽), дивиденды 13.5%, EV/EBITDA 1.25 (сильная недооценка), снижение ставки ЦБ — переоценка. R/R = 3.18 > 2.0. Target fair_value 1650₽, stop -5% (дивидендная позиция)."
+  },
+  {
     "date": "2026-03-04",
     "trigger": "Кремль назвал шантажом позицию Украины по «Дружбе» — блокировка нефтепровода продолжается",
     "trigger_url": "https://www.rbc.ru/politics/04/03/2026/69a801279a79474dea3af7ee",
