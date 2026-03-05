@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-03-05",
+    "trigger": "Суд лишил компанию Везу двух брендов Go по иску Яндекса",
+    "trigger_url": "https://ria.ru/20260304/sud-2078596449.html",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "medium",
+    "entry": {
+      "condition": "по текущей цене",
+      "price": 4562
+    },
+    "exit": {
+      "take_profit": 5600,
+      "stop_loss": 4334,
+      "time_limit_days": 10
+    },
+    "expected_return_pct": 22.8,
+    "risk_reward_ratio": 4.56,
+    "position_size": "half",
+    "reasoning": "Кластерный move -4.5% < 2% → позитив НЕ в цене. Новость позитивная (защита бренда Yandex Go), фундаментал сильный: недооценка 22.8%, маржа EBITDA 19.5%, рост ЧП +40% г/г, дивиденды 110 руб (+37.5%). R/R=4.56 > 2.0 проходит. Позитивная новость не вызвала роста (-0.8% после новости) → спекулятивная возможность."
+  }
+]
