@@ -1,5 +1,26 @@
 [
   {
+    "date": "2026-03-05",
+    "trigger": "Аналитики ожидают снижения погрузки РЖД в 2026 году до минимума за 25 лет: стройгрузы -13%, цемент -10%",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2026/03/05/1180813-analitiki-ozhidayut-snizheniya-pogruzki-rzhd-do-minimuma",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": {
+      "condition": "Нет условия входа: (1) новость bearish — long-positive неприменим; (2) price_move -0.6% вместо < -5% — long-oversold неприменим",
+      "price": 468.2
+    },
+    "exit": {
+      "take_profit": 560.0,
+      "stop_loss": null,
+      "time_limit_days": null
+    },
+    "expected_return_pct": 19.6,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Две независимые причины для пропуска. (1) Ни одно правила входа не сработало: новость bearish — long-positive неприменим; цена -0.6% вместо -5% — long-oversold неприменим. (2) Новость повторяет тему предыдущего skip-а [2026-03-03]: обе про строительную отрасль (погрузка РЖД / вклад стройки в ВВП). Кластерный price_move +1.2% < 2%, но это не меняет вывод — правила входа не выполняются. Позиция: watch. Главный катализатор — снижение ставки ЦБ ниже 13%."
+  },
+  {
     "date": "2026-03-03",
     "trigger": "Строительство перестало быть драйвером ВВП РФ — вклад отрасли обнулился, загрузка мощностей 75%",
     "trigger_url": "https://smart-lab.ru/blog/1272054.php",
