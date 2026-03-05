@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-05",
+    "trigger": "Рост цены алюминия на LME до $3400/т (+3%) — улучшение выручки и маржи Русала",
+    "trigger_url": "https://1prime.ru/20260304/birzha-868010040.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Price move +2.4% (>2%) при позитивной новости = позитив УЖЕ В ЦЕНЕ (кластерное движение). Классический skip по правилам. Дополнительно: R/R негативный для long — текущая 41.88₽ при fair value 20₽ = потенциальный убыток -52%. Фундаментал bearish: критический долг (Net Debt/EBITDA 5.1x), отрицательная ЧП LTM, нет дивидендов, санкции ЕС, потеря 42% мощностей."
+  }
+]
