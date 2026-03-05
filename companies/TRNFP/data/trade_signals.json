@@ -1,8 +1,22 @@
 [
   {
+    "date": "2026-03-04",
+    "trigger": "Кремль назвал шантажом позицию Украины по «Дружбе» — блокировка нефтепровода продолжается",
+    "trigger_url": "https://www.rbc.ru/politics/04/03/2026/69a801279a79474dea3af7ee",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": 1.57,
+    "position_size": "skip",
+    "reasoning": "Дубликат темы «Дружба» — 6+ новость по той же теме (предыдущие 5 skip от 02-03.03). Правило дубликата → skip автоматически. Дополнительно: (1) action=sell, short не предусмотрен системой; для long-oversold нужна просадка < -5%, текущий накопленный move -0.6% недостаточен; (2) кластерный price_move -0.0% < 2% — рынок полностью игнорирует негатив; (3) R/R = 1.57 < 2.0 при upside 15.7% (fair value 1650₽); (4) позиция watch, sentiment neutral — нет основания для спекулятивного входа."
+  },
+  {
     "date": "2026-03-03",
     "trigger": "Венгрия после атаки на «Дружбу» получила украинскую нефть — временная замена российского транзита",
-    "trigger_url": "https://www.profinance.ru/news/2026/03/03/cina-vengriya-zayavlyaet-chto-posle-ataki-na-truboprovod-druzhba-poluchila-ukrainskuy.html",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/03/cina-vengriya-zayavlyaet-chto-posle-ataki-na-truboprovod-druzhba-poluchila-ukrainskay.html",
     "signal": "skip",
     "direction": "skip",
     "confidence": "low",
