@@ -42,5 +42,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-04",
+    "title": "Аналитики ожидают снижения погрузки РЖД в 2026 году до минимума за 25 лет",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/business/articles/2026/03/05/1180813-analitiki-ozhidayut-snizheniya-pogruzki-rzhd-do-minimuma",
+    "impact": "negative",
+    "summary": "Прогноз снижения погрузки строительных грузов на 13% (до 86,8 млн т) и цемента на 10% — индикатор продолжающегося сжатия строительной отрасли, что усиливает давление на и без того слабые показатели ПИК (EBITDA маржа 10,1%). Статья подтверждает негативный операционный фон для девелопера.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
