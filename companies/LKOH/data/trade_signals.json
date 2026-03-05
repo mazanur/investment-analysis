@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-05",
+    "trigger": "Bloomberg сообщил о возобновлении поставок российской нефти в Индию — диверсификация экспорта, новый рынок сбыта",
+    "trigger_url": "https://www.finam.ru/publications/item/bloomberg-soobshchil-o-vozobnovlenii-postavok-rossiyskoy-nefti-v-indiyu-20260305-0837/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная новость для ЛУКОЙЛа (диверсификация экспорта, новый рынок сбыта вместо Восточной Азии). Но кластерный price_move +5.0% (5158→5418 ₽) > 2% порога → позитив УЖЕ В ЦЕНЕ. Нет сценария long-positive (price_move >2%). R/R = 1.44 (upside 14.4% до fair value 6200, stop −10% = 4876) < минимума 2.0. Volume 2.5× ADV — повышенная активность, но движение уже отыграно. Тезис не изменён (neutral/hold)."
+  },
+  {
     "date": "2026-03-04",
     "trigger": "Минфин приостанавливает валютные интервенции — ослабление рубля до 92-100 ₽/$ ожидается",
     "trigger_url": "https://smart-lab.ru/blog/1272977.php",
