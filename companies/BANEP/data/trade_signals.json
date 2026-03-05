@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-05",
+    "trigger": "FT: американская сланцевая нефть не сможет быстро заместить ближневосточные поставки",
+    "trigger_url": "https://www.kommersant.ru/doc/8479883",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=35M < 50M"
+  },
+  {
     "date": "2026-03-03",
     "trigger": "Покупать ли нефтяников",
     "trigger_url": "https://smart-lab.ru/blog/1272101.php",
