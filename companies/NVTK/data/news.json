@@ -108,5 +108,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-04",
+    "title": "ГОСА \"НОВАТЭКа\" пройдет в очном формате впервые за 3 года",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/gosa-novateka-proydet-v-ochnom-formate-vpervye-za-3-goda-20260304-1819/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Совет директоров Новатэка утвердил дивиденды за 2025 год в размере 47,23 рубля на акцию с датой закрытия реестра 13 апреля 2026 года. Это позитивное событие для акционеров, подтверждающее продолжение дивидендной политики компании даже в условиях санкционного давления и падающей маржи. При текущей цене ~1158 руб. дивидендная доходность составляет около 4%.",
+    "strength": "high",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
