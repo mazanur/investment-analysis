@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-04",
+    "trigger": "Минфин приостанавливает валютные интервенции — ослабление рубля до 92-100 ₽/$ ожидается",
+    "trigger_url": "https://smart-lab.ru/blog/1272977.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Новый кластер валютной политики. Позитивная новость для ЛУКОЙЛа (ослабление рубля = выше рублёвая выручка экспортёра). Но кластерный price_move +4.1% (5211→5426.5 ₽) > 2% порога → позитив УЖЕ В ЦЕНЕ. Нет сценария long-positive (price_move >2%), нет long-oversold (новость позитивная, цена не упала). R/R = 1.43 (upside 14.3% до fair value 6200, stop −10% = 4884) < минимума 2.0. Тезис не изменён (neutral/hold)."
+  },
+  {
     "date": "2026-03-03",
     "trigger": "Риск нефтяного шока: удар беспилотника по НПЗ Рас-Танура (Саудовская Аравия), 34% саудовского экспорта — 45-й сигнал кластера Ормуз/Иран",
     "trigger_url": "https://smart-lab.ru/blog/1272236.php",
