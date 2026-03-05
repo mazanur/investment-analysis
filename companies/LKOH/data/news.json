@@ -867,5 +867,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Bloomberg сообщил о возобновлении поставок российской нефти в Индию",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/bloomberg-soobshchil-o-vozobnovlenii-postavok-rossiyskoy-nefti-v-indiyu-20260305-0837/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Возобновление поставок российской нефти в Индию — это позитив для российских нефтяных экспортёров, включая Лукойл, так как открытие новых рынков сбыта (вместо Восточной Азии) увеличивает объём экспорта и диверсифицирует направления поставок. Статья косвенно связана с геополитической эскалацией вокруг Ирана, которая поддерживает высокие цены на нефть.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
