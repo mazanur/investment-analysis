@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-03-05",
+    "trigger": "Иран на 60% сократил свой экспорт в Россию",
+    "trigger_url": "https://www.kommersant.ru/doc/8479832",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=8M < 50M"
+  }
+]
