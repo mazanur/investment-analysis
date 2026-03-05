@@ -23,7 +23,7 @@ NC     := \033[0m
 TODAY := $(shell date +%Y-%m-%d)
 
 # Общие флаги для Claude в автоматическом режиме
-CLAUDE_FLAGS := --verbose --dangerously-skip-permissions --output-format stream-json
+CLAUDE_FLAGS := --verbose --allowedTools "Read Write Glob Grep Bash" --output-format stream-json
 CLAUDE_LOG := python3 scripts/claude_log.py
 
 help:
