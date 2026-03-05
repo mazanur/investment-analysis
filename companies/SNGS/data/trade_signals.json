@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-05",
+    "trigger": "Немецкая разведка (BND) оценила дефицит российского бюджета — снижение нефтегазовых доходов РФ",
+    "trigger_url": "https://lenta.ru/news/2026/03/04/kto-to-neprav/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Макро-новость (дефицит бюджета РФ), SNGS напрямую не упоминается. Кластерный move +2.9% (21.7→22.365) — позитив уже в цене. Нет конкретного триггера для SNGS. Position = watch (value trap, санкции, низкая прозрачность)."
+  },
+  {
+    "date": "2026-03-05",
     "trigger": "FT узнал о плане Хаменеи по распространению хаоса на Ближнем Востоке, атаки Ирана на нефтегазовые объекты в Катаре и Саудовской Аравии, форс-мажор Qatar Energy",
     "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/04/1180715-ft-uznal",
     "signal": "skip",
