@@ -23,6 +23,17 @@
   },
   {
     "date": "2026-03-05",
+    "title": "СД Мосбиржи рекомендовал дивиденды за 2025 — 19,57 руб/акцию (75% прибыли, ДД 11,1%)",
+    "type": "dividends",
+    "url": "https://smartlab.news/read/180747-sd-mosbirzi-predvaritelno-rekomendoval-dividendy-za-2025-god-v-razmere-1957-rubakciia-dd-118",
+    "impact": "neutral",
+    "summary": "СД Мосбиржи предварительно рекомендовал дивиденды за 2025 год: 19,57 руб/акцию (44,5 млрд руб, 75% прибыли по МСФО). Совпадает с нашей оценкой (19,5₽). ГОСА утвердит позднее.",
+    "strength": "medium",
+    "action": "monitor",
+    "source": "manual"
+  },
+  {
+    "date": "2026-03-05",
     "title": "Чистая прибыль Мосбиржи по МСФО в 2025 году снизилась на 25% до 59,4 млрд рублей",
     "type": "news",
     "url": "https://www.interfax.ru/business/1076207",
