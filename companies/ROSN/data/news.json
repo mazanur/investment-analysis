@@ -669,5 +669,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Китай прекратил экспорт бензина и дизеля",
+    "type": "news",
+    "url": "https://ru.investing.com/news/commodities-news/article-3140233",
+    "impact": "positive",
+    "summary": "Китай приостановил экспорт бензина и дизеля из-за эскалации конфликта в Персидском заливе, что приведёт к росту мировых цен на топливо. Это позитивно для Роснефти как крупнейшего нефтяного экспортёра — рост мировых цен увеличивает валютную выручку и сокращает дисконт Urals к Brent.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
