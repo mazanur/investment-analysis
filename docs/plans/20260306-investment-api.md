@@ -218,10 +218,10 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/app/api/reports.py`
 - Create: `investment-api/app/api/dividends.py`
 
-- [ ] `api/reports.py` — GET /companies/{ticker}/reports (?period_type=quarterly), POST /companies/{ticker}/reports (upsert by period), GET /companies/{ticker}/reports/latest
-- [ ] `api/dividends.py` — GET /companies/{ticker}/dividends, POST /companies/{ticker}/dividends, GET /dividends/upcoming (ближайшие отсечки по всем компаниям)
-- [ ] Написать тесты: CRUD, фильтр по period_type, upsert by period, upcoming dividends
-- [ ] Запустить тесты — должны пройти
+- [x] `api/reports.py` — GET /companies/{ticker}/reports (?period_type=quarterly), POST /companies/{ticker}/reports (upsert by period), GET /companies/{ticker}/reports/latest
+- [x] `api/dividends.py` — GET /companies/{ticker}/dividends, POST /companies/{ticker}/dividends, GET /dividends/upcoming (ближайшие отсечки по всем компаниям)
+- [x] Написать тесты: CRUD, фильтр по period_type, upsert by period, upcoming dividends
+- [x] Запустить тесты — должны пройти
 
 ### Task 7: CRUD endpoints — Catalysts + Prices
 
