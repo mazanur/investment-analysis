@@ -5,19 +5,11 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_db, require_api_key
-from app.models import Company, Price
+from app.api.deps import get_company, get_db, require_api_key
+from app.models import Price
 from app.schemas import PriceBulkCreate, PriceResponse
 
 router = APIRouter(tags=["prices"])
-
-
-async def _get_company(ticker: str, db: AsyncSession) -> Company:
-    result = await db.execute(select(Company).where(Company.ticker == ticker))
-    company = result.scalar_one_or_none()
-    if not company:
-        raise HTTPException(status_code=404, detail="Company not found")
-    return company
 
 
 @router.get("/companies/{ticker}/prices", response_model=list[PriceResponse])
@@ -27,7 +19,7 @@ async def list_prices(
     to_date: Optional[dt.date] = Query(None, alias="to"),
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     stmt = select(Price).where(Price.company_id == company.id)
 
     if from_date:
@@ -45,7 +37,7 @@ async def get_latest_price(
     ticker: str,
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     stmt = (
         select(Price)
         .where(Price.company_id == company.id)
@@ -70,7 +62,7 @@ async def bulk_upsert_prices(
     data: PriceBulkCreate,
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     results = []
 
     for price_data in data.prices:

@@ -100,11 +100,3 @@ class CompanyResponse(BaseModel):
     latest_price: Optional[PriceResponse] = None
     active_catalysts: list[CatalystResponse] = []
     last_dividend: Optional[DividendResponse] = None
-
-
-class CompanyFilter(BaseModel):
-    sector: Optional[str] = None
-    sentiment: Optional[SentimentEnum] = None
-    position: Optional[PositionEnum] = None
-    min_upside: Optional[Decimal] = None
-    max_p_e: Optional[Decimal] = None

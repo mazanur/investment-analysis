@@ -7,7 +7,7 @@ from app.db import Base
 from app.main import app
 from app.models import *  # noqa: F401, F403 — ensure all models registered
 
-TEST_DATABASE_URL = "sqlite+aiosqlite:///test.db"
+TEST_DATABASE_URL = "sqlite+aiosqlite://"
 
 
 @pytest.fixture

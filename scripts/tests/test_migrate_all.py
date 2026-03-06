@@ -347,7 +347,7 @@ class TestParseTradeSignals:
         assert "signal" in first
         assert first["signal"] in ("buy", "skip")
         assert "direction" in first
-        assert first["direction"] in ("long-positive", "long-oversold", "skip")
+        assert first["direction"] in ("long_positive", "long_oversold", "skip")
         assert "confidence" in first
         assert isinstance(first["confidence"], (int, float))
         assert 0 <= first["confidence"] <= 100

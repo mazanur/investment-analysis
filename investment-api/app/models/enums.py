@@ -53,8 +53,8 @@ class SignalEnum(str, enum.Enum):
 
 
 class DirectionEnum(str, enum.Enum):
-    long_positive = "long-positive"
-    long_oversold = "long-oversold"
+    long_positive = "long_positive"
+    long_oversold = "long_oversold"
     skip = "skip"
 
 

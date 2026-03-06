@@ -50,10 +50,13 @@ async def _job_fetch_events() -> None:
         tickers = [row[0] for row in companies_result.all()]
 
     for ticker in tickers:
-        async with async_session() as db:
-            result = await run_fetch_events(db, ticker)
-            if result.get("errors"):
-                logger.warning("Scheduler: fetch_events %s errors: %s", ticker, result["errors"])
+        try:
+            async with async_session() as db:
+                result = await run_fetch_events(db, ticker)
+                if result.get("errors"):
+                    logger.warning("Scheduler: fetch_events %s errors: %s", ticker, result["errors"])
+        except Exception as e:
+            logger.error("Scheduler: fetch_events %s failed: %s", ticker, e)
     logger.info("Scheduler: fetch_events done for %d tickers", len(tickers))
 
 

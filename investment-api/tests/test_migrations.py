@@ -6,10 +6,12 @@ These tests verify that upgrade/downgrade cycles work correctly.
 
 import subprocess
 import sys
+from pathlib import Path
 
 import pytest
 
 ALEMBIC_CMD = [sys.executable, "-m", "alembic"]
+PROJECT_DIR = str(Path(__file__).resolve().parent.parent)
 
 
 def run_alembic(*args: str) -> subprocess.CompletedProcess:
@@ -17,7 +19,7 @@ def run_alembic(*args: str) -> subprocess.CompletedProcess:
         [*ALEMBIC_CMD, *args],
         capture_output=True,
         text=True,
-        cwd="/Users/almaznurmuhametov/projects/my/ai/investment-analysis/investment-api",
+        cwd=PROJECT_DIR,
     )
     return result
 

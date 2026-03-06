@@ -1,7 +1,6 @@
 from .catalyst import CatalystCreate, CatalystResponse, CatalystUpdate
 from .company import (
     CompanyCreate,
-    CompanyFilter,
     CompanyListResponse,
     CompanyResponse,
     CompanyUpdate,
@@ -22,7 +21,6 @@ __all__ = [
     "CatalystResponse",
     "CatalystUpdate",
     "CompanyCreate",
-    "CompanyFilter",
     "CompanyListResponse",
     "CompanyResponse",
     "CompanyUpdate",

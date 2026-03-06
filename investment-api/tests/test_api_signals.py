@@ -19,7 +19,7 @@ async def _create_signal(client, ticker="SBER", **kwargs):
     data = {
         "date": "2026-03-01",
         "signal": "buy",
-        "direction": "long-positive",
+        "direction": "long_positive",
         "confidence": 75,
         "entry_price": 310.5,
         "take_profit": 350.0,
@@ -39,7 +39,7 @@ async def test_create_signal(client):
     assert resp.status_code == 201
     body = resp.json()
     assert body["signal"] == "buy"
-    assert body["direction"] == "long-positive"
+    assert body["direction"] == "long_positive"
     assert float(body["confidence"]) == 75.0
     assert float(body["entry_price"]) == 310.5
     assert float(body["take_profit"]) == 350.0
@@ -67,7 +67,7 @@ async def test_create_signal_requires_api_key(client):
     await _create_company(client)
     resp = await client.post(
         "/companies/SBER/signals",
-        json={"date": "2026-03-01", "signal": "buy", "direction": "long-positive", "confidence": 50},
+        json={"date": "2026-03-01", "signal": "buy", "direction": "long_positive", "confidence": 50},
     )
     assert resp.status_code == 422
 
@@ -77,7 +77,7 @@ async def test_create_signal_invalid_api_key(client):
     await _create_company(client)
     resp = await client.post(
         "/companies/SBER/signals",
-        json={"date": "2026-03-01", "signal": "buy", "direction": "long-positive", "confidence": 50},
+        json={"date": "2026-03-01", "signal": "buy", "direction": "long_positive", "confidence": 50},
         headers={"X-API-Key": "wrong"},
     )
     assert resp.status_code == 403

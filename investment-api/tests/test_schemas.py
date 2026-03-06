@@ -8,7 +8,6 @@ from app.schemas import (
     CatalystCreate,
     CatalystResponse,
     CompanyCreate,
-    CompanyFilter,
     CompanyListResponse,
     CompanyResponse,
     DividendCreate,
@@ -148,20 +147,6 @@ class TestCompanySchemas:
         assert c.active_catalysts == []
         assert c.last_dividend is None
 
-    def test_company_filter(self):
-        f = CompanyFilter(
-            sector="finance",
-            sentiment="bullish",
-            min_upside=Decimal("0.20"),
-            max_p_e=Decimal("10.00"),
-        )
-        assert f.sector == "finance"
-        assert f.sentiment == "bullish"
-
-    def test_company_filter_empty(self):
-        f = CompanyFilter()
-        assert f.sector is None
-        assert f.sentiment is None
 
 
 class TestFinancialReportSchemas:
@@ -330,7 +315,7 @@ class TestTradeSignalSchemas:
         ts = TradeSignalCreate(
             date=date(2026, 3, 5),
             signal="buy",
-            direction="long-positive",
+            direction="long_positive",
             confidence=Decimal("75.00"),
             entry_price=Decimal("300.00"),
             take_profit=Decimal("350.00"),
@@ -346,7 +331,7 @@ class TestTradeSignalSchemas:
             TradeSignalCreate(
                 date=date(2026, 3, 5),
                 signal="buy",
-                direction="long-positive",
+                direction="long_positive",
                 confidence=Decimal("-1"),
             )
 
@@ -355,7 +340,7 @@ class TestTradeSignalSchemas:
             TradeSignalCreate(
                 date=date(2026, 3, 5),
                 signal="buy",
-                direction="long-positive",
+                direction="long_positive",
                 confidence=Decimal("101"),
             )
 
@@ -363,7 +348,7 @@ class TestTradeSignalSchemas:
         ts0 = TradeSignalCreate(
             date=date(2026, 3, 5),
             signal="buy",
-            direction="long-positive",
+            direction="long_positive",
             confidence=Decimal("0"),
         )
         assert ts0.confidence == Decimal("0")
@@ -371,7 +356,7 @@ class TestTradeSignalSchemas:
         ts100 = TradeSignalCreate(
             date=date(2026, 3, 5),
             signal="buy",
-            direction="long-positive",
+            direction="long_positive",
             confidence=Decimal("100"),
         )
         assert ts100.confidence == Decimal("100")
@@ -381,7 +366,7 @@ class TestTradeSignalSchemas:
             TradeSignalCreate(
                 date=date(2026, 3, 5),
                 signal="buy",
-                direction="long-positive",
+                direction="long_positive",
                 confidence=Decimal("50"),
                 risk_reward=Decimal("-1"),
             )
@@ -390,7 +375,7 @@ class TestTradeSignalSchemas:
         ts = TradeSignalCreate(
             date=date(2026, 3, 5),
             signal="buy",
-            direction="long-positive",
+            direction="long_positive",
             confidence=Decimal("50"),
             risk_reward=Decimal("0"),
         )
@@ -410,7 +395,7 @@ class TestTradeSignalSchemas:
             TradeSignalCreate(
                 date=date(2026, 3, 5),
                 signal="sell",
-                direction="long-positive",
+                direction="long_positive",
                 confidence=Decimal("50"),
             )
 

@@ -268,8 +268,10 @@ def parse_trade_signals(ticker_dir: Path) -> list[dict]:
 
         if signal not in ("buy", "skip"):
             continue
-        if direction not in ("long-positive", "long-oversold", "skip"):
+        if direction not in ("long-positive", "long-oversold", "long_positive", "long_oversold", "skip"):
             continue
+        # Normalize hyphens to underscores for DB enum compatibility
+        direction = direction.replace("-", "_")
 
         confidence_raw = item.get("confidence")
         if isinstance(confidence_raw, str):

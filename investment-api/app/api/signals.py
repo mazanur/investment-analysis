@@ -5,20 +5,12 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_db, require_api_key
-from app.models import Company, TradeSignal
+from app.api.deps import get_company, get_db, require_api_key
+from app.models import TradeSignal
 from app.models.enums import SignalStatusEnum
 from app.schemas import TradeSignalCreate, TradeSignalResponse, TradeSignalUpdate
 
 router = APIRouter(tags=["signals"])
-
-
-async def _get_company(ticker: str, db: AsyncSession) -> Company:
-    result = await db.execute(select(Company).where(Company.ticker == ticker))
-    company = result.scalar_one_or_none()
-    if not company:
-        raise HTTPException(status_code=404, detail="Company not found")
-    return company
 
 
 @router.get("/companies/{ticker}/signals", response_model=list[TradeSignalResponse])
@@ -27,7 +19,7 @@ async def list_company_signals(
     status: Optional[SignalStatusEnum] = Query(None),
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     stmt = select(TradeSignal).where(TradeSignal.company_id == company.id)
 
     if status is not None:
@@ -49,7 +41,7 @@ async def create_signal(
     data: TradeSignalCreate,
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     signal = TradeSignal(company_id=company.id, **data.model_dump())
     db.add(signal)
     await db.commit()

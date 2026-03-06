@@ -11,6 +11,7 @@ MOEX ISS API is public, no auth required.
 Author: AlmazNurmukhametov
 """
 
+import asyncio
 import logging
 from datetime import date, timedelta
 from decimal import Decimal
@@ -45,7 +46,7 @@ CANDLES_URL = (
 
 
 async def _fetch_json(client: httpx.AsyncClient, url: str) -> list | dict | None:
-    """Fetch JSON from MOEX ISS API with retries."""
+    """Fetch JSON from MOEX ISS API with retries and backoff."""
     for attempt in range(3):
         try:
             resp = await client.get(url, timeout=MOEX_TIMEOUT)
@@ -55,6 +56,7 @@ async def _fetch_json(client: httpx.AsyncClient, url: str) -> list | dict | None
             logger.warning("MOEX fetch attempt %d failed: %s", attempt + 1, e)
             if attempt == 2:
                 return None
+            await asyncio.sleep(2**attempt)
 
 
 def _parse_tqbr_all(data: list) -> dict[str, dict]:

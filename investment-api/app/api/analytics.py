@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from typing import Optional
 
@@ -137,29 +137,23 @@ async def overdue(
     db: AsyncSession = Depends(get_db),
 ):
     now = datetime.now(UTC)
+    cutoff = (now - timedelta(days=days)).replace(tzinfo=None)
     stmt = (
         select(Company, Sector.slug.label("sector_slug"))
         .outerjoin(Sector, Company.sector_id == Sector.id)
+        .where(Company.updated_at <= cutoff)
         .order_by(Company.updated_at.asc())
     )
     result = await db.execute(stmt)
     rows = result.all()
 
-    overdue_items = []
-    for company, sector_slug in rows:
-        updated = company.updated_at
-        if updated.tzinfo is None:
-            delta = (now.replace(tzinfo=None) - updated).days
-        else:
-            delta = (now - updated).days
-        if delta >= days:
-            overdue_items.append(
-                OverdueItem(
-                    ticker=company.ticker,
-                    name=company.name,
-                    sector_slug=sector_slug,
-                    updated_at=updated.isoformat(),
-                    days_since_update=delta,
-                )
-            )
-    return overdue_items
+    return [
+        OverdueItem(
+            ticker=company.ticker,
+            name=company.name,
+            sector_slug=sector_slug,
+            updated_at=company.updated_at.isoformat(),
+            days_since_update=(now.replace(tzinfo=None) - company.updated_at).days,
+        )
+        for company, sector_slug in rows
+    ]

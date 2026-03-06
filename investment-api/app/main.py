@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi import Depends
+from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -16,6 +17,7 @@ from app.api.prices import router as prices_router
 from app.api.reports import router as reports_router
 from app.api.sectors import router as sectors_router
 from app.api.signals import router as signals_router
+from app.admin import setup_admin
 from app.config import settings
 from app.api.deps import get_db
 from app.db import Base, engine
@@ -48,6 +50,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Investment API", version="0.1.0", lifespan=lifespan)
 
+setup_admin(app, engine)
+
 app.include_router(sectors_router)
 app.include_router(companies_router)
 app.include_router(reports_router)
@@ -68,4 +72,7 @@ async def health(db: AsyncSession = Depends(get_db)):
         return {"status": "ok", "database": "connected"}
     except Exception as e:
         logger.error("Health check failed: %s", e)
-        return {"status": "degraded", "database": "disconnected", "error": str(e)}
+        return JSONResponse(
+            status_code=503,
+            content={"status": "degraded", "database": "disconnected", "error": str(e)},
+        )

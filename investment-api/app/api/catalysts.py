@@ -5,19 +5,11 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_db, require_api_key
-from app.models import Catalyst, Company
+from app.api.deps import get_company, get_db, require_api_key
+from app.models import Catalyst
 from app.schemas import CatalystCreate, CatalystResponse, CatalystUpdate
 
 router = APIRouter(tags=["catalysts"])
-
-
-async def _get_company(ticker: str, db: AsyncSession) -> Company:
-    result = await db.execute(select(Company).where(Company.ticker == ticker))
-    company = result.scalar_one_or_none()
-    if not company:
-        raise HTTPException(status_code=404, detail="Company not found")
-    return company
 
 
 @router.get("/companies/{ticker}/catalysts", response_model=list[CatalystResponse])
@@ -26,7 +18,7 @@ async def list_company_catalysts(
     is_active: Optional[bool] = Query(None),
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     stmt = select(Catalyst).where(Catalyst.company_id == company.id)
 
     if is_active is not None:
@@ -48,7 +40,7 @@ async def create_company_catalyst(
     data: CatalystCreate,
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     catalyst = Catalyst(company_id=company.id, **data.model_dump(exclude={"company_id"}))
     db.add(catalyst)
     await db.commit()

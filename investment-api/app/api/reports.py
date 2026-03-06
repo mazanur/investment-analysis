@@ -4,20 +4,12 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_db, require_api_key
-from app.models import Company, FinancialReport
+from app.api.deps import get_company, get_db, require_api_key
+from app.models import FinancialReport
 from app.models.enums import PeriodTypeEnum
 from app.schemas import FinancialReportCreate, FinancialReportResponse
 
 router = APIRouter(tags=["financial-reports"])
-
-
-async def _get_company(ticker: str, db: AsyncSession) -> Company:
-    result = await db.execute(select(Company).where(Company.ticker == ticker))
-    company = result.scalar_one_or_none()
-    if not company:
-        raise HTTPException(status_code=404, detail="Company not found")
-    return company
 
 
 @router.get("/companies/{ticker}/reports", response_model=list[FinancialReportResponse])
@@ -26,7 +18,7 @@ async def list_reports(
     period_type: Optional[PeriodTypeEnum] = Query(None),
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     stmt = select(FinancialReport).where(FinancialReport.company_id == company.id)
 
     if period_type:
@@ -43,7 +35,7 @@ async def get_latest_report(
     period_type: Optional[PeriodTypeEnum] = Query(None),
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
     stmt = select(FinancialReport).where(FinancialReport.company_id == company.id)
 
     if period_type:
@@ -68,7 +60,7 @@ async def upsert_report(
     data: FinancialReportCreate,
     db: AsyncSession = Depends(get_db),
 ):
-    company = await _get_company(ticker, db)
+    company = await get_company(ticker, db)
 
     # Upsert by (company_id, period)
     result = await db.execute(
