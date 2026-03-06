@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-06",
+    "trigger": "Минтранс продлил рекомендацию приостановить продажу билетов на Ближний Восток до 14 марта — развитие ограничений (до 7 марта)",
+    "trigger_url": "https://lenta.ru/news/2026/03/05/v-rossii-prodlili-rekomendatsiyu-priostanovit-prodazhu-biletov-na-blizhniy-vostok/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Кластерный move -6.3% (с 55.8₽ до 52.31₽) формально подходит под long-oversold (порог -5%). Однако: (1) это 7-я новость по теме Ближнего Востока за неделю — тема исчерпана, рынок уже учёл совокупность ограничений; (2) по правилу 'новая новость той же темы тоже skip' — не переоценивать ту же информацию; (3) фундаментал цел (fair value 69₽, дивиденды 9.4%, монополия 42%), но ждём новый катализатор. Position остаётся watch."
+  },
+  {
     "date": "2026-03-04",
     "trigger": "Росавиация рекомендовала российским авиакомпаниям приостановить до 7 марта продажу билетов в страны Ближнего Востока (6 стран) из-за закрытия воздушного пространства",
     "trigger_url": "https://www.finam.ru/publications/item/rosaviatsiya-rekomendovala-rossiyskim-aviakompaniyam-priostanovit-do-7-marta-prodazhu-biletov-v-strany-blizhnego-vostoka-20260304-1614/",
