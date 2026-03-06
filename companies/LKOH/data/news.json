@@ -1032,5 +1032,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "американская WTI > $80",
+    "type": "news",
+    "url": "https://t.me/markettwits/361514",
+    "impact": "positive",
+    "summary": "Рост цен на WTI выше $80 за баррель (до месячного максимума) напрямую увеличивает экспортную выручку и прибыльность Лукойла как крупного нефтеэкспортёра — это прямой финансовый позитив для компании.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
