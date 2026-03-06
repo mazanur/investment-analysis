@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-03-06",
+    "trigger": "ЦБ смотрит на экономику и рынок труда при решении по ставке",
+    "trigger_url": "https://www.finam.ru/publications/item/inflyatsiya-ne-edinstvennyy-faktor-dlya-tsb-pri-prinyatii-resheniya-po-stavke-20260305-1458/",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "high",
+    "entry": {
+      "condition": "по текущей рыночной цене",
+      "price": 93.44
+    },
+    "exit": {
+      "take_profit": 155.0,
+      "stop_loss": 88.77,
+      "time_limit_days": 10
+    },
+    "expected_return_pct": 65.9,
+    "risk_reward_ratio": 13.18,
+    "position_size": "full",
+    "reasoning": "price_move <2% + позитивная новость о смягчении ЦБ + нет кластера. RENI - двойной бенефициар снижения ставки: P/BV expansion облигационного портфеля 275 млрд ₽ + дивидендная доходность 10.9%. R/R=13.18 > 2.0, высокая уверенность - полная позиция 5%."
+  }
+]
