@@ -82,5 +82,16 @@
     "strength": "high",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Акции «ЕвроТранса» падают на 4% на фоне судебных разбирательств",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/aktsii-evrotransa-padayut-na-4-na-fone-sudebnykh-razbiratelstv-20260305-1053/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "negative",
+    "summary": "Акции ЕвроТранса упали на 4% из-за судебного разбирательства с трейдером на 500 млн руб. — суд принял обеспечительные меры (возможный арест средств). Новость чувствительна на фоне недавней блокировки ФНС (снята неделю назад).",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
