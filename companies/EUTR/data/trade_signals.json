@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "«Эксперт РА» поместило рейтинг ЕвроТранса под наблюдение на фоне 5 судебных исков на 3,9 млрд руб.",
+    "trigger_url": "https://smart-lab.ru/blog/1273587.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": 1.21,
+    "position_size": "skip",
+    "reasoning": "R/R = 1.21 (ниже порога 2.0). Цена упала на 7.7% (132.1→121.85), объём 9.7x ADV — паника. Фундаментал цел (рост выручки +34%, EBITDA +43%, дивиденды 15-20%), но R/R недостаточен. Новость повторяет тему предыдущих skip-ов (судебные иски) — не переоцениваем ту же информацию."
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Акции «ЕвроТранса» падают на 4% на фоне судебных разбирательств (суд с трейдером на 500 млн руб.)",
     "trigger_url": "https://www.finam.ru/publications/item/aktsii-evrotransa-padayut-na-4-na-fone-sudebnykh-razbiratelstv-20260305-1053/",
     "signal": "skip",
