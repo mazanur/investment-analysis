@@ -304,15 +304,15 @@ sectors (id, slug, name, description, updated_at)
 **Files:**
 - Create: `investment-analysis/scripts/sync_analysis.py`
 
-- [ ] Принимает тикер: `python3 scripts/sync_analysis.py SBER`
-- [ ] Парсит YAML frontmatter из `companies/SBER/_index.md`
-- [ ] PUT /companies/SBER — обновляет sentiment, fair_value, upside, position и т.д.
-- [ ] Парсит key_risks/key_opportunities → POST /companies/SBER/catalysts (деактивирует старые, создаёт новые)
-- [ ] Если есть `data/news.json` — синхронизирует новые записи → POST /news
-- [ ] Если есть `data/trade_signals.json` — синхронизирует → POST /companies/SBER/signals
-- [ ] Флаг `--all` — синхронизация всех компаний
-- [ ] Написать тесты: парсинг frontmatter, формирование payloads
-- [ ] Запустить тесты — должны пройти
+- [x] Принимает тикер: `python3 scripts/sync_analysis.py SBER`
+- [x] Парсит YAML frontmatter из `companies/SBER/_index.md`
+- [x] PUT /companies/SBER — обновляет sentiment, fair_value, upside, position и т.д.
+- [x] Парсит key_risks/key_opportunities → POST /companies/SBER/catalysts (деактивирует старые, создаёт новые)
+- [x] Если есть `data/news.json` — синхронизирует новые записи → POST /news
+- [x] Если есть `data/trade_signals.json` — синхронизирует → POST /companies/SBER/signals
+- [x] Флаг `--all` — синхронизация всех компаний
+- [x] Написать тесты: парсинг frontmatter, формирование payloads
+- [x] Запустить тесты — должны пройти
 
 ### Task 14: Docker deployment + scheduling
 
