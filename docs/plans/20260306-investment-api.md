@@ -147,16 +147,16 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/app/models/news.py`
 - Create: `investment-api/app/models/trade_signal.py`
 
-- [ ] `models/sector.py` — Sector model (id, slug UNIQUE, name, description, updated_at)
-- [ ] `models/company.py` — Company model с FK на Sector, enums (SentimentEnum, PositionEnum), все поля из схемы
-- [ ] `models/financial_report.py` — FinancialReport с extra_metrics JSONB, UNIQUE(company_id, period), PeriodTypeEnum
-- [ ] `models/dividend.py` — Dividend с DividendStatusEnum, UNIQUE(company_id, record_date)
-- [ ] `models/catalyst.py` — Catalyst с nullable company_id, CatalystTypeEnum, ImpactEnum, MagnitudeEnum
-- [ ] `models/price.py` — Price с OHLCV, UNIQUE(company_id, date)
-- [ ] `models/news.py` — News с двойным nullable FK (company_id, sector_id), ImpactEnum, StrengthEnum
-- [ ] `models/trade_signal.py` — TradeSignal с FK на news, SignalEnum, DirectionEnum, SignalStatusEnum, confidence DECIMAL
-- [ ] Написать тесты: создание каждой модели, проверка constraints (unique, FK, nullable)
-- [ ] Запустить тесты — должны пройти
+- [x] `models/sector.py` — Sector model (id, slug UNIQUE, name, description, updated_at)
+- [x] `models/company.py` — Company model с FK на Sector, enums (SentimentEnum, PositionEnum), все поля из схемы
+- [x] `models/financial_report.py` — FinancialReport с extra_metrics JSONB, UNIQUE(company_id, period), PeriodTypeEnum
+- [x] `models/dividend.py` — Dividend с DividendStatusEnum, UNIQUE(company_id, record_date)
+- [x] `models/catalyst.py` — Catalyst с nullable company_id, CatalystTypeEnum, ImpactEnum, MagnitudeEnum
+- [x] `models/price.py` — Price с OHLCV, UNIQUE(company_id, date)
+- [x] `models/news.py` — News с двойным nullable FK (company_id, sector_id), ImpactEnum, StrengthEnum
+- [x] `models/trade_signal.py` — TradeSignal с FK на news, SignalEnum, DirectionEnum, SignalStatusEnum, confidence DECIMAL
+- [x] Написать тесты: создание каждой модели, проверка constraints (unique, FK, nullable)
+- [x] Запустить тесты — должны пройти
 
 ### Task 3: Alembic — миграции
 
