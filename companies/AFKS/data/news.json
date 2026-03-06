@@ -20,5 +20,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Инфляция – не единственный фактор для ЦБ при принятии решения по ставке",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/inflyatsiya-ne-edinstvennyy-faktor-dlya-tsb-pri-prinyatii-resheniya-po-stavke-20260305-1458/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Статья о заседании ЦБ 20 марта по ключевой ставке напрямую затрагивает АФК «Систему», так как компания является «заложником» ставки ЦБ — при высокой ставке процентные расходы съедают 80% EBITDA. Заявление Набиуллиной о возможном смягчении политики создаёт позитивный фон для компании.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
