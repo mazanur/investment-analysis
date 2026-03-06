@@ -123,16 +123,16 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/.gitignore`
 - Create: `investment-api/README.md`
 
-- [ ] Создать репозиторий `investment-api` с `pyproject.toml` (deps: fastapi, uvicorn, sqlalchemy[asyncio], asyncpg, alembic, pydantic, pydantic-settings)
-- [ ] `app/config.py` — Pydantic Settings (DATABASE_URL, API_KEY, DEBUG)
-- [ ] `app/db.py` — async engine + sessionmaker (SQLAlchemy 2.0 async)
-- [ ] `app/main.py` — FastAPI app с lifespan (create_all tables on startup для dev)
-- [ ] `Dockerfile` (python:3.12-slim, uvicorn)
-- [ ] `docker-compose.yml` (app + postgres:16)
-- [ ] `.env.example`, `.gitignore`
-- [ ] Проверить: `docker compose up` поднимает app + postgres, healthcheck проходит
-- [ ] Написать тесты: smoke test (GET / → 200), db connection test
-- [ ] Запустить тесты — должны пройти
+- [x] Создать репозиторий `investment-api` с `pyproject.toml` (deps: fastapi, uvicorn, sqlalchemy[asyncio], asyncpg, alembic, pydantic, pydantic-settings)
+- [x] `app/config.py` — Pydantic Settings (DATABASE_URL, API_KEY, DEBUG)
+- [x] `app/db.py` — async engine + sessionmaker (SQLAlchemy 2.0 async)
+- [x] `app/main.py` — FastAPI app с lifespan (create_all tables on startup для dev)
+- [x] `Dockerfile` (python:3.12-slim, uvicorn)
+- [x] `docker-compose.yml` (app + postgres:16)
+- [x] `.env.example`, `.gitignore`
+- [x] Проверить: `docker compose up` поднимает app + postgres, healthcheck проходит
+- [x] Написать тесты: smoke test (GET / → 200), db connection test
+- [x] Запустить тесты — должны пройти
 
 ### Task 2: SQLAlchemy models — все 8 таблиц
 
