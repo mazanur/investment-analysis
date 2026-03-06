@@ -31,5 +31,16 @@
     "strength": "high",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Самое слабое звено: 3 бумаги для шорта",
+    "type": "news",
+    "url": "https://smart-lab.ru/company/bcs/blog/1273224.php",
+    "impact": "negative",
+    "summary": "БКС дал негативную рекомендацию по акциям VK с целью 288-292 руб. и стопом 309 руб. на 12 месяцев. Технически акция выпала из восходящего канала, что может сигнализировать о продолжении снижения.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
