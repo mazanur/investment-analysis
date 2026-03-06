@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Аэрофлот вошёл в список аутсайдеров с падением 2,18% на фоне общего роста рынка — инвесторы негативно оценивают акции",
+    "trigger_url": "https://t.me/bcs_express/24317",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Кластерный move -7.2% (с 55.8₽ до 51.8₽) формально подходит под long-oversold (порог -5%). Однако: (1) это 8-я новость по теме Ближнего Востока/авиаограничений за неделю — тема полностью исчерпана; (2) правило 'новость повторяет тему предыдущих skip-ов → skip' — данная новость лишь констатирует техническое падение, не является новым катализатором; (3) фундаментал цел (fair value 69₽, дивиденды 9.4%, EV/EBITDA 2.7), но нужен новый драйвер. Position остаётся watch."
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Минтранс продлил рекомендацию приостановить продажу билетов на Ближний Восток до 14 марта — развитие ограничений (до 7 марта)",
     "trigger_url": "https://lenta.ru/news/2026/03/05/v-rossii-prodlili-rekomendatsiyu-priostanovit-prodazhu-biletov-na-blizhniy-vostok/",
     "signal": "skip",
