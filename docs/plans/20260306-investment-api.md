@@ -320,12 +320,12 @@ sectors (id, slug, name, description, updated_at)
 - Modify: `investment-api/docker-compose.yml`
 - Create: `investment-api/app/jobs/scheduler.py`
 
-- [ ] Добавить scheduling: fetch_prices ежедневно в 19:00 MSK, fetch_moex ежедневно, fetch_events еженедельно
-- [ ] Варианты: APScheduler внутри FastAPI, или cron на хосте вызывающий API endpoints
-- [ ] Production docker-compose: volumes для postgres, restart policies, environment
-- [ ] Healthcheck endpoint: GET /health (проверка DB connection)
-- [ ] Написать тесты: healthcheck, scheduler конфигурация
-- [ ] Запустить тесты — должны пройти
+- [x] Добавить scheduling: fetch_prices ежедневно в 19:00 MSK, fetch_moex ежедневно, fetch_events еженедельно
+- [x] Варианты: APScheduler внутри FastAPI, или cron на хосте вызывающий API endpoints
+- [x] Production docker-compose: volumes для postgres, restart policies, environment
+- [x] Healthcheck endpoint: GET /health (проверка DB connection)
+- [x] Написать тесты: healthcheck, scheduler конфигурация
+- [x] Запустить тесты — должны пройти
 
 ### Task 15: Verify acceptance criteria
 
