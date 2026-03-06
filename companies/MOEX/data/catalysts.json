@@ -16,7 +16,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Комиссионные доходы растут стабильно +30% YoY, доля в выручке выросла до 58%",
+      "description": "Комиссионные доходы +25% YoY FY2025 (+37% в Q4'25), доля в операционных доходах 61%",
       "source": "index"
     },
     {
@@ -24,7 +24,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Рост числа частных инвесторов до 39.7 млн, рекордные объёмы торгов",
+      "description": "Рост числа частных инвесторов до 40,1 млн, 260 акций в листинге",
       "source": "index"
     },
     {
@@ -40,7 +40,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Кэш-машина: ~127 млрд рублей денежных средств, нулевой долг",
+      "description": "Собственные средства 209 млрд рублей, нулевой долг",
       "source": "index"
     },
     {
@@ -48,7 +48,7 @@
       "impact": "negative",
       "magnitude": "high",
       "date": null,
-      "description": "Падение процентных доходов при снижении ставки ЦБ — уже -44% YoY в Q3 2025",
+      "description": "Падение процентных доходов при снижении ставки ЦБ — -38% YoY в FY2025, Q4'25 процентные всего 9,4 млрд (минимум)",
       "source": "index"
     },
     {
@@ -64,7 +64,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Прибыль LTM упала на 21% vs 2024 из-за снижения процентных доходов",
+      "description": "Прибыль FY2025 упала на 25% до 59,4 млрд, Q4'25 слабый (14,0 млрд)",
       "source": "index"
     },
     {

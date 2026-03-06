@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-06",
+    "trigger": "МСФО FY2025: прибыль 59,4 млрд (-25%), EPS 26,1₽ — ниже оценки (62-63 млрд)",
+    "trigger_url": "https://smartlab.news/read/180612-moskovskaia-birza-msfo-za-2025-god-cistaia-pribyl-rub594-mlrd-25-gg-komissionnye-doxody-rub7865-mlrd-248-gg-cistyi-procentnyi-doxod-rub50-mlrd-38-gg",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Результат FY2025 чуть ниже оценки, но рынок почти не отреагировал (-1,5% vs pre_news 179,48₽). Негатив был ожидаем и заложен в цену. Нет long-positive (новость негативная) и нет long-oversold (падение <5%). Upside до fair value 213₽ = 21% — недостаточно для buy (порог 30%)."
+  },
+  {
     "date": "2026-03-05",
     "trigger": "Снижение средней максимальной ставки по вкладам до 14,06% — давление на процентные доходы Мосбиржи",
     "trigger_url": "https://www.interfax.ru/business/1076126",
