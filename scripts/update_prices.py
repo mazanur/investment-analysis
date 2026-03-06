@@ -20,15 +20,12 @@
 """
 
 import csv
-import io
 import json
 import os
 import re
 import subprocess
 import sys
 import time
-import urllib.request
-import urllib.error
 from datetime import date, timedelta
 
 
@@ -435,7 +432,7 @@ def main():
         print()
     else:
         # Все компании — batch-загрузка (один запрос)
-        print(f"  Загрузка данных с MOEX ISS...", end=" ", flush=True)
+        print("  Загрузка данных с MOEX ISS...", end=" ", flush=True)
         moex_data = fetch_all_tqbr()
         print(f"{GREEN}{len(moex_data)} бумаг загружено{NC}")
         print()

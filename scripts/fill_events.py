@@ -17,7 +17,7 @@ import json
 import os
 import re
 import sys
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
 
 # Цвета для вывода

@@ -259,7 +259,7 @@ def main():
             f.write("\n".join(new_tickers) + "\n")
         print()
         print(f"Тикеры с новыми отчётами: {' '.join(new_tickers)}")
-        print(f"Сохранено в: reports_new_tickers.txt")
+        print("Сохранено в: reports_new_tickers.txt")
     else:
         print("Новых отчётов не обнаружено.")
         # Очищаем файл тикеров

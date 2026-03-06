@@ -3,17 +3,14 @@ Tests for migrate_all.py — verify parsing of all data file formats into correc
 Uses real SBER data files from the companies/ directory as test fixtures.
 """
 
-import json
 import sys
 from pathlib import Path
 
-import pytest
 
 # Add scripts/ to path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from migrate_all import (
-    CONFIDENCE_MAP,
     discover_companies,
     discover_sectors,
     parse_catalysts,

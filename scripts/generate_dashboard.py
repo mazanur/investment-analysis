@@ -1787,7 +1787,7 @@ def main():
 
     # Генерируем страницы компаний
     for c in companies:
-        page = generate_company_page(c, sectors, trends, output_dir, companies_dir)
+        generate_company_page(c, sectors, trends, output_dir, companies_dir)
         status = 'STUB' if c['is_stub'] else 'OK'
         color = YELLOW if c['is_stub'] else GREEN
         print(f"  {color}[{status}]{NC} {c['ticker']}")

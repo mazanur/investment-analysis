@@ -3,18 +3,15 @@ Tests for sync_analysis.py — verify parsing and payload formation for sync ope
 Uses real SBER data files from the companies/ directory as test fixtures.
 """
 
-import json
 import sys
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
-import pytest
 
 # Add scripts/ to path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from sync_analysis import (
-    CONFIDENCE_MAP,
     SyncClient,
     discover_companies,
     extract_catalysts_from_frontmatter,

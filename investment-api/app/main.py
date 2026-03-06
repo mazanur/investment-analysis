@@ -31,9 +31,9 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     if not settings.debug:
         if settings.api_key == "dev-api-key":
-            logger.warning("Running in production with default API_KEY — set API_KEY env var")
+            raise RuntimeError("Refusing to start: set API_KEY env var (default 'dev-api-key' is not allowed in production)")
         if settings.secret_key == "change-me-in-production":
-            logger.warning("Running in production with default SECRET_KEY — set SECRET_KEY env var")
+            raise RuntimeError("Refusing to start: set SECRET_KEY env var (default 'change-me-in-production' is not allowed in production)")
 
     if settings.debug:
         async with engine.begin() as conn:

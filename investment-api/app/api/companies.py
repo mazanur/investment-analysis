@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Optional
 
@@ -80,6 +81,7 @@ async def upsert_company(ticker: str, data: CompanyCreate, db: AsyncSession = De
     # Atomic upsert using PostgreSQL INSERT ON CONFLICT
     values = {"ticker": ticker, **data.model_dump(exclude={"ticker"})}
     update_fields = data.model_dump(exclude={"ticker"}, exclude_unset=True)
+    update_fields["updated_at"] = datetime.now(UTC).replace(tzinfo=None)
     stmt = pg_insert(Company).values(**values)
     if update_fields:
         stmt = stmt.on_conflict_do_update(
