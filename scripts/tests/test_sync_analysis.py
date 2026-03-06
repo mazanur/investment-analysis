@@ -173,7 +173,7 @@ class TestParseTradeSignals:
         assert len(signals) > 0
         first = signals[0]
         assert first["signal"] in ("buy", "skip")
-        assert first["direction"] in ("long_positive", "long_oversold", "skip")
+        assert first["direction"] in ("long-positive", "long-oversold", "skip")
         assert 0 <= first["confidence"] <= 100
 
     def test_confidence_is_numeric(self):
@@ -347,7 +347,7 @@ class TestSyncClientSyncSignals:
         get_resp = MagicMock()
         get_resp.status_code = 200
         get_resp.json.return_value = [
-            {"date": "2026-01-01", "signal": "buy", "direction": "long_positive"},
+            {"date": "2026-01-01", "signal": "buy", "direction": "long-positive"},
         ]
 
         post_resp = MagicMock()
@@ -357,7 +357,7 @@ class TestSyncClientSyncSignals:
         client._post = MagicMock(return_value=post_resp)
 
         signal_payloads = [
-            {"date": "2026-01-01", "signal": "buy", "direction": "long_positive", "confidence": 75},
+            {"date": "2026-01-01", "signal": "buy", "direction": "long-positive", "confidence": 75},
             {"date": "2026-01-02", "signal": "skip", "direction": "skip", "confidence": 50},
         ]
         client.sync_signals("SBER", signal_payloads)

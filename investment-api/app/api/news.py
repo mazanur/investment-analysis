@@ -24,6 +24,8 @@ async def _get_sector(slug: str, db: AsyncSession) -> Sector:
 @router.get("/companies/{ticker}/news", response_model=list[NewsResponse])
 async def list_company_news(
     ticker: str,
+    limit: int = Query(200, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
 ):
     company = await get_company(ticker, db)
@@ -31,6 +33,8 @@ async def list_company_news(
         select(News)
         .where(News.company_id == company.id)
         .order_by(News.date.desc())
+        .limit(limit)
+        .offset(offset)
     )
     result = await db.execute(stmt)
     return result.scalars().all()
@@ -39,6 +43,8 @@ async def list_company_news(
 @router.get("/sectors/{slug}/news", response_model=list[NewsResponse])
 async def list_sector_news(
     slug: str,
+    limit: int = Query(200, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
 ):
     sector = await _get_sector(slug, db)
@@ -46,6 +52,8 @@ async def list_sector_news(
         select(News)
         .where(News.sector_id == sector.id)
         .order_by(News.date.desc())
+        .limit(limit)
+        .offset(offset)
     )
     result = await db.execute(stmt)
     return result.scalars().all()
@@ -56,6 +64,8 @@ async def list_news(
     impact: Optional[ImpactEnum] = Query(None),
     from_date: Optional[dt.date] = Query(None, alias="from"),
     to_date: Optional[dt.date] = Query(None, alias="to"),
+    limit: int = Query(200, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
 ):
     stmt = select(News)
@@ -67,7 +77,7 @@ async def list_news(
     if to_date:
         stmt = stmt.where(News.date <= to_date)
 
-    stmt = stmt.order_by(News.date.desc())
+    stmt = stmt.order_by(News.date.desc()).limit(limit).offset(offset)
     result = await db.execute(stmt)
     return result.scalars().all()
 

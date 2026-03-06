@@ -105,7 +105,7 @@ def upgrade() -> None:
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('company_id', 'period', name='uq_report_company_period')
+    sa.UniqueConstraint('company_id', 'period', 'period_type', name='uq_report_company_period_type')
     )
     op.create_table('news',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -145,7 +145,7 @@ def upgrade() -> None:
     sa.Column('news_id', sa.Integer(), nullable=True),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('signal', sa.Enum('buy', 'skip', name='signalenum'), nullable=False),
-    sa.Column('direction', sa.Enum('long_positive', 'long_oversold', 'skip', name='directionenum'), nullable=False),
+    sa.Column('direction', sa.Enum('long-positive', 'long-oversold', 'skip', name='directionenum'), nullable=False),
     sa.Column('confidence', sa.Numeric(precision=5, scale=2), nullable=False),
     sa.Column('entry_price', sa.Numeric(precision=14, scale=2), nullable=True),
     sa.Column('entry_condition', sa.String(length=500), nullable=True),

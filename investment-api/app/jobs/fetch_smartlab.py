@@ -300,12 +300,14 @@ async def _upsert_reports(
         return 0
 
     periods = [p["period"] for p in parsed]
+    period_types = list({p["period_type"] for p in parsed})
     stmt = select(FinancialReport).where(
         FinancialReport.company_id == company_id,
         FinancialReport.period.in_(periods),
+        FinancialReport.period_type.in_(period_types),
     )
     result = await db.execute(stmt)
-    existing = {r.period: r for r in result.scalars().all()}
+    existing = {(r.period, r.period_type): r for r in result.scalars().all()}
 
     count = 0
     for data in parsed:
@@ -344,8 +346,9 @@ async def _upsert_reports(
             "extra_metrics": data["extra_metrics"] if data["extra_metrics"] else None,
         }
 
-        if period in existing:
-            report = existing[period]
+        period_type = data["period_type"]
+        if (period, period_type) in existing:
+            report = existing[(period, period_type)]
             for k, v in fields.items():
                 # Only update non-None values to avoid overwriting existing data
                 # when a CSV source lacks certain fields

@@ -11,7 +11,7 @@ from app.models.enums import PeriodTypeEnum
 
 class FinancialReport(Base):
     __tablename__ = "financial_reports"
-    __table_args__ = (UniqueConstraint("company_id", "period", name="uq_report_company_period"),)
+    __table_args__ = (UniqueConstraint("company_id", "period", "period_type", name="uq_report_company_period_type"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     company_id: Mapped[int] = mapped_column(ForeignKey("companies.id"))

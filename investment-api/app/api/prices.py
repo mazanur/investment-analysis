@@ -18,6 +18,8 @@ async def list_prices(
     ticker: str,
     from_date: Optional[dt.date] = Query(None, alias="from"),
     to_date: Optional[dt.date] = Query(None, alias="to"),
+    limit: int = Query(500, ge=1, le=5000),
+    offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
 ):
     company = await get_company(ticker, db)
@@ -28,7 +30,7 @@ async def list_prices(
     if to_date:
         stmt = stmt.where(Price.date <= to_date)
 
-    stmt = stmt.order_by(Price.date.desc())
+    stmt = stmt.order_by(Price.date.desc()).limit(limit).offset(offset)
     result = await db.execute(stmt)
     return result.scalars().all()
 

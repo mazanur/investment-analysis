@@ -16,6 +16,8 @@ router = APIRouter(tags=["catalysts"])
 async def list_company_catalysts(
     ticker: str,
     is_active: Optional[bool] = Query(None),
+    limit: int = Query(200, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
 ):
     company = await get_company(ticker, db)
@@ -24,7 +26,7 @@ async def list_company_catalysts(
     if is_active is not None:
         stmt = stmt.where(Catalyst.is_active.is_(is_active))
 
-    stmt = stmt.order_by(Catalyst.created_at.desc())
+    stmt = stmt.order_by(Catalyst.created_at.desc()).limit(limit).offset(offset)
     result = await db.execute(stmt)
     return result.scalars().all()
 

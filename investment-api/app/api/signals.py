@@ -17,6 +17,8 @@ router = APIRouter(tags=["signals"])
 async def list_company_signals(
     ticker: str,
     status: Optional[SignalStatusEnum] = Query(None),
+    limit: int = Query(100, ge=1, le=500),
+    offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
 ):
     company = await get_company(ticker, db)
@@ -25,7 +27,7 @@ async def list_company_signals(
     if status is not None:
         stmt = stmt.where(TradeSignal.status == status)
 
-    stmt = stmt.order_by(TradeSignal.created_at.desc())
+    stmt = stmt.order_by(TradeSignal.created_at.desc()).limit(limit).offset(offset)
     result = await db.execute(stmt)
     return result.scalars().all()
 

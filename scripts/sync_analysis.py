@@ -273,8 +273,8 @@ def parse_trade_signals(ticker_dir: Path) -> list[dict]:
             continue
         if direction not in ("long-positive", "long-oversold", "long_positive", "long_oversold", "skip"):
             continue
-        # Normalize hyphens to underscores for DB enum compatibility
-        direction = direction.replace("-", "_")
+        # Normalize underscores to hyphens for DB enum compatibility
+        direction = direction.replace("_", "-") if direction.startswith("long_") else direction
 
         confidence_raw = item.get("confidence")
         if isinstance(confidence_raw, str):

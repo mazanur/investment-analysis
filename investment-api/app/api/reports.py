@@ -17,6 +17,8 @@ router = APIRouter(tags=["financial-reports"])
 async def list_reports(
     ticker: str,
     period_type: Optional[PeriodTypeEnum] = Query(None),
+    limit: int = Query(100, ge=1, le=500),
+    offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
 ):
     company = await get_company(ticker, db)
@@ -25,7 +27,7 @@ async def list_reports(
     if period_type:
         stmt = stmt.where(FinancialReport.period_type == period_type)
 
-    stmt = stmt.order_by(FinancialReport.period.desc())
+    stmt = stmt.order_by(FinancialReport.period.desc()).limit(limit).offset(offset)
     result = await db.execute(stmt)
     return result.scalars().all()
 
@@ -65,15 +67,15 @@ async def upsert_report(
 
     # Atomic upsert using PostgreSQL INSERT ON CONFLICT
     values = {"company_id": company.id, **data.model_dump()}
-    update_fields = data.model_dump(exclude_unset=True)
+    update_fields = data.model_dump(exclude={"period", "period_type"}, exclude_unset=True)
     stmt = pg_insert(FinancialReport).values(**values)
     if update_fields:
         stmt = stmt.on_conflict_do_update(
-            constraint="uq_report_company_period",
+            constraint="uq_report_company_period_type",
             set_=update_fields,
         )
     else:
-        stmt = stmt.on_conflict_do_nothing(constraint="uq_report_company_period")
+        stmt = stmt.on_conflict_do_nothing(constraint="uq_report_company_period_type")
     await db.execute(stmt)
     await db.commit()
 
@@ -81,6 +83,7 @@ async def upsert_report(
         select(FinancialReport).where(
             FinancialReport.company_id == company.id,
             FinancialReport.period == data.period,
+            FinancialReport.period_type == data.period_type,
         )
     )
     report = result.scalar_one_or_none()

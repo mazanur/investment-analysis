@@ -315,7 +315,7 @@ class TestTradeSignalSchemas:
         ts = TradeSignalCreate(
             date=date(2026, 3, 5),
             signal="buy",
-            direction="long_positive",
+            direction="long-positive",
             confidence=Decimal("75.00"),
             entry_price=Decimal("300.00"),
             take_profit=Decimal("350.00"),
@@ -331,7 +331,7 @@ class TestTradeSignalSchemas:
             TradeSignalCreate(
                 date=date(2026, 3, 5),
                 signal="buy",
-                direction="long_positive",
+                direction="long-positive",
                 confidence=Decimal("-1"),
             )
 
@@ -340,7 +340,7 @@ class TestTradeSignalSchemas:
             TradeSignalCreate(
                 date=date(2026, 3, 5),
                 signal="buy",
-                direction="long_positive",
+                direction="long-positive",
                 confidence=Decimal("101"),
             )
 
@@ -348,7 +348,7 @@ class TestTradeSignalSchemas:
         ts0 = TradeSignalCreate(
             date=date(2026, 3, 5),
             signal="buy",
-            direction="long_positive",
+            direction="long-positive",
             confidence=Decimal("0"),
         )
         assert ts0.confidence == Decimal("0")
@@ -356,7 +356,7 @@ class TestTradeSignalSchemas:
         ts100 = TradeSignalCreate(
             date=date(2026, 3, 5),
             signal="buy",
-            direction="long_positive",
+            direction="long-positive",
             confidence=Decimal("100"),
         )
         assert ts100.confidence == Decimal("100")
@@ -366,7 +366,7 @@ class TestTradeSignalSchemas:
             TradeSignalCreate(
                 date=date(2026, 3, 5),
                 signal="buy",
-                direction="long_positive",
+                direction="long-positive",
                 confidence=Decimal("50"),
                 risk_reward=Decimal("-1"),
             )
@@ -375,7 +375,7 @@ class TestTradeSignalSchemas:
         ts = TradeSignalCreate(
             date=date(2026, 3, 5),
             signal="buy",
-            direction="long_positive",
+            direction="long-positive",
             confidence=Decimal("50"),
             risk_reward=Decimal("0"),
         )
@@ -395,7 +395,7 @@ class TestTradeSignalSchemas:
             TradeSignalCreate(
                 date=date(2026, 3, 5),
                 signal="sell",
-                direction="long_positive",
+                direction="long-positive",
                 confidence=Decimal("50"),
             )
 
