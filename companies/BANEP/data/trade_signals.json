@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Почему дисконты на нефть из России могут вырасти из-за конфликта в Иране",
+    "trigger_url": "https://www.rbc.ru/radio/05/03/2026/69a9c2a19a79474e43fd4a53",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=37M < 50M"
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Трамп заявил, что пока не рассматривает возможность распечатывания стратегического нефтяного резерва США",
     "trigger_url": "https://t.me/markettwits/361510",
     "signal": "skip",
