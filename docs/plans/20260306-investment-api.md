@@ -287,17 +287,17 @@ sectors (id, slug, name, description, updated_at)
 **Files:**
 - Create: `investment-analysis/scripts/migrate_all.py`
 
-- [ ] Парсинг YAML frontmatter из всех `companies/*/_index.md` → POST /companies/{ticker}
-- [ ] Парсинг `data/catalysts.json` → POST /companies/{ticker}/catalysts
-- [ ] Парсинг `data/price_history.csv` → POST /companies/{ticker}/prices (bulk)
-- [ ] Парсинг `data/moex_events.json` (dividends) → POST /companies/{ticker}/dividends
-- [ ] Парсинг `data/smartlab_quarterly.csv` + `smartlab_yearly.csv` → POST /companies/{ticker}/reports
-- [ ] Парсинг `data/news.json` → POST /news
-- [ ] Парсинг `data/trade_signals.json` → POST /companies/{ticker}/signals
-- [ ] Создание секторов из уникальных sector значений → POST /sectors
-- [ ] Отчёт: сколько записей загружено в каждую таблицу, какие ошибки
-- [ ] Написать тесты: парсинг одной компании (SBER) — все файлы → корректные API payloads
-- [ ] Запустить тесты — должны пройти
+- [x] Парсинг YAML frontmatter из всех `companies/*/_index.md` → POST /companies/{ticker}
+- [x] Парсинг `data/catalysts.json` → POST /companies/{ticker}/catalysts
+- [x] Парсинг `data/price_history.csv` → POST /companies/{ticker}/prices (bulk)
+- [x] Парсинг `data/moex_events.json` (dividends) → POST /companies/{ticker}/dividends
+- [x] Парсинг `data/smartlab_quarterly.csv` + `smartlab_yearly.csv` → POST /companies/{ticker}/reports
+- [x] Парсинг `data/news.json` → POST /news
+- [x] Парсинг `data/trade_signals.json` → POST /companies/{ticker}/signals
+- [x] Создание секторов из уникальных sector значений → POST /sectors
+- [x] Отчёт: сколько записей загружено в каждую таблицу, какие ошибки
+- [x] Написать тесты: парсинг одной компании (SBER) — все файлы → корректные API payloads
+- [x] Запустить тесты — должны пройти
 
 ### Task 13: Скрипт синхронизации — sync_analysis.py
 
