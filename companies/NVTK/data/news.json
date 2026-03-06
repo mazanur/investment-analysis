@@ -119,5 +119,16 @@
     "strength": "high",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Bloomberg: российский СПГ-танкер встал на якорь в ...",
+    "type": "news",
+    "url": "https://www.profinance.ru/news/2026/03/05/cio0-bloomberg-rossijskij-spg-tanker-vstal-na-yakor-v-sredizemnom-more-posle-ataki-na.html",
+    "impact": "negative",
+    "summary": "Статья о приостановке российского СПГ-танкера Arctic Pioneer у Порт-Саида и атаке на «Арктик Метагаз» — оба судна перевозили СПГ с завода «Арктик СПГ 2» (проект Новатэка). Угроза новых атак украинских дронов может вынудить российский теневой флот изменить маршруты, что осложнит и без того затруднённый экспорт подсанкционного СПГ в Китай через Суэцкий канал. Это усиливает санкционное давление на ключевой актив Новатэка.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
