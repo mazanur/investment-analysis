@@ -3,11 +3,10 @@ import datetime as dt
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import joinedload
 
 from app.api.deps import get_db, require_api_key
 from app.models import Company, Dividend
-from app.schemas import DividendCreate, DividendResponse, DividendUpdate
+from app.schemas import DividendCreate, DividendResponse
 
 router = APIRouter(tags=["dividends"])
 

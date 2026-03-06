@@ -35,7 +35,7 @@ class TradeSignal(Base):
     status: Mapped[SignalStatusEnum] = mapped_column(default=SignalStatusEnum.active)
     result_pct: Mapped[Decimal | None] = mapped_column(Numeric(8, 2), nullable=True)
     closed_at: Mapped[datetime.datetime | None] = mapped_column(nullable=True)
-    created_at: Mapped[datetime.datetime] = mapped_column(default=lambda: datetime.datetime.now(datetime.UTC))
+    created_at: Mapped[datetime.datetime] = mapped_column(default=lambda: datetime.datetime.now(datetime.UTC).replace(tzinfo=None))
 
     company: Mapped["Company"] = relationship(back_populates="trade_signals")  # noqa: F821
     news: Mapped["News | None"] = relationship(back_populates="trade_signals")  # noqa: F821

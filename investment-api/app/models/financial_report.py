@@ -29,6 +29,6 @@ class FinancialReport(Base):
     p_bv: Mapped[Decimal | None] = mapped_column(Numeric(10, 2), nullable=True)
     dividend_yield: Mapped[Decimal | None] = mapped_column(Numeric(6, 2), nullable=True)
     extra_metrics: Mapped[dict | None] = mapped_column(JSON, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC))
+    created_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC).replace(tzinfo=None))
 
     company: Mapped["Company"] = relationship(back_populates="financial_reports")  # noqa: F821

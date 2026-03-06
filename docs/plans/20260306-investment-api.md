@@ -329,14 +329,14 @@ sectors (id, slug, name, description, updated_at)
 
 ### Task 15: Verify acceptance criteria
 
-- [ ] Все 8 таблиц созданы и заполнены через миграцию
-- [ ] CRUD endpoints работают для всех сущностей
-- [ ] Фильтры: GET /companies?sector=finance&sentiment=bullish возвращает корректные данные
-- [ ] GET /companies/{ticker} возвращает карточку со всеми вложенными данными
-- [ ] Серверные jobs корректно загружают данные с MOEX и SmartLab
-- [ ] sync_analysis.py корректно синхронизирует данные из _index.md
-- [ ] Запустить полный test suite
-- [ ] Проверить: docker compose up → app доступен, postgres с данными
+- [x] Все 8 таблиц созданы и заполнены через миграцию
+- [x] CRUD endpoints работают для всех сущностей
+- [x] Фильтры: GET /companies?sector=finance&sentiment=bullish возвращает корректные данные
+- [x] GET /companies/{ticker} возвращает карточку со всеми вложенными данными
+- [x] Серверные jobs корректно загружают данные с MOEX и SmartLab
+- [x] sync_analysis.py корректно синхронизирует данные из _index.md
+- [x] Запустить полный test suite
+- [x] Проверить: docker compose up → app доступен, postgres с данными
 
 ### Task 16: [Final] Documentation
 

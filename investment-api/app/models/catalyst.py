@@ -20,6 +20,6 @@ class Catalyst(Base):
     source: Mapped[str | None] = mapped_column(Text, nullable=True)
     is_active: Mapped[bool] = mapped_column(default=True)
     expired_at: Mapped[datetime.datetime | None] = mapped_column(nullable=True)
-    created_at: Mapped[datetime.datetime] = mapped_column(default=lambda: datetime.datetime.now(datetime.UTC))
+    created_at: Mapped[datetime.datetime] = mapped_column(default=lambda: datetime.datetime.now(datetime.UTC).replace(tzinfo=None))
 
     company: Mapped["Company | None"] = relationship(back_populates="catalysts")  # noqa: F821

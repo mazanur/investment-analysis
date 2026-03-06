@@ -20,6 +20,6 @@ class Price(Base):
     close: Mapped[Decimal] = mapped_column(Numeric(14, 2))
     volume_rub: Mapped[Decimal | None] = mapped_column(Numeric(18, 2), nullable=True)
     market_cap: Mapped[Decimal | None] = mapped_column(Numeric(18, 2), nullable=True)
-    created_at: Mapped[datetime.datetime] = mapped_column(default=lambda: datetime.datetime.now(datetime.UTC))
+    created_at: Mapped[datetime.datetime] = mapped_column(default=lambda: datetime.datetime.now(datetime.UTC).replace(tzinfo=None))
 
     company: Mapped["Company"] = relationship(back_populates="prices")  # noqa: F821

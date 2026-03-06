@@ -21,7 +21,7 @@ class News(Base):
     strength: Mapped[StrengthEnum | None] = mapped_column(nullable=True)
     summary: Mapped[str | None] = mapped_column(Text, nullable=True)
     action: Mapped[ActionEnum | None] = mapped_column(nullable=True)
-    created_at: Mapped[datetime.datetime] = mapped_column(default=lambda: datetime.datetime.now(datetime.UTC))
+    created_at: Mapped[datetime.datetime] = mapped_column(default=lambda: datetime.datetime.now(datetime.UTC).replace(tzinfo=None))
 
     company: Mapped["Company | None"] = relationship(back_populates="news")  # noqa: F821
     sector: Mapped["Sector | None"] = relationship(back_populates="news")  # noqa: F821

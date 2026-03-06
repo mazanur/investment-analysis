@@ -8,6 +8,10 @@ from app.db import Base
 from app.models.enums import PositionEnum, SentimentEnum
 
 
+def _utcnow() -> datetime:
+    return datetime.now(UTC).replace(tzinfo=None)
+
+
 class Company(Base):
     __tablename__ = "companies"
 
@@ -30,7 +34,7 @@ class Company(Base):
     dividend_yield: Mapped[Decimal | None] = mapped_column(Numeric(6, 2), nullable=True)
     roe: Mapped[Decimal | None] = mapped_column(Numeric(8, 2), nullable=True)
     gov_ownership: Mapped[Decimal | None] = mapped_column(Numeric(5, 2), nullable=True)
-    updated_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC), onupdate=lambda: datetime.now(UTC))
+    updated_at: Mapped[datetime] = mapped_column(default=_utcnow, onupdate=_utcnow)
 
     sector: Mapped["Sector | None"] = relationship(back_populates="companies")  # noqa: F821
     financial_reports: Mapped[list["FinancialReport"]] = relationship(back_populates="company")  # noqa: F821

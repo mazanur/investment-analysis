@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_db, require_api_key
 from app.models import Company, FinancialReport
 from app.models.enums import PeriodTypeEnum
-from app.schemas import FinancialReportCreate, FinancialReportResponse, FinancialReportUpdate
+from app.schemas import FinancialReportCreate, FinancialReportResponse
 
 router = APIRouter(tags=["financial-reports"])
 

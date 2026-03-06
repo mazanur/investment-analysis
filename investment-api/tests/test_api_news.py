@@ -5,7 +5,7 @@ HEADERS = {"X-API-Key": API_KEY}
 
 
 async def _create_sector(client, slug="finance", name="Finance"):
-    resp = await client.post(f"/sectors", json={"slug": slug, "name": name}, headers=HEADERS)
+    resp = await client.post("/sectors", json={"slug": slug, "name": name}, headers=HEADERS)
     return resp.json()
 
 
