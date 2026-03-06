@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-06",
+    "trigger": "Акции «ЕвроТранса» падают на 4% на фоне судебных разбирательств (суд с трейдером на 500 млн руб.)",
+    "trigger_url": "https://www.finam.ru/publications/item/aktsii-evrotransa-padayut-na-4-na-fone-sudebnykh-razbiratelstv-20260305-1053/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": 1.21,
+    "position_size": "skip",
+    "reasoning": "R/R = 1.21 (ниже порога 2.0). Цена упала на 6.9% (132.1→122.95), объём 9.7x ADV — паника. Фундаментал цел (рост выручки +34%, EBITDA +43%, дивиденды 15-20%), но соотношение risk/reward недостаточно для входа. Stop-loss 5% даёт риск 6.15% при потенциале 7.44% к pre-news price."
+  },
+  {
     "date": "2026-02-27",
     "trigger": "ФНС заблокировала счета на 223 млн ₽ (23.02), разблокировала (24.02). НКЦ повысил риск-параметры по облигациям. Аналитики указывают на долг 58 млрд, ND/EBITDA >3x, погашение 10 млрд в 2026",
     "trigger_url": "https://smart-lab.ru/blog/1269071.php",
