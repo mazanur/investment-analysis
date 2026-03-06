@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Минфин США разрешил операции с немецкими подразделениями \"Роснефти\"",
+    "trigger_url": "https://1prime.ru/20260305/ssha-868059906.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=37M < 50M"
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "У Ирака осталось 3 дня, у  Кувейта 2 недели",
     "trigger_url": "https://t.me/oil_capital/24822",
     "signal": "skip",
