@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Атака Ирана на крупнейший танкер с начала конфликта в Персидском заливе — геополитическая эскалация",
+    "trigger_url": "https://lenta.ru/news/2026/03/05/ataka-irana-na-samyy-krupnyy-tanker-s-nachala-konflikta-popala-na-video/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Позитивная новость для ЛУКОЙЛа (геополитическая эскалация в Персидском заливе → рост нефтяных цен → выше экспортная выручка). Но кластерный price_move +6.9% (5158→5514 ₽) >> 2% порога → позитив УЖЕ В ЦЕНЕ. Предыдущие сигналы по геополитической теме (атаки на танкеры, 2026-03-05) также были skip. R/R = 2.28 (upside 12.4% до fair value 6200, stop −5% = 5238) ≈ порога 2.0, но позитив уже отыгран. Тезис unchanged: neutral/hold."
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Денег станет меньше: новое правило бюджета — снижение цены отсечения нефти уменьшит продажи валюты из ФНБ, ослабление рубля — позитив для Лукойла",
     "trigger_url": "https://1prime.ru/20260305/byudzhet-868043415.html",
     "signal": "skip",
