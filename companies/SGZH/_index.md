@@ -26,7 +26,7 @@ key_opportunities:
   - Допэмиссия 2025 сократила чистый долг втрое — устранена непосредственная угроза дефолта
   - Диверсификация продукции (бумага, упаковка, пиломатериалы, фанера, CLT)
 my_fair_value: 0.90
-current_price: 1.23
+current_price: 1.22
 upside: -25%
 position: avoid
 gov_ownership: 0

@@ -27,7 +27,7 @@ key_opportunities:
   - Обязательная защита критической инфраструктуры до 2030 обеспечивает госзаказ
   - PT NGFW — новый продукт (межсетевой экран) расширяет адресный рынок
 my_fair_value: 1480
-current_price: 1202.8
+current_price: 1188.4
 upside: +32%
 position: watch
 gov_ownership: 0
