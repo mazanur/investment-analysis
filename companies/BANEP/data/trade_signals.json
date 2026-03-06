@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Саудовская Аравия перенаправляет нефть в порт Янбу на Красном море",
+    "trigger_url": "https://www.interfax.ru/world/1076330",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=37M < 50M"
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Блокировка Ормузского пролива привела к тому, что разница между ценами на нефть марки Brent и Dubai достигла многолетнего максимума",
     "trigger_url": "https://smart-lab.ru/blog/1273470.php",
     "signal": "skip",
