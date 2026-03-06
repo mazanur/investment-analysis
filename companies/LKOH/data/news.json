@@ -1043,5 +1043,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "ТРЕЙДЕРЫ ПРОДАЮТ РОССИЙСКУЮ",
+    "type": "news",
+    "url": "https://t.me/markettwits/361516",
+    "impact": "positive",
+    "summary": "Рост премии на Urals до $4-5 к Brent вместо прежних скидок напрямую увеличивает экспортную выручку и прибыльность Лукойла как крупного нефтеэкспортёра — это позитив для финансовых показателей компании.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
