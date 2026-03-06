@@ -75,5 +75,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "«Сбер» ожидает месячную инфляцию в России по итогам февраля на уровне 0,5-0,7%",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/sber-ozhidaet-mesyachnuyu-inflyatsiyu-v-rossii-po-itogam-fevralya-na-urovne-05-07-20260305-1015/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Сбербанк как аналитический центр прогнозирует снижение ключевой ставки ЦБ до 14,5-15% в марте-апреле и до 12% к концу года, что соответствует ключевому катализатору снижения ставки и позитивно для акций Сбербанка: снижение ставки улучшит кредитование и чистые процентные доходы, а также переоценит мультипликаторы",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
