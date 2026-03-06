@@ -2,8 +2,10 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from app.api.catalysts import router as catalysts_router
 from app.api.companies import router as companies_router
 from app.api.dividends import router as dividends_router
+from app.api.prices import router as prices_router
 from app.api.reports import router as reports_router
 from app.api.sectors import router as sectors_router
 from app.config import settings
@@ -25,6 +27,8 @@ app.include_router(sectors_router)
 app.include_router(companies_router)
 app.include_router(reports_router)
 app.include_router(dividends_router)
+app.include_router(catalysts_router)
+app.include_router(prices_router)
 
 
 @app.get("/health")

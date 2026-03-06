@@ -229,10 +229,10 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/app/api/catalysts.py`
 - Create: `investment-api/app/api/prices.py`
 
-- [ ] `api/catalysts.py` — GET /companies/{ticker}/catalysts (?is_active=true), POST /companies/{ticker}/catalysts, POST /catalysts (макро, без company_id), PUT /catalysts/{id} (деактивация)
-- [ ] `api/prices.py` — GET /companies/{ticker}/prices (?from=&to=), POST /companies/{ticker}/prices (bulk upsert), GET /companies/{ticker}/prices/latest
-- [ ] Написать тесты: фильтры, bulk upsert цен, макро-катализаторы без компании
-- [ ] Запустить тесты — должны пройти
+- [x] `api/catalysts.py` — GET /companies/{ticker}/catalysts (?is_active=true), POST /companies/{ticker}/catalysts, POST /catalysts (макро, без company_id), PUT /catalysts/{id} (деактивация)
+- [x] `api/prices.py` — GET /companies/{ticker}/prices (?from=&to=), POST /companies/{ticker}/prices (bulk upsert), GET /companies/{ticker}/prices/latest
+- [x] Написать тесты: фильтры, bulk upsert цен, макро-катализаторы без компании
+- [x] Запустить тесты — должны пройти
 
 ### Task 8: CRUD endpoints — News + Trade Signals
 
