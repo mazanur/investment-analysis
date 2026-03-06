@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Иран может на несколько месяцев парализовать Ормузский пролив с помощью беспилотников",
+    "trigger_url": "https://smart-lab.ru/blog/1273577.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=37M < 50M"
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "В Абу-Даби раздались взрывы",
     "trigger_url": "https://www.rbc.ru/society/05/03/2026/69a9aa4d9a7947d0db930b5d",
     "signal": "skip",
