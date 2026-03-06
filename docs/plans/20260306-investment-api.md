@@ -186,15 +186,15 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/app/schemas/news.py`
 - Create: `investment-api/app/schemas/trade_signal.py`
 
-- [ ] Для каждой сущности: Create, Update (partial), Response схемы
-- [ ] `CompanyResponse` — включает вложенные списки (последние catalysts, dividends, latest price)
-- [ ] `CompanyListResponse` — облегчённая версия для списка (без вложенных)
-- [ ] `CompanyFilter` — query params: sector, sentiment, position, min_upside, max_p_e
-- [ ] `FinancialReportCreate` — валидация extra_metrics (JSONB, произвольные ключи, значения — числа)
-- [ ] `TradeSignalCreate` — валидация: confidence 0-100, risk_reward >= 0
-- [ ] `PriceBulkCreate` — для массовой загрузки цен (список OHLCV записей)
-- [ ] Написать тесты: валидация Pydantic (корректные данные проходят, невалидные — нет)
-- [ ] Запустить тесты — должны пройти
+- [x] Для каждой сущности: Create, Update (partial), Response схемы
+- [x] `CompanyResponse` — включает вложенные списки (последние catalysts, dividends, latest price)
+- [x] `CompanyListResponse` — облегчённая версия для списка (без вложенных)
+- [x] `CompanyFilter` — query params: sector, sentiment, position, min_upside, max_p_e
+- [x] `FinancialReportCreate` — валидация extra_metrics (JSONB, произвольные ключи, значения — числа)
+- [x] `TradeSignalCreate` — валидация: confidence 0-100, risk_reward >= 0
+- [x] `PriceBulkCreate` — для массовой загрузки цен (список OHLCV записей)
+- [x] Написать тесты: валидация Pydantic (корректные данные проходят, невалидные — нет)
+- [x] Запустить тесты — должны пройти
 
 ### Task 5: CRUD endpoints — Companies + Sectors
 
