@@ -153,6 +153,42 @@ companies/{TICKER}/
 - Если пользователь спрашивает про компанию/сектор, а соответствующий документ **просрочен** (текущая дата > «след. обновление») — сообщи об этом и предложи обновить
 - Если при ответе используешь данные из документа старше 6 месяцев — предупреди о возможной неактуальности
 
+## Investment API
+
+Отдельный backend (`investment-api/`) для хранения нормализованных данных в PostgreSQL. Все данные из markdown/JSON/CSV файлов дублируются в API для быстрого доступа.
+
+### Синхронизация данных
+
+После обновления `_index.md` компании — синхронизируй данные в API:
+
+```bash
+# Одна компания
+make sync TICKER=SBER
+
+# Все компании
+make sync-all
+```
+
+Скрипт `scripts/sync_analysis.py` парсит YAML frontmatter, catalysts, news и trade signals из workspace и пушит их в API.
+
+### Миграция всех данных
+
+Для первоначальной загрузки всех данных в API:
+
+```bash
+python3 scripts/migrate_all.py
+```
+
+### API endpoints
+
+- Swagger UI: http://localhost:8000/docs
+- Healthcheck: GET /health
+- Компании: GET /companies, GET /companies/{ticker}
+- Аналитика: GET /analytics/top-upside, GET /analytics/screener
+- Серверные jobs: POST /jobs/fetch-moex, POST /jobs/fetch-prices
+
+Подробная документация: `investment-api/README.md`
+
 ## Важно
 
 - **При любом изменении документа** — обязательно обнови таблицу «Статус обновлений» в `_index.md` (статус, дата, след. обновление)

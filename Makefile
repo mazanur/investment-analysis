@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events download-all daily update-prices check-reports catalysts news-reaction
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events download-all daily update-prices check-reports catalysts news-reaction sync sync-all
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -51,6 +51,8 @@ help:
 	@echo "  make catalysts     — сгенерировать catalysts.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
 	@echo "  make dashboard     — сгенерировать GitHub Pages дашборд"
+	@echo "  make sync TICKER=SBER — синхронизировать компанию в Investment API"
+	@echo "  make sync-all      — синхронизировать все компании в API"
 	@echo ""
 	@echo "$(GREEN)Аналитика:$(NC)"
 	@echo "  make portfolio     — показать компании с position=buy"
@@ -236,6 +238,23 @@ dashboard:
 	@echo "$(CYAN)Генерация дашборда в docs/...$(NC)"
 	@python3 scripts/generate_dashboard.py
 	@echo "$(GREEN)Готово: открой docs/index.html в браузере$(NC)"
+
+# ============================================================================
+# API SYNC
+# ============================================================================
+
+sync:
+ifndef TICKER
+	@echo "$(RED)Ошибка: укажи тикер$(NC)"
+	@echo "Использование: make sync TICKER=SBER"
+	@exit 1
+endif
+	@echo "$(CYAN)Синхронизация $(TICKER) в Investment API...$(NC)"
+	@python3 scripts/sync_analysis.py $(TICKER)
+
+sync-all:
+	@echo "$(CYAN)Синхронизация всех компаний в Investment API...$(NC)"
+	@python3 scripts/sync_analysis.py --all
 
 # ============================================================================
 # АНАЛИТИКА
