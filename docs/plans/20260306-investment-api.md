@@ -165,13 +165,13 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/alembic/env.py`
 - Create: `investment-api/alembic/versions/001_initial.py`
 
-- [ ] `alembic init alembic` — инициализация
-- [ ] Настроить `alembic/env.py` для async SQLAlchemy + подхват моделей из `app.models`
-- [ ] `alembic revision --autogenerate -m "initial"` — первая миграция (все 8 таблиц)
-- [ ] `alembic upgrade head` — применить миграцию
-- [ ] Проверить: все таблицы, индексы, constraints созданы корректно
-- [ ] Написать тест: `alembic upgrade head` + `alembic downgrade base` проходит без ошибок
-- [ ] Запустить тесты — должны пройти
+- [x] `alembic init alembic` — инициализация
+- [x] Настроить `alembic/env.py` для async SQLAlchemy + подхват моделей из `app.models`
+- [x] `alembic revision --autogenerate -m "initial"` — первая миграция (все 8 таблиц)
+- [x] `alembic upgrade head` — применить миграцию
+- [x] Проверить: все таблицы, индексы, constraints созданы корректно
+- [x] Написать тест: `alembic upgrade head` + `alembic downgrade base` проходит без ошибок
+- [x] Запустить тесты — должны пройти
 
 ### Task 4: Pydantic schemas — request/response модели
 

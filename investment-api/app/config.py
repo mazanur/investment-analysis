@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/investment"
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5434/investment"
     api_key: str = "dev-api-key"
     debug: bool = True
 
