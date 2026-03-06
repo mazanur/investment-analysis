@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-05",
+    "trigger": "Инфляция в РФ замедляется: новые данные и взгляд на ставку",
+    "trigger_url": "https://smart-lab.ru/blog/1273581.php",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "medium",
+    "entry": {"condition": "по рынку", "price": 1409.2},
+    "exit": {"take_profit": 1650, "stop_loss": 1268.28, "time_limit_days": 10},
+    "expected_return_pct": 17.1,
+    "risk_reward_ratio": 1.71,
+    "position_size": "half",
+    "reasoning": "Кластерный price_move -1.2% (< 2%) — позитив НЕ в цене. Новая тема (инфляция/ставка ЦБ), не дублирует «Дружбу» или Иран. Ключевой катализатор: снижение ставки ЦБ до 10-14% к концу 2026 → переоценка дивидендной доходности 13.5-14% vs дешёвые депозиты. Фундаментал крепкий: недооценка 17% к fair value 1650₽, EV/EBITDA 1.25 (сильная недооценка), net cash 202 млрд₽, дивиденды стабильны. R/R = 1.71 > 1.5 (достаточно для medium confidence). Target fair_value 1650₽, stop -10%."
+  },
+  {
     "date": "2026-03-06",
     "trigger": "Орбан пригрозил Украине применить силу для разблокировки транзита нефти по «Дружбе»",
     "trigger_url": "https://lenta.ru/news/2026/03/05/orban-prigrozil-ukraine-primenit-silu/",
