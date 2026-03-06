@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Недобор нефтегазовых доходов России немного сократился",
+    "trigger_url": "https://lenta.ru/news/2026/03/05/nedobor-neftegazovyh-dohodov-rossii-nemnogo-sokratilsya/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=37M < 50M"
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Корабли в моей гавани: в Персидском заливе продолжают тонуть нефтетанкеры, очередной взрыв судна у берегов Кувейта",
     "trigger_url": "https://smart-lab.ru/blog/1273259.php",
     "signal": "skip",
