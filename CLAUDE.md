@@ -107,15 +107,15 @@ companies/{TICKER}/
 
 ## Как реагировать на новость
 
-Когда появляется новая новость в `companies/{TICKER}/data/news.json` и нужно быстро оценить, есть ли спекулятивная возможность — используй **`companies/NEWS_REACTION_GUIDE.md`**.
+Когда появляется новая новость в API (`GET /companies/{TICKER}/news`) и нужно быстро оценить, есть ли спекулятивная возможность — используй **`companies/NEWS_REACTION_GUIDE.md`**.
 
 Кратко:
-1. Обнови цену: `python3 scripts/update_prices.py {TICKER}`
+1. Обнови цену: `curl -X POST "$API_URL/jobs/fetch-moex?tickers={TICKER}" -H "X-API-Key: $API_KEY"` + `curl -X POST "$API_URL/jobs/fetch-prices?tickers={TICKER}" -H "X-API-Key: $API_KEY"`
 2. Классифицируй новость (тип, сила, направление)
-3. Проверь «уже в цене» (price_history.csv: движение цены + объём)
+3. Проверь «уже в цене» (API `GET /companies/{TICKER}/prices`: движение цены + объём)
 4. Оцени: новость ломает фундаментальный тезис или нет?
 5. Рассчитай trade setup (entry, target, stop-loss, risk/reward ≥ 2:1)
-6. Запиши результат в `companies/{TICKER}/data/trade_signals.json`
+6. Запиши результат в API: `POST /companies/{TICKER}/signals`
 
 Если `_index.md` — заглушка → skip (сначала проведи полный research).
 
@@ -141,7 +141,7 @@ companies/{TICKER}/
 | companies/{TICKER}/_index.md | ежеквартально | публикация отчётности (МСФО/РСБУ), дивидендные решения, корпоративные события |
 | companies/{TICKER}/opinions.md | автоматически | запуск `scripts/generate_opinions.py` после обновления sources/ |
 | companies/{TICKER}/trend.json | автоматически | запуск `scripts/generate_trend_json.py` после обновления _index.md |
-| companies/{TICKER}/data/catalysts.json | автоматически | запуск `scripts/generate_catalysts.py` после обновления key_risks/key_opportunities в _index.md |
+| companies/{TICKER} catalysts (API) | автоматически | `make sync TICKER={TICKER}` после обновления key_risks/key_opportunities в _index.md |
 
 ### Как рассчитывать «След. обновление»
 - Для заполненных документов: дата последнего обновления + период частоты
@@ -155,7 +155,7 @@ companies/{TICKER}/
 
 ## Investment API
 
-Отдельный backend (`investment-api/`) для хранения нормализованных данных в PostgreSQL. Все данные из markdown/JSON/CSV файлов дублируются в API для быстрого доступа.
+Отдельный backend (`investment-api/`) — **единственный источник** финансовых и рыночных данных. Все данные хранятся в PostgreSQL и доступны через REST API. Локальные `data/` папки больше не используются — данные загружаются и читаются через API endpoints.
 
 ### Синхронизация данных
 
@@ -184,8 +184,14 @@ python3 scripts/migrate_all.py
 - Swagger UI: http://localhost:8000/docs
 - Healthcheck: GET /health
 - Компании: GET /companies, GET /companies/{ticker}
+- Финансовые отчёты: GET /companies/{ticker}/reports?period_type=yearly|quarterly
+- Цены: GET /companies/{ticker}/prices, GET /companies/{ticker}/prices/latest
+- Новости: GET /companies/{ticker}/news
+- Дивиденды: GET /companies/{ticker}/dividends, GET /dividends/upcoming
+- Катализаторы: GET /companies/{ticker}/catalysts
+- Торговые сигналы: GET /companies/{ticker}/signals, POST /companies/{ticker}/signals
 - Аналитика: GET /analytics/top-upside, GET /analytics/screener
-- Серверные jobs: POST /jobs/fetch-moex, POST /jobs/fetch-prices
+- Серверные jobs: POST /jobs/fetch-moex, POST /jobs/fetch-prices, POST /jobs/fetch-smartlab/{ticker}, POST /jobs/fetch-events/{ticker}
 
 Подробная документация: `investment-api/README.md`
 

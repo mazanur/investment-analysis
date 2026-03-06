@@ -7,15 +7,15 @@ auto_fetch: true
 
 # Финансовые данные: Совкомбанк (SVCB)
 
-**Данные загружаются автоматически** в `data/` через скрипт:
+**Данные загружаются автоматически** в Investment API через job endpoints:
 
 ```bash
-make download TICKER=SVCB
+curl -X POST "$API_URL/jobs/fetch-smartlab/SVCB" -H "X-API-Key: $API_KEY"
 ```
 
-Файлы сохраняются в:
-- `data/smartlab_yearly.csv` — годовые МСФО
-- `data/smartlab_quarterly.csv` — квартальные МСФО
+Данные доступны через:
+- `GET /companies/SVCB/reports?period_type=yearly` — годовые МСФО
+- `GET /companies/SVCB/reports?period_type=quarterly` — квартальные МСФО
 
 ## Пометки о разовых статьях
 

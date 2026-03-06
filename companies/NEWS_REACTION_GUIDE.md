@@ -2,7 +2,7 @@
 
 Цель — определить, можно ли спекулятивно заработать на конкретной новости о компании. Быстрый анализ (не полный research), результат — trade signal с условиями входа и выхода.
 
-> **Когда использовать:** при появлении новой новости в `companies/{TICKER}/data/news.json`. Запуск: `make news-reaction TICKER={TICKER}` или вручную по инструкции ниже.
+> **Когда использовать:** при появлении новой новости в API (`GET /companies/{TICKER}/news`). Запуск: `make news-reaction TICKER={TICKER}` или вручную по инструкции ниже.
 
 ## Пре-условия
 
@@ -11,19 +11,22 @@
 | Условие | Где проверить | Почему skip |
 |---------|---------------|-------------|
 | `_index.md` заполнен | `sentiment` ≠ пусто, `my_fair_value` > 0 | Без фундаментальной оценки нет точки отсчёта для target |
-| ADV ≥ 50 млн ₽ | `_index.md` → `adv_rub_mln` или `data/moex_market.json` | Неликвид — не выйдешь по своей цене |
+| ADV ≥ 50 млн ₽ | `_index.md` → `adv_rub_mln` или API `GET /companies/{TICKER}` → `adv_rub_mln` | Неликвид — не выйдешь по своей цене |
 
 ## Шаг 0. Обновить цену
 
 ```bash
-python3 scripts/update_prices.py {TICKER}
+# Обновить рыночные данные (цена, ADV, капитализация)
+curl -X POST "$API_URL/jobs/fetch-moex?tickers={TICKER}" -H "X-API-Key: $API_KEY"
+# Обновить историю цен (OHLCV)
+curl -X POST "$API_URL/jobs/fetch-prices?tickers={TICKER}" -H "X-API-Key: $API_KEY"
 ```
 
-Скрипт обновит `current_price` в `_index.md` и добавит строку в `data/price_history.csv`. Без актуальной цены расчёт бессмысленный.
+Jobs обновят данные в API: текущую цену в `GET /companies/{TICKER}` и историю цен в `GET /companies/{TICKER}/prices`. Без актуальной цены расчёт бессмысленный.
 
 ## Шаг 1. Классификация новости
 
-Прочитай последнюю (или указанную) новость из `data/news.json`.
+Прочитай последнюю (или указанную) новость из API (`GET /companies/{TICKER}/news`).
 
 **Определи тип новости:**
 
@@ -53,10 +56,10 @@ python3 scripts/update_prices.py {TICKER}
 **Рассчитай:**
 
 ```
-1. pre_news_price = цена закрытия за торговый день ДО новости (из price_history.csv)
-2. current_price = текущая цена (из _index.md, после шага 0)
+1. pre_news_price = цена закрытия за торговый день ДО новости (из API: GET /companies/{TICKER}/prices)
+2. current_price = текущая цена (из API: GET /companies/{TICKER} → current_price, после шага 0)
 3. price_move = (current_price - pre_news_price) / pre_news_price × 100%
-4. volume_ratio = volume в день новости / ADV за 30 дней (ADV из moex_market.json)
+4. volume_ratio = volume в день новости / ADV за 30 дней (из API: GET /companies/{TICKER} → adv_rub_mln)
 ```
 
 **Матрица решений:**
@@ -105,7 +108,7 @@ python3 scripts/update_prices.py {TICKER}
 | Сценарий | Entry |
 |----------|-------|
 | long-positive (рынок не отреагировал) | По рынку (текущая цена) |
-| long-oversold (паника) | Текущая цена ИЛИ лимитка на уровень поддержки (52w low из moex_market.json) |
+| long-oversold (паника) | Текущая цена ИЛИ лимитка на уровень поддержки (52w low из API: `GET /companies/{TICKER}/prices`) |
 
 **Target (цена выхода с прибылью):**
 
@@ -121,7 +124,7 @@ python3 scripts/update_prices.py {TICKER}
 | results (отчётность) | −10% от entry | Волатильность выше на отчётах |
 | dividends | −5% от entry | Узкий стоп, идея конкретная |
 | regulation / corporate | −10% от entry | Регуляторный риск непредсказуем |
-| long-oversold (паника) | Минимум дня паники (low из price_history.csv) | Если пробьёт дно паники — падение продолжится |
+| long-oversold (паника) | Минимум дня паники (low из API: `GET /companies/{TICKER}/prices`) | Если пробьёт дно паники — падение продолжится |
 
 **Расчёт risk/reward:**
 
@@ -162,7 +165,7 @@ risk_reward = expected_return / risk
 
 **Запись результата:**
 
-Добавь сигнал в начало массива `companies/{TICKER}/data/trade_signals.json` (новые сигналы сверху). Формат — по схеме `api/trade-signals-schema.yaml`.
+Добавь сигнал в API через `POST /companies/{TICKER}/signals`. Формат — по схеме `api/trade-signals-schema.yaml`.
 
 Пример:
 

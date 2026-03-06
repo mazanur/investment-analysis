@@ -15,24 +15,18 @@ updated: 2026-01-01
 Секции «Дивидендная история» и «Санкционный скрининг» заполняются автоматически:
 
 ```bash
-# 1. Скачать данные (если ещё нет)
-make download-events TICKER=TICKER      # дивиденды с MOEX
-make download TICKER=TICKER             # финансы со smart-lab (для payout ratio)
-make download-governance TICKER=TICKER  # санкционный скрининг
+# 1. Загрузить данные в API (если ещё нет)
+curl -X POST "$API_URL/jobs/fetch-events/TICKER" -H "X-API-Key: $API_KEY"    # дивиденды с MOEX
+curl -X POST "$API_URL/jobs/fetch-smartlab/TICKER" -H "X-API-Key: $API_KEY"  # финансы со smart-lab
+make download-governance TICKER=TICKER                                        # санкционный скрининг
 
 # 2. Сгенерировать governance.md
 make fill-governance TICKER=TICKER
-
-# Или для всех компаний сразу:
-make download-all && make fill-governance
 ```
 
 Скрипт использует:
-- **Дивиденды MOEX** → история выплат, стабильность, периодичность
-- **Smart-lab CSV** → payout ratio (если скачан)
+- **Investment API** (дивиденды, финансы) → история выплат, стабильность, payout ratio
 - **OpenSanctions API** → санкционный скрининг
-
-Данные сохраняются в `data/moex_events.json`, `data/smartlab_yearly.csv`, `data/sanctions.json`.
 
 ### Вручную (секции ниже)
 

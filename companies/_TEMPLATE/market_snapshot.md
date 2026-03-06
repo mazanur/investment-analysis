@@ -5,19 +5,17 @@ updated: 2026-01-01
 
 # Рыночные данные: Название (TIтCKER)
 
-**Основные данные загружаются автоматически** с MOEX ISS API:
+**Основные данные загружаются автоматически** в Investment API с MOEX ISS:
 
 ```bash
-make download-moex TICKER=TICKER     # скачать для одной компании
-make download-moex                   # скачать для всех
+curl -X POST "$API_URL/jobs/fetch-moex?tickers=TICKER" -H "X-API-Key: $API_KEY"
 ```
 
-Файл сохраняется в `data/moex_market.json` и содержит:
-- Текущая цена (last, bid, offer, open, high, low)
-- Объём торгов и ADV за 30 дней (в рублях)
-- Bid-ask спред (%)
-- Капитализация и число акций
-- 52-недельный диапазон (high/low)
+Данные доступны через `GET /companies/TICKER` и содержат:
+- Текущая цена (current_price)
+- ADV за 30 дней (adv_rub_mln)
+- Капитализация (market_cap) и число акций (shares_out)
+- Free-float
 
 ## Данные, которых нет на MOEX (заполнять вручную)
 
