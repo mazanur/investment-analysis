@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-03-06",
+    "trigger": "BCS негативная рекомендация: шорт с целью 288-292 руб., стоп 309 руб.",
+    "trigger_url": "https://smart-lab.ru/company/bcs/blog/1273224.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": {
+      "condition": "Нет подходящей точки входа",
+      "price": null
+    },
+    "exit": {
+      "take_profit": null,
+      "stop_loss": null,
+      "time_limit_days": 0
+    },
+    "expected_return_pct": 0,
+    "risk_reward_ratio": 0.36,
+    "position_size": "skip",
+    "reasoning": "R/R для шорта = 0.36 (< 2.0) — невыгодное соотношение. Entry 304, target 290 (-4.6%), stop 309 (+1.6%). Кластерный price_move -2.6% недостаточен для oversold. Фундаментал смешанный: переоценка 85% vs восстановление EBITDA и снижение долга. Нет чёткой спекулятивной возможности."
+  }
+]
