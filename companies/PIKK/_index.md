@@ -27,7 +27,7 @@ key_opportunities:
   - Семейная ипотека 6% до 2030 поддерживает текущие продажи
   - Отложенный спрос — при нормализации ставок реализуется накопленный за 2024-2026 спрос
 my_fair_value: 560
-current_price: 466.3
+current_price: 466.2
 upside: 19%
 position: watch
 gov_ownership: 0
