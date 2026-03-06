@@ -1,8 +1,8 @@
 from datetime import UTC, date, datetime
 from decimal import Decimal
 
-from sqlalchemy import ForeignKey, Numeric, String, UniqueConstraint
-from sqlalchemy.types import JSON
+from sqlalchemy import ForeignKey, JSON, Numeric, String, UniqueConstraint
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -28,7 +28,9 @@ class FinancialReport(Base):
     p_e: Mapped[Decimal | None] = mapped_column(Numeric(10, 2), nullable=True)
     p_bv: Mapped[Decimal | None] = mapped_column(Numeric(10, 2), nullable=True)
     dividend_yield: Mapped[Decimal | None] = mapped_column(Numeric(6, 2), nullable=True)
-    extra_metrics: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    extra_metrics: Mapped[dict | None] = mapped_column(
+        JSON().with_variant(JSONB(), "postgresql"), nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC).replace(tzinfo=None))
 
     company: Mapped["Company"] = relationship(back_populates="financial_reports")  # noqa: F821

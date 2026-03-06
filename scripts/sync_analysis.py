@@ -541,8 +541,7 @@ def sync_ticker(client: SyncClient, ticker: str):
 
     # 2. Sync catalysts: deactivate old index-sourced, create new from frontmatter
     catalysts = extract_catalysts_from_frontmatter(ticker_dir)
-    if catalysts:
-        client.sync_catalysts(ticker, catalysts)
+    client.sync_catalysts(ticker, catalysts)
 
     # 3. Sync news (new entries only)
     news = parse_news(ticker_dir)

@@ -6,7 +6,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_company, get_db, require_api_key
-from app.models import Catalyst
+from app.models import Catalyst, Company
 from app.schemas import CatalystCreate, CatalystResponse, CatalystUpdate
 
 router = APIRouter(tags=["catalysts"])
@@ -58,6 +58,10 @@ async def create_macro_catalyst(
     data: CatalystCreate,
     db: AsyncSession = Depends(get_db),
 ):
+    if data.company_id is not None:
+        result = await db.execute(select(Company).where(Company.id == data.company_id))
+        if not result.scalar_one_or_none():
+            raise HTTPException(status_code=404, detail="Company not found")
     catalyst = Catalyst(**data.model_dump())
     db.add(catalyst)
     await db.commit()

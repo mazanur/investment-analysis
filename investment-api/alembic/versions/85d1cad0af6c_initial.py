@@ -101,7 +101,7 @@ def upgrade() -> None:
     sa.Column('p_e', sa.Numeric(precision=10, scale=2), nullable=True),
     sa.Column('p_bv', sa.Numeric(precision=10, scale=2), nullable=True),
     sa.Column('dividend_yield', sa.Numeric(precision=6, scale=2), nullable=True),
-    sa.Column('extra_metrics', sa.JSON(), nullable=True),
+    sa.Column('extra_metrics', postgresql.JSONB(astext_type=sa.Text()), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ),
     sa.PrimaryKeyConstraint('id'),

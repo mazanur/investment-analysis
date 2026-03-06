@@ -11,7 +11,11 @@ from app.db import async_session
 
 async def get_db() -> AsyncIterator[AsyncSession]:
     async with async_session() as session:
-        yield session
+        try:
+            yield session
+        except Exception:
+            await session.rollback()
+            raise
 
 
 async def require_api_key(x_api_key: str = Header()) -> str:

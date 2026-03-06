@@ -50,7 +50,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Investment API", version="0.1.0", lifespan=lifespan)
-app.add_middleware(SessionMiddleware, secret_key=settings.api_key)
+app.add_middleware(SessionMiddleware, secret_key=settings.secret_key)
 
 setup_admin(app, engine)
 
