@@ -1,4 +1,5 @@
 ---
+type: company
 ticker: CHMF
 name: Северсталь
 sector: metals-mining

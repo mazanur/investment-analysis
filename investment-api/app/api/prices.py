@@ -2,7 +2,8 @@ import datetime as dt
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy import select
+from sqlalchemy import func, select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_company, get_db, require_api_key
@@ -64,27 +65,38 @@ async def bulk_upsert_prices(
 ):
     company = await get_company(ticker, db)
 
-    # Batch-fetch existing prices in one query
-    dates = [p.date for p in data.prices]
-    stmt = select(Price).where(
-        Price.company_id == company.id,
-        Price.date.in_(dates),
+    # Deduplicate by date (last entry wins)
+    deduped: dict[dt.date, object] = {}
+    for p in data.prices:
+        deduped[p.date] = p
+    unique_prices = list(deduped.values())
+
+    if not unique_prices:
+        return []
+
+    # Use PostgreSQL INSERT ON CONFLICT DO UPDATE (atomic upsert, no race conditions)
+    # Use COALESCE to preserve existing non-NULL values when new values are NULL,
+    # so clients that omit optional fields don't erase existing OHLCV/market_cap data.
+    values = [{"company_id": company.id, **p.model_dump()} for p in unique_prices]
+    stmt = pg_insert(Price).values(values)
+    cols = Price.__table__.c
+    stmt = stmt.on_conflict_do_update(
+        constraint="uq_price_company_date",
+        set_={
+            "open": func.coalesce(stmt.excluded.open, cols.open),
+            "high": func.coalesce(stmt.excluded.high, cols.high),
+            "low": func.coalesce(stmt.excluded.low, cols.low),
+            "close": stmt.excluded.close,
+            "volume_rub": func.coalesce(stmt.excluded.volume_rub, cols.volume_rub),
+            "market_cap": func.coalesce(stmt.excluded.market_cap, cols.market_cap),
+        },
     )
-    result = await db.execute(stmt)
-    existing = {p.date: p for p in result.scalars().all()}
-
-    results = []
-    for price_data in data.prices:
-        price = existing.get(price_data.date)
-        if price:
-            for field, value in price_data.model_dump(exclude_unset=True).items():
-                setattr(price, field, value)
-        else:
-            price = Price(company_id=company.id, **price_data.model_dump())
-            db.add(price)
-        results.append(price)
-
+    await db.execute(stmt)
     await db.commit()
-    for p in results:
-        await db.refresh(p)
-    return results
+
+    # Fetch the upserted rows
+    dates = [p.date for p in unique_prices]
+    result = await db.execute(
+        select(Price).where(Price.company_id == company.id, Price.date.in_(dates))
+    )
+    return result.scalars().all()

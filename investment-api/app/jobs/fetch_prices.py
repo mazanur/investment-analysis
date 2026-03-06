@@ -17,7 +17,8 @@ from datetime import date, timedelta
 from decimal import Decimal
 
 import httpx
-from sqlalchemy import select
+from sqlalchemy import func, select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Company, Price
@@ -72,7 +73,7 @@ def _parse_tqbr_snapshot(data: list) -> dict[str, dict]:
                 ticker = row.get("SECID", "")
                 if ticker:
                     result.setdefault(ticker, {})
-                    result[ticker]["issuesize"] = row.get("ISSUESIZE", 0)
+                    result[ticker]["issuesize"] = row.get("ISSUESIZE") or 0
 
         marketdata = block.get("marketdata")
         if marketdata and isinstance(marketdata, list):
@@ -83,12 +84,12 @@ def _parse_tqbr_snapshot(data: list) -> dict[str, dict]:
                 if ticker:
                     result.setdefault(ticker, {})
                     result[ticker].update({
-                        "last": row.get("LAST") or row.get("LCLOSEPRICE", 0),
-                        "open": row.get("OPEN", 0),
-                        "high": row.get("HIGH", 0),
-                        "low": row.get("LOW", 0),
-                        "valtoday": row.get("VALTODAY", 0),
-                        "issuecap": row.get("ISSUECAPITALIZATION", 0),
+                        "last": row.get("LAST") or row.get("LCLOSEPRICE") or 0,
+                        "open": row.get("OPEN") or 0,
+                        "high": row.get("HIGH") or 0,
+                        "low": row.get("LOW") or 0,
+                        "valtoday": row.get("VALTODAY") or 0,
+                        "issuecap": row.get("ISSUECAPITALIZATION") or 0,
                     })
 
     return result
@@ -109,11 +110,11 @@ def _parse_candles(data: list) -> list[dict]:
                 if isinstance(row, dict) and row.get("close"):
                     candles.append({
                         "date": row.get("begin", "")[:10],
-                        "close": row.get("close", 0),
-                        "open": row.get("open", 0),
-                        "high": row.get("high", 0),
-                        "low": row.get("low", 0),
-                        "volume_rub": int(row.get("value", 0)),
+                        "close": row["close"],
+                        "open": row.get("open") or 0,
+                        "high": row.get("high") or 0,
+                        "low": row.get("low") or 0,
+                        "volume_rub": int(row.get("value") or 0),
                     })
     return candles
 
@@ -128,43 +129,38 @@ async def _upsert_prices(
     if not candles:
         return 0
 
-    dates = [c["date"] for c in candles]
-    stmt = select(Price).where(
-        Price.company_id == company_id,
-        Price.date.in_([date.fromisoformat(d) for d in dates]),
-    )
-    result = await db.execute(stmt)
-    existing = {p.date.isoformat(): p for p in result.scalars().all()}
-
-    count = 0
+    # Build values for atomic PostgreSQL INSERT ON CONFLICT DO UPDATE
+    values = []
     for candle in candles:
         d = candle["date"]
         mcap = (market_cap_by_date or {}).get(d)
+        values.append({
+            "company_id": company_id,
+            "date": date.fromisoformat(d),
+            "open": Decimal(str(candle["open"])),
+            "high": Decimal(str(candle["high"])),
+            "low": Decimal(str(candle["low"])),
+            "close": Decimal(str(candle["close"])),
+            "volume_rub": Decimal(str(candle["volume_rub"])),
+            "market_cap": Decimal(str(mcap)) if mcap else None,
+        })
 
-        if d in existing:
-            p = existing[d]
-            p.open = Decimal(str(candle["open"]))
-            p.high = Decimal(str(candle["high"]))
-            p.low = Decimal(str(candle["low"]))
-            p.close = Decimal(str(candle["close"]))
-            p.volume_rub = Decimal(str(candle["volume_rub"]))
-            if mcap:
-                p.market_cap = Decimal(str(mcap))
-        else:
-            price = Price(
-                company_id=company_id,
-                date=date.fromisoformat(d),
-                open=Decimal(str(candle["open"])),
-                high=Decimal(str(candle["high"])),
-                low=Decimal(str(candle["low"])),
-                close=Decimal(str(candle["close"])),
-                volume_rub=Decimal(str(candle["volume_rub"])),
-                market_cap=Decimal(str(mcap)) if mcap else None,
-            )
-            db.add(price)
-        count += 1
+    stmt = pg_insert(Price).values(values)
+    cols = Price.__table__.c
+    stmt = stmt.on_conflict_do_update(
+        constraint="uq_price_company_date",
+        set_={
+            "open": stmt.excluded.open,
+            "high": stmt.excluded.high,
+            "low": stmt.excluded.low,
+            "close": stmt.excluded.close,
+            "volume_rub": stmt.excluded.volume_rub,
+            "market_cap": func.coalesce(stmt.excluded.market_cap, cols.market_cap),
+        },
+    )
+    await db.execute(stmt)
 
-    return count
+    return len(values)
 
 
 async def run_fetch_prices(

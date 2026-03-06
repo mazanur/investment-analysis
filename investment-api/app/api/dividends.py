@@ -2,6 +2,7 @@ import datetime as dt
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_company, get_db, require_api_key
@@ -39,23 +40,27 @@ async def create_dividend(
 ):
     company = await get_company(ticker, db)
 
-    # Upsert by (company_id, record_date)
-    stmt = select(Dividend).where(
-        Dividend.company_id == company.id,
-        Dividend.record_date == data.record_date,
-    )
-    result = await db.execute(stmt)
-    dividend = result.scalar_one_or_none()
-
-    if dividend:
-        for field, value in data.model_dump(exclude_unset=True).items():
-            setattr(dividend, field, value)
+    # Atomic upsert using PostgreSQL INSERT ON CONFLICT
+    values = {"company_id": company.id, **data.model_dump()}
+    update_fields = data.model_dump(exclude_unset=True)
+    stmt = pg_insert(Dividend).values(**values)
+    if update_fields:
+        stmt = stmt.on_conflict_do_update(
+            constraint="uq_dividend_company_date",
+            set_=update_fields,
+        )
     else:
-        dividend = Dividend(company_id=company.id, **data.model_dump())
-        db.add(dividend)
-
+        stmt = stmt.on_conflict_do_nothing(constraint="uq_dividend_company_date")
+    await db.execute(stmt)
     await db.commit()
-    await db.refresh(dividend)
+
+    result = await db.execute(
+        select(Dividend).where(
+            Dividend.company_id == company.id,
+            Dividend.record_date == data.record_date,
+        )
+    )
+    dividend = result.scalar_one_or_none()
     return dividend
 
 

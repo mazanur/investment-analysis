@@ -423,11 +423,11 @@ def parse_prices(ticker_dir: Path) -> list[dict]:
                 except ValueError:
                     pass
 
-        # market_cap_bln → market_cap (convert bln to raw)
+        # market_cap_bln → market_cap (convert billions to raw rubles)
         mc = row.get("market_cap_bln", "").strip()
         if mc:
             try:
-                payload["market_cap"] = float(mc)
+                payload["market_cap"] = float(mc) * 1_000_000_000
             except ValueError:
                 pass
 

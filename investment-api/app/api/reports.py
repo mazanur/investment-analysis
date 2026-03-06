@@ -2,6 +2,7 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_company, get_db, require_api_key
@@ -62,7 +63,20 @@ async def upsert_report(
 ):
     company = await get_company(ticker, db)
 
-    # Upsert by (company_id, period)
+    # Atomic upsert using PostgreSQL INSERT ON CONFLICT
+    values = {"company_id": company.id, **data.model_dump()}
+    update_fields = data.model_dump(exclude_unset=True)
+    stmt = pg_insert(FinancialReport).values(**values)
+    if update_fields:
+        stmt = stmt.on_conflict_do_update(
+            constraint="uq_report_company_period",
+            set_=update_fields,
+        )
+    else:
+        stmt = stmt.on_conflict_do_nothing(constraint="uq_report_company_period")
+    await db.execute(stmt)
+    await db.commit()
+
     result = await db.execute(
         select(FinancialReport).where(
             FinancialReport.company_id == company.id,
@@ -70,14 +84,4 @@ async def upsert_report(
         )
     )
     report = result.scalar_one_or_none()
-
-    if report:
-        for field, value in data.model_dump(exclude_unset=True).items():
-            setattr(report, field, value)
-    else:
-        report = FinancialReport(company_id=company.id, **data.model_dump())
-        db.add(report)
-
-    await db.commit()
-    await db.refresh(report)
     return report

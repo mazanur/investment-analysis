@@ -1,4 +1,5 @@
 ---
+type: company
 ticker: YDEX
 name: Яндекс
 sector: IT-Telecom

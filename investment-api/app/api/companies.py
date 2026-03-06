@@ -3,6 +3,7 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db, require_api_key
@@ -76,20 +77,22 @@ async def get_company(ticker: str, db: AsyncSession = Depends(get_db)):
 
 @router.post("/{ticker}", response_model=CompanyResponse, status_code=201, dependencies=[Depends(require_api_key)])
 async def upsert_company(ticker: str, data: CompanyCreate, db: AsyncSession = Depends(get_db)):
+    # Atomic upsert using PostgreSQL INSERT ON CONFLICT
+    values = {"ticker": ticker, **data.model_dump(exclude={"ticker"})}
+    update_fields = data.model_dump(exclude={"ticker"}, exclude_unset=True)
+    stmt = pg_insert(Company).values(**values)
+    if update_fields:
+        stmt = stmt.on_conflict_do_update(
+            index_elements=["ticker"],
+            set_=update_fields,
+        )
+    else:
+        stmt = stmt.on_conflict_do_nothing(index_elements=["ticker"])
+    await db.execute(stmt)
+    await db.commit()
+
     result = await db.execute(select(Company).where(Company.ticker == ticker))
     company = result.scalar_one_or_none()
-
-    if company:
-        for field, value in data.model_dump(exclude={"ticker"}, exclude_unset=True).items():
-            setattr(company, field, value)
-        await db.commit()
-        await db.refresh(company)
-    else:
-        company = Company(ticker=ticker, **data.model_dump(exclude={"ticker"}))
-        db.add(company)
-        await db.commit()
-        await db.refresh(company)
-
     return CompanyResponse.model_validate(company)
 
 

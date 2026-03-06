@@ -29,6 +29,12 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    if not settings.debug:
+        if settings.api_key == "dev-api-key":
+            logger.warning("Running in production with default API_KEY — set API_KEY env var")
+        if settings.secret_key == "change-me-in-production":
+            logger.warning("Running in production with default SECRET_KEY — set SECRET_KEY env var")
+
     if settings.debug:
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
