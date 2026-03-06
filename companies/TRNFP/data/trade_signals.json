@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-06",
+    "trigger": "Орбан пригрозил Украине применить силу для разблокировки транзита нефти по «Дружбе»",
+    "trigger_url": "https://lenta.ru/news/2026/03/05/orban-prigrozil-ukraine-primenit-silu/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Дубликат темы «Дружба» — 7+ новость по той же теме (предыдущие 6 skip от 02-05.03). Правило дубликата → skip автоматически. Кластерный price_move -1.0% < 2%, формально позитив не в цене, но рынок уже 7 раз проигнорировал новости по «Дружбе» — вероятно, и эту проигнорирует. Доход Транснефти от тарифов, а не от объёмов — прямое влияние на финансы минимально. Дополнительно: добавлена конкретика о блокировке кредита ЕС на 90 млрд евро — это не меняет фундаментал. Confidence low → skip."
+  },
+  {
     "date": "2026-03-05",
     "trigger": "Bloomberg сообщил о возобновлении поставок российской нефти в Индию",
     "trigger_url": "https://www.finam.ru/publications/item/bloomberg-soobshchil-o-vozobnovlenii-postavok-rossiyskoy-nefti-v-indiyu-20260305-0837/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
