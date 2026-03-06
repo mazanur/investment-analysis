@@ -25,7 +25,7 @@ from app.models import Company
 logger = logging.getLogger(__name__)
 
 MOEX_TIMEOUT = 30.0
-MOEX_BASE = "http://iss.moex.com/iss"
+MOEX_BASE = "https://iss.moex.com/iss"
 
 SECURITIES_URL = (
     f"{MOEX_BASE}/engines/stock/markets/shares/boardgroups/57"
@@ -135,12 +135,25 @@ def _calculate_adv(candles: list[dict], days: int = 30) -> float:
 
 
 async def fetch_all_tqbr(client: httpx.AsyncClient) -> dict[str, dict]:
-    """Fetch all TQBR securities in one request."""
-    url = TQBR_ALL_URL.format(start=0)
-    data = await _fetch_json(client, url)
-    if not data:
-        return {}
-    return _parse_tqbr_all(data)
+    """Fetch all TQBR securities, paginating through all pages."""
+    combined: dict[str, dict] = {}
+    start = 0
+    while True:
+        url = TQBR_ALL_URL.format(start=start)
+        data = await _fetch_json(client, url)
+        if not data:
+            break
+        page = _parse_tqbr_all(data)
+        if not page:
+            break
+        prev_size = len(combined)
+        for ticker, info in page.items():
+            combined.setdefault(ticker, {}).update(info)
+        # Stop if no new tickers were added (last page or duplicate data)
+        if len(combined) == prev_size:
+            break
+        start += len(page)
+    return combined
 
 
 async def run_fetch_moex(db: AsyncSession, tickers: list[str] | None = None) -> dict:

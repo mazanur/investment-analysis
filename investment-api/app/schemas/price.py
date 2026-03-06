@@ -2,7 +2,7 @@ import datetime as dt
 from decimal import Decimal
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class PriceCreate(BaseModel):
@@ -16,7 +16,7 @@ class PriceCreate(BaseModel):
 
 
 class PriceBulkCreate(BaseModel):
-    prices: list[PriceCreate]
+    prices: list[PriceCreate] = Field(max_length=5000)
 
 
 class PriceResponse(BaseModel):

@@ -271,7 +271,7 @@ async def _fetch_csv(client: httpx.AsyncClient, url: str) -> bytes | None:
             data = resp.content
 
             # Validate: not an HTML error page, and has content
-            if data[:5] in (b"<html", b"<!DOC"):
+            if data[:5].lower() in (b"<html", b"<!doc"):
                 logger.warning("SmartLab returned HTML instead of CSV for %s", url)
                 return None
             if len(data) < 50:

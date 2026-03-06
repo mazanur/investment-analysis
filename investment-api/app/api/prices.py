@@ -63,24 +63,25 @@ async def bulk_upsert_prices(
     db: AsyncSession = Depends(get_db),
 ):
     company = await get_company(ticker, db)
+
+    # Batch-fetch existing prices in one query
+    dates = [p.date for p in data.prices]
+    stmt = select(Price).where(
+        Price.company_id == company.id,
+        Price.date.in_(dates),
+    )
+    result = await db.execute(stmt)
+    existing = {p.date: p for p in result.scalars().all()}
+
     results = []
-
     for price_data in data.prices:
-        # Upsert by (company_id, date)
-        stmt = select(Price).where(
-            Price.company_id == company.id,
-            Price.date == price_data.date,
-        )
-        result = await db.execute(stmt)
-        price = result.scalar_one_or_none()
-
+        price = existing.get(price_data.date)
         if price:
             for field, value in price_data.model_dump(exclude_unset=True).items():
                 setattr(price, field, value)
         else:
             price = Price(company_id=company.id, **price_data.model_dump())
             db.add(price)
-
         results.append(price)
 
     await db.commit()

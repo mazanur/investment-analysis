@@ -136,8 +136,8 @@ async def overdue(
     days: int = Query(90, ge=0, description="Threshold in days since last update"),
     db: AsyncSession = Depends(get_db),
 ):
-    now = datetime.now(UTC)
-    cutoff = (now - timedelta(days=days)).replace(tzinfo=None)
+    now = datetime.now(UTC).replace(tzinfo=None)
+    cutoff = now - timedelta(days=days)
     stmt = (
         select(Company, Sector.slug.label("sector_slug"))
         .outerjoin(Sector, Company.sector_id == Sector.id)
@@ -153,7 +153,7 @@ async def overdue(
             name=company.name,
             sector_slug=sector_slug,
             updated_at=company.updated_at.isoformat(),
-            days_since_update=(now.replace(tzinfo=None) - company.updated_at).days,
+            days_since_update=(now - company.updated_at).days,
         )
         for company, sector_slug in rows
     ]

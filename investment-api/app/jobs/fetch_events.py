@@ -26,7 +26,7 @@ from app.models.enums import DividendStatusEnum
 logger = logging.getLogger(__name__)
 
 MOEX_TIMEOUT = 30.0
-MOEX_BASE = "http://iss.moex.com/iss"
+MOEX_BASE = "https://iss.moex.com/iss"
 
 DIVIDENDS_URL = (
     f"{MOEX_BASE}/securities/{{ticker}}/dividends.json"

@@ -25,7 +25,7 @@ from app.models import Company, Price
 logger = logging.getLogger(__name__)
 
 MOEX_TIMEOUT = 30.0
-MOEX_BASE = "http://iss.moex.com/iss"
+MOEX_BASE = "https://iss.moex.com/iss"
 
 TQBR_ALL_URL = (
     f"{MOEX_BASE}/engines/stock/markets/shares/boards/TQBR"
@@ -222,13 +222,27 @@ async def _snapshot_prices(
     result: dict,
 ) -> dict:
     """Fetch today's snapshot and write one price row per company."""
-    url = TQBR_ALL_URL.format(start=0)
-    data = await _fetch_json(client, url)
-    if not data:
+    moex_data: dict[str, dict] = {}
+    start = 0
+    while True:
+        url = TQBR_ALL_URL.format(start=start)
+        data = await _fetch_json(client, url)
+        if not data:
+            break
+        page = _parse_tqbr_snapshot(data)
+        if not page:
+            break
+        prev_size = len(moex_data)
+        for ticker, info in page.items():
+            moex_data.setdefault(ticker, {}).update(info)
+        # Stop if no new tickers were added (last page or duplicate data)
+        if len(moex_data) == prev_size:
+            break
+        start += len(page)
+
+    if not moex_data:
         result["errors"].append("Failed to fetch TQBR snapshot from MOEX")
         return result
-
-    moex_data = _parse_tqbr_snapshot(data)
 
     today = date.today()
     for ticker, company in companies.items():
