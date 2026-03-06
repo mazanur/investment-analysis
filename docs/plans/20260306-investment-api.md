@@ -252,11 +252,11 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/app/jobs/fetch_moex.py`
 - Create: `investment-api/app/jobs/fetch_prices.py`
 
-- [ ] `jobs/fetch_moex.py` — портировать логику из `download_moex.py`: получение market snapshot → запись в companies (current_price, market_cap, adv, spread)
-- [ ] `jobs/fetch_prices.py` — портировать из `update_prices.py`: batch загрузка OHLCV → bulk upsert в prices
-- [ ] API endpoints для запуска: POST /jobs/fetch-moex, POST /jobs/fetch-prices (или отдельный internal router)
-- [ ] Написать тесты: mock MOEX API responses, проверить парсинг и запись в БД
-- [ ] Запустить тесты — должны пройти
+- [x] `jobs/fetch_moex.py` — портировать логику из `download_moex.py`: получение market snapshot → запись в companies (current_price, market_cap, adv, spread)
+- [x] `jobs/fetch_prices.py` — портировать из `update_prices.py`: batch загрузка OHLCV → bulk upsert в prices
+- [x] API endpoints для запуска: POST /jobs/fetch-moex, POST /jobs/fetch-prices (или отдельный internal router)
+- [x] Написать тесты: mock MOEX API responses, проверить парсинг и запись в БД
+- [x] Запустить тесты — должны пройти
 
 ### Task 10: Серверные jobs — SmartLab + MOEX Events
 

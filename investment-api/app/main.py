@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from app.api.catalysts import router as catalysts_router
 from app.api.companies import router as companies_router
 from app.api.dividends import router as dividends_router
+from app.api.jobs import router as jobs_router
 from app.api.news import router as news_router
 from app.api.prices import router as prices_router
 from app.api.reports import router as reports_router
@@ -33,6 +34,7 @@ app.include_router(catalysts_router)
 app.include_router(prices_router)
 app.include_router(news_router)
 app.include_router(signals_router)
+app.include_router(jobs_router)
 
 
 @app.get("/health")
