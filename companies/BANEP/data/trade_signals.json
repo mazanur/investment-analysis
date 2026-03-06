@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-06",
+    "trigger": "КСИР заявил об атаке на нефтяной танкер США в Персидском заливе",
+    "trigger_url": "https://www.rbc.ru/politics/05/03/2026/69a92f7c9a794777b18a6f63",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=37M < 50M"
+  },
+  {
     "date": "2026-03-05",
     "trigger": "Ажиотаж в нефтегазе сник - лидеры и аутсайдеры меняются местами",
     "trigger_url": "https://www.finam.ru/publications/item/azhiotazh-v-neftegaze-snik-lidery-i-autsaydery-menyayutsya-mestami-20260304-2122/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
