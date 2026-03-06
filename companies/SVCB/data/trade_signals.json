@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Инфляция – не единственный фактор для ЦБ при принятии решения по ставке",
+    "trigger_url": "https://www.finam.ru/publications/item/inflyatsiya-ne-edinstvennyy-faktor-dlya-tsb-pri-prinyatii-resheniya-po-stavke-20260305-1458/",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "medium",
+    "entry": {
+      "condition": "Вход по текущей цене",
+      "price": 13.66
+    },
+    "exit": {
+      "take_profit": 22.5,
+      "stop_loss": 12.29,
+      "time_limit_days": 10
+    },
+    "expected_return_pct": 64.7,
+    "risk_reward_ratio": 6.47,
+    "position_size": "half",
+    "reasoning": "Ключевой катализатор: снижение ставки ЦБ (с 15.5%) обеспечит переоценку портфеля облигаций (571 млрд руб.) и восстановление NIM. Замедление инфляции увеличивает вероятность снижения ставки на заседании 20 марта. Кластерный move −1.7% < 2% → позитив НЕ в цене. R/R = 6.47 > 2.0. Предыдущий buy от 2026-03-06 по другой теме (IT-послабления). Stop-loss −10% (отчёт/регуляторика)."
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "ЦБ даст банкам послабления по вычету из капитала затрат на критическую IT-инфраструктуру",
     "trigger_url": "https://www.interfax.ru/russia/1076257",
     "signal": "buy",
