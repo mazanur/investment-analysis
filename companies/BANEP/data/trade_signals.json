@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Корабли в моей гавани: в Персидском заливе продолжают тонуть нефтетанкеры, очередной взрыв судна у берегов Кувейта",
+    "trigger_url": "https://smart-lab.ru/blog/1273259.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=37M < 50M"
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "КСИР заявил об атаке на нефтяной танкер США в Персидском заливе",
     "trigger_url": "https://www.rbc.ru/politics/05/03/2026/69a92f7c9a794777b18a6f63",
     "signal": "skip",
