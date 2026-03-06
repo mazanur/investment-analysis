@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Каллас заявила о независимости Европы от поставок нефти с Ближнего Востока — косвенно позитивно для Роснефти (эскалация вокруг Ирана толкает Brent вверх)",
+    "trigger_url": "https://lenta.ru/news/2026/03/05/kallas-zayavila-o-nezavisimosti-evropy-ot-postavok-nefti-s-blizhnego-vostoka/",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": 6.8,
+    "risk_reward_ratio": 0.68,
+    "position_size": "skip",
+    "reasoning": "Позитивная новость (strength: medium), но позитив полностью в цене: кластерный price_move +15,3% (390,0→449,55 ₽) >> 2% — по правилу кластера позитив уже отыгран. Апсайд до fair value 480 ₽ составляет +6,8%, R/R = 0,68 (target 480 / entry 449,55 / stop −10% = 404,6) << 2,0 — недостаточно для компенсации риска. Правило: новость повторяет тему предыдущих skip-ов (эскалация в Персидском заливе/Иран) → обязательный skip. Тезис не сломан, position watch сохраняется."
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Нефтяники в феврале впервые за пять лет заплатили в бюджет РФ по топливному демпферу — демпфер стал отрицательным, увеличивая налоговую нагрузку на отрасль",
     "trigger_url": "https://www.interfax.ru/business/1076218",
     "signal": "skip",
