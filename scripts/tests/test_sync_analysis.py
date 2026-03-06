@@ -344,13 +344,13 @@ class TestSyncClientSyncNews:
 
 
 class TestSyncClientSyncSignals:
-    def test_skips_duplicates_by_date(self):
+    def test_skips_duplicates_by_composite_key(self):
         client = SyncClient("http://test", "key")
 
         get_resp = MagicMock()
         get_resp.status_code = 200
         get_resp.json.return_value = [
-            {"date": "2026-01-01", "signal": "buy"},
+            {"date": "2026-01-01", "signal": "buy", "direction": "long_positive"},
         ]
 
         post_resp = MagicMock()

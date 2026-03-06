@@ -114,9 +114,42 @@ STANDARD_METRICS = {
     "Чистая прибыль, млрд руб": "net_income",
     "Капитал, млрд руб": "equity",
     "Чистый долг, млрд руб": "net_debt",
+    "Долг, млрд руб": "total_debt",
     "EPS, руб": "eps",
     "ROE, %": "roe",
     "Див доход, ао, %": "dividend_yield",
+    # Bank alternatives
+    "Чистый операц доход, млрд руб": "revenue",
+    "Чистые активы, млрд руб": "equity",
+}
+
+# Extra metric names → English keys (consistent with fetch_smartlab.py)
+EXTRA_METRIC_KEYS = {
+    "EBITDA, млрд руб": "ebitda",
+    "CAPEX, млрд руб": "capex",
+    "FCF, млрд руб": "fcf",
+    "Операционная прибыль, млрд руб": "operating_profit",
+    "Операционный денежный поток, млрд руб": "operating_cashflow",
+    "Опер. расходы, млрд руб": "operating_expenses",
+    "Себестоимость, млрд руб": "cost_of_goods",
+    "Процентные расходы, млрд руб": "interest_expenses",
+    "Создание резервов, млрд руб": "provisions",
+    "Активы, млрд руб": "total_assets",
+    "Активы банка, млрд руб": "total_assets",
+    "Наличность, млрд руб": "cash",
+    "Кредитный портфель, млрд руб": "loan_portfolio",
+    "Депозиты, млрд руб": "deposits",
+    "Чист. проц. доходы, млрд руб": "net_interest_income",
+    "Чист. комисс. доход, млрд руб": "net_commission_income",
+    "Добыча нефти, млн т": "oil_production_mt",
+    "Переработка нефти, млн т": "oil_refining_mt",
+    "Добыча газа, млрд м3": "gas_production_bcm",
+    "Амортизация, млрд руб": "depreciation",
+    "Расх на персонал, млрд руб": "staff_expenses",
+    "Кредиты юрлицам, млрд руб": "corporate_loans",
+    "Кредиты физлицам, млрд руб": "retail_loans",
+    "Депозиты юрлиц, млрд руб": "corporate_deposits",
+    "Депозиты физлиц, млрд руб": "retail_deposits",
 }
 
 # Metric names to skip (not useful for reports)
@@ -237,9 +270,12 @@ def parse_smartlab_csv(filepath: Path, period_type: str) -> list[dict]:
                 period_data[p]["standard"]["p_e"] = value
             elif metric_name == "P/B" or metric_name == "P/b":
                 period_data[p]["standard"]["p_bv"] = value
+            elif metric_name in EXTRA_METRIC_KEYS:
+                # Use English key (consistent with fetch_smartlab.py)
+                period_data[p]["extra"][EXTRA_METRIC_KEYS[metric_name]] = value
             else:
-                # Everything else goes to extra_metrics
-                period_data[p]["extra"][metric_name] = value
+                # Unknown metric — skip to avoid bloating extra_metrics
+                pass
 
     # Convert to API payloads
     results = []

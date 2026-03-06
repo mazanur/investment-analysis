@@ -25,17 +25,23 @@ logger = logging.getLogger(__name__)
 async def _job_fetch_moex() -> None:
     """Scheduled job: fetch market snapshot from MOEX."""
     logger.info("Scheduler: starting fetch_moex job")
-    async with async_session() as db:
-        result = await run_fetch_moex(db)
-    logger.info("Scheduler: fetch_moex done — %s", result)
+    try:
+        async with async_session() as db:
+            result = await run_fetch_moex(db)
+        logger.info("Scheduler: fetch_moex done — %s", result)
+    except Exception as e:
+        logger.error("Scheduler: fetch_moex failed: %s", e)
 
 
 async def _job_fetch_prices() -> None:
     """Scheduled job: fetch daily prices from MOEX."""
     logger.info("Scheduler: starting fetch_prices job")
-    async with async_session() as db:
-        result = await run_fetch_prices(db)
-    logger.info("Scheduler: fetch_prices done — %s", result)
+    try:
+        async with async_session() as db:
+            result = await run_fetch_prices(db)
+        logger.info("Scheduler: fetch_prices done — %s", result)
+    except Exception as e:
+        logger.error("Scheduler: fetch_prices failed: %s", e)
 
 
 async def _job_fetch_events() -> None:

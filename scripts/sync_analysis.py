@@ -381,9 +381,18 @@ class SyncClient:
             fm = parse_frontmatter(index_file.read_text(encoding="utf-8"))
             sector_slug = fm.get("sector")
             if sector_slug:
-                sector_resp = self._get(f"/sectors/{sector_slug.lower()}")
+                slug = sector_slug.lower()
+                sector_resp = self._get(f"/sectors/{slug}")
                 if sector_resp and sector_resp.status_code == 200:
                     payload["sector_id"] = sector_resp.json()["id"]
+                elif sector_resp and sector_resp.status_code == 404:
+                    # Auto-create the sector
+                    create_resp = self._post(
+                        "/sectors",
+                        {"slug": slug, "name": sector_slug.replace("-", " ").title()},
+                    )
+                    if create_resp and create_resp.status_code in (200, 201):
+                        payload["sector_id"] = create_resp.json()["id"]
 
         resp = self._put(f"/companies/{ticker}", payload)
         if resp and resp.status_code == 200:
@@ -464,15 +473,17 @@ class SyncClient:
                 )
 
     def sync_signals(self, ticker: str, signal_payloads: list[dict]):
-        """Sync trade signals — check for duplicates by date."""
+        """Sync trade signals — check for duplicates by (date, signal, direction)."""
         resp = self._get(f"/companies/{ticker}/signals")
-        existing_dates = set()
+        existing_keys = set()
         if resp and resp.status_code == 200:
             for s in resp.json():
-                existing_dates.add(s.get("date"))
+                key = (s.get("date"), s.get("signal"), s.get("direction"))
+                existing_keys.add(key)
 
         for payload in signal_payloads:
-            if payload.get("date") in existing_dates:
+            key = (payload.get("date"), payload.get("signal"), payload.get("direction"))
+            if key in existing_keys:
                 continue
             resp = self._post(f"/companies/{ticker}/signals", payload)
             if resp and resp.status_code in (200, 201):
