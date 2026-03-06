@@ -166,7 +166,7 @@ def test_parse_yearly_csv():
     assert y2024["extra_metrics"]["capex"] == 780.0
     assert y2024["extra_metrics"]["fcf"] == 979.0
     assert y2024["extra_metrics"]["dividend_per_share"] == 1055.0
-    assert y2024["extra_metrics"]["dividend_yield_common"] == 14.6
+    assert y2024["dividend_yield"] == 14.6
 
 
 def test_parse_quarterly_csv():

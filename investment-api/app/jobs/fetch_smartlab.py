@@ -43,11 +43,13 @@ METRIC_TO_FIELD = {
     "Чистые активы, млрд руб": "equity",  # non-banks use this
     "Долг, млрд руб": "total_debt",
     "Чистый долг, млрд руб": "net_debt",
+    "EPS, руб": "eps",
+    "ROE, %": "roe",
+    "Див доход, ао, %": "dividend_yield",
 }
 
 # Percentage metrics that go into extra_metrics (strip % sign)
 PCT_METRICS = {
-    "Див доход, ао, %",
     "Див доход, ап, %",
     "Дивиденды/прибыль, %",
     "Дост.осн капитала, %",
@@ -100,7 +102,6 @@ EXTRA_METRIC_KEYS = {
 
 # PCT_METRICS → extra_metrics key mapping
 PCT_METRIC_KEYS = {
-    "Див доход, ао, %": "dividend_yield_common",
     "Див доход, ап, %": "dividend_yield_preferred",
     "Дивиденды/прибыль, %": "payout_ratio",
     "Дост.осн капитала, %": "tier1_ratio",
@@ -204,6 +205,9 @@ def parse_smartlab_csv(csv_bytes: bytes, period_type_hint: str = "yearly") -> li
             "equity": None,
             "total_debt": None,
             "net_debt": None,
+            "eps": None,
+            "roe": None,
+            "dividend_yield": None,
             "extra_metrics": {},
         }
 
@@ -334,13 +338,19 @@ async def _upsert_reports(
             "equity": to_decimal(data["equity"]),
             "total_debt": to_decimal(data["total_debt"]),
             "net_debt": to_decimal(data["net_debt"]),
+            "eps": to_decimal(data.get("eps")),
+            "roe": to_decimal(data.get("roe")),
+            "dividend_yield": to_decimal(data.get("dividend_yield")),
             "extra_metrics": data["extra_metrics"] if data["extra_metrics"] else None,
         }
 
         if period in existing:
             report = existing[period]
             for k, v in fields.items():
-                setattr(report, k, v)
+                # Only update non-None values to avoid overwriting existing data
+                # when a CSV source lacks certain fields
+                if v is not None:
+                    setattr(report, k, v)
         else:
             report = FinancialReport(
                 company_id=company_id,

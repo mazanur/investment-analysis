@@ -27,21 +27,16 @@ logger = logging.getLogger(__name__)
 MOEX_TIMEOUT = 30.0
 MOEX_BASE = "https://iss.moex.com/iss"
 
-SECURITIES_URL = (
-    f"{MOEX_BASE}/engines/stock/markets/shares/boardgroups/57"
-    "/securities/{{ticker}}.json?iss.meta=off&iss.json=extended&lang=ru"
-)
-
 TQBR_ALL_URL = (
-    f"{MOEX_BASE}/engines/stock/markets/shares/boards/TQBR"
-    "/securities.json?iss.meta=off&iss.json=extended&start={{start}}"
+    MOEX_BASE + "/engines/stock/markets/shares/boards/TQBR"
+    "/securities.json?iss.meta=off&iss.json=extended&start={start}"
 )
 
 CANDLES_URL = (
-    f"{MOEX_BASE}/engines/stock/markets/shares/boards/TQBR"
-    "/securities/{{ticker}}/candles.json"
+    MOEX_BASE + "/engines/stock/markets/shares/boards/TQBR"
+    "/securities/{ticker}/candles.json"
     "?iss.meta=off&iss.json=extended&interval=24"
-    "&from={{date_from}}&till={{date_till}}&lang=ru"
+    "&from={date_from}&till={date_till}&lang=ru"
 )
 
 

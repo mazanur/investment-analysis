@@ -4,6 +4,7 @@ Requires a running PostgreSQL instance (docker compose up -d db).
 These tests verify that upgrade/downgrade cycles work correctly.
 """
 
+import socket
 import subprocess
 import sys
 from pathlib import Path
@@ -12,6 +13,20 @@ import pytest
 
 ALEMBIC_CMD = [sys.executable, "-m", "alembic"]
 PROJECT_DIR = str(Path(__file__).resolve().parent.parent)
+
+
+def _pg_is_available(host: str = "localhost", port: int = 5434) -> bool:
+    """Check if PostgreSQL is reachable."""
+    try:
+        with socket.create_connection((host, port), timeout=1):
+            return True
+    except OSError:
+        return False
+
+
+pytestmark = pytest.mark.skipif(
+    not _pg_is_available(), reason="PostgreSQL not running on localhost:5434"
+)
 
 
 def run_alembic(*args: str) -> subprocess.CompletedProcess:

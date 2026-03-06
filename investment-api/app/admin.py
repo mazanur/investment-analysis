@@ -189,7 +189,7 @@ class TradeSignalAdmin(ModelView, model=TradeSignal):
 
 
 def setup_admin(app, engine):
-    auth_backend = ApiKeyAuth(secret_key=settings.api_key)
+    auth_backend = ApiKeyAuth(secret_key=settings.secret_key)
     admin = Admin(app, engine, title="Investment Admin", authentication_backend=auth_backend)
     admin.add_view(SectorAdmin)
     admin.add_view(CompanyAdmin)

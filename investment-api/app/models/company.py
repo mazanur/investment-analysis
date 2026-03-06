@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 from decimal import Decimal
 
-from sqlalchemy import ForeignKey, Numeric, String
+from sqlalchemy import BigInteger, ForeignKey, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -26,7 +26,7 @@ class Company(Base):
     current_price: Mapped[Decimal | None] = mapped_column(Numeric(14, 2), nullable=True)
     upside: Mapped[Decimal | None] = mapped_column(Numeric(8, 4), nullable=True)
     market_cap: Mapped[Decimal | None] = mapped_column(Numeric(18, 2), nullable=True)
-    shares_out: Mapped[int | None] = mapped_column(nullable=True)
+    shares_out: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     free_float: Mapped[Decimal | None] = mapped_column(Numeric(5, 2), nullable=True)
     adv_rub_mln: Mapped[Decimal | None] = mapped_column(Numeric(14, 2), nullable=True)
     p_e: Mapped[Decimal | None] = mapped_column(Numeric(10, 2), nullable=True)

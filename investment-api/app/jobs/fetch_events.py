@@ -29,7 +29,7 @@ MOEX_TIMEOUT = 30.0
 MOEX_BASE = "https://iss.moex.com/iss"
 
 DIVIDENDS_URL = (
-    f"{MOEX_BASE}/securities/{{ticker}}/dividends.json"
+    MOEX_BASE + "/securities/{ticker}/dividends.json"
     "?iss.meta=off&iss.json=extended"
 )
 

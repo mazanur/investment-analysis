@@ -43,7 +43,7 @@ def upgrade() -> None:
     sa.Column('current_price', sa.Numeric(precision=14, scale=2), nullable=True),
     sa.Column('upside', sa.Numeric(precision=8, scale=4), nullable=True),
     sa.Column('market_cap', sa.Numeric(precision=18, scale=2), nullable=True),
-    sa.Column('shares_out', sa.Integer(), nullable=True),
+    sa.Column('shares_out', sa.BigInteger(), nullable=True),
     sa.Column('free_float', sa.Numeric(precision=5, scale=2), nullable=True),
     sa.Column('adv_rub_mln', sa.Numeric(precision=14, scale=2), nullable=True),
     sa.Column('p_e', sa.Numeric(precision=10, scale=2), nullable=True),
