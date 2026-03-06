@@ -240,10 +240,10 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/app/api/news.py`
 - Create: `investment-api/app/api/signals.py`
 
-- [ ] `api/news.py` — GET /companies/{ticker}/news, GET /sectors/{slug}/news, POST /news (с optional company_id, sector_id), GET /news (?impact=positive&from=)
-- [ ] `api/signals.py` — GET /companies/{ticker}/signals (?status=active), POST /companies/{ticker}/signals, PUT /signals/{id} (закрытие: status + result_pct + closed_at)
-- [ ] Написать тесты: фильтры, связь signal↔news, закрытие сигнала с результатом
-- [ ] Запустить тесты — должны пройти
+- [x] `api/news.py` — GET /companies/{ticker}/news, GET /sectors/{slug}/news, POST /news (с optional company_id, sector_id), GET /news (?impact=positive&from=)
+- [x] `api/signals.py` — GET /companies/{ticker}/signals (?status=active), POST /companies/{ticker}/signals, PUT /signals/{id} (закрытие: status + result_pct + closed_at)
+- [x] Написать тесты: фильтры, связь signal↔news, закрытие сигнала с результатом
+- [x] Запустить тесты — должны пройти
 
 ### Task 9: Серверные jobs — загрузка данных MOEX
 
