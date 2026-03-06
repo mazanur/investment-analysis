@@ -264,11 +264,11 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/app/jobs/fetch_smartlab.py`
 - Create: `investment-api/app/jobs/fetch_events.py`
 
-- [ ] `jobs/fetch_smartlab.py` — портировать из `download_smartlab.py`: парсинг CSV со smart-lab → financial_reports + extra_metrics JSONB
-- [ ] `jobs/fetch_events.py` — портировать из `download_moex_events.py`: dividends + IR events → dividends table
-- [ ] API endpoints: POST /jobs/fetch-smartlab/{ticker}, POST /jobs/fetch-events/{ticker}
-- [ ] Написать тесты: mock HTTP responses, проверить парсинг и запись
-- [ ] Запустить тесты — должны пройти
+- [x] `jobs/fetch_smartlab.py` — портировать из `download_smartlab.py`: парсинг CSV со smart-lab → financial_reports + extra_metrics JSONB
+- [x] `jobs/fetch_events.py` — портировать из `download_moex_events.py`: dividends + IR events → dividends table
+- [x] API endpoints: POST /jobs/fetch-smartlab/{ticker}, POST /jobs/fetch-events/{ticker}
+- [x] Написать тесты: mock HTTP responses, проверить парсинг и запись
+- [x] Запустить тесты — должны пройти
 
 ### Task 11: Аналитические endpoints
 

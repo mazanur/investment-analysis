@@ -12,8 +12,10 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db, require_api_key
+from app.jobs.fetch_events import run_fetch_events
 from app.jobs.fetch_moex import run_fetch_moex
 from app.jobs.fetch_prices import run_fetch_prices
+from app.jobs.fetch_smartlab import run_fetch_smartlab
 
 router = APIRouter(prefix="/jobs", tags=["jobs"], dependencies=[Depends(require_api_key)])
 
@@ -36,4 +38,25 @@ async def trigger_fetch_prices(
 ):
     """Fetch OHLCV prices from MOEX ISS and upsert into prices table."""
     result = await run_fetch_prices(db, tickers=tickers, backfill_days=backfill_days)
+    return result
+
+
+@router.post("/fetch-smartlab/{ticker}")
+async def trigger_fetch_smartlab(
+    ticker: str,
+    period_types: Optional[list[str]] = Query(None),
+    db: AsyncSession = Depends(get_db),
+):
+    """Fetch financial reports from smart-lab.ru for a specific ticker."""
+    result = await run_fetch_smartlab(db, ticker=ticker.upper(), period_types=period_types)
+    return result
+
+
+@router.post("/fetch-events/{ticker}")
+async def trigger_fetch_events(
+    ticker: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Fetch dividends from MOEX ISS for a specific ticker."""
+    result = await run_fetch_events(db, ticker=ticker.upper())
     return result
