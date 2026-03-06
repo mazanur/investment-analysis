@@ -482,5 +482,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Слабый рост продолжается",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/slabyy-rost-prodolzhaetsya-20260305-1449/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Рост цен на нефть Brent до $83,02 за баррель на фоне эскалации ближневосточного конфликта и угроз перекрытия Ормузского пролива (15-20% мирового экспорта) напрямую поддерживает экспортную выручку Башнефти и снижает дисконт Urals к Brent, что позитивно для финансовых результатов компании",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
