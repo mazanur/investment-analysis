@@ -1,14 +1,14 @@
 {
   "ticker": "BSPB",
-  "company_name": "Банк Санкт-Петербург",
-  "generated": "2026-03-05",
+  "company_name": "BSPB",
+  "generated": "2026-03-06",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Глубокий дисконт P/BV 0.65x при ROE 16% — рынок закладывает слишком сильное ухудшение",
+      "description": "P/BV 0.69x при годовом ROE 18.1% — рынок закладывает ROE 10-11%, что чрезмерно пессимистично",
       "source": "index"
     },
     {
@@ -16,7 +16,7 @@
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Экспертиза в ВЭД-операциях — сложно воспроизводимая компетенция в условиях санкций",
+      "description": "Цикл снижения ставки ЦБ (15.5% → 10-14% к концу 2026) — позитив для всего банковского сектора",
       "source": "index"
     },
     {
@@ -32,7 +32,7 @@
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Стабильные дивиденды с доходностью 14%+ при payout ~50%",
+      "description": "Дивиденды ~12.7% при payout ~50%, запас капитала (Н1.2 = 19.7%) обеспечивает устойчивость выплат",
       "source": "index"
     },
     {
@@ -40,7 +40,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "ROE снизился с 30% до 16% за три квартала из-за нормализации NIM",
+      "description": "ROE обвалился до 8% в Q4'25 — нормализация NIM + всплеск операционных расходов (CIR 45%)",
       "source": "index"
     },
     {
@@ -64,7 +64,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Меньший масштаб vs Сбер/ВТБ — выше операционные расходы на единицу",
+      "description": "Агрессивный рост кредитного портфеля (+28%) может привести к росту резервов",
       "source": "index"
     },
     {
