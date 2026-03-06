@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "WTI > $80 — рост мировых цен на нефть",
+    "trigger_url": "https://t.me/markettwits/361514",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Кластерный move +6.9% (21.7→23.24) > 2% — позитив уже в цене. Новость — рост мировых цен на нефть, тема неоднократно отыгранная в кластере Иран/Ближний Восток (10+ skip). SDN-санкции SNGS фактически блокируют экспорт — эффект от роста нефти минимален. Volume 0.4x ADV — низкая ликвидность, спекулятивный интерес отсутствует. Position = watch (value trap, санкции, низкая прозрачность)."
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Почему дисконты на нефть из России могут вырасти из-за конфликта в Иране",
     "trigger_url": "https://www.rbc.ru/radio/05/03/2026/69a9c2a19a79474e43fd4a53",
     "signal": "skip",
