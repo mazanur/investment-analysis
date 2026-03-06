@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Цены на бензин снова вырастут worldwide из-за проблем с поставками через пролив",
+    "trigger_url": "https://smart-lab.ru/blog/1273276.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Косвенно позитивная новость (рост цен на бензин → корреляция с ценами на газ). Однако: 1) накопленный price_move с начала кластера +10.5% (1184.9→1309.7) >> 2% → позитив УЖЕ В ЦЕНЕ; 2) NVTK упомянут в ряду других компаний (Газпромнефть +5%, Газпром +2%), не как главный герой; 3) прямая связь слабая — рост цен на бензин не гарантирует рост цен на СПГ Новатэка; 4) fair value 1000 ₽ << текущей 1309.7 ₽ (downside -23.6%), sentiment bearish, позиция sell. Нет точки входа."
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Bloomberg: российский СПГ-танкер встал на якорь в Средиземном море после атаки на «Арктик Метагаз»",
     "trigger_url": "https://www.profinance.ru/news/2026/03/05/cio0-bloomberg-rossijskij-spg-tanker-vstal-na-yakor-v-sredizemnom-more-posle-ataki-na.html",
     "signal": "skip",
@@ -81,6 +95,6 @@
     "expected_return_pct": null,
     "risk_reward_ratio": null,
     "position_size": "skip",
-    "reasoning": "Негативная regulation-новость (strength: high), но рынок не отреагировал (price_move -0,3%, volume_ratio 0,8×). Ни long-positive (новость негативная), ни long-oversold (нет падения >5%) не применимы. Инкрементальный негатив к уже учтённым санкционным рискам в key_risks (Арктик СПГ-2, запрет ЕС). Тезис не меняется: sentiment bearish, fair value 1 000 ₽ < текущей 1 197 ₽."
+    "reasoning": "Негативная regulation-новость (strength: high), но рынок не отреагировал (price_move -0,3%, volume_ratio 0,8×). Ни long-positive (новость негативная), ни long-oversold (нет падения >5%) не применимы. Инкрементальный негатив к уже учтённым санкционным рискам в key_risks (Арктик СПГ-2, запрет ЕС). Тезис не меняется: sentiment bearish, fair value 1 000 ₽ < текущей цены 1 197 ₽."
   }
 ]
