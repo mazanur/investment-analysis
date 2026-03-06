@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "Бергам: США рассматривают все возможные варианты стабилизации цен на нефть",
+    "trigger_url": "https://www.kommersant.ru/doc/8481277",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=37M < 50M"
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "Трамп о нефти и Иране",
     "trigger_url": "https://t.me/cbrstocks/78466",
     "signal": "skip",
