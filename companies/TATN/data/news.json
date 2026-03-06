@@ -449,5 +449,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "TSX снижается на фоне конфликта с Ираном",
+    "type": "news",
+    "url": "https://ru.investing.com/news/stock-market-news/article-3141828",
+    "impact": "positive",
+    "summary": "Статья о росте цен на нефть Brent на 2,4% до $83,38 на фоне геополитической эскалации (Иран атаковал танкеры в Ормузском проливе) — косвенно позитивно для Татнефти как экспортёра нефти, однако Татнефть не упоминается в статье напрямую",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
