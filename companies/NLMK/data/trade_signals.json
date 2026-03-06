@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-03-06",
+    "trigger": "Падение акций НЛМК на 4,3% вслед за слабой отчётностью ММК",
+    "trigger_url": "https://smart-lab.ru/blog/1273618.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": {
+      "condition": "Нет подходящей точки входа",
+      "price": null
+    },
+    "exit": {
+      "take_profit": null,
+      "stop_loss": null,
+      "time_limit_days": null
+    },
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "price_move -4.3% не достигает порога -5% для long-oversold. Новость негативная, но для шорта по правилам нужен кластерный негатив (падение >5%) или точкан входа для покупки на панике. Акция переоценена (fair value 89 vs 106.3), sentiment bearish, но правила не позволяют открыть short без достижения порога. Пропускаем до более явного сигнала."
+  }
+]
