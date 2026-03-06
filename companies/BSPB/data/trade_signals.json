@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-03-06",
+    "trigger": "БСП сообщил о падении чистой прибыли в Q4 2025 в 2,8 раза — до 4,8 млрд руб. против 13,2 млрд руб. годом ранее",
+    "trigger_url": "https://smart-lab.ru/blog/1273609.php",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "high",
+    "entry": {
+      "condition": "N/A",
+      "price": null
+    },
+    "exit": {
+      "take_profit": null,
+      "stop_loss": null,
+      "time_limit_days": null
+    },
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость о падении прибыли в 2.8 раза значительно усиливает давление на ROE и дивидендный потенциал. Предыдущие buy-сигналы (ЦБ: маркетплейсы, крипто-лицензии) уже в рынке, но фундаментал существенно ухудшился. Требуется переоценка тезиса после стабилизации показателей. Price move -0.8% < 2% — слабая реакция, но входить на негативе преждевременно."
+  },
+  {
+    "date": "2026-03-06",
     "trigger": "ЦБ выступил за право всех банков оказывать финуслуги на маркетплейсах",
     "trigger_url": "https://www.kommersant.ru/doc/8480992",
     "signal": "buy",

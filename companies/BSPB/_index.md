@@ -25,7 +25,7 @@ key_opportunities:
   - Активный байбэк: акции снизились с 457.5 до 445.4 млн — рост BV/share и EPS
   - Дивиденды ~12.7% при payout ~50%, запас капитала (Н1.2 = 19.7%) обеспечивает устойчивость выплат
 my_fair_value: 497
-current_price: 336.37
+current_price: 334.08
 upside: 47
 position: buy
 ---
