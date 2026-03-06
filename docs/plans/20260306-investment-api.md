@@ -204,13 +204,13 @@ sectors (id, slug, name, description, updated_at)
 - Create: `investment-api/app/api/companies.py`
 - Create: `investment-api/app/api/deps.py`
 
-- [ ] `api/deps.py` — get_db dependency (async session), API key auth dependency
-- [ ] `api/sectors.py` — GET /sectors, GET /sectors/{slug}, POST /sectors, PUT /sectors/{slug}
-- [ ] `api/companies.py` — GET /companies (с фильтрами: sector, sentiment, position, min_upside), GET /companies/{ticker}, POST /companies/{ticker} (upsert), PUT /companies/{ticker}
-- [ ] `GET /companies/{ticker}` — response включает: company + latest price + active catalysts + last dividend
-- [ ] Подключить роутеры в `app/main.py`
-- [ ] Написать тесты: CRUD для sectors, CRUD для companies, фильтры, upsert логика
-- [ ] Запустить тесты — должны пройти
+- [x] `api/deps.py` — get_db dependency (async session), API key auth dependency
+- [x] `api/sectors.py` — GET /sectors, GET /sectors/{slug}, POST /sectors, PUT /sectors/{slug}
+- [x] `api/companies.py` — GET /companies (с фильтрами: sector, sentiment, position, min_upside), GET /companies/{ticker}, POST /companies/{ticker} (upsert), PUT /companies/{ticker}
+- [x] `GET /companies/{ticker}` — response включает: company + latest price + active catalysts + last dividend
+- [x] Подключить роутеры в `app/main.py`
+- [x] Написать тесты: CRUD для sectors, CRUD для companies, фильтры, upsert логика
+- [x] Запустить тесты — должны пройти
 
 ### Task 6: CRUD endpoints — Financial Reports + Dividends
 
