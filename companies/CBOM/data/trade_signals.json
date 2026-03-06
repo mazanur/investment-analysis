@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-06",
+    "trigger": "ЦБ ужесточит требования к оценке банками финансового положения компаний",
+    "trigger_url": "https://www.interfax.ru/business/1076269",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=31M < 50M"
+  },
+  {
     "date": "2026-03-01",
     "trigger": "В России появился реестр торговцев драгоценностями — усиление контроля за операциями с драгметаллами, дополнительная отчётность перед Росфинмониторингом для всех банков",
     "trigger_url": "https://www.rbc.ru/finances/08/04/2025/67f4ed7c9a794733e12eddb3",
