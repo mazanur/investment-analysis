@@ -471,5 +471,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Недобор нефтегазовых доходов России немного сократился",
+    "type": "news",
+    "url": "https://lenta.ru/news/2026/03/05/nedobor-neftegazovyh-dohodov-rossii-nemnogo-sokratilsya/",
+    "impact": "negative",
+    "summary": "Статья о падении нефтегазовых доходов России в 1,9 раза и подготовке к снижению базовой цены нефти в бюджетном правиле негативна для Башнефти: снижение экспортной выручки от нефти и потенциальное уменьшение дисконта Urals к Brent при ослаблении геополитической напряжённости давят на прибыль компании.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
