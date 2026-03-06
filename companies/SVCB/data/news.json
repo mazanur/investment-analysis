@@ -20,5 +20,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "Инфляция – не единственный фактор для ЦБ при принятии решения по ставке",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/inflyatsiya-ne-edinstvennyy-faktor-dlya-tsb-pri-prinyatii-resheniya-po-stavke-20260305-1458/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Статья о заседании ЦБ 20 марта по ключевой ставке косвенно касается Совкомбанка: снижение ставки (с 15,5%) является ключевым катализатором для банка, который обеспечит переоценку портфеля облигаций (571 млрд руб.) и восстановление NIM. Новость о замедлении инфляции увеличивает вероятность снижения ставки, что позитивно для банка.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
