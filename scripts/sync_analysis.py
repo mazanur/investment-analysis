@@ -81,6 +81,9 @@ def parse_frontmatter(text: str) -> dict:
 
 def _parse_value(s: str) -> object:
     """Parse a scalar YAML value."""
+    # Strip surrounding quotes
+    if len(s) >= 2 and s[0] == s[-1] and s[0] in ('"', "'"):
+        s = s[1:-1]
     if s in ("true", "True"):
         return True
     if s in ("false", "False"):

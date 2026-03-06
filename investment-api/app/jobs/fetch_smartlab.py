@@ -11,6 +11,7 @@ smart-lab.ru is a public financial data site, no auth required.
 Author: AlmazNurmukhametov
 """
 
+import asyncio
 import csv
 import io
 import logging
@@ -282,6 +283,7 @@ async def _fetch_csv(client: httpx.AsyncClient, url: str) -> bytes | None:
             logger.warning("SmartLab fetch attempt %d failed: %s", attempt + 1, e)
             if attempt == 2:
                 return None
+            await asyncio.sleep(2**attempt)
 
 
 async def _upsert_reports(

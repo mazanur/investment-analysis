@@ -1,5 +1,10 @@
-from sqladmin import Admin, ModelView
+import hmac
 
+from sqladmin import Admin, ModelView
+from sqladmin.authentication import AuthenticationBackend
+from starlette.requests import Request
+
+from app.config import settings
 from app.models.catalyst import Catalyst
 from app.models.company import Company
 from app.models.dividend import Dividend
@@ -8,6 +13,25 @@ from app.models.news import News
 from app.models.price import Price
 from app.models.sector import Sector
 from app.models.trade_signal import TradeSignal
+
+
+class ApiKeyAuth(AuthenticationBackend):
+    """Simple API key authentication for admin panel."""
+
+    async def login(self, request: Request) -> bool:
+        form = await request.form()
+        api_key = form.get("username", "")
+        if hmac.compare_digest(str(api_key), settings.api_key):
+            request.session.update({"authenticated": True})
+            return True
+        return False
+
+    async def logout(self, request: Request) -> bool:
+        request.session.clear()
+        return True
+
+    async def authenticate(self, request: Request) -> bool:
+        return request.session.get("authenticated", False)
 
 
 class SectorAdmin(ModelView, model=Sector):
@@ -165,7 +189,8 @@ class TradeSignalAdmin(ModelView, model=TradeSignal):
 
 
 def setup_admin(app, engine):
-    admin = Admin(app, engine, title="Investment Admin")
+    auth_backend = ApiKeyAuth(secret_key=settings.api_key)
+    admin = Admin(app, engine, title="Investment Admin", authentication_backend=auth_backend)
     admin.add_view(SectorAdmin)
     admin.add_view(CompanyAdmin)
     admin.add_view(FinancialReportAdmin)

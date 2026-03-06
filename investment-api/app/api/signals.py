@@ -72,7 +72,7 @@ async def update_signal(
         SignalStatusEnum.expired,
     ):
         if signal.status == SignalStatusEnum.active and "closed_at" not in update_data:
-            update_data["closed_at"] = dt.datetime.now(dt.UTC)
+            update_data["closed_at"] = dt.datetime.now(dt.UTC).replace(tzinfo=None)
 
     for field, value in update_data.items():
         setattr(signal, field, value)

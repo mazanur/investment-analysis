@@ -83,7 +83,7 @@ async def update_catalyst(
     update_data = data.model_dump(exclude_unset=True)
     # When deactivating, set expired_at automatically
     if "is_active" in update_data and not update_data["is_active"] and catalyst.is_active:
-        catalyst.expired_at = dt.datetime.now(dt.UTC)
+        catalyst.expired_at = dt.datetime.now(dt.UTC).replace(tzinfo=None)
 
     for field, value in update_data.items():
         setattr(catalyst, field, value)

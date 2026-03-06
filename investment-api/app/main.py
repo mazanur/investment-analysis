@@ -6,6 +6,7 @@ from fastapi import Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.middleware.sessions import SessionMiddleware
 
 from app.api.analytics import router as analytics_router
 from app.api.catalysts import router as catalysts_router
@@ -49,6 +50,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Investment API", version="0.1.0", lifespan=lifespan)
+app.add_middleware(SessionMiddleware, secret_key=settings.api_key)
 
 setup_admin(app, engine)
 
@@ -74,5 +76,5 @@ async def health(db: AsyncSession = Depends(get_db)):
         logger.error("Health check failed: %s", e)
         return JSONResponse(
             status_code=503,
-            content={"status": "degraded", "database": "disconnected", "error": str(e)},
+            content={"status": "degraded", "database": "disconnected"},
         )
