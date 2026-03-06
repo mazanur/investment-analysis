@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-06",
+    "trigger": "Bloomberg: российский СПГ-танкер встал на якорь в Средиземном море после атаки на «Арктик Метагаз»",
+    "trigger_url": "https://www.profinance.ru/news/2026/03/05/cio0-bloomberg-rossijskij-spg-tanker-vstal-na-yakor-v-sredizemnom-more-posle-ataki-na.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость (strength: medium): атаки на танкеры «Арктик СПГ-2» усиливают санкционное давление на ключевой актив. Однако price_move +2.2% — рынок вырос после негатива, игнорируя риски. Кластерный move +10.5% >> 2% — позитивные новости кластера уже в цене. Текущая цена 1309.7 ₽ >> fair value 1000 ₽ (downside -23.6%). Sentiment bearish, позиция sell. Правила не предусматривают вход в short по сигналу — only long-positive/long-oversold. Нет точки входа для спекуляции."
+  },
+  {
     "date": "2026-03-05",
     "trigger": "США готовы обеспечить безопасный проход танкеров через Ормузский пролив",
     "trigger_url": "https://www.vedomosti.ru/politics/news/2026/03/04/1180706-obespechit-prohod-tankerov",
