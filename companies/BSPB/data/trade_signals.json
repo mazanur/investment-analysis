@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-03-06",
+    "trigger": "ЦБ предложил разрешить банкам получать лицензии криптообменников в уведомительном порядке",
+    "trigger_url": "https://www.interfax.ru/business/1076282",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "medium",
+    "entry": {
+      "condition": "по рынку",
+      "price": 338.87
+    },
+    "exit": {
+      "take_profit": 497.0,
+      "stop_loss": 304.98,
+      "time_limit_days": 10
+    },
+    "expected_return_pct": 46.7,
+    "risk_reward_ratio": 4.67,
+    "position_size": "half",
+    "reasoning": "Позитивная новость о крипторегулировании создаёт новый источник комиссионного дохода. Price move +0.5% < 2%, объём 0.6x ADV — рынок ещё не отреагировал. R/R 4.67 превышает порог 2.0. Fair value 497₽ даёт 46.7% upside при stop-loss -10%. P/BV 0.69x при ROE 18.1% недооценён, дивиденды 12.7% обеспечивают поддержку."
+  }
+]
