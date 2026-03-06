@@ -275,12 +275,12 @@ sectors (id, slug, name, description, updated_at)
 **Files:**
 - Create: `investment-api/app/api/analytics.py`
 
-- [ ] GET /analytics/top-upside?limit=10 — компании с макс. upside (замена scripts/top_upside.py)
-- [ ] GET /analytics/screener — комбинированный скринер (sector + sentiment + position + min_upside + max_p_e + min_dividend_yield)
-- [ ] GET /analytics/sector-summary — сводка по секторам (средний upside, кол-во bullish/bearish)
-- [ ] GET /analytics/overdue — компании, требующие обновления (updated_at + частота → дата следующего обновления)
-- [ ] Написать тесты: скринер с разными комбинациями фильтров, пустые результаты
-- [ ] Запустить тесты — должны пройти
+- [x] GET /analytics/top-upside?limit=10 — компании с макс. upside (замена scripts/top_upside.py)
+- [x] GET /analytics/screener — комбинированный скринер (sector + sentiment + position + min_upside + max_p_e + min_dividend_yield)
+- [x] GET /analytics/sector-summary — сводка по секторам (средний upside, кол-во bullish/bearish)
+- [x] GET /analytics/overdue — компании, требующие обновления (updated_at + частота → дата следующего обновления)
+- [x] Написать тесты: скринер с разными комбинациями фильтров, пустые результаты
+- [x] Запустить тесты — должны пройти
 
 ### Task 12: Скрипт миграции — migrate_all.py
 
