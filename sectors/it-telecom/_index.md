@@ -114,7 +114,7 @@ key_opportunities:
 | OZON | Озон | E-commerce | neutral | Переход к прибыльности, fintech +110%, upside +19% → watch |
 | POSI | Позитив | Кибербезопасность | bearish | Маржа упала с 49% до 26%, FCF отрицат., долг 2,6x |
 | ASTR | Астра | ОС/софт | bullish | Импортозамещение Linux, госконтракты |
-| HEAD | HeadHunter | HR-tech | neutral | Монополия в рекрутменте, но рост замедлился до 3% |
+| HEAD | HeadHunter | HR-tech | bullish | Монополия, EBITDA margin >50%, upside 37.5% при снижении ставки ЦБ |
 | CNRU | Циан | Классифайд/proptech | neutral | Лидер в онлайн-недвижимости, рост 15-17%, upside 15% → watch |
 
 ## Инвестиционный вывод

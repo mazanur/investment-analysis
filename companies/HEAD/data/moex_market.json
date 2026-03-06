@@ -1,0 +1,38 @@
+{
+  "ticker": "HEAD",
+  "date": "2026-03-06",
+  "shortname": "Хэдхантер",
+  "secname": "МКПАО Хэдхантер",
+  "price": {
+    "last": 2988,
+    "open": 2930,
+    "high": 3020,
+    "low": 2922,
+    "waprice": 2986,
+    "prev_close": 2929
+  },
+  "volume": {
+    "shares_today": 125223,
+    "value_today_rub": 373926111,
+    "num_trades_today": 6932
+  },
+  "liquidity": {
+    "adv_30d_rub": 403780397,
+    "adv_30d_mln_rub": 403.8,
+    "bid_ask_spread_pct": 0.1004
+  },
+  "capitalization": {
+    "market_cap_rub": 141177274656,
+    "market_cap_bln_rub": 141.2,
+    "shares_outstanding": 47184918
+  },
+  "range_52w": {
+    "high": 3850,
+    "low": 2727
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 1
+  }
+}
