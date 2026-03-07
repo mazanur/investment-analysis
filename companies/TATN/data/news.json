@@ -581,5 +581,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-06",
+    "title": "Нефть взлетела на 17% за неделю — Ближний Восток парализует рынок",
+    "type": "news",
+    "url": "https://ru.investing.com/news/commodities-news/article-3142418",
+    "impact": "positive",
+    "summary": "Рост цен на нефть на 17% за неделю до $85 (Brent) из-за блокады Ормузского пролива — позитив для Татнефти как экспортёра нефти, так как увеличивает экспортную выручку в долларах. Прогноз Goldman Sachs о возможном росте Brent до $100 при продлении блокады ещё на 5 недель — дополнительный потенциал.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
