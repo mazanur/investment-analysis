@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-07",
+    "trigger": "США разрешили Индии покупать нефть из России, загруженную до 5 марта",
+    "trigger_url": "https://ria.ru/20260306/neft-2078902085.html",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=39M < 50M"
+  },
+  {
     "date": "2026-03-06",
     "trigger": "Бергам: США рассматривают все возможные варианты стабилизации цен на нефть",
     "trigger_url": "https://www.kommersant.ru/doc/8481277",
