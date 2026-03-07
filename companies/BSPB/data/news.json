@@ -31,5 +31,16 @@
     "strength": "high",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-05",
+    "title": "БСП и “Русагро” отчитаются по МСФО - основные события 6 марта",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/bsp-i-rusagro-otchitayutsya-po-msfo-osnovnye-sobytiya-6-marta-20260306-0900/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "negative",
+    "summary": "БСП 6 марта представит отчёт по МСФО за 2025 год — это ключевое событие, которое определит направление акций. Учитывая, что ROE уже снизился с 30% до 16% за три квартала, а чистая прибыль упала на 43%, рынок ожидает дальнейшего ухудшения. Отчёт покажет, насколько критично положение банка и стоит ли ожидать снижения дивидендной доходности.",
+    "strength": "high",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
