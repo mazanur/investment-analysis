@@ -31,5 +31,16 @@
     "strength": "high",
     "action": "hold",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-25",
+    "title": "Губернатор Анохин сообщил об ударах БПЛА по предприятию «Дорогобуж»",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/gubernator-anokhin-soobshchil-ob-udarakh-bpla-po-predpriyatiyu-dorogobuzh-20260225-1441/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "negative",
+    "summary": "Атака БПЛА на предприятие 'Дорогобуж' (входит в группу 'Акрон') привела к человеческим жертвам (4 погибших, 10 раненых), что создаёт репутационные риски и операционные проблемы для компании, однако предприятие является ключевым активом в производстве азотных удобрений и его остановка может сказаться на выручке группы.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
