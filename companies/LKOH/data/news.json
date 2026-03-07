@@ -1197,5 +1197,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-25",
+    "title": "Фьючерсы на нефть WTI подешевели во время американской сессии",
+    "type": "news",
+    "url": "https://ru.investing.com/news/commodities-news/article-3127094",
+    "impact": "negative",
+    "summary": "Снижение цен на нефть WTI (-0,24% до $65,47) и Brent (-0,24% до $70,75) негативно для выручки и прибыльности Лукойла как крупного нефтеэкспортёра — падение мировых цен на нефть напрямую сокращает экспортную выручку компании.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
