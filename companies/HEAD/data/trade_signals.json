@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-03-07",
+    "trigger": "Отчёт за 2025: прогноз высокой прибыли 4.12 млрд руб + дивиденд 218.83 руб (7.2%), рост вакансий в фев 12%",
+    "trigger_url": "https://smart-lab.ru/blog/1273646.php",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "high",
+    "entry": {
+      "condition": "По рынку",
+      "price": 2960
+    },
+    "exit": {
+      "take_profit": 4110,
+      "stop_loss": 2664,
+      "time_limit_days": 10
+    },
+    "expected_return_pct": 38.9,
+    "risk_reward_ratio": 3.88,
+    "position_size": "full",
+    "reasoning": "Price move -0.7% < 2% без кластера + позитивная новость (рост вакансий 12%, высокая прибыль, дивиденды) → long-positive. R/R 3.88 > 2.0. Фундаментал цел: монополия 75% рынка, EBITDA >50%, дивиденды 7.8%, ожидается восстановление рынка труда при снижении ставки ЦБ."
+  }
+]

@@ -31,7 +31,7 @@ key_opportunities:
   - HRtech выход в прибыль + GenAI продукт — новые драйверы роста
   - Рынок труда РФ напряжённый (безработица 2.4%) — структурный спрос на рекрутинг
 my_fair_value: 4110
-current_price: 2982
+current_price: 2960
 upside: 37.5
 position: buy
 ---
