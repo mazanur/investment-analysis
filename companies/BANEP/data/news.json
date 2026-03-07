@@ -768,5 +768,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-03-06",
+    "title": "Первую весеннюю неделю рынок может завершить в плюсе",
+    "type": "news",
+    "url": "https://www.finam.ru/publications/item/pervuyu-vesennyuyu-nedelyu-rynok-mozhet-zavershit-v-plyuse-20260306-0940/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
+    "impact": "positive",
+    "summary": "Статья о российском рынке в целом — Башнефть не упоминается. Однако новость о высоких ценах на нефть ($84+) и геополитической напряжённости вокруг Ирана косвенно позитивна для Башнефти как нефтеэкспортёра: рост мировых цен Brent обычно снижает дисконт Urals к Brent и увеличивает экспортную выручку. Но это общий фон рынка, а не событие про компанию.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
