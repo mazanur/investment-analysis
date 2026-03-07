@@ -1175,5 +1175,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-24",
+    "title": "Фьючерсы на нефть WTI подешевели во время американской сессии",
+    "type": "news",
+    "url": "https://ru.investing.com/news/commodities-news/article-3124818",
+    "impact": "negative",
+    "summary": "Снижение цен на нефть WTI (-1%) и Brent (-0.72%) негативно для выручки и прибыльности Лукойла как крупного нефтеэкспортёра. 同时, британские санкции против России усиливают геополитическое давление на компанию.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
