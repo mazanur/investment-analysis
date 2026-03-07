@@ -581,5 +581,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2020-03-27",
+    "title": "Доллар и евро подорожали почти на два рубля",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2020/03/27/826473-dollar-evro-pribavili-rublyu",
+    "impact": "negative",
+    "summary": "Падение цен на нефть Brent на 7,4% до $24,57 за баррель — ключевой негативный фактор для Газпром нефти как нефтеэкспортёра, поскольку мировые цены на нефть напрямую определяют выручку компании. Статья о динамике российского рынка и нефти, Газпром нефть не упоминается напрямую.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
