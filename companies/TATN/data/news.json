@@ -603,5 +603,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-24",
+    "title": "Фьючерсы на природный газ подешевели во время американской сессии",
+    "type": "news",
+    "url": "https://ru.investing.com/news/commodities-news/article-3124727",
+    "impact": "negative",
+    "summary": "Статья о снижении цен на нефть WTI (-0,60% до $65,91) и природный газ (-1,88%) на NYMEX. Падение цен на нефть негативно влияет на экспортную выручку Татнефти как экспортёра нефти. Однако статья не про Татнефть напрямую — это обзор динамики товарных рынков.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
