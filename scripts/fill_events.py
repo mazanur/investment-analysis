@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Генерирует events.md для компаний из скачанных данных MOEX ISS.
+Генерирует events.md для компаний из данных Investment API.
 
-Читает companies/{TICKER}/data/moex_events.json и генерирует events.md
+Читает IR-события из API (GET /companies/{TICKER}/catalysts?type=event)
+и дивиденды (GET /companies/{TICKER}/dividends), генерирует events.md
 с таблицами последних событий и предстоящих катализаторов.
 Сохраняет ручные секции (Guidance, IR-презентации, Санкционный статус).
 
@@ -16,6 +17,7 @@
 import json
 import os
 import re
+import subprocess
 import sys
 from datetime import date, timedelta
 
@@ -34,13 +36,12 @@ RU_MONTHS = {
     "сентября": 9, "октября": 10, "ноября": 11, "декабря": 12,
 }
 
-# Классификация влияния по типу события
-EVENT_IMPACT = {
-    "Публикация отчетности": "зависит от результатов",
-    "IR событие (online)": "нейтрально",
-    "IR событие (очное)": "нейтрально",
-    "Выплаты по инструментам": "позитив",
-    "Собрания владельцев ценных бумаг": "нейтрально",
+# Маппинг API impact → русское влияние
+IMPACT_RU = {
+    "positive": "позитив",
+    "negative": "негатив",
+    "mixed": "зависит от результатов",
+    "neutral": "нейтрально",
 }
 
 # Секции events.md: автоматические (перезаписываются) и ручные (сохраняются)
@@ -49,6 +50,43 @@ MANUAL_SECTIONS = [
     "Ключевые выдержки из IR-презентаций",
     "Санкционный статус",
 ]
+
+# API configuration
+API_URL = os.environ.get("API_URL", "http://localhost:8000")
+API_KEY = os.environ.get("API_KEY", "")
+
+
+def _load_env():
+    """Load .env file from project root if API_KEY not set."""
+    global API_URL, API_KEY
+    if API_KEY:
+        return
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    env_path = os.path.join(os.path.dirname(script_dir), ".env")
+    if os.path.exists(env_path):
+        with open(env_path, "r") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("API_KEY="):
+                    API_KEY = line.split("=", 1)[1]
+                elif line.startswith("API_URL="):
+                    API_URL = line.split("=", 1)[1]
+
+
+def api_get(path: str) -> list | dict | None:
+    """Fetch JSON from Investment API via curl."""
+    url = f"{API_URL}{path}"
+    try:
+        result = subprocess.run(
+            ["curl", "-s", "--max-time", "30", url],
+            capture_output=True, text=True, timeout=35,
+        )
+        if result.returncode == 0 and result.stdout:
+            return json.loads(result.stdout)
+    except (OSError, json.JSONDecodeError, subprocess.TimeoutExpired) as e:
+        print(f"    {RED}API error: {e}{NC}")
+    return None
 
 
 def parse_yaml_frontmatter(content: str) -> dict:
@@ -166,6 +204,45 @@ def read_cb_meetings(base_dir: str) -> list[str]:
     return dates
 
 
+def fetch_events_from_api(ticker: str) -> dict:
+    """
+    Fetch IR events and dividends from API.
+
+    Returns dict compatible with old moex_events.json format:
+    {"ir_events": [...], "dividends": [...]}
+    """
+    result = {"ir_events": [], "dividends": []}
+
+    # Fetch catalysts of type "event" (both active and inactive for past events table)
+    catalysts = api_get(f"/companies/{ticker}/catalysts?type=event&limit=500")
+    if catalysts and isinstance(catalysts, list):
+        for cat in catalysts:
+            event_date = cat.get("date", "")
+            if not event_date:
+                continue
+            impact = IMPACT_RU.get(cat.get("impact", ""), "нейтрально")
+            result["ir_events"].append({
+                "event_date": event_date,
+                "description": cat.get("description", ""),
+                "impact_ru": impact,
+            })
+
+    # Fetch dividends
+    dividends = api_get(f"/companies/{ticker}/dividends")
+    if dividends and isinstance(dividends, list):
+        for div in dividends:
+            record_date = div.get("record_date", "")
+            if not record_date:
+                continue
+            result["dividends"].append({
+                "registryclosedate": record_date,
+                "value": div.get("amount", 0),
+                "currencyid": div.get("currency", "RUB"),
+            })
+
+    return result
+
+
 def parse_existing_manual_sections(filepath: str) -> dict[str, str]:
     """
     Извлекает ручные секции из существующего events.md.
@@ -212,8 +289,8 @@ def format_past_events_table(
     for e in ir_events:
         d = e.get("event_date", "")
         if cutoff <= d < today_str:
-            impact = EVENT_IMPACT.get(e.get("event_type", ""), "нейтрально")
-            desc = e.get("description", e.get("event_type", ""))
+            impact = e.get("impact_ru", "нейтрально")
+            desc = e.get("description", "")
             rows.append((d, desc, impact, "MOEX ISS"))
 
     # Прошлые дивиденды
@@ -260,8 +337,8 @@ def format_future_events_table(
     for e in ir_events:
         d = e.get("event_date", "")
         if d >= today_str:
-            impact = EVENT_IMPACT.get(e.get("event_type", ""), "нейтрально")
-            desc = e.get("description", e.get("event_type", ""))
+            impact = e.get("impact_ru", "нейтрально")
+            desc = e.get("description", "")
             rows.append((d, desc, impact))
 
     # Будущие дивиденды
@@ -372,7 +449,7 @@ updated: {date.today().isoformat()}
 # Корпоративные события: {company_name} ({ticker})
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER={ticker} && make fill-events TICKER={ticker}`.
+Таблицы событий обновляются автоматически: `make events && make fill-events TICKER={ticker}`.
 
 ## Последние события (6 месяцев)
 
@@ -400,15 +477,11 @@ def process_company(
     """
     result = {"ok": False, "skipped": False, "past": 0, "future": 0}
 
-    events_file = os.path.join(companies_dir, ticker, "data", "moex_events.json")
-    if not os.path.exists(events_file):
-        result["skipped"] = True
-        return result
+    events_data = fetch_events_from_api(ticker)
 
-    try:
-        with open(events_file, "r", encoding="utf-8") as f:
-            events_data = json.load(f)
-    except (json.JSONDecodeError, OSError):
+    # Skip if no data from API at all
+    if not events_data["ir_events"] and not events_data["dividends"]:
+        result["skipped"] = True
         return result
 
     company_name = read_company_name(ticker, companies_dir)
@@ -449,6 +522,8 @@ def process_company(
 
 def main():
     """Основная функция."""
+    _load_env()
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
     base_dir = os.path.dirname(script_dir)
     companies_dir = os.path.join(base_dir, "companies")
@@ -469,9 +544,10 @@ def main():
         tickers = get_tickers(companies_dir)
 
     print(f"{CYAN}═══════════════════════════════════════════════════════════════{NC}")
-    print(f"{CYAN}  Генерация events.md ({date.today().isoformat()}){NC}")
+    print(f"{CYAN}  Генерация events.md из API ({date.today().isoformat()}){NC}")
     print(f"{CYAN}═══════════════════════════════════════════════════════════════{NC}")
     print()
+    print(f"  API: {API_URL}")
     print(f"  Компаний: {len(tickers)}")
 
     # Загружаем даты заседаний ЦБ
@@ -491,8 +567,8 @@ def main():
 
         if result["skipped"]:
             print(
-                f"{prefix}: {YELLOW}пропуск (нет data/moex_events.json — "
-                f"запустите make download-events){NC}"
+                f"{prefix}: {YELLOW}пропуск (нет данных в API — "
+                f"запустите make events){NC}"
             )
             skipped += 1
         elif result["ok"]:

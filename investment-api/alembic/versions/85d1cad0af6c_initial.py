@@ -43,7 +43,7 @@ def upgrade() -> None:
     sa.Column('current_price', sa.Numeric(precision=14, scale=2), nullable=True),
     sa.Column('upside', sa.Numeric(precision=8, scale=4), nullable=True),
     sa.Column('market_cap', sa.Numeric(precision=18, scale=2), nullable=True),
-    sa.Column('shares_out', sa.BigInteger(), nullable=True),
+    sa.Column('shares_out', sa.Numeric(precision=14, scale=2), nullable=True),
     sa.Column('free_float', sa.Numeric(precision=5, scale=2), nullable=True),
     sa.Column('adv_rub_mln', sa.Numeric(precision=14, scale=2), nullable=True),
     sa.Column('p_e', sa.Numeric(precision=10, scale=2), nullable=True),
@@ -111,7 +111,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('company_id', sa.Integer(), nullable=True),
     sa.Column('sector_id', sa.Integer(), nullable=True),
-    sa.Column('date', sa.Date(), nullable=False),
+    sa.Column('date', sa.DateTime(), nullable=False),
     sa.Column('title', sa.String(length=500), nullable=False),
     sa.Column('url', sa.Text(), nullable=True),
     sa.Column('source', sa.String(length=200), nullable=True),
@@ -163,6 +163,28 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ),
     sa.ForeignKeyConstraint(['news_id'], ['news.id'], ),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('job_runs',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('job_name', sa.String(length=100), nullable=False),
+    sa.Column('status', sa.Enum('running', 'completed', 'failed', name='jobstatusenum'), nullable=False),
+    sa.Column('started_at', sa.DateTime(), nullable=False),
+    sa.Column('completed_at', sa.DateTime(), nullable=True),
+    sa.Column('duration_seconds', sa.Numeric(precision=10, scale=2), nullable=True),
+    sa.Column('result', sa.Text(), nullable=True),
+    sa.Column('error', sa.Text(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_job_runs_job_name'), 'job_runs', ['job_name'], unique=False)
+    op.create_table('price_snapshots',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('company_id', sa.Integer(), nullable=False),
+    sa.Column('timestamp', sa.DateTime(), nullable=False),
+    sa.Column('price', sa.Numeric(precision=14, scale=2), nullable=False),
+    sa.Column('volume_rub', sa.Numeric(precision=18, scale=2), nullable=True),
+    sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('company_id', 'timestamp', name='uq_snapshot_company_ts')
     )
     # ### end Alembic commands ###
 

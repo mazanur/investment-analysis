@@ -9,7 +9,7 @@ from app.models.enums import ActionEnum, ImpactEnum, StrengthEnum
 class NewsCreate(BaseModel):
     company_id: Optional[int] = None
     sector_id: Optional[int] = None
-    date: dt.date
+    date: dt.datetime
     title: str
     url: Optional[str] = None
     source: Optional[str] = None
@@ -32,7 +32,7 @@ class NewsResponse(BaseModel):
     id: int
     company_id: Optional[int] = None
     sector_id: Optional[int] = None
-    date: dt.date
+    date: dt.datetime
     title: str
     url: Optional[str] = None
     source: Optional[str] = None

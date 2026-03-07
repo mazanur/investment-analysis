@@ -12,6 +12,8 @@ from app.models.financial_report import FinancialReport
 from app.models.news import News
 from app.models.price import Price
 from app.models.sector import Sector
+from app.models.job_run import JobRun
+from app.models.price_snapshot import PriceSnapshot
 from app.models.trade_signal import TradeSignal
 
 
@@ -59,6 +61,7 @@ class CompanyAdmin(ModelView, model=Company):
         Company.dividend_yield,
         Company.updated_at,
     ]
+    column_select_related_list = ["sector"]
     column_searchable_list = [Company.ticker, Company.name]
     column_sortable_list = [
         Company.id, Company.ticker, Company.name, Company.sentiment,
@@ -81,6 +84,7 @@ class FinancialReportAdmin(ModelView, model=FinancialReport):
         FinancialReport.roe,
         FinancialReport.p_e,
     ]
+    column_select_related_list = ["company"]
     column_searchable_list = [FinancialReport.period]
     column_sortable_list = [FinancialReport.id, FinancialReport.period, FinancialReport.period_type]
     column_default_sort = ("id", True)
@@ -100,6 +104,7 @@ class DividendAdmin(ModelView, model=Dividend):
         Dividend.status,
         Dividend.period_label,
     ]
+    column_select_related_list = ["company"]
     column_sortable_list = [Dividend.id, Dividend.record_date, Dividend.amount, Dividend.status]
     column_default_sort = ("record_date", True)
     icon = "fa-solid fa-money-bill-trend-up"
@@ -118,6 +123,7 @@ class CatalystAdmin(ModelView, model=Catalyst):
         Catalyst.description,
         Catalyst.is_active,
     ]
+    column_select_related_list = ["company"]
     column_sortable_list = [Catalyst.id, Catalyst.type, Catalyst.impact, Catalyst.date, Catalyst.is_active]
     column_default_sort = ("date", True)
     icon = "fa-solid fa-bolt"
@@ -136,6 +142,7 @@ class PriceAdmin(ModelView, model=Price):
         Price.close,
         Price.volume_rub,
     ]
+    column_select_related_list = ["company"]
     column_sortable_list = [Price.id, Price.date, Price.close, Price.volume_rub]
     column_default_sort = ("date", True)
     page_size = 50
@@ -156,6 +163,7 @@ class NewsAdmin(ModelView, model=News):
         News.strength,
         News.action,
     ]
+    column_select_related_list = ["company", "sector"]
     column_searchable_list = [News.title, News.source]
     column_sortable_list = [News.id, News.date, News.impact, News.strength]
     column_default_sort = ("date", True)
@@ -178,6 +186,7 @@ class TradeSignalAdmin(ModelView, model=TradeSignal):
         TradeSignal.status,
         TradeSignal.result_pct,
     ]
+    column_select_related_list = ["company"]
     column_sortable_list = [
         TradeSignal.id, TradeSignal.date, TradeSignal.signal,
         TradeSignal.status, TradeSignal.confidence,
@@ -186,6 +195,49 @@ class TradeSignalAdmin(ModelView, model=TradeSignal):
     icon = "fa-solid fa-signal"
     name = "Trade Signal"
     name_plural = "Trade Signals"
+
+
+class PriceSnapshotAdmin(ModelView, model=PriceSnapshot):
+    column_list = [
+        PriceSnapshot.id,
+        PriceSnapshot.company,
+        PriceSnapshot.timestamp,
+        PriceSnapshot.price,
+        PriceSnapshot.volume_rub,
+    ]
+    column_select_related_list = ["company"]
+    column_sortable_list = [PriceSnapshot.id, PriceSnapshot.timestamp, PriceSnapshot.price]
+    column_default_sort = ("timestamp", True)
+    page_size = 50
+    can_create = False
+    can_edit = False
+    can_delete = False
+    icon = "fa-solid fa-clock"
+    name = "Price Snapshot"
+    name_plural = "Price Snapshots"
+
+
+class JobRunAdmin(ModelView, model=JobRun):
+    column_list = [
+        JobRun.id,
+        JobRun.job_name,
+        JobRun.status,
+        JobRun.started_at,
+        JobRun.completed_at,
+        JobRun.duration_seconds,
+        JobRun.result,
+        JobRun.error,
+    ]
+    column_searchable_list = [JobRun.job_name]
+    column_sortable_list = [JobRun.id, JobRun.job_name, JobRun.status, JobRun.started_at, JobRun.duration_seconds]
+    column_default_sort = ("started_at", True)
+    page_size = 50
+    can_create = False
+    can_edit = False
+    can_delete = False
+    icon = "fa-solid fa-clock-rotate-left"
+    name = "Job Run"
+    name_plural = "Job Runs"
 
 
 def setup_admin(app, engine):
@@ -199,4 +251,6 @@ def setup_admin(app, engine):
     admin.add_view(PriceAdmin)
     admin.add_view(NewsAdmin)
     admin.add_view(TradeSignalAdmin)
+    admin.add_view(PriceSnapshotAdmin)
+    admin.add_view(JobRunAdmin)
     return admin

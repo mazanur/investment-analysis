@@ -6,6 +6,7 @@ from fastapi import Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.api.analytics import router as analytics_router
@@ -18,6 +19,7 @@ from app.api.prices import router as prices_router
 from app.api.reports import router as reports_router
 from app.api.sectors import router as sectors_router
 from app.api.signals import router as signals_router
+from app.api.snapshots import router as snapshots_router
 from app.admin import setup_admin
 from app.config import settings
 from app.api.deps import get_db
@@ -57,6 +59,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Investment API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(SessionMiddleware, secret_key=settings.secret_key)
+app.add_middleware(GZipMiddleware, minimum_size=500)
 
 setup_admin(app, engine)
 
@@ -68,6 +71,7 @@ app.include_router(catalysts_router)
 app.include_router(prices_router)
 app.include_router(news_router)
 app.include_router(signals_router)
+app.include_router(snapshots_router)
 app.include_router(jobs_router)
 app.include_router(analytics_router)
 

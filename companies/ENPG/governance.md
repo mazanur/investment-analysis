@@ -35,7 +35,7 @@ updated: 2026-02-05
 ## Дивидендная история
 
 
-*Нет данных о дивидендах. Скачайте: `make download-events TICKER=ENPG`*
+*Нет данных о дивидендах. Загрузите: `make events TICKER=ENPG`*
 
 ## Программа buyback
 

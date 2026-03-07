@@ -14,6 +14,7 @@ curl -X POST "$API_URL/jobs/fetch-smartlab/TICKER" -H "X-API-Key: $API_KEY"
 curl -X POST "$API_URL/jobs/fetch-moex?tickers=TICKER" -H "X-API-Key: $API_KEY"
 curl -X POST "$API_URL/jobs/fetch-prices?tickers=TICKER" -H "X-API-Key: $API_KEY"
 curl -X POST "$API_URL/jobs/fetch-events/TICKER" -H "X-API-Key: $API_KEY"
+curl -X POST "$API_URL/jobs/fetch-ir-calendar" -H "X-API-Key: $API_KEY"
 ```
 
 ## Структура файлов
@@ -39,11 +40,12 @@ companies/{TICKER}/
 | **Investment API** (финансы) | **Job** (`POST /jobs/fetch-smartlab/{TICKER}`) | smart-lab.ru |
 | **Investment API** (рыночные данные) | **Job** (`POST /jobs/fetch-moex`) | MOEX ISS API |
 | **Investment API** (дивиденды) | **Job** (`POST /jobs/fetch-events/{TICKER}`) | MOEX ISS API |
+| **Investment API** (IR-календарь) | **Job** (`POST /jobs/fetch-ir-calendar`) | MOEX ISS API |
 | **Investment API** (цены) | **Job** (`POST /jobs/fetch-prices`) | MOEX ISS API |
 | **Investment API** (торговые сигналы) | **Claude** | `POST /companies/{TICKER}/signals` при анализе новостей |
 | `consensus.md` | Пользователь | Прогнозы брокеров (за пейволлом) |
 | `governance.md` | **Скрипт** + Пользователь (`make fill-governance`) | Авто: дивидендная история, санкции. Вручную: акционеры, менеджмент, buyback |
-| `events.md` | **Скрипт** + Пользователь (`make fill-events`) | Авто: события MOEX. Вручную: guidance, IR-презентации |
+| `events.md` | **Скрипт** + Пользователь (`make events && make fill-events`) | Авто: IR-календарь из API. Вручную: guidance, IR-презентации |
 | `market_snapshot.md` | Пользователь (опц.) | Только казначейские/преф. акции |
 | `financials.md` | Пользователь (опц.) | Только пометки о разовых статьях |
 | `_index.md` | **Claude** | Анализ на основе всех данных выше |
@@ -75,6 +77,10 @@ companies/{TICKER}/
 ### Дивиденды (`GET /companies/{TICKER}/dividends`)
 - Дивидендная история и ближайшие выплаты
 - Источник: MOEX ISS API. Загрузка: `POST /jobs/fetch-events/{TICKER}`
+
+### IR-календарь (`GET /companies/{TICKER}/catalysts?type=event`)
+- Публикации отчётности (РПБУ, МСФО), конференц-звонки, ГОСА, IR-события
+- Источник: MOEX ISS API. Загрузка: `POST /jobs/fetch-ir-calendar`
 
 ## Trade Signals (API)
 
@@ -114,7 +120,7 @@ make news-reaction TICKER=EUTR
 
 1. Пользователь копирует `_TEMPLATE` → `companies/TICKER`
 2. Загрузить данные в API через job endpoints (см. «Быстрый старт»)
-3. `make fill-events TICKER=TICKER` — сгенерировать events.md (авто-секции)
+3. `make events TICKER=TICKER && make fill-events TICKER=TICKER` — загрузить события в API и сгенерировать events.md
 4. `make fill-governance TICKER=TICKER` — сгенерировать governance.md (авто-секции)
 5. По возможности заполняет ручные секции: `consensus.md`, `governance.md`, `events.md`
 6. Просит Claude провести анализ
@@ -128,10 +134,10 @@ make news-reaction TICKER=EUTR
 |-----------|------|----------|
 | **1 (желателен)** | `consensus.md` | Нет forward-оценки, только trailing |
 | **2 (желателен)** | `governance.md` | Авто-часть через `make fill-governance`. Для точного GOD нужно заполнить акционеров и менеджмент вручную |
-| **3 (желателен)** | `events.md` | Авто-часть через `make fill-events`. Для катализаторов нужен guidance вручную |
+| **3 (желателен)** | `events.md` | Авто-часть через `make events && make fill-events`. Для катализаторов нужен guidance вручную |
 | — | API данные | Загружаются через job endpoints |
 | — | `market_snapshot.md` | Основные рыночные данные уже в API |
-| — | `financials.md` | Только для пометки о разовых статьях |
+| — | `financials.md` | Только для пометок о разовых статьях |
 
 ## Минимальный набор для анализа
 

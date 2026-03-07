@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_company, get_db, require_api_key
 from app.models import Catalyst, Company
+from app.models.enums import CatalystTypeEnum
 from app.schemas import CatalystCreate, CatalystResponse, CatalystUpdate
 
 router = APIRouter(tags=["catalysts"])
@@ -16,6 +17,7 @@ router = APIRouter(tags=["catalysts"])
 async def list_company_catalysts(
     ticker: str,
     is_active: Optional[bool] = Query(None),
+    type: Optional[CatalystTypeEnum] = Query(None),
     limit: int = Query(200, ge=1, le=1000),
     offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
@@ -25,6 +27,9 @@ async def list_company_catalysts(
 
     if is_active is not None:
         stmt = stmt.where(Catalyst.is_active.is_(is_active))
+
+    if type is not None:
+        stmt = stmt.where(Catalyst.type == type)
 
     stmt = stmt.order_by(Catalyst.created_at.desc()).limit(limit).offset(offset)
     result = await db.execute(stmt)

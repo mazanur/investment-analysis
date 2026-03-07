@@ -6,7 +6,7 @@ updated: 2026-02-04
 # Корпоративные события: Татнефть (TATN)
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER=TATN && make fill-events TICKER=TATN`.
+Таблицы событий обновляются автоматически: `make events TICKER=TATN && make fill-events TICKER=TATN`.
 
 ## Последние события (6 месяцев)
 

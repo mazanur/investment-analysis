@@ -6,7 +6,7 @@ updated: 2026-02-11
 # Корпоративные события: Novabev Group (Белуга Групп) (BELU)
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER=BELU && make fill-events TICKER=BELU`.
+Таблицы событий обновляются автоматически: `make events TICKER=BELU && make fill-events TICKER=BELU`.
 
 ## Последние события (6 месяцев)
 

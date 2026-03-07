@@ -6,7 +6,7 @@ updated: 2026-02-26
 # Корпоративные события: Сбербанк (SBER)
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER=SBER && make fill-events TICKER=SBER`.
+Таблицы событий обновляются автоматически: `make events TICKER=SBER && make fill-events TICKER=SBER`.
 
 ## Последние события (6 месяцев)
 

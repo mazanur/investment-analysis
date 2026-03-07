@@ -66,7 +66,7 @@ make fill-governance TICKER=TICKER
 
 | Дата | Событие | Влияние | Источник |
 |------|---------|---------|----------|
-| | *Заполняется автоматически: `make download-events && make fill-governance`* | | |
+| | *Заполняется автоматически: `make events && make fill-governance`* | | |
 
 ## Программа buyback
 

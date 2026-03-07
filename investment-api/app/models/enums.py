@@ -80,3 +80,9 @@ class ActionEnum(str, enum.Enum):
     buy = "buy"
     hold = "hold"
     sell = "sell"
+
+
+class JobStatusEnum(str, enum.Enum):
+    running = "running"
+    completed = "completed"
+    failed = "failed"

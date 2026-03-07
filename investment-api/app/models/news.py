@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Date, ForeignKey, String, Text
+from sqlalchemy import DateTime, ForeignKey, String, Text, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -13,7 +13,7 @@ class News(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     company_id: Mapped[int | None] = mapped_column(ForeignKey("companies.id"), nullable=True)
     sector_id: Mapped[int | None] = mapped_column(ForeignKey("sectors.id"), nullable=True)
-    date: Mapped[datetime.date] = mapped_column(Date)
+    date: Mapped[datetime.datetime] = mapped_column(DateTime)
     title: Mapped[str] = mapped_column(String(500))
     url: Mapped[str | None] = mapped_column(Text, nullable=True)
     source: Mapped[str | None] = mapped_column(String(200), nullable=True)

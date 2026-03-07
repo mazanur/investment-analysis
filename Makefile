@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events download-all daily update-prices check-reports catalysts news-reaction sync sync-all deploy deploy-build deploy-logs deploy-restart deploy-ssh deploy-migrate
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events fill-events download-all daily update-prices check-reports catalysts news-reaction sync sync-all deploy deploy-build deploy-logs deploy-restart deploy-ssh deploy-migrate
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -46,7 +46,8 @@ help:
 	@echo "  make download      — скачать финансы со smart-lab"
 	@echo "  make download-moex — скачать рыночные данные с MOEX"
 	@echo "  make download TICKER=SBER — скачать для конкретной компании"
-	@echo "  make events        — скачать события с MOEX IR-календаря (медленно)"
+	@echo "  make events        — загрузить IR-календарь MOEX в API"
+	@echo "  make fill-events   — сгенерировать events.md из API"
 	@echo "  make trends        — сгенерировать trend.json для всех компаний"
 	@echo "  make catalysts     — сгенерировать catalysts.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
@@ -199,13 +200,21 @@ else
 	@python3 scripts/download_moex.py
 endif
 
+API_URL ?= http://localhost:8000
+API_KEY_VAL := $(shell grep '^API_KEY=' .env | head -1 | cut -d= -f2-)
+
 events:
+	@echo "$(CYAN)Загрузка IR-календаря MOEX в API...$(NC)"
 ifdef TICKER
-	@echo "$(CYAN)Загрузка событий с MOEX для $(TICKER)...$(NC)"
-	@python3 scripts/download_moex_events.py $(TICKER)
+	@curl -s -X POST "$(API_URL)/jobs/fetch-events/$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool 2>/dev/null || true
+endif
+	@curl -s -X POST "$(API_URL)/jobs/fetch-ir-calendar" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool 2>/dev/null || true
+
+fill-events:
+ifdef TICKER
+	@python3 scripts/fill_events.py $(TICKER)
 else
-	@echo "$(CYAN)Загрузка событий с MOEX для всех компаний (медленно)...$(NC)"
-	@python3 scripts/download_moex_events.py
+	@python3 scripts/fill_events.py
 endif
 
 download-all:

@@ -6,7 +6,7 @@ updated: 2026-02-19
 # Корпоративные события: Русал (RUAL)
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER=RUAL && make fill-events TICKER=RUAL`.
+Таблицы событий обновляются автоматически: `make events TICKER=RUAL && make fill-events TICKER=RUAL`.
 
 ## Последние события (6 месяцев)
 

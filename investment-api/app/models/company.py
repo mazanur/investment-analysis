@@ -26,7 +26,7 @@ class Company(Base):
     current_price: Mapped[Decimal | None] = mapped_column(Numeric(14, 2), nullable=True)
     upside: Mapped[Decimal | None] = mapped_column(Numeric(8, 4), nullable=True)
     market_cap: Mapped[Decimal | None] = mapped_column(Numeric(18, 2), nullable=True)
-    shares_out: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    shares_out: Mapped[Decimal | None] = mapped_column(Numeric(14, 2), nullable=True)
     free_float: Mapped[Decimal | None] = mapped_column(Numeric(5, 2), nullable=True)
     adv_rub_mln: Mapped[Decimal | None] = mapped_column(Numeric(14, 2), nullable=True)
     p_e: Mapped[Decimal | None] = mapped_column(Numeric(10, 2), nullable=True)
@@ -43,3 +43,4 @@ class Company(Base):
     prices: Mapped[list["Price"]] = relationship(back_populates="company")  # noqa: F821
     news: Mapped[list["News"]] = relationship(back_populates="company")  # noqa: F821
     trade_signals: Mapped[list["TradeSignal"]] = relationship(back_populates="company")  # noqa: F821
+    price_snapshots: Mapped[list["PriceSnapshot"]] = relationship(back_populates="company")  # noqa: F821

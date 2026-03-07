@@ -22,7 +22,7 @@ class CompanyCreate(BaseModel):
     current_price: Optional[Decimal] = None
     upside: Optional[Decimal] = None
     market_cap: Optional[Decimal] = None
-    shares_out: Optional[int] = None
+    shares_out: Optional[Decimal] = None
     free_float: Optional[Decimal] = None
     adv_rub_mln: Optional[Decimal] = None
     p_e: Optional[Decimal] = None
@@ -42,7 +42,7 @@ class CompanyUpdate(BaseModel):
     current_price: Optional[Decimal] = None
     upside: Optional[Decimal] = None
     market_cap: Optional[Decimal] = None
-    shares_out: Optional[int] = None
+    shares_out: Optional[Decimal] = None
     free_float: Optional[Decimal] = None
     adv_rub_mln: Optional[Decimal] = None
     p_e: Optional[Decimal] = None
@@ -87,7 +87,7 @@ class CompanyResponse(BaseModel):
     current_price: Optional[Decimal] = None
     upside: Optional[Decimal] = None
     market_cap: Optional[Decimal] = None
-    shares_out: Optional[int] = None
+    shares_out: Optional[Decimal] = None
     free_float: Optional[Decimal] = None
     adv_rub_mln: Optional[Decimal] = None
     p_e: Optional[Decimal] = None
