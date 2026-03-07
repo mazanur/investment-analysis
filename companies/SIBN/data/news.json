@@ -548,5 +548,16 @@
     "strength": "high",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2026-02-24",
+    "title": "Фьючерсы на нефть WTI подешевели во время американской сессии",
+    "type": "news",
+    "url": "https://ru.investing.com/news/commodities-news/article-3124818",
+    "impact": "negative",
+    "summary": "Снижение цен на нефть WTI (-1%) и Brent (-0,72%) негативно для Газпром нефти как нефтеэкспортёра, поскольку падение мировых цен напрямую уменьшает выручку компании. Статья о динамике мирового нефтяного рынка, Газпром нефть не упоминается напрямую.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
