@@ -64,5 +64,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2023-03-15",
+    "title": "NASDAQ и NYSE проведут принудительный делистинг бумаг российских компаний",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2023/03/16/966734-nasdaq-i-nyse-provedut-prinuditelnii-delisting",
+    "impact": "negative",
+    "summary": "Принудительный делистинг расписок Яндекса на NASDAQ/NYSE — формальное завершение приостановки торгов 2022 года. Негативное событие ограничено: торги идут на Мосбирже, компания подаст апелляцию, бизнес-модель не затрагивается. Косвенно связано с санкционным давлением, но без прямого влияния на операционные показатели.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
