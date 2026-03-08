@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "ЦБ впервые вводит прямые ограничения на выдачу ипотеки и автокредитов",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2025/04/24/1106599-tsb-vvodit-ogranicheniya",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=35M < 50M"
+  },
+  {
     "date": "2026-03-06",
     "trigger": "ЦБ ужесточит требования к оценке банками финансового положения компаний",
     "trigger_url": "https://www.interfax.ru/business/1076269",
