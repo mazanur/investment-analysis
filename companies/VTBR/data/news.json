@@ -284,5 +284,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2023-04-17",
+    "title": "Эксперты оценили потери банков от ужесточения регулирования ипотеки",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2023/04/18/971314-eksperti-otsenili-poteri-bankov-ot-uzhestocheniya-regulirovaniya-ipoteki",
+    "impact": "negative",
+    "summary": "Регулирование ипотеки негативно для сектора (потеря 80 млрд руб., 5,3% прибыли), но ВТБ даёт позитивный прогноз выдач >5 трлн руб. при благоприятной конъюнктуре. ВТБ упомянут как источник комментария о перераспределении спроса на вторичку и ИЖС — компания не главный объект статьи, а один из участников обзора.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
