@@ -9,5 +9,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2023-08-15",
+    "title": "Ключевая ставка – 12%: что будет с депозитами, рублем, инфляцией и экономикой",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2023/08/16/990307-klyuchevaya-stavka-12-chto-budet-s-depozitami-i-ekonomikoi",
+    "impact": "negative",
+    "summary": "Повышение ключевой ставки до 12% — негатив для RENI в краткосрочной перспективе: облигационный портфель (275 млрд ₽) потеряет в стоимости (P/BV contraction), а ожидаемое снижение ставки и связанный с ним P/BV expansion отодвигаются. При этом инвестдоход от резервов вырастет, что частично компенсирует негатив.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
