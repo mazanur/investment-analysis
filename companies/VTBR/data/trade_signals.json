@@ -1,5 +1,26 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Банки начали отменять комиссии для застройщиков по льготной ипотеке — снижение комиссионных доходов",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2025/05/13/1109617-banki-nachali-otmenyat-komissii-dlya-zastroischikov",
+    "signal": "buy",
+    "direction": "long-oversold",
+    "confidence": "medium",
+    "entry": {
+      "condition": "По рынку при открытии",
+      "price": 86.02
+    },
+    "exit": {
+      "take_profit": 99.1,
+      "stop_loss": 81.72,
+      "time_limit_days": 15
+    },
+    "expected_return_pct": 15.2,
+    "risk_reward_ratio": 3.53,
+    "position_size": "half",
+    "reasoning": "Price_move −13.2% (99.1→86.02) — сильная перепроданность на негативе. Новость medium-negative (отмена комиссий для застройщиков), но фундаментал цел: upside до fair value 135₽ = +57%, дивиденды 10-20%, NIM восстанавливается (0.70%→2.00%), прогноз прибыли 2026E +24-34% YoY. R/R = 3.53 > 2.0 — классический oversold-сигнал. Stop-loss −5% (дивидендный). Target = pre_news_price 99.1₽. Предыдущие buy-сигналы (2026-03-06, 2026-02-28) остаются в силе — наращиваем позицию на падении."
+  },
+  {
     "date": "2026-03-06",
     "trigger": "Акции ВТБ выросли на +2,8%, войдя в лидеры роста на фоне роста нефти Brent выше $84 и замедления инфляции",
     "trigger_url": "https://www.interfax.ru/business/1076370",
