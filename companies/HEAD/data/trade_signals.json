@@ -1,5 +1,26 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "NASDAQ и NYSE проведут принудительный делистинг бумаг российских компаний (санкции)",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2023/03/16/966734-nasdaq-i-nyse-provedut-prinuditelnii-delisting",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "high",
+    "entry": {
+      "condition": "N/A",
+      "price": null
+    },
+    "exit": {
+      "take_profit": null,
+      "stop_loss": null,
+      "time_limit_days": 0
+    },
+    "expected_return_pct": 0,
+    "risk_reward_ratio": 0,
+    "position_size": "skip",
+    "reasoning": "Новость о делистинге ломает инвестиционный тезис. Правило: 'делистинг → skip'. Санкционное событие ограничивает доступ иностранных инвесторов и снижает потенциал роста капитализации. Предыдущий buy-сигнал от 2026-03-07 остаётся в силе, но новые позиции не открываем."
+  },
+  {
     "date": "2026-03-07",
     "trigger": "Отчёт за 2025: прогноз высокой прибыли 4.12 млрд руб + дивиденд 218.83 руб (7.2%), рост вакансий в фев 12%",
     "trigger_url": "https://smart-lab.ru/blog/1273646.php",
