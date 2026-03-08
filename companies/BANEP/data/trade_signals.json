@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-08",
+    "trigger": "Нефтегазовые доходы бюджета не снизились, несмотря на падение цен на нефть",
+    "trigger_url": "https://www.vedomosti.ru/economics/articles/2025/05/08/1109001-neftegazovie-dohodi",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=42M < 50M"
+  },
+  {
+    "date": "2026-03-08",
     "trigger": "Минэк сохранил прогноз по росту российской экономики на уровне 2,5%",
     "trigger_url": "https://www.vedomosti.ru/economics/articles/2025/04/21/1105548-minek-sohranil-prognoz-po-rostu-vvp",
     "signal": "skip",
