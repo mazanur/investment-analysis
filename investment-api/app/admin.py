@@ -10,13 +10,11 @@ from app.models.company import Company
 from app.models.dividend import Dividend
 from app.models.financial_report import FinancialReport
 from app.models.intraday_candle import IntradayCandle
-from app.models.news import News
 from app.models.order_book_snapshot import OrderBookSnapshot
 from app.models.price import Price
 from app.models.sector import Sector
 from app.models.job_run import JobRun
 from app.models.price_snapshot import PriceSnapshot
-from app.models.trade_signal import TradeSignal
 
 
 class ApiKeyAuth(AuthenticationBackend):
@@ -155,52 +153,6 @@ class PriceAdmin(ModelView, model=Price):
     name_plural = "Prices"
 
 
-class NewsAdmin(ModelView, model=News):
-    column_list = [
-        News.id,
-        News.company,
-        News.sector,
-        News.date,
-        News.title,
-        News.source,
-        News.impact,
-        News.strength,
-        News.action,
-    ]
-    column_select_related_list = ["company", "sector"]
-    column_searchable_list = [News.title, News.source]
-    column_sortable_list = [News.id, News.date, News.impact, News.strength]
-    column_default_sort = ("date", True)
-    icon = "fa-solid fa-newspaper"
-    name = "News"
-    name_plural = "News"
-
-
-class TradeSignalAdmin(ModelView, model=TradeSignal):
-    column_list = [
-        TradeSignal.id,
-        TradeSignal.company,
-        TradeSignal.date,
-        TradeSignal.signal,
-        TradeSignal.direction,
-        TradeSignal.confidence,
-        TradeSignal.entry_price,
-        TradeSignal.take_profit,
-        TradeSignal.stop_loss,
-        TradeSignal.status,
-        TradeSignal.result_pct,
-    ]
-    column_select_related_list = ["company"]
-    column_sortable_list = [
-        TradeSignal.id, TradeSignal.date, TradeSignal.signal,
-        TradeSignal.status, TradeSignal.confidence,
-    ]
-    column_default_sort = ("date", True)
-    icon = "fa-solid fa-signal"
-    name = "Trade Signal"
-    name_plural = "Trade Signals"
-
-
 class PriceSnapshotAdmin(ModelView, model=PriceSnapshot):
     column_list = [
         PriceSnapshot.id,
@@ -298,8 +250,6 @@ def setup_admin(app, engine):
     admin.add_view(DividendAdmin)
     admin.add_view(CatalystAdmin)
     admin.add_view(PriceAdmin)
-    admin.add_view(NewsAdmin)
-    admin.add_view(TradeSignalAdmin)
     admin.add_view(PriceSnapshotAdmin)
     admin.add_view(OrderBookSnapshotAdmin)
     admin.add_view(IntradayCandleAdmin)

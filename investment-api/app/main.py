@@ -8,6 +8,7 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.sessions import SessionMiddleware
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 
 from app.api.analytics import router as analytics_router
 from app.api.catalysts import router as catalysts_router
@@ -15,12 +16,10 @@ from app.api.intraday import router as intraday_router
 from app.api.companies import router as companies_router
 from app.api.dividends import router as dividends_router
 from app.api.jobs import router as jobs_router
-from app.api.news import router as news_router
 from app.api.orderbook import router as orderbook_router
 from app.api.prices import router as prices_router
 from app.api.reports import router as reports_router
 from app.api.sectors import router as sectors_router
-from app.api.signals import router as signals_router
 from app.api.snapshots import router as snapshots_router
 from app.admin import setup_admin
 from app.config import settings
@@ -62,6 +61,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Investment API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(SessionMiddleware, secret_key=settings.secret_key)
 app.add_middleware(GZipMiddleware, minimum_size=500)
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts=["*"])
 
 setup_admin(app, engine)
 
@@ -71,8 +71,6 @@ app.include_router(reports_router)
 app.include_router(dividends_router)
 app.include_router(catalysts_router)
 app.include_router(prices_router)
-app.include_router(news_router)
-app.include_router(signals_router)
 app.include_router(snapshots_router)
 app.include_router(orderbook_router)
 app.include_router(intraday_router)

@@ -20,4 +20,3 @@ class Sector(Base):
     updated_at: Mapped[datetime] = mapped_column(default=_utcnow, onupdate=_utcnow)
 
     companies: Mapped[list["Company"]] = relationship(back_populates="sector")  # noqa: F821
-    news: Mapped[list["News"]] = relationship(back_populates="sector")  # noqa: F821

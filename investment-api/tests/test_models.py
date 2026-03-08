@@ -10,25 +10,17 @@ from app.models import (
     Company,
     Dividend,
     FinancialReport,
-    News,
     Price,
     Sector,
-    TradeSignal,
 )
 from app.models.enums import (
-    ActionEnum,
     CatalystTypeEnum,
-    DirectionEnum,
     DividendStatusEnum,
     ImpactEnum,
     MagnitudeEnum,
     PeriodTypeEnum,
     PositionEnum,
-    PositionSizeEnum,
     SentimentEnum,
-    SignalEnum,
-    SignalStatusEnum,
-    StrengthEnum,
 )
 
 
@@ -281,161 +273,6 @@ async def test_price_unique_company_date(db_session):
     db_session.add(Price(company_id=company.id, date=date(2024, 12, 1), close=Decimal("310.00")))
     with pytest.raises(IntegrityError):
         await db_session.commit()
-
-
-# --- News ---
-
-
-@pytest.mark.asyncio
-async def test_create_news_for_company(db_session):
-    company = Company(ticker="SBER", name="Сбербанк")
-    db_session.add(company)
-    await db_session.flush()
-
-    n = News(
-        company_id=company.id,
-        date=date(2024, 12, 1),
-        title="Сбербанк объявил дивиденды",
-        source="moex.com",
-        impact=ImpactEnum.positive,
-        strength=StrengthEnum.high,
-        action=ActionEnum.buy,
-    )
-    db_session.add(n)
-    await db_session.commit()
-
-    result = await db_session.execute(select(News).where(News.company_id == company.id))
-    news = result.scalar_one()
-    assert news.title == "Сбербанк объявил дивиденды"
-    assert news.impact == ImpactEnum.positive
-    assert news.strength == StrengthEnum.high
-
-
-@pytest.mark.asyncio
-async def test_create_news_for_sector(db_session):
-    sector = Sector(slug="finance", name="Финансы")
-    db_session.add(sector)
-    await db_session.flush()
-
-    n = News(
-        sector_id=sector.id,
-        company_id=None,
-        date=date(2024, 12, 1),
-        title="Банковский сектор под давлением",
-        impact=ImpactEnum.negative,
-    )
-    db_session.add(n)
-    await db_session.commit()
-
-    result = await db_session.execute(select(News).where(News.sector_id == sector.id))
-    news = result.scalar_one()
-    assert news.company_id is None
-    assert news.sector_id == sector.id
-
-
-@pytest.mark.asyncio
-async def test_create_macro_news(db_session):
-    n = News(
-        company_id=None,
-        sector_id=None,
-        date=date(2024, 12, 1),
-        title="ЦБ повысил ставку до 23%",
-        impact=ImpactEnum.negative,
-        strength=StrengthEnum.high,
-    )
-    db_session.add(n)
-    await db_session.commit()
-
-    result = await db_session.execute(select(News))
-    news = result.scalar_one()
-    assert news.company_id is None
-    assert news.sector_id is None
-
-
-# --- TradeSignal ---
-
-
-@pytest.mark.asyncio
-async def test_create_trade_signal(db_session):
-    company = Company(ticker="SBER", name="Сбербанк")
-    db_session.add(company)
-    await db_session.flush()
-
-    signal = TradeSignal(
-        company_id=company.id,
-        date=date(2024, 12, 1),
-        signal=SignalEnum.buy,
-        direction=DirectionEnum.long_positive,
-        confidence=Decimal("75.00"),
-        entry_price=Decimal("300.00"),
-        take_profit=Decimal("350.00"),
-        stop_loss=Decimal("280.00"),
-        time_limit_days=30,
-        expected_return_pct=Decimal("16.67"),
-        risk_reward=Decimal("2.50"),
-        position_size=PositionSizeEnum.full,
-        reasoning="Дивиденды + рост прибыли",
-        status=SignalStatusEnum.active,
-    )
-    db_session.add(signal)
-    await db_session.commit()
-
-    result = await db_session.execute(select(TradeSignal).where(TradeSignal.company_id == company.id))
-    s = result.scalar_one()
-    assert s.signal == SignalEnum.buy
-    assert s.direction == DirectionEnum.long_positive
-    assert s.confidence == Decimal("75.00")
-    assert s.status == SignalStatusEnum.active
-
-
-@pytest.mark.asyncio
-async def test_trade_signal_with_news_fk(db_session):
-    company = Company(ticker="SBER", name="Сбербанк")
-    db_session.add(company)
-    await db_session.flush()
-
-    news = News(company_id=company.id, date=date(2024, 12, 1), title="Дивиденды", impact=ImpactEnum.positive)
-    db_session.add(news)
-    await db_session.flush()
-
-    signal = TradeSignal(
-        company_id=company.id,
-        news_id=news.id,
-        date=date(2024, 12, 1),
-        signal=SignalEnum.buy,
-        direction=DirectionEnum.long_positive,
-        confidence=Decimal("80.00"),
-        status=SignalStatusEnum.active,
-    )
-    db_session.add(signal)
-    await db_session.commit()
-
-    result = await db_session.execute(select(TradeSignal).where(TradeSignal.news_id == news.id))
-    s = result.scalar_one()
-    assert s.news_id == news.id
-
-
-@pytest.mark.asyncio
-async def test_trade_signal_without_news(db_session):
-    company = Company(ticker="SBER", name="Сбербанк")
-    db_session.add(company)
-    await db_session.flush()
-
-    signal = TradeSignal(
-        company_id=company.id,
-        news_id=None,
-        date=date(2024, 12, 1),
-        signal=SignalEnum.skip,
-        direction=DirectionEnum.skip,
-        confidence=Decimal("30.00"),
-        status=SignalStatusEnum.active,
-    )
-    db_session.add(signal)
-    await db_session.commit()
-
-    result = await db_session.execute(select(TradeSignal).where(TradeSignal.company_id == company.id))
-    s = result.scalar_one()
-    assert s.news_id is None
 
 
 # --- Enum values ---

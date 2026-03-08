@@ -67,10 +67,6 @@ Environment variables (or `.env` file):
 | POST | `/catalysts` | key | Create macro catalyst (no company) |
 | GET | `/companies/{ticker}/prices` | - | Price history |
 | POST | `/companies/{ticker}/prices` | key | Bulk upsert prices |
-| GET | `/news` | - | News (filterable) |
-| POST | `/news` | key | Create news |
-| GET | `/companies/{ticker}/signals` | - | Trade signals |
-| POST | `/companies/{ticker}/signals` | key | Create signal |
 
 ### Company Filters
 

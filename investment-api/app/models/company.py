@@ -44,8 +44,6 @@ class Company(Base):
     dividends: Mapped[list["Dividend"]] = relationship(back_populates="company")  # noqa: F821
     catalysts: Mapped[list["Catalyst"]] = relationship(back_populates="company")  # noqa: F821
     prices: Mapped[list["Price"]] = relationship(back_populates="company")  # noqa: F821
-    news: Mapped[list["News"]] = relationship(back_populates="company")  # noqa: F821
-    trade_signals: Mapped[list["TradeSignal"]] = relationship(back_populates="company")  # noqa: F821
     price_snapshots: Mapped[list["PriceSnapshot"]] = relationship(back_populates="company")  # noqa: F821
     order_book_snapshots: Mapped[list["OrderBookSnapshot"]] = relationship(back_populates="company")  # noqa: F821
     intraday_candles: Mapped[list["IntradayCandle"]] = relationship(back_populates="company")  # noqa: F821

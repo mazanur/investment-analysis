@@ -107,15 +107,20 @@ companies/{TICKER}/
 
 ## Как реагировать на новость
 
-Когда появляется новая новость в API (`GET /companies/{TICKER}/news`) и нужно быстро оценить, есть ли спекулятивная возможность — используй **`companies/NEWS_REACTION_GUIDE.md`**.
+Когда появляется новая новость в RSS Feeder (`http://feeder.zagirnur.dev/`) и нужно быстро оценить, есть ли спекулятивная возможность — используй **`companies/NEWS_REACTION_GUIDE.md`**.
+
+Источник новостей — **RSS Feeder API** (отдельный сервис):
+- Компании: `GET /api/companies` (найди company_id по тикеру)
+- Новости с impact-анализом: `GET /api/impact/articles?company={id}&strength=high`
+- Торговые сигналы: `GET /api/signals/items?company={id}`
 
 Кратко:
 1. Обнови цену: `curl -X POST "$API_URL/jobs/fetch-moex?tickers={TICKER}" -H "X-API-Key: $API_KEY"` + `curl -X POST "$API_URL/jobs/fetch-prices?tickers={TICKER}" -H "X-API-Key: $API_KEY"`
-2. Классифицируй новость (тип, сила, направление)
-3. Проверь «уже в цене» (API `GET /companies/{TICKER}/prices`: движение цены + объём)
-4. Оцени: новость ломает фундаментальный тезис или нет?
-5. Рассчитай trade setup (entry, target, stop-loss, risk/reward ≥ 2:1)
-6. Запиши результат в API: `POST /companies/{TICKER}/signals`
+2. Получи новости из RSS Feeder: `GET http://feeder.zagirnur.dev/api/impact/articles?company={feeder_id}`
+3. Классифицируй новость (тип, сила, направление)
+4. Проверь «уже в цене» (Investment API `GET /companies/{TICKER}/prices`: движение цены + объём)
+5. Оцени: новость ломает фундаментальный тезис или нет?
+6. Рассчитай trade setup (entry, target, stop-loss, risk/reward ≥ 2:1)
 
 Если `_index.md` — заглушка → skip (сначала проведи полный research).
 
@@ -169,7 +174,7 @@ make sync TICKER=SBER
 make sync-all
 ```
 
-Скрипт `scripts/sync_analysis.py` парсит YAML frontmatter, catalysts, news и trade signals из workspace и пушит их в API.
+Скрипт `scripts/sync_analysis.py` парсит YAML frontmatter и catalysts из workspace и пушит их в API.
 
 ### Миграция всех данных
 
@@ -186,14 +191,25 @@ python3 scripts/migrate_all.py
 - Компании: GET /companies, GET /companies/{ticker}
 - Финансовые отчёты: GET /companies/{ticker}/reports?period_type=yearly|quarterly
 - Цены: GET /companies/{ticker}/prices, GET /companies/{ticker}/prices/latest
-- Новости: GET /companies/{ticker}/news
 - Дивиденды: GET /companies/{ticker}/dividends, GET /dividends/upcoming
 - Катализаторы: GET /companies/{ticker}/catalysts
-- Торговые сигналы: GET /companies/{ticker}/signals, POST /companies/{ticker}/signals
 - Аналитика: GET /analytics/top-upside, GET /analytics/screener
 - Серверные jobs: POST /jobs/fetch-moex, POST /jobs/fetch-prices, POST /jobs/fetch-smartlab/{ticker}, POST /jobs/fetch-events/{ticker}
 
 Подробная документация: `investment-api/README.md`
+
+## RSS Feeder API (новости и сигналы)
+
+Новости и торговые сигналы живут в отдельном сервисе **RSS Feeder** (`http://feeder.zagirnur.dev/`). Это многоступенчатый пайплайн: сбор RSS → фильтрация → дедупликация → LLM-анализ → привязка к компаниям → оценка impact → генерация сигналов.
+
+### Ключевые endpoints
+
+- Компании: `GET /api/companies` (поля: id, ticker, name)
+- Новости с impact-анализом: `GET /api/impact/articles?company={id}&strength=high`
+- Торговые сигналы: `GET /api/signals/items?company={id}`
+- Статистика: `GET /api/impact/stats`, `GET /api/signals/stats`
+
+**Важно:** Feeder использует свои company ID (int), а не тикеры напрямую. Workflow: `GET /api/companies` → найти id по полю `ticker` → использовать в запросах.
 
 ## Важно
 

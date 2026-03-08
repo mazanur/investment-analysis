@@ -47,41 +47,6 @@ class MagnitudeEnum(str, enum.Enum):
     low = "low"
 
 
-class SignalEnum(str, enum.Enum):
-    buy = "buy"
-    skip = "skip"
-
-
-class DirectionEnum(str, enum.Enum):
-    long_positive = "long-positive"
-    long_oversold = "long-oversold"
-    skip = "skip"
-
-
-class PositionSizeEnum(str, enum.Enum):
-    full = "full"
-    half = "half"
-    skip = "skip"
-
-
-class SignalStatusEnum(str, enum.Enum):
-    active = "active"
-    closed = "closed"
-    expired = "expired"
-
-
-class StrengthEnum(str, enum.Enum):
-    high = "high"
-    medium = "medium"
-    low = "low"
-
-
-class ActionEnum(str, enum.Enum):
-    buy = "buy"
-    hold = "hold"
-    sell = "sell"
-
-
 class JobStatusEnum(str, enum.Enum):
     running = "running"
     completed = "completed"

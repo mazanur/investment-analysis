@@ -12,14 +12,11 @@ from app.schemas import (
     CompanyResponse,
     DividendCreate,
     FinancialReportCreate,
-    NewsCreate,
     PriceBulkCreate,
     PriceCreate,
     SectorCreate,
     SectorResponse,
     SectorUpdate,
-    TradeSignalCreate,
-    TradeSignalUpdate,
 )
 
 
@@ -280,130 +277,3 @@ class TestPriceSchemas:
             PriceCreate(date=date(2026, 3, 5))
 
 
-class TestNewsSchemas:
-    def test_create_company_news(self):
-        n = NewsCreate(
-            company_id=1,
-            date=date(2026, 3, 5),
-            title="SBER Q4 results above expectations",
-            impact="positive",
-            strength="high",
-        )
-        assert n.sector_id is None
-
-    def test_create_macro_news(self):
-        n = NewsCreate(
-            date=date(2026, 3, 5),
-            title="CB holds rate at 21%",
-            source="cbr.ru",
-        )
-        assert n.company_id is None
-        assert n.sector_id is None
-
-    def test_create_sector_news(self):
-        n = NewsCreate(
-            sector_id=1,
-            date=date(2026, 3, 5),
-            title="Oil prices surge",
-        )
-        assert n.company_id is None
-        assert n.sector_id == 1
-
-
-class TestTradeSignalSchemas:
-    def test_create_valid(self):
-        ts = TradeSignalCreate(
-            date=date(2026, 3, 5),
-            signal="buy",
-            direction="long-positive",
-            confidence=Decimal("75.00"),
-            entry_price=Decimal("300.00"),
-            take_profit=Decimal("350.00"),
-            stop_loss=Decimal("280.00"),
-            risk_reward=Decimal("2.50"),
-            position_size="full",
-        )
-        assert ts.status == "active"
-        assert ts.confidence == Decimal("75.00")
-
-    def test_confidence_below_zero(self):
-        with pytest.raises(ValidationError, match="confidence"):
-            TradeSignalCreate(
-                date=date(2026, 3, 5),
-                signal="buy",
-                direction="long-positive",
-                confidence=Decimal("-1"),
-            )
-
-    def test_confidence_above_100(self):
-        with pytest.raises(ValidationError, match="confidence"):
-            TradeSignalCreate(
-                date=date(2026, 3, 5),
-                signal="buy",
-                direction="long-positive",
-                confidence=Decimal("101"),
-            )
-
-    def test_confidence_boundary_values(self):
-        ts0 = TradeSignalCreate(
-            date=date(2026, 3, 5),
-            signal="buy",
-            direction="long-positive",
-            confidence=Decimal("0"),
-        )
-        assert ts0.confidence == Decimal("0")
-
-        ts100 = TradeSignalCreate(
-            date=date(2026, 3, 5),
-            signal="buy",
-            direction="long-positive",
-            confidence=Decimal("100"),
-        )
-        assert ts100.confidence == Decimal("100")
-
-    def test_negative_risk_reward(self):
-        with pytest.raises(ValidationError, match="risk_reward"):
-            TradeSignalCreate(
-                date=date(2026, 3, 5),
-                signal="buy",
-                direction="long-positive",
-                confidence=Decimal("50"),
-                risk_reward=Decimal("-1"),
-            )
-
-    def test_risk_reward_zero(self):
-        ts = TradeSignalCreate(
-            date=date(2026, 3, 5),
-            signal="buy",
-            direction="long-positive",
-            confidence=Decimal("50"),
-            risk_reward=Decimal("0"),
-        )
-        assert ts.risk_reward == Decimal("0")
-
-    def test_update_close_signal(self):
-        u = TradeSignalUpdate(
-            status="closed",
-            result_pct=Decimal("15.50"),
-            closed_at=datetime(2026, 3, 10, 18, 0),
-        )
-        assert u.status == "closed"
-        assert u.result_pct == Decimal("15.50")
-
-    def test_invalid_signal_enum(self):
-        with pytest.raises(ValidationError, match="signal"):
-            TradeSignalCreate(
-                date=date(2026, 3, 5),
-                signal="sell",
-                direction="long-positive",
-                confidence=Decimal("50"),
-            )
-
-    def test_invalid_direction_enum(self):
-        with pytest.raises(ValidationError, match="direction"):
-            TradeSignalCreate(
-                date=date(2026, 3, 5),
-                signal="buy",
-                direction="short",
-                confidence=Decimal("50"),
-            )

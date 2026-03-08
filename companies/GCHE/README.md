@@ -42,7 +42,7 @@ companies/{TICKER}/
 | **Investment API** (дивиденды) | **Job** (`POST /jobs/fetch-events/{TICKER}`) | MOEX ISS API |
 | **Investment API** (IR-календарь) | **Job** (`POST /jobs/fetch-ir-calendar`) | MOEX ISS API |
 | **Investment API** (цены) | **Job** (`POST /jobs/fetch-prices`) | MOEX ISS API |
-| **Investment API** (торговые сигналы) | **Claude** | `POST /companies/{TICKER}/signals` при анализе новостей |
+| **RSS Feeder** (новости, сигналы) | **Автопайплайн** | `http://feeder.zagirnur.dev/api/impact/articles?company={id}` |
 | `consensus.md` | Пользователь | Прогнозы брокеров (за пейволлом) |
 | `governance.md` | **Скрипт** + Пользователь (`make fill-governance`) | Авто: дивидендная история, санкции. Вручную: акционеры, менеджмент, buyback |
 | `events.md` | **Скрипт** + Пользователь (`make events && make fill-events`) | Авто: IR-календарь из API. Вручную: guidance, IR-презентации |
@@ -82,15 +82,14 @@ companies/{TICKER}/
 - Публикации отчётности (РПБУ, МСФО), конференц-звонки, ГОСА, IR-события
 - Источник: MOEX ISS API. Загрузка: `POST /jobs/fetch-ir-calendar`
 
-## Trade Signals (API)
+## Новости и торговые реакции
 
-Торговые сигналы хранятся в API (`GET /companies/{TICKER}/signals`, `POST /companies/{TICKER}/signals`). Генерируются Claude при анализе новостей из API (`GET /companies/{TICKER}/news`) по инструкции из `NEWS_REACTION_GUIDE.md`.
+Новости и impact-анализ доступны через RSS Feeder (`http://feeder.zagirnur.dev/`):
+1. Найди company_id: `GET /api/companies` → по полю `ticker` (ID в feeder ≠ ID в investment API!)
+2. Новости: `GET /api/impact/articles?company={feeder_id}`
+3. Сигналы: `GET /api/signals/items?company={feeder_id}`
 
-**Как сгенерировать:**
-
-```bash
-make news-reaction TICKER=EUTR
-```
+Реакции на новости записывай в `events.md` по инструкции из `NEWS_REACTION_GUIDE.md`.
 
 **Как читать сигнал:**
 
