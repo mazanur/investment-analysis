@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Спрос на нефть в мире может снизиться из-за пошлин Трампа",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/04/21/1105540-spros-na-neft-v-mire-mozhet-snizitsya",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость для нефтяного сектора, НО: (1) price_move −1.6% — недостаточно для long-oversold (<−5%); (2) R/R = (60−23.24)/23.24 ≈ 1.58 < 2.0 — не соответствует требованиям; (3) SDN-санкции SNGS фактически блокируют экспорт — влияние снижения мирового спроса на нефть минимально; (4) кубышка $44 млрд — основной драйвер стоимости, не завязан на мировые цены. Position = watch (value trap, санкции, низкая прозрачность)."
+  },
+  {
     "date": "2026-03-06",
     "trigger": "WTI > $80 — рост мировых цен на нефть",
     "trigger_url": "https://t.me/markettwits/361514",
