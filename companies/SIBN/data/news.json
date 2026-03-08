@@ -658,5 +658,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2025-04-20",
+    "title": "Спрос на нефть в мире может снизиться из-за пошлин Трампа",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/business/articles/2025/04/21/1105540-spros-na-neft-v-mire-mozhet-snizitsya",
+    "impact": "negative",
+    "summary": "Введение пошлин Трампа и снижение мирового спроса на нефть негативно для Газпром нефти как нефтеэкспортёра — падение глобальных цен на нефть напрямую сокращает выручку компании. При этом сохранение интереса к российскому сырью даёт некоторую поддержку.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
