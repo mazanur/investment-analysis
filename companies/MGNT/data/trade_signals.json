@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-03-08",
+    "trigger": "Акции MGNT упали на 32.3% с января 2022 на фоне геополитической напряжённости и санкций (цена: 4705.5 → 3184.5 ₽)",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2022/01/13/904647-rossiiskii-rinok-aktsii",
+    "signal": "buy",
+    "direction": "long-oversold",
+    "confidence": "medium",
+    "entry": {
+      "condition": "Текущая цена",
+      "price": 3184.5
+    },
+    "exit": {
+      "take_profit": 4705.5,
+      "stop_loss": 2866.05,
+      "time_limit_days": 15
+    },
+    "expected_return_pct": 47.7,
+    "risk_reward_ratio": 4.77,
+    "position_size": "half",
+    "reasoning": "Long-oversold: price_move -32.3% < -5%, новость негативная (рынок падает, санкции), фундаментал цел (компания работает, не делистинг). R/R 4.77 > 2.0. Target — возврат к цене до новости (4705.5 ₽). Объём торгов в 5.2x ADV подтверждает сильную реакцию рынка. Риски: EBITDA-маржа падает 5 лет, чистая прибыль -70%, FCF отрицательный, дивиденды暂停. Confidence medium из-за фундаментальных рисков."
+  }
+]
