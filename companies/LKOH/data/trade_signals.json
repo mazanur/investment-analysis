@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Массовые распродажи на российском рынке акций из-за геополитических рисков и налога для экспортеров нефти и газа",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2022/09/20/941713-na-rossiiskom-rinke-aktsii",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Падение -21.1% (7147→5636 ₽) >> 5% порога для long-oversold. Фундаментал цел — компания выжила после 2022. Но R/R = 10% / 10% = 1.0 < 2.0 violate правила. Upside до fair value 6200 всего 10% — нет пространства для ошибки. Дополнительные риски: SDN-санкции (октябрь 2025), потеря LIG ($22 млрд заморожены), West Qurna-2 под контролем Ирака, падение прибыли H1 2025 на 51%. Риск делистинга/приоставки торгов на MOEX делает вход опасным."
+  },
+  {
     "date": "2026-03-06",
     "trigger": "ТРЕЙДЕРЫ ПРОДАЮТ РОССИЙСКУЮ: рост премии на Urals до $4-5 к Brent вместо скидок — рост экспортной выручки",
     "trigger_url": "https://t.me/markettwits/361516",
