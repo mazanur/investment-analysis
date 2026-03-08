@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-08",
+    "trigger": "Экспортные цены на российское сырье в апреле существенно снизились (Urals -10% до $55/барр., ESPO -10% до $64/барр.)",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/05/16/1110469-eksportnie-tseni-na-rossiiskoe-sire-snizilis",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость для нефтяного сектора (снижение цен на нефть), НО: (1) price_move +2.3% — рынок вырос, а не упал; (2) R/R = (60−23.24)/23.24 ≈ 1.58 < 2.0 — не соответствует требованиям; (3) Тема нефтяных цен — уже 10+ skip в истории (Иран/Ближний Восток, Brent, WTI); (4) SDN-санкции SNGS фактически блокируют экспорт — влияние мировых цен на нефть минимально; (5) Основной драйвер SNGS — кубышка $44 млрд в валюте, а не нефтяные котировки. Position = watch (value trap, санкции, низкая прозрачность)."
+  },
+  {
+    "date": "2026-03-08",
     "trigger": "Нефть может резко подешеветь в 2027–2028 годах — прогноз Альфа-банка (Brent до $53, Urals до $48)",
     "trigger_url": "https://www.vedomosti.ru/business/articles/2025/04/28/1107009-neft-mozhet-rezko-podeshevet",
     "signal": "skip",
