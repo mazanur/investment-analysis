@@ -1,13 +1,41 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Цена на нефть Brent упала до минимума с 2021 года",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/04/07/1102518-tsena-na-neft",
+    "signal": "buy",
+    "direction": "long-positive",
+    "confidence": "medium",
+    "entry": {
+      "condition": "по рынку",
+      "price": 1408.6
+    },
+    "exit": {
+      "take_profit": 1650,
+      "stop_loss": 1338.17,
+      "time_limit_days": 10
+    },
+    "expected_return_pct": 17.1,
+    "risk_reward_ratio": 3.42,
+    "position_size": "half",
+    "reasoning": "Кластерный price_move -1.24% (< 2%) — негатив НЕ полностью в цене. Новость про Brent — НЕ дублирует тему «Дружба». Несмотря на негативный триггер (падение Brent до минимума с 2021 года), фундаментал сильный: EV/EBITDA 1.25 (сильная недооценка), net cash 202 млрд₽, дивиденды 13.5%, снижение ставки ЦБ до 10-14% к концу 2026 → переоценка. Бизнес-модель частично защищает: доход от тарифов, а не от цены нефти. R/R = 3.42 > 2.0. Target fair_value 1650₽, stop -5% (дивидендная позиция)."
+  },
+  {
     "date": "2026-03-05",
     "trigger": "Инфляция в РФ замедляется: новые данные и взгляд на ставку",
     "trigger_url": "https://smart-lab.ru/blog/1273581.php",
     "signal": "buy",
     "direction": "long-positive",
     "confidence": "medium",
-    "entry": {"condition": "по рынку", "price": 1409.2},
-    "exit": {"take_profit": 1650, "stop_loss": 1268.28, "time_limit_days": 10},
+    "entry": {
+      "condition": "по рынку",
+      "price": 1409.2
+    },
+    "exit": {
+      "take_profit": 1650,
+      "stop_loss": 1268.28,
+      "time_limit_days": 10
+    },
     "expected_return_pct": 17.1,
     "risk_reward_ratio": 1.71,
     "position_size": "half",
@@ -34,8 +62,15 @@
     "signal": "buy",
     "direction": "long-positive",
     "confidence": "medium",
-    "entry": {"condition": "по рынку", "price": 1424},
-    "exit": {"take_profit": 1650, "stop_loss": 1352.8, "time_limit_days": 10},
+    "entry": {
+      "condition": "по рынку",
+      "price": 1424
+    },
+    "exit": {
+      "take_profit": 1650,
+      "stop_loss": 1352.8,
+      "time_limit_days": 10
+    },
     "expected_return_pct": 15.9,
     "risk_reward_ratio": 3.18,
     "position_size": "half",
@@ -219,7 +254,7 @@
     "entry": null,
     "exit": null,
     "expected_return_pct": null,
-    "risk_reward_ratio": 1.40,
+    "risk_reward_ratio": 1.4,
     "position_size": "skip",
     "reasoning": "Продолжение того же геополитического события (Иран), уже проанализированного 03-01. Транснефть не упоминается в статье — влияние косвенное. Цена откатилась с 1463 до 1447 при объёме 3.65× ADV (фиксация прибыли). R/R = 1.40 < 2.0 при upside 14% (sentiment neutral, position watch)."
   },
