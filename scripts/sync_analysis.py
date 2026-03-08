@@ -2,8 +2,8 @@
 """
 Sync analysis data from _index.md into the Investment API.
 
-Parses YAML frontmatter, catalysts, news, and trade signals from
-the investment-analysis workspace and pushes them to the API.
+Parses YAML frontmatter and catalysts from the investment-analysis
+workspace and pushes them to the API.
 
 Usage:
     python3 scripts/sync_analysis.py SBER
@@ -16,8 +16,6 @@ Environment variables:
 """
 
 import argparse
-import datetime
-import json
 import os
 import re
 import sys
@@ -118,13 +116,6 @@ def to_decimal(v):
         return None
 
 
-# Confidence mapping: text -> numeric
-CONFIDENCE_MAP = {"low": 25, "medium": 50, "high": 75}
-
-# Valid action enum values
-VALID_ACTIONS = {"buy", "hold", "sell"}
-
-
 # ---------------------------------------------------------------------------
 # Data parsers
 # ---------------------------------------------------------------------------
@@ -199,129 +190,6 @@ def extract_catalysts_from_frontmatter(ticker_dir: Path) -> list[dict]:
     return catalysts
 
 
-def parse_news(ticker_dir: Path) -> list[dict]:
-    """Parse news.json into NewsCreate payloads."""
-    filepath = ticker_dir / "data" / "news.json"
-    if not filepath.exists():
-        return []
-
-    data = json.loads(filepath.read_text(encoding="utf-8"))
-    if not isinstance(data, list):
-        return []
-
-    results = []
-    for item in data:
-        date_str = item.get("date", "").strip()
-        title = item.get("title", "").strip()
-        if not date_str or not title:
-            continue
-
-        try:
-            datetime.date.fromisoformat(date_str)
-        except ValueError:
-            continue
-
-        payload = {
-            "date": date_str,
-            "title": title[:500],
-            "url": item.get("url") or None,
-            "source": item.get("source") or None,
-            "summary": item.get("summary") or None,
-        }
-
-        impact = item.get("impact")
-        if impact in ("positive", "negative", "mixed", "neutral"):
-            payload["impact"] = impact
-
-        strength = item.get("strength")
-        if strength in ("high", "medium", "low"):
-            payload["strength"] = strength
-
-        action = item.get("action")
-        if action in VALID_ACTIONS:
-            payload["action"] = action
-
-        results.append(payload)
-
-    return results
-
-
-def parse_trade_signals(ticker_dir: Path) -> list[dict]:
-    """Parse trade_signals.json into TradeSignalCreate payloads."""
-    filepath = ticker_dir / "data" / "trade_signals.json"
-    if not filepath.exists():
-        return []
-
-    data = json.loads(filepath.read_text(encoding="utf-8"))
-    if not isinstance(data, list):
-        return []
-
-    results = []
-    for item in data:
-        date_str = item.get("date", "").strip()
-        signal = item.get("signal")
-        direction = item.get("direction")
-        if not date_str or not signal or not direction:
-            continue
-
-        try:
-            datetime.date.fromisoformat(date_str)
-        except ValueError:
-            continue
-
-        if signal not in ("buy", "skip"):
-            continue
-        if direction not in ("long-positive", "long-oversold", "long_positive", "long_oversold", "skip"):
-            continue
-        # Normalize underscores to hyphens for DB enum compatibility
-        direction = direction.replace("_", "-") if direction.startswith("long_") else direction
-
-        confidence_raw = item.get("confidence")
-        if isinstance(confidence_raw, str):
-            confidence = CONFIDENCE_MAP.get(confidence_raw, 50)
-        elif isinstance(confidence_raw, (int, float)):
-            confidence = confidence_raw
-        else:
-            confidence = 50
-
-        payload = {
-            "date": date_str,
-            "signal": signal,
-            "direction": direction,
-            "confidence": confidence,
-            "reasoning": item.get("reasoning"),
-        }
-
-        pos_size = item.get("position_size")
-        if pos_size in ("full", "half", "skip"):
-            payload["position_size"] = pos_size
-
-        entry = item.get("entry")
-        if isinstance(entry, dict):
-            if entry.get("price") is not None:
-                payload["entry_price"] = float(entry["price"])
-            if entry.get("condition"):
-                payload["entry_condition"] = entry["condition"]
-
-        exit_data = item.get("exit")
-        if isinstance(exit_data, dict):
-            if exit_data.get("take_profit") is not None:
-                payload["take_profit"] = float(exit_data["take_profit"])
-            if exit_data.get("stop_loss") is not None:
-                payload["stop_loss"] = float(exit_data["stop_loss"])
-            if exit_data.get("time_limit_days") is not None:
-                payload["time_limit_days"] = int(exit_data["time_limit_days"])
-
-        if item.get("expected_return_pct") is not None:
-            payload["expected_return_pct"] = float(item["expected_return_pct"])
-        if item.get("risk_reward_ratio") is not None:
-            payload["risk_reward"] = float(item["risk_reward_ratio"])
-
-        results.append(payload)
-
-    return results
-
-
 # ---------------------------------------------------------------------------
 # Sync client
 # ---------------------------------------------------------------------------
@@ -336,8 +204,6 @@ class SyncClient:
             "companies": {"ok": 0, "err": 0},
             "catalysts_deactivated": {"ok": 0, "err": 0},
             "catalysts_created": {"ok": 0, "err": 0},
-            "news": {"ok": 0, "err": 0},
-            "signals": {"ok": 0, "err": 0},
         }
         self.errors: list[str] = []
 
@@ -364,13 +230,6 @@ class SyncClient:
         except httpx.HTTPError as e:
             self.errors.append(f"HTTP error GET {path}: {e}")
             return None
-
-    def get_company_id(self, ticker: str) -> int | None:
-        """Fetch company_id from the API by ticker."""
-        resp = self._get(f"/companies/{ticker}")
-        if resp and resp.status_code == 200:
-            return resp.json().get("id")
-        return None
 
     def update_company(self, ticker: str, payload: dict) -> bool:
         """Update company data via PUT /companies/{ticker}."""
@@ -443,58 +302,6 @@ class SyncClient:
                     f"Catalyst {ticker}: {resp.status_code if resp else 'N/A'} — {detail}"
                 )
 
-    def sync_news(self, ticker: str, news_payloads: list[dict]):
-        """Sync news — get existing news titles to avoid duplicates."""
-        company_id = self.get_company_id(ticker)
-        if not company_id:
-            self.errors.append(f"News {ticker}: company not found in API")
-            return
-
-        # Get existing news for this company to check for duplicates
-        resp = self._get(f"/companies/{ticker}/news")
-        existing_keys = set()
-        if resp and resp.status_code == 200:
-            for n in resp.json():
-                existing_keys.add((n.get("date"), n.get("title")))
-
-        for payload in news_payloads:
-            key = (payload.get("date"), payload.get("title"))
-            if key in existing_keys:
-                continue
-            payload["company_id"] = company_id
-            resp = self._post("/news", payload)
-            if resp and resp.status_code in (200, 201):
-                self.stats["news"]["ok"] += 1
-            else:
-                self.stats["news"]["err"] += 1
-                detail = resp.text[:200] if resp else "no response"
-                self.errors.append(
-                    f"News {ticker}: {resp.status_code if resp else 'N/A'} — {detail}"
-                )
-
-    def sync_signals(self, ticker: str, signal_payloads: list[dict]):
-        """Sync trade signals — check for duplicates by (date, signal, direction)."""
-        resp = self._get(f"/companies/{ticker}/signals")
-        existing_keys = set()
-        if resp and resp.status_code == 200:
-            for s in resp.json():
-                key = (s.get("date"), s.get("signal"), s.get("direction"))
-                existing_keys.add(key)
-
-        for payload in signal_payloads:
-            key = (payload.get("date"), payload.get("signal"), payload.get("direction"))
-            if key in existing_keys:
-                continue
-            resp = self._post(f"/companies/{ticker}/signals", payload)
-            if resp and resp.status_code in (200, 201):
-                self.stats["signals"]["ok"] += 1
-            else:
-                self.stats["signals"]["err"] += 1
-                detail = resp.text[:200] if resp else "no response"
-                self.errors.append(
-                    f"Signal {ticker}: {resp.status_code if resp else 'N/A'} — {detail}"
-                )
-
     def print_report(self):
         """Print sync summary."""
         print("\n" + "=" * 60)
@@ -553,16 +360,6 @@ def sync_ticker(client: SyncClient, ticker: str):
     # 2. Sync catalysts: deactivate old index-sourced, create new from frontmatter
     catalysts = extract_catalysts_from_frontmatter(ticker_dir)
     client.sync_catalysts(ticker, catalysts)
-
-    # 3. Sync news (new entries only)
-    news = parse_news(ticker_dir)
-    if news:
-        client.sync_news(ticker, news)
-
-    # 4. Sync trade signals (new entries only)
-    signals = parse_trade_signals(ticker_dir)
-    if signals:
-        client.sync_signals(ticker, signals)
 
 
 def main():
