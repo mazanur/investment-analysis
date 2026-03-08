@@ -1,5 +1,19 @@
 [
   {
+    "date": "2025-04-15",
+    "trigger": "Доля просрочки по ипотеке может вырасти в два раза в 2025 году",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2025/04/16/1104615-dolya-prosrochki-po-ipoteke-mozhet-virasti",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Кластерный price_move +24.6% (1749.8→2180.1) при негативной новости о росте просрочки — негатив УЖЕ В ЦЕНЕ. Сильный рост при негативе означает, что рынок либо отыграл ранее, либо игнорирует риски. Правило: move>2%+негатив→skip. Предыдущие skip по ипотечной теме подтверждают неактуальность. CoR 1.0% и NPL 90+ 1.2% уже учтены в цене."
+  },
+  {
     "date": "2026-03-03",
     "trigger": "Анонс публикации отчётности ДОМ.РФ за январь 2026 — ключевое событие дня",
     "trigger_url": "https://www.finam.ru/publications/item/otchetnosti-domrf-i-fiks-prays-osnovnye-sobytiya-3-marta-20260303-0900/?utm_source=rss&utm_medium=new_compaigns&news_to_finamb=new_compaigns",
