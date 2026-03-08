@@ -75,5 +75,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2023-06-08",
+    "title": "Акции «Яндекса» растут после новости о сохранении листинга на NASDAQ",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2023/06/08/979339-aktsii-yandeksa-rastut-posle-novosti",
+    "impact": "positive",
+    "summary": "NASDAQ отменил решение о делистинге акций Яндекса, сохранив бумаги в биржевом списке. Это позитив для компании: торги на NASDAQ могут возобновиться после завершения реструктуризации, что улучшает перспективы для зарубежных акционеров и повышает привлекательность акций. На новости акции выросли на 2,53% на Мосбирже.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
