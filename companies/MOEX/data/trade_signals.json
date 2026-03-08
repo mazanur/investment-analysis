@@ -1,5 +1,26 @@
 [
   {
+    "date": "2024-07-25",
+    "trigger": "Китайские банки отказываются принимать «грязные» юани из России",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2024/07/26/1052157-kitaiskie-banki-otkazivayutsya-prinimat-gryaznie-yuani-iz-rossii",
+    "signal": "buy",
+    "direction": "long-oversold",
+    "confidence": "high",
+    "entry": {
+      "condition": "По текущей цене",
+      "price": 176.3
+    },
+    "exit": {
+      "take_profit": 206.1,
+      "stop_loss": 158.67,
+      "time_limit_days": 20
+    },
+    "expected_return_pct": 16.9,
+    "risk_reward_ratio": 3.38,
+    "position_size": "full",
+    "reasoning": "Кластерный move -14.5% при негативной новости (отказ китайских банков от юаней) — паника на валютном риске. Фундаментал цел: недооценка 20.8%, див.доходность 11%, нулевой долг, монополия, 209 млрд собственных средств, комиссионные +25% YoY. R/R 3.38 > 2.0. Тема юаня не повторяет предыдущие skip-ы (те были на результаты FY2025 и ставки ЦБ)."
+  },
+  {
     "date": "2026-03-08",
     "trigger": "Ставка ЦБ повышена до 15% — позитив для процентных доходов Мосбиржи",
     "trigger_url": "https://www.vedomosti.ru/economics/articles/2023/10/30/1003181-stavka-15-chto-budet-s-ekonomikoi",
