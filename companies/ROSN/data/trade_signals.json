@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-08",
+    "trigger": "Экспортные цены на российскую нефть в апреле снизились на 10% к марту (Urals до $55/барр., ESPO до $64/барр.)",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/05/16/1110469-eksportnie-tseni-na-rossiiskoe-sire-snizilis",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "medium",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": 2.7,
+    "risk_reward_ratio": 0.27,
+    "position_size": "skip",
+    "reasoning": "Негативная новость (снижение экспортных цен на 10%), но кластерный price_move +19,9% (390→467,5₽) >> 2% — значительный рост уже произошёл. Тема цен на нефть повторяет предыдущие skip-сигналы. Фундаментал цел, но апсайд до fair value 480₽ составляет +2,7%, R/R = 0,27 << 2,0 — недостаточно. Position watch сохраняется."
+  },
+  {
+    "date": "2026-03-08",
     "trigger": "Роснефть в 2024 году выплатила рекордные 6,1 трлн руб. налогов, выручка выросла на 11% до 10,1 трлн руб., EBITDA +0,8% до 3 трлн руб.",
     "trigger_url": "https://www.vedomosti.ru/business/articles/2025/03/20/1099270-rosneft-viplatila",
     "signal": "skip",
