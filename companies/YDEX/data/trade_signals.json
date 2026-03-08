@@ -1,5 +1,26 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "NASDAQ и NYSE проведут принудительный делистинг бумаг российских компаний",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2023/03/16/966734-nasdaq-i-nyse-provedut-prinuditelnii-delisting",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": {
+      "condition": "по текущей цене",
+      "price": 4526.5
+    },
+    "exit": {
+      "take_profit": null,
+      "stop_loss": null,
+      "time_limit_days": 0
+    },
+    "expected_return_pct": 0,
+    "risk_reward_ratio": 0,
+    "position_size": "skip",
+    "reasoning": "Новость о делистинге (action: sell). Кластерный move +7.3% > 2% уже в цене. Делистинг - формальное завершение приостановки торгов 2022 года, бизнес-модель не затрагивается, торги на Мосбирже продолжаются. Фундаментал сильный (недооценка 23.7%, R/R=2.37), но новость негативная с medium strength. Поскольку движение уже +7.3% и это не позитивная новость - нет кларге для long-positive. Формально не подходит под long-oversold (требуется -5%). Skip."
+  },
+  {
     "date": "2026-03-05",
     "trigger": "Суд лишил компанию Везу двух брендов Go по иску Яндекса",
     "trigger_url": "https://ria.ru/20260304/sud-2078596449.html",
