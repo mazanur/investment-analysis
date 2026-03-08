@@ -31,5 +31,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2023-08-15",
+    "title": "Ключевая ставка – 12%: что будет с депозитами, рублем, инфляцией и экономикой",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2023/08/16/990307-klyuchevaya-stavka-12-chto-budet-s-depozitami-i-ekonomikoi",
+    "impact": "negative",
+    "summary": "Повышение ключевой ставки ЦБ с 8,5% до 12% негативно для АФК «Система», так как компания имеет критически высокую долговую нагрузку (~1 491 млрд ₽) и процентные расходы составляют 80% EBITDA (291 млрд ₽). Рост ставки увеличит процентные расходы, ускорит рост долга и усугубит отрицательный FCF (-136 млрд ₽).",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
