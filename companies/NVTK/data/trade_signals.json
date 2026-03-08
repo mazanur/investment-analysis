@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Новатэк должен запустить три проекта СПГ до 2030 года, но эксперты считают планы нереалистичными из-за санкций",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/04/15/1104353-novatek-dolzhen-zapustit-tri-proekta-po-szhizheniyu-gaza",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость (санкции, нереалистичные планы), но кластерный price_move +18% (1139.8→1345) >> 2% — позитив УЖЕ В ЦЕНЕ. Рынок растёт на спекуляциях, игнорируя фундаментальный негатив. Тема повторяет предыдущие skip-ы (санкции, СПГ-проекты, атаки на танкеры). Fair value 1000 ₽ << текущей 1345 ₽ (downside -25.7%), sentiment bearish, позиція sell. Нет точки входа."
+  },
+  {
     "date": "2026-03-06",
     "trigger": "Цены на бензин снова вырастут worldwide из-за проблем с поставками через пролив",
     "trigger_url": "https://smart-lab.ru/blog/1273276.php",
