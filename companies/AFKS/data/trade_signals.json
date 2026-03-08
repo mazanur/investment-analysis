@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Экономисты Совкомбанка ждут ключевую ставку на уровне 22% к концу года",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2024/10/07/1066838-ekonomisti-sovkombanka-zhdut-klyuchevuyu-stavku-na-urovne-22",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Новость повторяет тему предыдущего skip-а (2026-03-02: сохранение высоких ставок ЦБ). Правило: 'если по той же теме уже были skip-ы — новая новость той же темы тоже skip'. Негатив о ставке ЦБ — известный risk, уже учтён в позиции watch."
+  },
+  {
     "date": "2026-03-05",
     "trigger": "Инфляция – не единственный фактор для ЦБ при принятии решения по ставке — Набиуллина допустила смягчение политики",
     "trigger_url": "https://www.finam.ru/publications/item/inflyatsiya-ne-edinstvennyy-faktor-dlya-tsb-pri-prinyatii-resheniya-po-stavke-20260305-1458/",
