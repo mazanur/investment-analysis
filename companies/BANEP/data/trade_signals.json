@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-08",
+    "trigger": "Экспортные цены на российское сырье в апреле существенно снизились",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/05/16/1110469-eksportnie-tseni-na-rossiiskoe-sire-snizilis",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=42M < 50M"
+  },
+  {
+    "date": "2026-03-08",
     "trigger": "Нефтегазовые доходы бюджета не снизились, несмотря на падение цен на нефть",
     "trigger_url": "https://www.vedomosti.ru/economics/articles/2025/05/08/1109001-neftegazovie-dohodi",
     "signal": "skip",
