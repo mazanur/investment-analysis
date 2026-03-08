@@ -1,5 +1,19 @@
 [
   {
+    "date": "2025-04-13",
+    "trigger": "Эксперты заявили о рисках для экономики России из-за тарифной войны Трампа — снижение мировых цен на нефть",
+    "trigger_url": "https://www.vedomosti.ru/economics/articles/2025/04/14/1104086-ekonomisti-zayavili-o-riskah-dlya-ekonomiki-rossii",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость (снижение нефтяных цен из-за тарифной войны). Кластерный price_move -14.4% (6587→5636 ₽) < -5% — теоретически возможен long-oversold. Но новость той же негативной направленности, что и предыдущие skip-ы (геополитические риски, распродажи). Фундаментал цел, но правило: не переоценивать ту же информацию. R/R = 10%/5% = 2.0刚好 на границе — недостаточное преимущество."
+  },
+  {
     "date": "2026-03-08",
     "trigger": "Массовые распродажи на российском рынке акций из-за геополитических рисков и налога для экспортеров нефти и газа",
     "trigger_url": "https://www.vedomosti.ru/finance/articles/2022/09/20/941713-na-rossiiskom-rinke-aktsii",
