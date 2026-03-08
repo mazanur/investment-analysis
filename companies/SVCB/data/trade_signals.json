@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Эксперты оценили потери банков от ужесточения регулирования ипотеки",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2023/04/18/971314-eksperti-otsenili-poteri-bankov-ot-uzhestocheniya-regulirovaniya-ipoteki",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Price_move −11.5% + негатив → long-oversold. Однако R/R = 1.33 < 2.0: entry 13.505₽, target pre-news 15.3₽ (+13.3%), stop-loss −10% = 12.15₽. Фундаментал цел (нет делистинга/дефолта), но соотношение риск/прибыль недостаточно для входа. Пропускаем сделку."
+  },
+  {
     "date": "2026-03-06",
     "trigger": "Инфляция – не единственный фактор для ЦБ при принятии решения по ставке",
     "trigger_url": "https://www.finam.ru/publications/item/inflyatsiya-ne-edinstvennyy-faktor-dlya-tsb-pri-prinyatii-resheniya-po-stavke-20260305-1458/",
