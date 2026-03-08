@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Аналитики ожидают роста экспортных цен Газпрома на 11% до $321 за 1000 куб.м в 2025 году",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/03/21/1099320-analitiki-ozhidayut-rosta-eksportnih-tsen-gazproma",
+    "signal": "buy",
+    "direction": "long-oversold",
+    "confidence": "medium",
+    "entry": {"condition": "открытие или подтверждение поддержки на 130-135₽", "price": 132.17},
+    "exit": {"take_profit": 168.3, "stop_loss": 118.95, "time_limit_days": 20},
+    "expected_return_pct": 27.3,
+    "risk_reward_ratio": 2.73,
+    "position_size": "half",
+    "reasoning": "Цена обвалилась на -21.5% (168.3→132.17₽) при объёме 4.5x ADV — классическая паника. Fair value 235₽ даёт upside +77.8%, текущий TP = pre_news_price 168.3₽ даёт +27.3%. R/R=2.73 > 2.0. Позитивная новость (рост экспортных цен) не отыграна — рынок сфокусировался на рисках. Системные риски учтены в цене, но бизнес-основы (монополия, запасы 15%, низкие мультипликаторы P/E 2.3x) остаются. Консервативный размер позиции half (3%) из-за продолжающихся рисков."
+  },
+  {
     "date": "2026-03-02",
     "trigger": "Цены на европейский газ подскочили на 25% (до 38.44 EUR/МВт·ч) из-за угрозы поставкам через Ормузский пролив",
     "trigger_url": "https://www.profinance.ru/news/2026/03/02/cimq-tseny-na-evropejskij-gaz-podskochili-na-25-na-fone-ugrozy-mirovym-gazovym-potoka.html",
