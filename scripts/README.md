@@ -12,6 +12,7 @@ scripts/
 ├── download_governance.py   # Санкционный скрининг (OpenSanctions API)
 ├── fill_events.py           # Генерация events.md из Investment API
 ├── fill_governance.py       # Генерация governance.md из скачанных данных
+├── prepare_news_context.py  # Подготовка промпта для news-reaction
 ├── telegram_scraper.py      # Скачивание постов из Telegram
 ├── filter_russia.py         # Фильтрация постов о России
 ├── generate_opinions.py     # Генерация opinions.md для компаний

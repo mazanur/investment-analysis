@@ -40,6 +40,21 @@ CANDLES_URL = (
     "&from={date_from}&till={date_till}"
 )
 
+# Index tickers use a different MOEX ISS board
+INDEX_TICKERS = {"IMOEX"}
+INDEX_CANDLES_URL = (
+    MOEX_BASE + "/engines/stock/markets/index/boards/SNDX"
+    "/securities/{ticker}/candles.json"
+    "?iss.meta=off&iss.json=extended&interval=24"
+    "&from={date_from}&till={date_till}"
+)
+
+
+def _candles_url(ticker: str, date_from: str, date_till: str) -> str:
+    """Build MOEX ISS candles URL, using SNDX board for index tickers."""
+    tmpl = INDEX_CANDLES_URL if ticker in INDEX_TICKERS else CANDLES_URL
+    return tmpl.format(ticker=ticker, date_from=date_from, date_till=date_till)
+
 
 async def _fetch_json(client: httpx.AsyncClient, url: str) -> list | dict | None:
     """Fetch JSON from MOEX ISS API with retries and backoff."""
@@ -241,7 +256,16 @@ async def _snapshot_prices(
         return result
 
     today = date.today()
+
+    # Index tickers won't appear in TQBR batch — fetch candles for today
+    index_companies = {t: c for t, c in companies.items() if t in INDEX_TICKERS}
+    if index_companies:
+        idx_result = await _backfill_prices(client, db, index_companies, 7, result)
+        result.update(idx_result)
+
     for ticker, company in companies.items():
+        if ticker in INDEX_TICKERS:
+            continue  # already handled above
         md = moex_data.get(ticker)
         if not md or not md.get("last"):
             result["not_found"] += 1
@@ -283,11 +307,7 @@ async def _backfill_prices(
         # Fetch in chunks of 499 days (MOEX ISS limit ~500 candles per request)
         while chunk_from.isoformat() < date_till:
             chunk_till = min(chunk_from + timedelta(days=499), date.today())
-            url = CANDLES_URL.format(
-                ticker=ticker,
-                date_from=chunk_from.isoformat(),
-                date_till=chunk_till.isoformat(),
-            )
+            url = _candles_url(ticker, chunk_from.isoformat(), chunk_till.isoformat())
             data = await _fetch_json(client, url)
             candles = _parse_candles(data) if data else []
             all_candles.extend(candles)

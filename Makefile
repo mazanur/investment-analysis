@@ -151,12 +151,15 @@ news-reaction:
 ifndef TICKER
 	@echo "$(RED)Ошибка: укажи тикер$(NC)"
 	@echo "Использование: make news-reaction TICKER=EUTR"
+	@echo "  С новостью: make news-reaction TICKER=EUTR NEWS_JSON='{...}'"
 	@exit 1
 endif
-	@echo "$(CYAN)Обновление цены $(TICKER)...$(NC)"
-	@python3 scripts/update_prices.py $(TICKER)
+	@echo "$(CYAN)Обновление цены $(TICKER) через API...$(NC)"
+	@curl -s -X POST "$(API_URL)/jobs/fetch-moex?tickers=$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" > /dev/null
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices?tickers=$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" > /dev/null
 	@echo ""
-	@PROMPT=$$(python3 scripts/prepare_news_context.py $(TICKER) $(CURDIR)); \
+	@PROMPT=$$(FEEDER_URL=$(FEEDER_URL) API_URL=$(API_URL) python3 scripts/prepare_news_context.py $(TICKER) $(CURDIR) \
+		$(if $(NEWS_JSON),--news-json '$(NEWS_JSON)',)); \
 	if [ "$$PROMPT" = "SKIP" ]; then \
 		echo "$(YELLOW)Skipped $(TICKER) (pre-filter)$(NC)"; \
 	else \
@@ -200,7 +203,8 @@ else
 	@python3 scripts/download_moex.py
 endif
 
-API_URL ?= http://localhost:8000
+API_URL ?= https://investment-api.zagirnur.dev
+FEEDER_URL ?= https://feeder.zagirnur.dev
 API_KEY_VAL := $(shell grep '^API_KEY=' .env | head -1 | cut -d= -f2-)
 
 events:
@@ -313,16 +317,19 @@ export:
 # ============================================================================
 
 update-prices:
-	@echo "$(CYAN)Обновление цен с MOEX...$(NC)"
-	@python3 scripts/update_prices.py
+	@echo "$(CYAN)Обновление цен через API...$(NC)"
+	@curl -s -X POST "$(API_URL)/jobs/fetch-moex" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
 
 daily:
 	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
 	@echo "$(CYAN)  Ежедневное обновление ($(TODAY))$(NC)"
 	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
 	@echo ""
-	@echo "$(CYAN)[1/5] Обновление цен с MOEX...$(NC)"
-	@python3 scripts/update_prices.py
+	@echo "$(CYAN)[1/5] Обновление цен через API...$(NC)"
+	@curl -s -X POST "$(API_URL)/jobs/fetch-moex" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices?tickers=IMOEX" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
 	@echo ""
 	@echo "$(CYAN)[2/5] Генерация trend.json...$(NC)"
 	@python3 scripts/generate_trend_json.py
@@ -334,7 +341,7 @@ daily:
 	@python3 scripts/generate_dashboard.py
 	@echo ""
 	@echo "$(CYAN)[5/5] Коммит и пуш...$(NC)"
-	@git add companies/*/data/price_history.csv companies/*/_index.md companies/*/trend.json companies/*/data/catalysts.json docs/
+	@git add companies/*/_index.md companies/*/trend.json companies/*/data/catalysts.json docs/
 	@git commit -m "daily: update prices and dashboard ($(TODAY))" || echo "$(YELLOW)Нет изменений для коммита$(NC)"
 	@git push || echo "$(RED)Пуш не удался$(NC)"
 	@echo ""

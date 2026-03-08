@@ -5,8 +5,8 @@ info:
   description: |
     Схема данных для торговых сигналов на основе новостей.
 
-    Файл `trade_signals.json` содержит сигналы, сгенерированные при анализе
-    новостей о компании — стоит ли спекулятивно покупать бумагу.
+    Сигналы генерируются при анализе новостей о компании — стоит ли
+    спекулятивно покупать бумагу.
 
     ## Как сгенерировать
 
@@ -19,14 +19,13 @@ info:
 
     ## Источники данных
 
-    - `companies/{TICKER}/data/news.json` — триггер (новость)
+    - **Feeder API** (`GET /api/companies/{ticker}/news`) — триггер (новость)
+    - **Feeder API** (`GET /api/companies/{ticker}/impacts`) — предыдущие сигналы
+    - **Investment API** (`GET /companies/{ticker}`) — цена, ликвидность (ADV)
+    - **Investment API** (`GET /companies/{ticker}/prices`) — проверка «уже в цене»
+    - **Investment API** (`GET /companies/{ticker}/orderbook/latest`) — bid-ask spread
+    - **Investment API** (`GET /companies/{ticker}/candles/intraday`) — 15-мин свечи
     - `companies/{TICKER}/_index.md` — фундаментальная оценка (fair value, sentiment)
-    - `companies/{TICKER}/data/price_history.csv` — проверка «уже в цене»
-    - `companies/{TICKER}/data/moex_market.json` — ликвидность (ADV)
-
-    ## Расположение файлов
-
-    `companies/{TICKER}/data/trade_signals.json`
 
 components:
   schemas:
@@ -62,18 +61,21 @@ components:
           example: "https://smart-lab.ru/blog/1269071.php"
         signal:
           type: string
-          enum: [buy, skip]
+          enum: [buy, sell, skip]
           description: |
             Торговый сигнал:
-            - `buy` — есть спекулятивная возможность
+            - `buy` — есть спекулятивная возможность (лонг)
+            - `sell` — шорт (негативная новость, фундаментал сломан)
             - `skip` — не торгуем (нет возможности, высокий риск, шум)
         direction:
           type: string
-          enum: [long-positive, long-oversold, skip]
+          enum: [long-positive, long-oversold, short-negative, short-overbought, skip]
           description: |
             Направление сделки:
             - `long-positive` — покупка на позитивной новости (рынок ещё не отреагировал)
             - `long-oversold` — покупка на панике (рынок перереагировал на негатив)
+            - `short-negative` — шорт на негативной новости (рынок ещё не отреагировал, фундаментал сломан)
+            - `short-overbought` — шорт на перекупленности (рынок переоценил позитив)
             - `skip` — не торгуем
         confidence:
           type: string
