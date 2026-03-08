@@ -9,7 +9,9 @@ from app.models.catalyst import Catalyst
 from app.models.company import Company
 from app.models.dividend import Dividend
 from app.models.financial_report import FinancialReport
+from app.models.intraday_candle import IntradayCandle
 from app.models.news import News
+from app.models.order_book_snapshot import OrderBookSnapshot
 from app.models.price import Price
 from app.models.sector import Sector
 from app.models.job_run import JobRun
@@ -59,6 +61,8 @@ class CompanyAdmin(ModelView, model=Company):
         Company.upside,
         Company.p_e,
         Company.dividend_yield,
+        Company.figi,
+        Company.lot_size,
         Company.updated_at,
     ]
     column_select_related_list = ["sector"]
@@ -217,6 +221,51 @@ class PriceSnapshotAdmin(ModelView, model=PriceSnapshot):
     name_plural = "Price Snapshots"
 
 
+class OrderBookSnapshotAdmin(ModelView, model=OrderBookSnapshot):
+    column_list = [
+        OrderBookSnapshot.id,
+        OrderBookSnapshot.company,
+        OrderBookSnapshot.timestamp,
+        OrderBookSnapshot.best_bid,
+        OrderBookSnapshot.best_ask,
+        OrderBookSnapshot.spread_pct,
+    ]
+    column_select_related_list = ["company"]
+    column_sortable_list = [OrderBookSnapshot.id, OrderBookSnapshot.timestamp, OrderBookSnapshot.spread_pct]
+    column_default_sort = ("timestamp", True)
+    page_size = 50
+    can_create = False
+    can_edit = False
+    can_delete = False
+    icon = "fa-solid fa-book-open"
+    name = "Order Book"
+    name_plural = "Order Books"
+
+
+class IntradayCandleAdmin(ModelView, model=IntradayCandle):
+    column_list = [
+        IntradayCandle.id,
+        IntradayCandle.company,
+        IntradayCandle.timestamp,
+        IntradayCandle.interval,
+        IntradayCandle.open,
+        IntradayCandle.high,
+        IntradayCandle.low,
+        IntradayCandle.close,
+        IntradayCandle.volume,
+    ]
+    column_select_related_list = ["company"]
+    column_sortable_list = [IntradayCandle.id, IntradayCandle.timestamp, IntradayCandle.interval]
+    column_default_sort = ("timestamp", True)
+    page_size = 50
+    can_create = False
+    can_edit = False
+    can_delete = False
+    icon = "fa-solid fa-chart-bar"
+    name = "Intraday Candle"
+    name_plural = "Intraday Candles"
+
+
 class JobRunAdmin(ModelView, model=JobRun):
     column_list = [
         JobRun.id,
@@ -252,5 +301,7 @@ def setup_admin(app, engine):
     admin.add_view(NewsAdmin)
     admin.add_view(TradeSignalAdmin)
     admin.add_view(PriceSnapshotAdmin)
+    admin.add_view(OrderBookSnapshotAdmin)
+    admin.add_view(IntradayCandleAdmin)
     admin.add_view(JobRunAdmin)
     return admin

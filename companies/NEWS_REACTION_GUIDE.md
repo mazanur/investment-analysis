@@ -22,14 +22,20 @@ curl -X POST "$API_URL/jobs/fetch-moex?tickers={TICKER}" -H "X-API-Key: $API_KEY
 curl -X POST "$API_URL/jobs/fetch-prices?tickers={TICKER}" -H "X-API-Key: $API_KEY"
 # Сохранить интрадей снэпшот (текущая цена + объём)
 curl -X POST "$API_URL/jobs/fetch-snapshots" -H "X-API-Key: $API_KEY"
+# Загрузить 15-мин свечи Tinkoff (для точного анализа момента реакции)
+curl -X POST "$API_URL/jobs/fetch-tinkoff-candles?tickers={TICKER}" -H "X-API-Key: $API_KEY"
+# Загрузить order book (bid-ask spread, глубина стакана)
+curl -X POST "$API_URL/jobs/fetch-tinkoff-orderbook?tickers={TICKER}" -H "X-API-Key: $API_KEY"
 ```
 
 Jobs обновят:
 - `GET /companies/{TICKER}` → `current_price` (моментальный снэпшот MOEX)
 - `GET /companies/{TICKER}/prices` → дневные OHLCV (закрытие предыдущих дней)
 - `GET /companies/{TICKER}/snapshots` → интрадей снэпшоты (каждый час автоматически + по запросу)
+- `GET /companies/{TICKER}/candles/intraday` → 15-мин свечи Tinkoff (OHLCV, 4 точки в час)
+- `GET /companies/{TICKER}/orderbook/latest` → bid-ask spread, глубина стакана
 
-Без актуальной цены расчёт бессмысленный. Снэпшоты также собираются автоматически каждый час 10:00–19:00 МСК по будням.
+Без актуальной цены расчёт бессмысленный. Снэпшоты собираются автоматически каждый час, 15-мин свечи — каждые 15 мин, order book — каждые 30 мин (10:00–19:00 МСК по будням).
 
 ## Шаг 1. Классификация новости
 
@@ -71,10 +77,12 @@ Jobs обновят:
 4. volume_ratio = volume в день новости / ADV за 30 дней (из API: GET /companies/{TICKER} → adv_rub_mln)
 ```
 
-**Интрадей данные:** Если новость вышла сегодня и торги ещё идут — используй снэпшоты для отслеживания реакции:
-- `GET /companies/{TICKER}/snapshots?from={news_date}` — как менялась цена после новости
-- Сравни снэпшот ДО новости (ближайший по времени) с текущей ценой
-- `volume_rub` в снэпшоте — кумулятивный объём за день к моменту снэпшота; сравни с `adv_rub_mln × 1_000_000` для оценки активности
+**Интрадей данные:** Если новость вышла сегодня и торги ещё идут — используй 15-мин свечи Tinkoff для точного определения момента реакции:
+- `GET /companies/{TICKER}/candles/intraday?from={news_datetime}&interval=15min` — 15-мин OHLCV после новости (4 точки в час)
+- Позволяет точно увидеть, **когда** цена отреагировала и был ли volume spike (свеча с аномальным volume)
+- Внутридневной high/low — полезно для определения entry/stop-loss
+- `GET /companies/{TICKER}/orderbook/latest` → `spread_pct`, `best_bid`, `best_ask` — текущая ликвидность
+- `GET /companies/{TICKER}/snapshots?from={news_date}` — часовые снэпшоты как дополнение
 
 **Матрица решений:**
 

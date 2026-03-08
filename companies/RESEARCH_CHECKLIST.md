@@ -85,7 +85,7 @@
 
 - [ ] ADV > 10 млн ₽? Если 1–10 млн — дисконт за неликвидность (-10-20%). Если < 1 млн — **STOP**
 - [ ] Free-float > 10%? Если < 5% — **STOP**
-- [ ] Bid-ask спред < 1%?
+- [ ] Bid-ask спред < 1%? → API: `GET /companies/{TICKER}/orderbook/latest` → `spread_pct`
 
 ---
 

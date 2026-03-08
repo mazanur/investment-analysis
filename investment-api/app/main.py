@@ -11,10 +11,12 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from app.api.analytics import router as analytics_router
 from app.api.catalysts import router as catalysts_router
+from app.api.intraday import router as intraday_router
 from app.api.companies import router as companies_router
 from app.api.dividends import router as dividends_router
 from app.api.jobs import router as jobs_router
 from app.api.news import router as news_router
+from app.api.orderbook import router as orderbook_router
 from app.api.prices import router as prices_router
 from app.api.reports import router as reports_router
 from app.api.sectors import router as sectors_router
@@ -72,6 +74,8 @@ app.include_router(prices_router)
 app.include_router(news_router)
 app.include_router(signals_router)
 app.include_router(snapshots_router)
+app.include_router(orderbook_router)
+app.include_router(intraday_router)
 app.include_router(jobs_router)
 app.include_router(analytics_router)
 

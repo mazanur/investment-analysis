@@ -34,6 +34,9 @@ class Company(Base):
     dividend_yield: Mapped[Decimal | None] = mapped_column(Numeric(6, 2), nullable=True)
     roe: Mapped[Decimal | None] = mapped_column(Numeric(8, 2), nullable=True)
     gov_ownership: Mapped[Decimal | None] = mapped_column(Numeric(5, 2), nullable=True)
+    figi: Mapped[str | None] = mapped_column(String(12), nullable=True, index=True)
+    tinkoff_uid: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    lot_size: Mapped[int | None] = mapped_column(nullable=True)
     updated_at: Mapped[datetime] = mapped_column(default=_utcnow, onupdate=_utcnow)
 
     sector: Mapped["Sector | None"] = relationship(back_populates="companies")  # noqa: F821
@@ -44,3 +47,5 @@ class Company(Base):
     news: Mapped[list["News"]] = relationship(back_populates="company")  # noqa: F821
     trade_signals: Mapped[list["TradeSignal"]] = relationship(back_populates="company")  # noqa: F821
     price_snapshots: Mapped[list["PriceSnapshot"]] = relationship(back_populates="company")  # noqa: F821
+    order_book_snapshots: Mapped[list["OrderBookSnapshot"]] = relationship(back_populates="company")  # noqa: F821
+    intraday_candles: Mapped[list["IntradayCandle"]] = relationship(back_populates="company")  # noqa: F821

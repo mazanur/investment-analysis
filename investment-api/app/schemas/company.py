@@ -70,6 +70,8 @@ class CompanyListResponse(BaseModel):
     p_bv: Optional[Decimal] = None
     dividend_yield: Optional[Decimal] = None
     roe: Optional[Decimal] = None
+    figi: Optional[str] = None
+    lot_size: Optional[int] = None
     updated_at: dt.datetime
 
 
@@ -95,6 +97,8 @@ class CompanyResponse(BaseModel):
     dividend_yield: Optional[Decimal] = None
     roe: Optional[Decimal] = None
     gov_ownership: Optional[Decimal] = None
+    figi: Optional[str] = None
+    lot_size: Optional[int] = None
     updated_at: dt.datetime
 
     latest_price: Optional[PriceResponse] = None

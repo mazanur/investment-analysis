@@ -22,6 +22,12 @@ from app.jobs.fetch_moex import run_fetch_moex
 from app.jobs.fetch_snapshots import run_fetch_snapshots
 from app.jobs.fetch_prices import run_fetch_prices
 from app.jobs.fetch_smartlab import run_fetch_smartlab
+from app.jobs.fetch_tinkoff import (
+    run_fetch_tinkoff_candles,
+    run_fetch_tinkoff_instruments,
+    run_fetch_tinkoff_orderbook,
+    run_fetch_tinkoff_prices,
+)
 from app.models.enums import JobStatusEnum
 from app.models.job_run import JobRun
 
@@ -107,3 +113,49 @@ async def trigger_fetch_snapshots(
 ):
     """Fetch intraday price snapshots from MOEX ISS for all companies."""
     return await _record_job(db, "fetch_snapshots", run_fetch_snapshots)
+
+
+@router.post("/fetch-tinkoff-instruments")
+async def trigger_fetch_tinkoff_instruments(
+    db: AsyncSession = Depends(get_db),
+):
+    """Fetch instrument mapping (FIGI, lot size) from Tinkoff Invest API."""
+    return await _record_job(db, "fetch_tinkoff_instruments", run_fetch_tinkoff_instruments)
+
+
+@router.post("/fetch-tinkoff-prices")
+async def trigger_fetch_tinkoff_prices(
+    tickers: Optional[list[str]] = Query(None),
+    backfill_days: int = Query(0, ge=0, le=3650),
+    db: AsyncSession = Depends(get_db),
+):
+    """Fetch daily prices from Tinkoff Invest API (backup source)."""
+    return await _record_job(
+        db, "fetch_tinkoff_prices", run_fetch_tinkoff_prices,
+        tickers=tickers, backfill_days=backfill_days,
+    )
+
+
+@router.post("/fetch-tinkoff-orderbook")
+async def trigger_fetch_tinkoff_orderbook(
+    tickers: Optional[list[str]] = Query(None),
+    db: AsyncSession = Depends(get_db),
+):
+    """Fetch order book snapshots from Tinkoff Invest API."""
+    return await _record_job(
+        db, "fetch_tinkoff_orderbook", run_fetch_tinkoff_orderbook,
+        tickers=tickers,
+    )
+
+
+@router.post("/fetch-tinkoff-candles")
+async def trigger_fetch_tinkoff_candles(
+    tickers: Optional[list[str]] = Query(None),
+    interval: str = Query("15min"),
+    db: AsyncSession = Depends(get_db),
+):
+    """Fetch intraday candles from Tinkoff Invest API."""
+    return await _record_job(
+        db, "fetch_tinkoff_candles", run_fetch_tinkoff_candles,
+        tickers=tickers, interval=interval,
+    )

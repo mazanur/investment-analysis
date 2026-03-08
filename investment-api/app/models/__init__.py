@@ -18,8 +18,10 @@ from app.models.enums import (
     StrengthEnum,
 )
 from app.models.financial_report import FinancialReport
+from app.models.intraday_candle import IntradayCandle
 from app.models.job_run import JobRun
 from app.models.news import News
+from app.models.order_book_snapshot import OrderBookSnapshot
 from app.models.price import Price
 from app.models.price_snapshot import PriceSnapshot
 from app.models.sector import Sector
@@ -30,7 +32,9 @@ __all__ = [
     "Company",
     "Dividend",
     "FinancialReport",
+    "IntradayCandle",
     "News",
+    "OrderBookSnapshot",
     "Price",
     "PriceSnapshot",
     "Sector",
