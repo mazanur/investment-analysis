@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-03-08",
+    "trigger": "Роснефть в 2024 году выплатила рекордные 6,1 трлн руб. налогов, выручка выросла на 11% до 10,1 трлн руб., EBITDA +0,8% до 3 трлн руб.",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/03/20/1099270-rosneft-viplatila",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "high",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": 2.7,
+    "risk_reward_ratio": 0.27,
+    "position_size": "skip",
+    "reasoning": "Позитивная новость (strength: high), но позитив полностью в цене: кластерный price_move +19,9% (390,0→467,5 ₽) >> 2% — по правилу кластера позитив уже отыгран. Падение -12,8% от предыдущего дня — краткосрочная реакция, фундаментально тезис цел. Апсайд до fair value 480 ₽ составляет +2,7%, R/R << 2,0 — недостаточно. Position watch сохраняется."
+  },
+  {
     "date": "2023-03-15",
     "trigger": "Роснефть разместила рекордный выпуск облигаций в юанях на 15 млрд со ставкой 3,5% — снижает среднюю стоимость финансового долга (текущая ~6%) и улучшает структуру заимствований",
     "trigger_url": "https://www.vedomosti.ru/business/articles/2023/03/15/966648-rosneft-razmestila-rekordnii-vipusk-obligatsii",
