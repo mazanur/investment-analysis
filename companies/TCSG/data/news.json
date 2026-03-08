@@ -64,5 +64,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2025-03-19",
+    "title": "Как ценовые ожидания населения и бизнеса повлияют на решение ЦБ",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/economics/articles/2025/03/20/1099055-kak-tsenovie-ozhidaniya-naseleniya-i-biznesa-povliyayut-na-tsb",
+    "impact": "positive",
+    "summary": "Снижение инфляционных ожиданий населения и бизнеса — позитивный сигнал для возможного снижения ключевой ставки ЦБ. Для Т-Банка это означает ослабление давления на чистую процентную маржу (NIM) и улучшение условий для кредитного бизнеса, что напрямую связано с ключевым катализатором компании.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
