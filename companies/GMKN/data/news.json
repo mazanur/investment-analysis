@@ -53,5 +53,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2022-01-13",
+    "title": "Российский рынок акций падает вместе с рублем",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2022/01/13/904647-rossiiskii-rinok-aktsii",
+    "impact": "negative",
+    "summary": "Акции Норникеля упали на 4,05% — сильнее рынка (индекс -2,3%), что связано с геополитической напряженностью и санкционным давлением. Санкции LME/CME уже ограничивают торговлю российскими металлами, усиливая давление на компанию.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
