@@ -306,5 +306,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2025-05-12",
+    "title": "Банки начали отменять комиссии для застройщиков по льготной ипотеке",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2025/05/13/1109617-banki-nachali-otmenyat-komissii-dlya-zastroischikov",
+    "impact": "negative",
+    "summary": "Отмена комиссий для застройщиков по льготной ипотеке снизит комиссионные доходы ВТБ и общую маржинальность банка в ипотечном сегменте. Решение принято по поручению президента, что делает его обязательным для исполнения и создаёт прецедент для всего рынка.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
