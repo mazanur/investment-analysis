@@ -42,5 +42,16 @@
     "strength": "high",
     "action": "hold",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2023-03-15",
+    "title": "NASDAQ и NYSE проведут принудительный делистинг бумаг российских компаний",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2023/03/16/966734-nasdaq-i-nyse-provedut-prinuditelnii-delisting",
+    "impact": "negative",
+    "summary": "Американские биржи проведут принудительный делистинг расписок HeadHunter — это санкционное событие, ограничивающее доступ иностранных инвесторов к бумагам компании. Торги на Мосбирже продолжатся, но делистинг с NASDAQ/NYSE негативен для оценки компании и ограничивает потенциальный приток капитала.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
