@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-03-08",
+    "trigger": "NASDAQ отменил решение о делистинге акций Яндекса",
+    "trigger_url": "https://www.vedomosti.ru/finance/articles/2023/06/08/979339-aktsii-yandeksa-rastut-posle-novosti",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": {
+      "condition": "по текущей цене",
+      "price": 4526.5
+    },
+    "exit": {
+      "take_profit": null,
+      "stop_loss": null,
+      "time_limit_days": 0
+    },
+    "expected_return_pct": 0,
+    "risk_reward_ratio": 0,
+    "position_size": "skip",
+    "reasoning": "Кластерный move +7.3% > 2% → позитив УЖЕ в цене. Новость позитивная (отмена делистинга на NASDAQ), но рынок уже отыграл рост +7.3% от 4217 до 4526.5. Fair value 5600 даёт ещё 23.7% апсайд, но вход по текущей цене не даёт преимущества — позитив уже отражён. Skip."
+  },
+  {
+    "date": "2026-03-08",
     "trigger": "NASDAQ и NYSE проведут принудительный делистинг бумаг российских компаний",
     "trigger_url": "https://www.vedomosti.ru/finance/articles/2023/03/16/966734-nasdaq-i-nyse-provedut-prinuditelnii-delisting",
     "signal": "skip",
