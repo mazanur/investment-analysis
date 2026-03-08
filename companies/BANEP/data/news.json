@@ -845,5 +845,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2025-03-09",
+    "title": "Аналитики оценили вероятность исчерпания ликвидной части ФНБ",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/economics/articles/2025/03/10/1096925-analitiki-otsenili-veroyatnost-ischerpaniya-likvidnoi-chasti-fnb",
+    "impact": "negative",
+    "summary": "Статья о состоянии ФНБ — Башнефть не упоминается. Снижение цены на нефть Urals до $61,69/барр. (с $67,66 в январе) и прогноз возможного дефицита бюджета при ценах ниже $60/барр. — косвенный негатив для Башнефти как нефтеэкспортёра: падение мировых цен усиливает дисконт Urals к Brent и сокращает экспортную выручку. Однако статья не про компанию напрямую, а про макроэкономику и бюджетную политику.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
