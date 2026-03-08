@@ -119,5 +119,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2022-09-07",
+    "title": "Минфин предложил разрешить самостоятельно инвестировать пенсионные накопления",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/economics/articles/2022/09/08/939808-razreshit-rossiyanam-investirovat-pensionnie",
+    "impact": "positive",
+    "summary": "Инициатива Минфина о передаче пенсионных накоплений гражданам позитивна для НПФ Сбербанка как крупнейшего фонда: ожидается рост клиентской базы НПО в 2 раза за 5 лет и увеличение активов под управлением. Однако это пока законопроект, детали не определены.",
+    "strength": "medium",
+    "action": "buy",
+    "source": "rss-feeder"
   }
 ]
