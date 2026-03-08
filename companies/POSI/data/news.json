@@ -20,5 +20,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2022-09-29",
+    "title": "Positive Technologies не выполнила план по SPO",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2022/09/29/943110-positive-technologies-prodala",
+    "impact": "negative",
+    "summary": "Positive Technologies провела неудачное SPO: привлекла только 1 млрд руб. из планируемых 3 млрд, разместив акции по 1061,8 руб. против диапазона 1200-1320 руб. Free-float вырос лишь до 11,9% вместо планируемых 14%. После размещения акции упали на 5,3%. Для компании это негатив — рынок не поддержал размещение, что создает давление на акции и подрывает планы по вхождению в голубые фишки.",
+    "strength": "high",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
