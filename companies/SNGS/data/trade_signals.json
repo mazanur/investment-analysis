@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-08",
+    "trigger": "Нефть может резко подешеветь в 2027–2028 годах — прогноз Альфа-банка (Brent до $53, Urals до $48)",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/04/28/1107009-neft-mozhet-rezko-podeshevet",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Негативная новость для нефтяного сектора, НО: (1) кластерный move −1.6% — недостаточно для long-oversold (<−5%); (2) SDN-санкции SNGS фактически блокируют экспорт — влияние мировых цен на нефть минимально; (3) ключевой фактор для SNGS — курс рубля и кубышка $44 млрд, а не нефтяные котировки; (4) новость повторяет тему предыдущих 10+ skip-ов (нефть/Ближний Восток). Position = watch."
+  },
+  {
+    "date": "2026-03-08",
     "trigger": "Спрос на нефть в мире может снизиться из-за пошлин Трампа",
     "trigger_url": "https://www.vedomosti.ru/business/articles/2025/04/21/1105540-spros-na-neft-v-mire-mozhet-snizitsya",
     "signal": "skip",
