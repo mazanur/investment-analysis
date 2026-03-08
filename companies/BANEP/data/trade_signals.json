@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-03-08",
+    "trigger": "Цена на нефть Brent упала до минимума с 2021 года",
+    "trigger_url": "https://www.vedomosti.ru/business/articles/2025/04/07/1102518-tsena-na-neft",
+    "signal": "skip",
+    "direction": "skip",
+    "confidence": "low",
+    "entry": null,
+    "exit": null,
+    "expected_return_pct": null,
+    "risk_reward_ratio": null,
+    "position_size": "skip",
+    "reasoning": "Pre-filter: Low liquidity: ADV=42M < 50M"
+  },
+  {
+    "date": "2026-03-08",
     "trigger": "По итогам февраля рубль укрепился к доллару на 10,5%",
     "trigger_url": "https://www.vedomosti.ru/finance/articles/2025/03/10/1097109-rubl-ukrepilsya-k-dollaru",
     "signal": "skip",
