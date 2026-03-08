@@ -130,5 +130,16 @@
     "strength": "medium",
     "action": "buy",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2024-07-25",
+    "title": "Китайские банки отказываются принимать «грязные» юани из России",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2024/07/26/1052157-kitaiskie-banki-otkazivayutsya-prinimat-gryaznie-yuani-iz-rossii",
+    "impact": "negative",
+    "summary": "Статья описывает, как китайские банки отказываются принимать юани, купленные на Московской бирже, и любой юань с российским следом — это усиливает давление на валютные торги MOEX и подтверждает риск ухода юаня из обращения на бирже, что негативно для комиссионных доходов от валютного рынка.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
