@@ -42,5 +42,16 @@
     "strength": "medium",
     "action": "sell",
     "source": "rss-feeder"
+  },
+  {
+    "date": "2024-10-06",
+    "title": "Экономисты Совкомбанка ждут ключевую ставку на уровне 22% к концу года",
+    "type": "news",
+    "url": "https://www.vedomosti.ru/finance/articles/2024/10/07/1066838-ekonomisti-sovkombanka-zhdut-klyuchevuyu-stavku-na-urovne-22",
+    "impact": "negative",
+    "summary": "Статья о том, что экономисты Совкомбанка повысили прогноз ключевой ставки ЦБ до 22% к концу 2025 года. Это негатив для банка, так как более длительный период высоких ставок задерживает ключевой катализатор — переоценку портфеля облигаций (571 млрд руб.) и восстановление NIM, ожидаемые при снижении ставки.",
+    "strength": "medium",
+    "action": "sell",
+    "source": "rss-feeder"
   }
 ]
