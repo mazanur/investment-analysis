@@ -632,13 +632,18 @@ def format_financials(company: dict | None, reports: list) -> str:
 
         ebitda = extra.get("ebitda")
         fcf = extra.get("fcf")
-        capex = extra.get("capex")
-        if ebitda:
-            report_parts.append(f"EBITDA: {ebitda} млрд ₽")
-        if fcf:
-            report_parts.append(f"FCF: {fcf} млрд ₽")
-        if capex:
-            report_parts.append(f"CAPEX: {capex} млрд ₽")
+
+        # All extra_metrics (sector-specific: NIM, CoR, loan portfolio, etc.)
+        # Exclude already-shown or internal fields
+        _skip_extra = {"share_price", "shares_mln", "payout_ratio",
+                       "dividend_yield_preferred", "ebitda", "fcf"}
+        extra_parts = []
+        for k, v in sorted(extra.items()):
+            if k in _skip_extra or v is None:
+                continue
+            extra_parts.append(f"{k}: {v}")
+        if extra_parts:
+            report_parts.append(" | ".join(extra_parts))
 
         # Calculated ratios (reports in млрд ₽, market_cap in ₽)
         market_cap_bln = market_cap / 1_000_000_000 if market_cap > 0 else 0
