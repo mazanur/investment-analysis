@@ -80,7 +80,7 @@
 
 | Сценарий | Target |
 |----------|--------|
-| long-positive | `fair_value` (полный upside) |
+| long-positive | При сильном однозначном катализаторе — `fair_value` (полный upside). При слабом/неоднозначном катализаторе — +5–10% от entry (реалистичный short-term target) |
 | long-oversold | `pre_news_price` (консервативно) или `fair_value` (агрессивно) |
 | short-negative | `fair_value` если ниже entry, иначе −10–15% от entry |
 | short-overbought | `pre_news_price` |
@@ -96,11 +96,19 @@
 | short-negative | +10% от entry | Если рынок не согласен — закрываем |
 | short-overbought | Максимум дня (high) | Пробьёт хай — рост продолжится |
 
+**Приоритет стоп-лосс правил:** Сценарий-специфичный стоп имеет приоритет над типом новости. Пример: `long-oversold` на новости типа `regulation` → стоп = минимум дня паники (не −10% от entry). Тип новости определяет стоп только когда для сценария нет специфичного правила.
+
 **Risk/reward:**
 
 ```
+# Long:
 expected_return = (target - entry) / entry × 100%
 risk = (entry - stop_loss) / entry × 100%
+risk_reward = expected_return / risk
+
+# Short:
+expected_return = (entry - target) / entry × 100%
+risk = (stop_loss - entry) / entry × 100%
 risk_reward = expected_return / risk
 ```
 

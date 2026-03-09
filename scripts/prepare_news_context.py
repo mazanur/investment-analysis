@@ -23,19 +23,55 @@ from datetime import datetime, timedelta, timezone
 FEEDER_URL = os.environ.get("FEEDER_URL", "https://feeder.zagirnur.dev")
 API_URL = os.environ.get("API_URL", "https://investment-api.zagirnur.dev")
 
+MSK = timezone(timedelta(hours=3))
+
+
+def _utc_to_msk_date(iso_str: str) -> str:
+    """Convert UTC ISO timestamp to MSK date string (YYYY-MM-DD).
+
+    Handles formats: 2026-03-07T22:30:00Z, 2026-03-07T22:30:00+00:00, 2026-03-07
+    """
+    if not iso_str:
+        return ""
+    # Already a plain date
+    if len(iso_str) == 10:
+        return iso_str
+    try:
+        # Strip trailing Z and parse
+        clean = iso_str.replace("Z", "+00:00")
+        dt = datetime.fromisoformat(clean)
+        # If naive, assume UTC
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(MSK).strftime("%Y-%m-%d")
+    except (ValueError, TypeError):
+        # Fallback: just take first 10 chars
+        return iso_str[:10]
+
+
+_API_ERROR = "__API_ERROR__"
+
 
 def _curl_json(url: str) -> dict | list | None:
-    """Fetch JSON from URL via curl. Returns parsed JSON or None."""
+    """Fetch JSON from URL via curl. Returns parsed JSON, None (empty), or _API_ERROR."""
     try:
         result = subprocess.run(
-            ["curl", "-s", "--max-time", "10", url],
+            ["curl", "-s", "--max-time", "10", "-w", "\n%{http_code}", url],
             capture_output=True, text=True, timeout=15,
         )
         if result.returncode != 0 or not result.stdout:
+            return _API_ERROR
+        # Split body and HTTP status code
+        parts = result.stdout.rsplit("\n", 1)
+        body = parts[0] if len(parts) > 1 else result.stdout
+        http_code = parts[1].strip() if len(parts) > 1 else "0"
+        if not http_code.startswith("2"):
+            return _API_ERROR
+        if not body.strip():
             return None
-        return json.loads(result.stdout)
+        return json.loads(body)
     except (OSError, json.JSONDecodeError, subprocess.TimeoutExpired):
-        return None
+        return _API_ERROR
 
 
 def parse_frontmatter(path: str) -> dict:
@@ -110,12 +146,16 @@ def fetch_impacts(ticker: str, limit: int = 50) -> list[dict]:
 def fetch_company(ticker: str) -> dict | None:
     """Fetch company data from Investment API."""
     data = _curl_json(f"{API_URL}/companies/{ticker}")
+    if data is _API_ERROR:
+        return _API_ERROR
     return data if isinstance(data, dict) and "ticker" in data else None
 
 
 def fetch_prices(ticker: str, limit: int = 30) -> list[dict]:
     """Fetch price history from Investment API. Returns chronological order."""
     data = _curl_json(f"{API_URL}/companies/{ticker}/prices?limit={limit}")
+    if data is _API_ERROR:
+        return _API_ERROR
     if isinstance(data, list):
         return list(reversed(data))  # API returns newest first
     return []
@@ -124,42 +164,56 @@ def fetch_prices(ticker: str, limit: int = 30) -> list[dict]:
 def fetch_orderbook(ticker: str) -> dict | None:
     """Fetch latest orderbook from Investment API."""
     data = _curl_json(f"{API_URL}/companies/{ticker}/orderbook/latest")
+    if data is _API_ERROR:
+        return _API_ERROR
     return data if isinstance(data, dict) and "best_bid" in data else None
 
 
 def fetch_intraday_candles(ticker: str, limit: int = 8) -> list[dict]:
     """Fetch 15-min intraday candles from Investment API."""
     data = _curl_json(f"{API_URL}/companies/{ticker}/candles/intraday?limit={limit}")
+    if data is _API_ERROR:
+        return _API_ERROR
     return data if isinstance(data, list) else []
 
 
 def fetch_snapshots(ticker: str, limit: int = 5) -> list[dict]:
     """Fetch hourly snapshots from Investment API."""
     data = _curl_json(f"{API_URL}/companies/{ticker}/snapshots?limit={limit}")
+    if data is _API_ERROR:
+        return _API_ERROR
     return data if isinstance(data, list) else []
 
 
 def fetch_catalysts(ticker: str) -> list[dict]:
     """Fetch active catalysts from Investment API."""
     data = _curl_json(f"{API_URL}/companies/{ticker}/catalysts")
+    if data is _API_ERROR:
+        return _API_ERROR
     return data if isinstance(data, list) else []
 
 
 def fetch_reports(ticker: str, period_type: str = "yearly", limit: int = 2) -> list[dict]:
     """Fetch financial reports from Investment API."""
     data = _curl_json(f"{API_URL}/companies/{ticker}/reports?period_type={period_type}&limit={limit}")
+    if data is _API_ERROR:
+        return _API_ERROR
     return data if isinstance(data, list) else []
 
 
 def fetch_dividends(ticker: str) -> list[dict]:
     """Fetch dividend history from Investment API."""
     data = _curl_json(f"{API_URL}/companies/{ticker}/dividends")
+    if data is _API_ERROR:
+        return _API_ERROR
     return data if isinstance(data, list) else []
 
 
 def fetch_sector_peers(sector: str) -> list[dict]:
     """Fetch sector peers from Investment API screener."""
     data = _curl_json(f"{API_URL}/analytics/screener?sector={sector}")
+    if data is _API_ERROR:
+        return _API_ERROR
     return data if isinstance(data, list) else []
 
 
@@ -168,20 +222,23 @@ def fetch_sector_peers(sector: str) -> list[dict]:
 def build_price_data(ticker: str, company: dict | None, n_recent: int = 5) -> dict:
     """Build price data dict from API."""
     rows = fetch_prices(ticker, limit=30)
+    if rows is _API_ERROR:
+        rows = []
 
     for r in rows:
         r["date"] = str(r.get("date", ""))
-        try:
-            r["close"] = str(float(r.get("close", 0)))
-        except (TypeError, ValueError):
-            r["close"] = "0"
+        for field in ("open", "high", "low", "close"):
+            try:
+                r[field] = str(float(r.get(field, 0)))
+            except (TypeError, ValueError):
+                r[field] = "0"
         try:
             r["volume_rub"] = str(int(float(r.get("volume_rub", 0) or 0)))
         except (TypeError, ValueError):
             r["volume_rub"] = "0"
 
     adv = 0
-    if company and company.get("adv_rub_mln"):
+    if company and company is not _API_ERROR and company.get("adv_rub_mln"):
         try:
             adv = float(company["adv_rub_mln"]) * 1_000_000
         except (TypeError, ValueError):
@@ -202,7 +259,7 @@ def build_price_data(ticker: str, company: dict | None, n_recent: int = 5) -> di
     # Snapshot price from API (can be more recent than last close)
     snapshot_price = 0.0
     snapshot_ts = ""
-    if company and company.get("current_price"):
+    if company and company is not _API_ERROR and company.get("current_price"):
         try:
             snapshot_price = float(company["current_price"])
         except (TypeError, ValueError):
@@ -215,17 +272,41 @@ def build_price_data(ticker: str, company: dict | None, n_recent: int = 5) -> di
     }
 
 
+def _trading_days_between(date1: str, date2: str) -> int:
+    """Count trading days (Mon-Fri) between two YYYY-MM-DD dates (exclusive of date1)."""
+    try:
+        d1 = datetime.strptime(date1, "%Y-%m-%d")
+        d2 = datetime.strptime(date2, "%Y-%m-%d")
+    except (ValueError, TypeError):
+        return 0
+    if d2 <= d1:
+        return 0
+    count = 0
+    cur = d1 + timedelta(days=1)
+    while cur <= d2:
+        if cur.weekday() < 5:  # Mon=0 .. Fri=4
+            count += 1
+        cur += timedelta(days=1)
+    return count
+
+
 def find_pre_news_price(rows: list, news_date: str) -> float | None:
     """Find closing price for the trading day before the news date."""
+    result = find_pre_news_price_with_date(rows, news_date)
+    return result[0] if result else None
+
+
+def find_pre_news_price_with_date(rows: list, news_date: str) -> tuple[float, str] | None:
+    """Find closing price and date for the trading day before the news date."""
     for i, r in enumerate(rows):
         if r["date"] >= news_date and i > 0:
             try:
-                return float(rows[i - 1]["close"])
+                return float(rows[i - 1]["close"]), rows[i - 1]["date"]
             except (ValueError, KeyError):
                 return None
     if len(rows) >= 2:
         try:
-            return float(rows[-2]["close"])
+            return float(rows[-2]["close"]), rows[-2]["date"]
         except (ValueError, KeyError):
             return None
     return None
@@ -254,7 +335,7 @@ def find_cluster_start(news_list: list, current_date: str, window_days: int = 7)
         pub = n.get("published_at", "")
         if not pub:
             continue
-        nd = pub[:10]
+        nd = _utc_to_msk_date(pub)
         try:
             nd_dt = datetime.strptime(nd, "%Y-%m-%d")
         except ValueError:
@@ -310,6 +391,8 @@ def build_index_context(news_date: str, pre_price: float | None, last_close: flo
 
 def format_sector_peers(peers: list, exclude_ticker: str, company_pe: float | None) -> str:
     """Format sector peers table from screener data."""
+    if peers is _API_ERROR:
+        return "[API ERROR]"
     filtered = [p for p in peers if p.get("ticker") != exclude_ticker]
     if not filtered:
         return ""
@@ -333,7 +416,8 @@ def format_sector_peers(peers: list, exclude_ticker: str, company_pe: float | No
     # Median P/E
     if pe_values and company_pe:
         pe_values.sort()
-        median_pe = pe_values[len(pe_values) // 2]
+        n = len(pe_values)
+        median_pe = (pe_values[n // 2] + pe_values[(n - 1) // 2]) / 2
         discount = (company_pe - median_pe) / median_pe * 100
         lines.append(f"Медианный P/E сектора: {median_pe:.1f}x | P/E компании: {company_pe:.1f}x ({discount:+.0f}%)")
 
@@ -460,6 +544,8 @@ def format_signals_context(impacts: list) -> str:
 
 def format_orderbook(ob: dict | None) -> str:
     """Format orderbook data for prompt."""
+    if ob is _API_ERROR:
+        return "Orderbook: [API ERROR]"
     if not ob:
         return "Orderbook: N/A"
     bid = ob.get("best_bid", "?")
@@ -481,6 +567,8 @@ def format_intraday(candles: list) -> str:
 
 def format_catalysts(catalysts: list) -> str:
     """Format catalysts for prompt."""
+    if catalysts is _API_ERROR:
+        return "Катализаторы: [API ERROR]"
     if not catalysts:
         return "Нет катализаторов."
     positive = [c for c in catalysts if c.get("impact") == "positive" and c.get("is_active")]
@@ -503,7 +591,7 @@ def format_financials(company: dict | None, reports: list) -> str:
     """Format key financial metrics from company data and reports."""
     lines = []
 
-    if company:
+    if company and company is not _API_ERROR:
         parts = []
         for key, label in [("p_e", "P/E"), ("p_bv", "P/BV"), ("roe", "ROE"),
                            ("gov_ownership", "Гос.доля")]:
@@ -514,7 +602,7 @@ def format_financials(company: dict | None, reports: list) -> str:
         if parts:
             lines.append(" | ".join(parts))
 
-    if reports:
+    if reports and reports is not _API_ERROR:
         r = reports[0]
         extra = r.get("extra_metrics") or {}
         period = r.get("period", "?")
@@ -540,11 +628,17 @@ def format_financials(company: dict | None, reports: list) -> str:
 
         lines.append(" | ".join(report_parts))
 
-    return "\n".join(lines) if lines else "Финансовые данные: N/A"
+    if not lines:
+        if (company is _API_ERROR) or (reports is _API_ERROR):
+            return "Финансовые данные: [API ERROR]"
+        return "Финансовые данные: N/A"
+    return "\n".join(lines)
 
 
 def format_dividends(dividends: list, last_close: float, div_yield_fm: float | None) -> str:
     """Format recent dividends with yield calculation."""
+    if dividends is _API_ERROR:
+        return "Дивиденды: [API ERROR]"
     if not dividends:
         return "Дивиденды: N/A"
 
@@ -632,6 +726,12 @@ def main():
     explicit_news = parse_news_json_arg(sys.argv)
 
     if explicit_news:
+        # A4: validate required fields
+        _required = ("title", "published_at", "impact_strength")
+        _missing = [f for f in _required if not explicit_news.get(f)]
+        if _missing:
+            skip(f"--news-json missing required fields: {', '.join(_missing)}")
+            return
         news = explicit_news
         news_list = [news]
     else:
@@ -678,16 +778,24 @@ def main():
         return
 
     strength = news.get("impact_strength", "low")
-    action = news.get("action", "hold")
 
     # --- Price logic (close-to-close) ---
     last_close = prices["last_close"]
     last_close_date = prices["last_close_date"]
     snapshot_price = prices["snapshot_price"]
 
-    # News date from published_at
-    news_date = (news.get("published_at") or "")[:10]
-    pre_price = find_pre_news_price(prices["rows"], news_date)
+    # News date from published_at (UTC → MSK)
+    news_date = _utc_to_msk_date(news.get("published_at") or "")
+
+    # A3: freshness check — skip if news > 2 trading days old
+    today_str = datetime.now(MSK).strftime("%Y-%m-%d")
+    if news_date and _trading_days_between(news_date, today_str) > 2:
+        skip(f"News too old: {news_date} → {today_str} (> 2 trading days)")
+        return
+
+    pre_result = find_pre_news_price_with_date(prices["rows"], news_date)
+    pre_price = pre_result[0] if pre_result else None
+    pre_price_date = pre_result[1] if pre_result else ""
 
     # Price move: close-to-close (not snapshot)
     price_move = 0.0
@@ -716,10 +824,11 @@ def main():
     position = meta.get("position", "N/A")
     sector = meta.get("sector", "N/A")
 
-    # Recent prices table
-    price_table = "date,close,volume_rub\n"
+    # Recent prices table (OHLC)
+    price_table = "date,open,high,low,close,volume_rub\n"
     for r in prices["recent"]:
-        price_table += f"{r.get('date','')},{r.get('close','')},{r.get('volume_rub','')}\n"
+        price_table += (f"{r.get('date','')},{r.get('open','')},{r.get('high','')},"
+                        f"{r.get('low','')},{r.get('close','')},{r.get('volume_rub','')}\n")
 
     pre_price_str = f"{pre_price:.1f}" if pre_price else "N/A"
     cluster_pre_str = f"{cluster_pre_price:.1f}" if cluster_pre_price else "N/A"
@@ -734,13 +843,17 @@ def main():
     # Intraday candles
     intraday_str = ""
     candles = fetch_intraday_candles(ticker)
-    if candles:
+    if candles is _API_ERROR:
+        intraday_str = "[API ERROR]"
+    elif candles:
         intraday_str = format_intraday(candles)
 
     # Snapshots
     snapshots = fetch_snapshots(ticker)
     snapshots_str = ""
-    if snapshots:
+    if snapshots is _API_ERROR:
+        snapshots_str = "[API ERROR]"
+    elif snapshots:
         snap_lines = ["timestamp,price,volume_rub"]
         for s in snapshots:
             snap_lines.append(f"{s.get('timestamp','')},{s.get('price','')},{s.get('volume_rub','')}")
@@ -774,7 +887,7 @@ def main():
     if sector and sector != "N/A":
         peers = fetch_sector_peers(sector)
         company_pe = None
-        if company and company.get("p_e"):
+        if company and company is not _API_ERROR and company.get("p_e"):
             try:
                 company_pe = float(company["p_e"])
             except (TypeError, ValueError):
@@ -796,12 +909,52 @@ def main():
     snapshot_line = ""
     if snapshot_price and snapshot_price != last_close:
         snap_ts = prices.get("snapshot_ts", "")
-        snapshot_line = f"\nПоследний snapshot ({snap_ts[:16]}): {snapshot_price:.2f} ₽"
+        # A5: stale snapshot warning
+        stale_label = ""
+        if snap_ts:
+            snap_date = _utc_to_msk_date(snap_ts)
+            if snap_date and snap_date != today_str:
+                days_stale = _trading_days_between(snap_date, today_str)
+                if days_stale > 1:
+                    stale_label = " [STALE: >1 trading day]"
+                else:
+                    try:
+                        snap_dt = datetime.strptime(snap_date, "%Y-%m-%d")
+                        if snap_dt.weekday() >= 5:  # Sat/Sun
+                            stale_label = " [STALE: weekend]"
+                    except ValueError:
+                        pass
+        snapshot_line = f"\nПоследний snapshot ({snap_ts[:16]}): {snapshot_price:.2f} ₽{stale_label}"
+
+    # B5: explicit pre_news_price label
+    pre_news_line = ""
+    if pre_price:
+        pre_news_line = f"\nPre-news price: {pre_price:.2f} ₽ ({pre_price_date} close)"
+
+    # B2: intraday metrics from OHLC on news day
+    intraday_ohlc_line = ""
+    for r in prices["rows"]:
+        if r["date"] >= news_date:
+            try:
+                day_low = float(r["low"])
+                day_high = float(r["high"])
+                day_open = float(r["open"])
+                day_close = float(r["close"])
+                if day_low > 0 and day_high > 0:
+                    intraday_range = (day_high - day_low) / day_low * 100
+                    intraday_ohlc_line += f"\nIntraday range ({r['date']}): {day_low:.2f}–{day_high:.2f} = {intraday_range:.1f}%"
+                if day_open > 0:
+                    open_to_close = (day_close - day_open) / day_open * 100
+                    intraday_ohlc_line += f" | Open-to-close: {open_to_close:+.1f}%"
+            except (ValueError, KeyError):
+                pass
+            break
 
     price_section = (
-        f"Цена закрытия ({last_close_date}): {last_close:.2f} ₽{snapshot_line}\n"
+        f"Цена закрытия ({last_close_date}): {last_close:.2f} ₽{snapshot_line}"
+        f"{pre_news_line}\n"
         f"Price move (close-to-close): {price_move:+.1f}% "
-        f"(от {pre_price_str} до {last_close:.2f} ₽)\n"
+        f"(от {pre_price_str} до {last_close:.2f} ₽){intraday_ohlc_line}\n"
         f"Volume ratio: {vol_ratio:.1f}x ADV | ADV: {adv_mln:.0f}M ₽"
     )
 
@@ -848,6 +1001,32 @@ def main():
 
     prompt = f"""Ты — трейдер-аналитик. Определи, есть ли спекулятивная возможность.
 
+## Карта решений (прочитай ПЕРЕД анализом данных)
+
+**"Уже в цене?" — матрица:**
+| price_move (абс.) | volume > 2× ADV | Вердикт |
+|--------------------|-----------------|---------|
+| < 2% | — | Окно открыто |
+| 2–5% | Нет | Частично в цене |
+| 2–5% | Да | В цене → skip (позитив) или ищи перепроданность (негатив) |
+| > 5% | — | Сильная реакция → возможна перепроданность/перекупленность |
+
+**4 сценария заработка:**
+1. **long-positive**: позитив + price_move < 2% + нет кластера → покупка до реакции
+2. **long-oversold**: негатив + price_move > 5% вниз + фундаментал НЕ сломан → покупка на панике
+3. **short-negative**: негатив + price_move < 2% + фундаментал сломан → шорт до реакции
+4. **short-overbought**: позитив + price_move > 5% вверх + upside < 10% → шорт перекупленности
+
+**Обязательные условия (любое нарушение → skip):**
+- risk_reward ≥ 2.0
+- ADV ≥ 50M ₽ (для шортов: ADV > 200M)
+- Новость не noise (strength ≥ medium)
+- Новость ≤ 2 торговых дней
+- Тезис не сломан (для long)
+- Кластер price_move < 2% (для long-positive)
+
+---
+
 ## Компания: {ticker}
 Sector: {sector} | Sentiment: {sentiment} | Position: {position}
 Fair value: {fair_value} ₽ | Upside: {upside_pct:+.1f}%
@@ -865,7 +1044,7 @@ Fair value: {fair_value} ₽ | Upside: {upside_pct:+.1f}%
 {news.get('published_at', news_date)} | {news.get('title', '')}
 {news_summary}
 Impact: {impact_summary}
-Strength: {strength} | Action: {action} | URL: {news.get('link', '')}
+Strength: {strength} | URL: {news.get('link', '')}
 
 ## Движение цены
 {price_section}
@@ -876,12 +1055,24 @@ Strength: {strength} | Action: {action} | URL: {news.get('link', '')}
 {market_section}{sector_section}{cluster_section}{signals_section}
 
 ---
+<appendix>
 {guide}
+</appendix>
 ---
 
 ## Задание
-Выведи JSON trade_signal в stdout (только JSON, без обёртки).
-JSON-формат сигнала:
+Сначала проведи пошаговый анализ в блоке <analysis>, затем выведи JSON.
+
+<analysis>
+Шаг 1. Классификация: тип новости (results/dividends/regulation/corporate/macro/noise), сила, направление
+Шаг 2. "Уже в цене?": price_move + volume_ratio → вердикт по матрице выше. Если есть кластер — используй накопленный price_move
+Шаг 3. Фундаментал: новость ломает тезис? Усиливает? Временная? Шум?
+Шаг 4. Сценарий: какой из 4 сценариев подходит? Если ни один → skip
+Шаг 5. Trade setup: entry, target (реалистичный для таймфрейма!), stop-loss (приоритет: сценарий > тип новости), R/R
+Шаг 6. Решение: signal + confidence + position_size. Проверь все обязательные условия
+</analysis>
+
+Затем выведи JSON trade_signal (только JSON, без обёртки):
 {{"date": "YYYY-MM-DD", "trigger": "краткое описание", "trigger_url": "url",
 "signal": "buy|sell|skip", "direction": "long-positive|long-oversold|short-negative|short-overbought|skip",
 "confidence": "high|medium|low",
