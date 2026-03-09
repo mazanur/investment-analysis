@@ -426,6 +426,33 @@ def format_sector_peers(peers: list, exclude_ticker: str, company_pe: float | No
 
 # --- Thesis / Fair Value extraction ---
 
+def extract_business_model(index_path: str) -> str:
+    """Extract 'Бизнес-модель' opening paragraph from _index.md (up to 200 chars)."""
+    with open(index_path, encoding="utf-8") as f:
+        content = f.read()
+
+    m = re.search(r"## Бизнес-модель\s*\n(.*?)(?=\n## |\Z)", content, re.DOTALL)
+    if not m:
+        return ""
+
+    text = m.group(1).strip()
+    # Take first meaningful paragraph
+    lines = text.split("\n")
+    result_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            if result_lines:
+                break
+            continue
+        result_lines.append(stripped)
+
+    result = " ".join(result_lines)
+    if len(result) > 200:
+        result = result[:197] + "..."
+    return result
+
+
 def extract_thesis(index_path: str) -> str:
     """Extract 'Мой тезис' opening paragraph from _index.md (up to 500 chars)."""
     with open(index_path, encoding="utf-8") as f:
@@ -504,39 +531,50 @@ def extract_scenarios(index_path: str) -> str:
 
 # --- Formatting helpers ---
 
+def _dedup_signals(with_signal: list) -> list:
+    """Deduplicate signals by article link (stable ID) or fallback to date+signal."""
+    seen = set()
+    result = []
+    for imp in with_signal:
+        ts = imp["trade_signal"]
+        # Prefer article link as stable dedup key
+        link = imp.get("link") or ts.get("trigger_url", "")
+        if link:
+            key = (ts.get("signal", ""), link)
+        else:
+            key = (ts.get("date", ""), ts.get("signal", ""),
+                   ts.get("trigger", imp.get("title", ""))[:60])
+        if key not in seen:
+            seen.add(key)
+            result.append(imp)
+    return result
+
+
+def _filter_recent_signals(with_signal: list, max_days: int = 14) -> list:
+    """Keep only signals from the last N calendar days."""
+    cutoff = (datetime.now() - timedelta(days=max_days)).strftime("%Y-%m-%d")
+    return [imp for imp in with_signal
+            if imp["trade_signal"].get("date", "9999") >= cutoff]
+
+
 def format_signals_context(impacts: list) -> str:
-    """Format previous trade signals from impacts."""
+    """Format previous trade signals from impacts (no TP/SL numbers to avoid anchoring)."""
     with_signal = [i for i in impacts if i.get("trade_signal")]
     if not with_signal:
         return "Нет предыдущих сигналов."
 
+    with_signal = _dedup_signals(with_signal)
+    with_signal = _filter_recent_signals(with_signal)
+    if not with_signal:
+        return "Нет недавних сигналов (последние 14 дней)."
+
     def _fmt(imp: dict) -> str:
         ts = imp["trade_signal"]
         return (f"[{ts.get('date', '?')}] {ts.get('signal', '?')}: "
-                f"{ts.get('trigger', imp.get('title', '?'))[:80]} | "
-                f"{ts.get('reasoning', '')[:120]}")
+                f"{ts.get('trigger', imp.get('title', '?'))[:100]}")
 
-    lines = []
-
-    # Last BUY
-    last_buy = next((i for i in with_signal if i["trade_signal"].get("signal") == "buy"), None)
-    if last_buy:
-        ts = last_buy["trade_signal"]
-        entry = ts.get("entry", {}) or {}
-        exit_ = ts.get("exit", {}) or {}
-        lines.append(f"Последний BUY: {_fmt(last_buy)}")
-        lines.append(f"  Entry: {entry.get('price', '?')} ₽ | TP: {exit_.get('take_profit', '?')} ₽ | SL: {exit_.get('stop_loss', '?')} ₽ | R/R: {ts.get('risk_reward_ratio', '?')}")
-    else:
-        lines.append("Последний BUY: не было")
-
-    # Last SELL
-    last_sell = next((i for i in with_signal if i["trade_signal"].get("signal") == "sell"), None)
-    if last_sell:
-        lines.append(f"Последний SELL: {_fmt(last_sell)}")
-
-    # Last 3 signals (any type)
-    lines.append("Последние сигналы:")
-    for imp in with_signal[:3]:
+    lines = ["Последние сигналы (только для проверки дубликатов драйвера):"]
+    for imp in with_signal[:5]:
         lines.append(f"- {_fmt(imp)}")
 
     return "\n".join(lines)
@@ -927,7 +965,8 @@ def main():
     div_yield_fm = meta.get("dividend_yield")
     dividends_str = format_dividends(dividends, last_close, div_yield_fm)
 
-    # Thesis and scenarios from _index.md
+    # Business model, thesis and scenarios from _index.md
+    biz_model = extract_business_model(index_path)
     thesis = extract_thesis(index_path)
     scenarios = extract_scenarios(index_path)
 
@@ -1004,7 +1043,11 @@ def main():
         f"Volume ratio: {vol_ratio:.1f}x ADV | ADV: {adv_mln:.0f}M ₽"
     )
 
-    # Thesis section
+    # Business model + Thesis section
+    biz_model_line = ""
+    if biz_model:
+        biz_model_line = f"\nБизнес-модель: {biz_model}\n"
+
     thesis_section = ""
     if thesis or scenarios:
         thesis_section = "\n## Инвестиционный тезис\n"
@@ -1046,6 +1089,8 @@ def main():
         snapshots_section = f"\n## Снэпшоты (часовые)\n{snapshots_str}"
 
     prompt = f"""Ты — трейдер-аналитик. Определи, есть ли спекулятивная возможность на 1-2 торговых дня.
+
+**ВАЖНО: Анализируй ТОЛЬКО влияние конкретной новости на компанию. Fair value, upside и предыдущие сигналы — это контекст, НЕ основание для сигнала. Если новость = шум или косвенное влияние для этой компании → skip, даже если upside большой или были предыдущие buy.**
 
 ## Правила (прочитай ПЕРЕД анализом данных)
 
@@ -1090,6 +1135,7 @@ def main():
 - Новость ≤ 2 торговых дней (pre-filtered)
 - Фундаментальный тезис не сломан (для long)
 - Кластер price_move < 2% (для long-positive)
+- Если по той же теме уже есть buy/sell сигнал (см. «Предыдущие сигналы») → skip (позиция уже открыта, не дублируй)
 
 **Фундаментал — новость меняет тезис?**
 - Ломает (делистинг, дефолт, SDN) → skip
@@ -1109,7 +1155,7 @@ expected_return = (entry - target) / entry; risk = (stop_loss - entry) / entry
 
 ## Компания: {ticker}
 Sector: {sector} | Sentiment: {sentiment} | Upside: {upside_cat}
-{thesis_section}
+{biz_model_line}{thesis_section}
 ## Финансовые показатели
 {financials_str}
 
@@ -1120,6 +1166,7 @@ Sector: {sector} | Sentiment: {sentiment} | Upside: {upside_cat}
 {catalysts_str}
 
 ## Новость
+*(Оцени ПРЯМОЕ влияние именно этой новости на {ticker}. Косвенное макро ≠ прямое событие.)*
 {news.get('published_at', news_date)} | {news.get('title', '')}
 {news_summary}
 Impact: {impact_summary}
@@ -1137,19 +1184,24 @@ Strength: {strength} | URL: {news.get('link', '')}
 
 ## Задание
 
-Проведи анализ по шагам, запиши в блок <analysis>:
-1. Классификация: тип новости, сила, направление
-2. "Уже в цене?": price_move + volume_ratio → вердикт по матрице
-3. Фундаментал: новость ломает/усиливает/временная/шум?
-4. Сценарий: какой из 4 подходит? Если ни один → skip
-5. Trade setup: entry, target (1-2 дня), stop-loss (2-4%), R/R
-6. Решение: signal + confidence + position_size
+**НАПОМИНАНИЕ: Анализируй ТОЛЬКО эту конкретную новость. Предыдущие сигналы и fair value — контекст, НЕ основание. Не наследуй entry/TP/SL из старых сигналов.**
+
+Проведи анализ по шагам в блоке <analysis>. **Если шаг 0 или 1 дал skip — ОСТАНОВИСЬ, напиши reasoning и сразу выведи skip JSON.**
+
+0. **Релевантность (СТОП-ФИЛЬТР):** Новость называет компанию по имени, или описывает событие ВНУТРИ компании, или касается регулятора/закона адресно меняющего правила для этой компании? Если нужна цепочка рассуждений длиннее 1 шага (напр. "цены на нефть → объёмы прокачки → тарифная выручка") — это КОСВЕННОЕ влияние → skip.
+1. **Дубликат драйвера:** Есть ли в «Предыдущих сигналах» buy/sell с тем же БАЗОВЫМ ДРАЙВЕРОМ? Базовый драйвер = корневая причина влияния на цену. Пример: "Brent упал на 3%" и "Франция продаёт нефтяные запасы" — один драйвер (цена нефти). "МСФО отчёт" и "дивиденды" — разные драйверы. Если тот же драйвер → skip.
+2. **Классификация:** тип новости, сила, направление
+3. **"Уже в цене?":** price_move + volume_ratio → вердикт по матрице
+4. **Фундаментал:** новость ломает/усиливает/временная/шум?
+5. **Сценарий:** какой из 4 подходит? Если ни один → skip
+6. **Trade setup + решение:** entry, target (1-2 дня), stop-loss (2-4%), R/R, signal, confidence, position_size
 
 <analysis>
-</analysis>
+Шаг 0: Релевантность —
 
-После блока </analysis> выведи JSON trade_signal (без markdown-обёртки):
+После блока </analysis> выведи ТОЛЬКО валидный JSON (без ```json```, без текста до/после):
 {{"date": "YYYY-MM-DD", "trigger": "краткое описание", "trigger_url": "url",
+"news_type": "results|dividends|regulation|corporate|macro|noise",
 "signal": "buy|sell|skip", "direction": "long-positive|long-oversold|short-negative|short-overbought|skip",
 "confidence": "high|medium|low",
 "entry": {{"condition": "описание", "price": число}},
@@ -1157,7 +1209,7 @@ Strength: {strength} | URL: {news.get('link', '')}
 "expected_return_pct": число, "risk_reward_ratio": число,
 "position_size": "full|half|skip", "reasoning": "обоснование"}}
 
-Если signal = skip, entry и exit = null."""
+Если signal = skip: entry=null, exit=null, expected_return_pct=0, risk_reward_ratio=0, position_size="skip"."""
 
     print(prompt)
 

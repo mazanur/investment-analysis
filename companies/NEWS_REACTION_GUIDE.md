@@ -147,7 +147,7 @@ risk_reward = expected_return / risk
 |--------|--------------|
 | Покупка на негативе без проверки фундаментала | Тезис сломан → skip |
 | Покупка позитива после реакции цены | price_move > 5% + volume > 2× ADV → skip |
-| Игнорирование risk/reward | r/r < 2 → skip |
+| Игнорирование risk/reward | r/r < 1.5 → skip |
 | Торговля без time limit | Всегда ставь time_limit |
 | Реакция на шум | strength: low → skip |
 | Торговля неликвидом | ADV < 50 → skip |
