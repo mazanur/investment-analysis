@@ -158,8 +158,7 @@ endif
 	@curl -s -X POST "$(API_URL)/jobs/fetch-moex?tickers=$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" > /dev/null
 	@curl -s -X POST "$(API_URL)/jobs/fetch-prices?tickers=$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" > /dev/null
 	@echo ""
-	@PROMPT=$$(FEEDER_URL=$(FEEDER_URL) API_URL=$(API_URL) python3 scripts/prepare_news_context.py $(TICKER) $(CURDIR) \
-		$(if $(NEWS_JSON),--news-json '$(NEWS_JSON)',)); \
+	@PROMPT=$$(FEEDER_URL=$(FEEDER_URL) API_URL=$(API_URL) NEWS_JSON='$(NEWS_JSON)' python3 scripts/prepare_news_context.py $(TICKER) $(CURDIR)); \
 	if [ "$$PROMPT" = "SKIP" ]; then \
 		echo "$(YELLOW)Skipped $(TICKER) (pre-filter)$(NC)"; \
 	else \

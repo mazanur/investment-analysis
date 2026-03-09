@@ -691,13 +691,21 @@ def skip(reason: str):
 
 
 def parse_news_json_arg(args: list[str]) -> dict | None:
-    """Parse --news-json argument from CLI args."""
+    """Parse news JSON from --news-json CLI arg or NEWS_JSON env var."""
+    # CLI arg takes priority
     for i, arg in enumerate(args):
         if arg == "--news-json" and i + 1 < len(args):
             try:
                 return json.loads(args[i + 1])
             except json.JSONDecodeError:
                 return None
+    # Fallback: NEWS_JSON env var (used by export_worker via make)
+    env_json = os.environ.get("NEWS_JSON", "").strip()
+    if env_json:
+        try:
+            return json.loads(env_json)
+        except json.JSONDecodeError:
+            return None
     return None
 
 
