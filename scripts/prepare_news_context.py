@@ -675,15 +675,6 @@ def format_dividends(dividends: list, last_close: float, div_yield_fm: float | N
     return "\n".join(lines)
 
 
-def read_guide(base_dir: str) -> str:
-    """Read NEWS_REACTION_GUIDE.md as methodology for the prompt."""
-    guide_path = os.path.join(base_dir, "companies", "NEWS_REACTION_GUIDE.md")
-    if not os.path.exists(guide_path):
-        return ""
-    with open(guide_path, encoding="utf-8") as f:
-        return f.read()
-
-
 def skip(reason: str):
     """Print SKIP reason to stderr and SKIP to stdout."""
     print(f"Skip: {reason}", file=sys.stderr)
@@ -810,10 +801,18 @@ def main():
     if pre_price and last_close and pre_price > 0:
         price_move = (last_close - pre_price) / pre_price * 100
 
-    # Upside from last close
+    # Upside from last close (categorical for prompt, numeric for pre-filter)
     upside_pct = 0.0
     if last_close > 0 and fair_value > 0:
         upside_pct = (fair_value - last_close) / last_close * 100
+    if upside_pct > 30:
+        upside_cat = "large (>30%)"
+    elif upside_pct > 10:
+        upside_cat = "moderate (10-30%)"
+    elif upside_pct > 0:
+        upside_cat = "small (<10%)"
+    else:
+        upside_cat = "negative"
 
     # Cluster price move
     cluster_start = find_cluster_start(news_list, news_date)
@@ -829,7 +828,6 @@ def main():
     if news_volume and prices["adv"] > 0:
         vol_ratio = news_volume / prices["adv"]
 
-    position = meta.get("position", "N/A")
     sector = meta.get("sector", "N/A")
 
     # Recent prices table (OHLC)
@@ -904,9 +902,6 @@ def main():
 
     # Market context (IMOEX)
     index_context = build_index_context(news_date, pre_price, last_close)
-
-    # Methodology guide
-    guide = read_guide(base_dir)
 
     # News summary
     impact_summary = news.get("impact_summary", "")
@@ -1007,9 +1002,19 @@ def main():
     if snapshots_str:
         snapshots_section = f"\n## Снэпшоты (часовые)\n{snapshots_str}"
 
-    prompt = f"""Ты — трейдер-аналитик. Определи, есть ли спекулятивная возможность.
+    prompt = f"""Ты — трейдер-аналитик. Определи, есть ли спекулятивная возможность на 1-2 торговых дня.
 
-## Карта решений (прочитай ПЕРЕД анализом данных)
+## Правила (прочитай ПЕРЕД анализом данных)
+
+**Классификация новости:**
+| Тип | Примеры | Влияние |
+|-----|---------|---------|
+| results | Квартальный/годовой отчёт | Сильное, если расхождение с ожиданиями |
+| dividends | Объявление дивидендов, payout | Среднее-сильное |
+| regulation | Санкции, налоги, тарифы | Сильное |
+| corporate | M&A, buyback, допэмиссия | Сильное |
+| macro | Ставка ЦБ, курс | Среднее |
+| noise | Мнения, пересказ старого | Слабое → skip |
 
 **"Уже в цене?" — матрица:**
 | price_move (абс.) | volume > 2× ADV | Вердикт |
@@ -1017,27 +1022,50 @@ def main():
 | < 2% | — | Окно открыто |
 | 2–5% | Нет | Частично в цене |
 | 2–5% | Да | В цене → skip (позитив) или ищи перепроданность (негатив) |
-| > 5% | — | Сильная реакция → возможна перепроданность/перекупленность |
+| > 5% | — | Сильная реакция → перепроданность/перекупленность |
 
-**4 сценария заработка:**
+**4 сценария:**
 1. **long-positive**: позитив + price_move < 2% + нет кластера → покупка до реакции
 2. **long-oversold**: негатив + price_move > 5% вниз + фундаментал НЕ сломан → покупка на панике
 3. **short-negative**: негатив + price_move < 2% + фундаментал сломан → шорт до реакции
-4. **short-overbought**: позитив + price_move > 5% вверх + upside < 10% → шорт перекупленности
+4. **short-overbought**: позитив + price_move > 5% вверх + upside small → шорт перекупленности
+
+**Target (горизонт 1-2 дня):**
+- long-positive: +3–7% от entry
+- long-oversold: частичный возврат к pre_news_price (30-50% от падения)
+- short-negative: −3–7% от entry
+- short-overbought: частичный возврат к pre_news_price (30-50% от роста)
+
+**Stop-loss (2-4% от entry):**
+- long: −2–4% от entry (или минимум дня для long-oversold, если он ближе)
+- short: +2–4% от entry (или максимум дня для short-overbought, если он ближе)
 
 **Обязательные условия (любое нарушение → skip):**
-- risk_reward ≥ 2.0
+- risk_reward ≥ 1.5
 - ADV ≥ 50M ₽ (для шортов: ADV > 200M)
-- Новость не noise (strength ≥ medium)
-- Новость ≤ 2 торговых дней
-- Тезис не сломан (для long)
+- Strength ≥ medium (pre-filtered)
+- Новость ≤ 2 торговых дней (pre-filtered)
+- Фундаментальный тезис не сломан (для long)
 - Кластер price_move < 2% (для long-positive)
+
+**Фундаментал — новость меняет тезис?**
+- Ломает (делистинг, дефолт, SDN) → skip
+- Усиливает (рекордная прибыль, неожиданные дивиденды) → торгуем уверенно
+- Временная (штраф, блокировка) → торгуем если цена перереагировала
+- Шум → skip
+
+**R/R для short:**
+expected_return = (entry - target) / entry; risk = (stop_loss - entry) / entry
+
+**Размер позиции:**
+- high confidence (R/R > 2.5): full (до 5% портфеля)
+- medium confidence (R/R 1.5-2.5): half (до 3% портфеля)
+- low confidence (R/R < 1.5): skip
 
 ---
 
 ## Компания: {ticker}
-Sector: {sector} | Sentiment: {sentiment} | Position: {position}
-Fair value: {fair_value} ₽ | Upside: {upside_pct:+.1f}%
+Sector: {sector} | Sentiment: {sentiment} | Upside: {upside_cat}
 {thesis_section}
 ## Финансовые показатели
 {financials_str}
@@ -1063,31 +1091,30 @@ Strength: {strength} | URL: {news.get('link', '')}
 {market_section}{sector_section}{cluster_section}{signals_section}
 
 ---
-<appendix>
-{guide}
-</appendix>
----
 
 ## Задание
-Сначала проведи пошаговый анализ в блоке <analysis>, затем выведи JSON.
+
+Проведи анализ по шагам, запиши в блок <analysis>:
+1. Классификация: тип новости, сила, направление
+2. "Уже в цене?": price_move + volume_ratio → вердикт по матрице
+3. Фундаментал: новость ломает/усиливает/временная/шум?
+4. Сценарий: какой из 4 подходит? Если ни один → skip
+5. Trade setup: entry, target (1-2 дня), stop-loss (2-4%), R/R
+6. Решение: signal + confidence + position_size
 
 <analysis>
-Шаг 1. Классификация: тип новости (results/dividends/regulation/corporate/macro/noise), сила, направление
-Шаг 2. "Уже в цене?": price_move + volume_ratio → вердикт по матрице выше. Если есть кластер — используй накопленный price_move
-Шаг 3. Фундаментал: новость ломает тезис? Усиливает? Временная? Шум?
-Шаг 4. Сценарий: какой из 4 сценариев подходит? Если ни один → skip
-Шаг 5. Trade setup: entry, target (реалистичный для таймфрейма!), stop-loss (приоритет: сценарий > тип новости), R/R
-Шаг 6. Решение: signal + confidence + position_size. Проверь все обязательные условия
 </analysis>
 
-Затем выведи JSON trade_signal (только JSON, без обёртки):
+После блока </analysis> выведи JSON trade_signal (без markdown-обёртки):
 {{"date": "YYYY-MM-DD", "trigger": "краткое описание", "trigger_url": "url",
 "signal": "buy|sell|skip", "direction": "long-positive|long-oversold|short-negative|short-overbought|skip",
 "confidence": "high|medium|low",
 "entry": {{"condition": "описание", "price": число}},
-"exit": {{"take_profit": число, "stop_loss": число, "time_limit_days": число}},
+"exit": {{"take_profit": число, "stop_loss": число, "time_limit_days": 2}},
 "expected_return_pct": число, "risk_reward_ratio": число,
-"position_size": "full|half|skip", "reasoning": "обоснование"}}"""
+"position_size": "full|half|skip", "reasoning": "обоснование"}}
+
+Если signal = skip, entry и exit = null."""
 
     print(prompt)
 
