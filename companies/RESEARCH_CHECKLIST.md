@@ -4,7 +4,7 @@
 
 > **Отслеживание прогресса:** используй **Claude Code Tasks** с зависимостями между фазами. Структура задач и workflow описаны в [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) → «Отслеживание прогресса через Tasks». Этот файл — справочник для описания (`description`) каждого Task.
 
-> **Принцип:** сначала заполняются все вспомогательные файлы (`data/`, `financials.md`, `market_snapshot.md`, `consensus.md`, `governance.md`, `events.md`) — Фаза 0. Только после этого, на основе собранных данных, заполняется `_index.md` — Фаза 7.
+> **Принцип:** сначала загружаются данные в API (через job endpoints) и заполняются вспомогательные файлы (`financials.md`, `market_snapshot.md`, `consensus.md`, `governance.md`, `events.md`) — Фаза 0. Только после этого, на основе собранных данных, заполняется `_index.md` — Фаза 7.
 
 ---
 
@@ -13,11 +13,14 @@
 ### Создание папки компании
 
 - [ ] Папка `companies/{TICKER}/` существует? Если нет — создать из шаблона: `cp -r companies/_TEMPLATE companies/{TICKER}`
-- [ ] Структура файлов соответствует [_TEMPLATE/README.md](../_TEMPLATE/README.md): `_index.md`, `financials.md`, `market_snapshot.md`, `consensus.md`, `governance.md`, `events.md`, `data/`. Если чего-то не хватает — скопировать недостающие файлы из `_TEMPLATE`
+- [ ] Структура файлов соответствует [_TEMPLATE/README.md](../_TEMPLATE/README.md): `_index.md`, `financials.md`, `market_snapshot.md`, `consensus.md`, `governance.md`, `events.md`. Если чего-то не хватает — скопировать недостающие файлы из `_TEMPLATE`
 
-### Автоматическое скачивание
+### Загрузка данных в API
 
-- [ ] `make download-all TICKER={TICKER}` — финансы (smart-lab CSV) + рыночные данные (MOEX ISS)
+- [ ] Загрузить финансовые отчёты: `curl -X POST "$API_URL/jobs/fetch-smartlab/{TICKER}" -H "X-API-Key: $API_KEY"`
+- [ ] Загрузить рыночные данные: `curl -X POST "$API_URL/jobs/fetch-moex?tickers={TICKER}" -H "X-API-Key: $API_KEY"`
+- [ ] Загрузить историю цен: `curl -X POST "$API_URL/jobs/fetch-prices?tickers={TICKER}" -H "X-API-Key: $API_KEY"`
+- [ ] Загрузить дивиденды: `curl -X POST "$API_URL/jobs/fetch-events/{TICKER}" -H "X-API-Key: $API_KEY"`
 
 ### Ручные секции (заполнить через веб-поиск)
 
@@ -58,10 +61,10 @@
 
 ### Загрузка данных
 
-- [ ] Загрузить данные из `data/smartlab_yearly.csv` (годовые МСФО). Если нет — WebFetch с smart-lab
-- [ ] Загрузить данные из `data/smartlab_quarterly.csv` (квартальные МСФО). Если нет — WebFetch с smart-lab
-- [ ] Загрузить данные из `data/moex_market.json` (цена, ADV, спред, капитализация). Если нет — WebFetch с MOEX ISS
-- [ ] Посмотреть `data/moex_events.json` — дивидендная история, IR-события (если файл есть)
+- [ ] Получить годовые МСФО: `GET /companies/{TICKER}/reports?period_type=yearly`. Если нет — WebFetch с smart-lab
+- [ ] Получить квартальные МСФО: `GET /companies/{TICKER}/reports?period_type=quarterly`. Если нет — WebFetch с smart-lab
+- [ ] Получить рыночные данные (цена, ADV, спред, капитализация): `GET /companies/{TICKER}`. Если нет — WebFetch с MOEX ISS
+- [ ] Посмотреть дивидендную историю: `GET /companies/{TICKER}/dividends`
 - [ ] Проверить актуальность данных — дата последнего периода не старше квартала
 
 ### Извлечение ключевых метрик
@@ -82,7 +85,7 @@
 
 - [ ] ADV > 10 млн ₽? Если 1–10 млн — дисконт за неликвидность (-10-20%). Если < 1 млн — **STOP**
 - [ ] Free-float > 10%? Если < 5% — **STOP**
-- [ ] Bid-ask спред < 1%?
+- [ ] Bid-ask спред < 1%? → API: `GET /companies/{TICKER}/orderbook/latest` → `spread_pct`
 
 ---
 
@@ -304,8 +307,9 @@
 - [ ] `_index.md` (корневой) — обновить таблицу «Статус обновлений» (статус, дата, след. обновление +3 мес.)
 - [ ] `sectors/{sector}/_index.md` — обновить sentiment/position компании в таблице «Компании сектора»
 
-### Сгенерировать trend.json
+### Синхронизировать в API и сгенерировать trend.json
 
+- [ ] `make sync TICKER={TICKER}` — синхронизировать данные из _index.md в API
 - [ ] `python3 scripts/generate_trend_json.py` — создать/обновить `trend.json` из метаданных `_index.md`
 
 ### Удалить артефакты шаблона
@@ -321,7 +325,7 @@
 
 ### Данные
 
-- [ ] `data/` содержит актуальные файлы (smartlab CSV + moex JSON + sanctions JSON)
+- [ ] Данные в API актуальны (финансовые отчёты, рыночные данные, цены, дивиденды)
 - [ ] `governance.md` — авто-секции заполнены, ручные секции заполнены или помечены как недоступные
 - [ ] `events.md` — авто-секции заполнены, guidance и IR заполнены или помечены как недоступные
 - [ ] `consensus.md` — заполнен или помечен как недоступный
@@ -358,4 +362,6 @@
 | 4 | Финансовое здоровье | [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) § 4, 4а |
 | 5 | Справедливая цена | [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) § 5 (шаги 1-6) |
 | 6 | Решение | [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) § 6 |
-| 7 | Оформление | [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) § 7, 8, 9 |
+| 7 | Оформление | [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) § 7 |
+| 8 | Связанные документы | [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) § 8 |
+| 9 | Синхронизация в API | [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) § 9 |

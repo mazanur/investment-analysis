@@ -6,7 +6,7 @@ updated: 2026-02-05
 # Корпоративные события: АФК «Система» (AFKS)
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER=AFKS && make fill-events TICKER=AFKS`.
+Таблицы событий обновляются автоматически: `make events TICKER=AFKS && make fill-events TICKER=AFKS`.
 
 ## Последние события (6 месяцев)
 

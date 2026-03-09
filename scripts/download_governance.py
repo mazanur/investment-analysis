@@ -231,8 +231,8 @@ def main():
 
     if not api_key:
         print(f"  {YELLOW}OPENSANCTIONS_API_KEY не задан.{NC}")
-        print(f"  Получите бесплатный ключ: https://www.opensanctions.org/api/")
-        print(f"  Использование: OPENSANCTIONS_API_KEY=ваш_ключ make download-governance")
+        print("  Получите бесплатный ключ: https://www.opensanctions.org/api/")
+        print("  Использование: OPENSANCTIONS_API_KEY=ваш_ключ make download-governance")
         print()
         return 0
 

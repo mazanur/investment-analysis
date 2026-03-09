@@ -1,0 +1,92 @@
+import logging
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+from fastapi import Depends
+from fastapi.responses import JSONResponse
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.middleware.gzip import GZipMiddleware
+from starlette.middleware.sessions import SessionMiddleware
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+
+from app.api.analytics import router as analytics_router
+from app.api.catalysts import router as catalysts_router
+from app.api.intraday import router as intraday_router
+from app.api.companies import router as companies_router
+from app.api.dividends import router as dividends_router
+from app.api.jobs import router as jobs_router
+from app.api.orderbook import router as orderbook_router
+from app.api.prices import router as prices_router
+from app.api.reports import router as reports_router
+from app.api.sectors import router as sectors_router
+from app.api.snapshots import router as snapshots_router
+from app.admin import setup_admin
+from app.config import settings
+from app.api.deps import get_db
+from app.db import Base, engine
+from app.models import *  # noqa: F401, F403 — register all models with Base.metadata
+
+logger = logging.getLogger(__name__)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    if not settings.debug:
+        if settings.api_key == "dev-api-key":
+            raise RuntimeError("Refusing to start: set API_KEY env var (default 'dev-api-key' is not allowed in production)")
+        if settings.secret_key == "change-me-in-production":
+            raise RuntimeError("Refusing to start: set SECRET_KEY env var (default 'change-me-in-production' is not allowed in production)")
+
+    if settings.debug:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+
+    # Start scheduler in non-debug (production) mode
+    scheduler = None
+    if not settings.debug:
+        from app.jobs.scheduler import create_scheduler
+
+        scheduler = create_scheduler()
+        scheduler.start()
+        logger.info("Scheduler started with %d jobs", len(scheduler.get_jobs()))
+
+    yield
+
+    if scheduler:
+        scheduler.shutdown(wait=False)
+        logger.info("Scheduler stopped")
+
+
+app = FastAPI(title="Investment API", version="0.1.0", lifespan=lifespan)
+app.add_middleware(SessionMiddleware, secret_key=settings.secret_key)
+app.add_middleware(GZipMiddleware, minimum_size=500)
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts=["*"])
+
+setup_admin(app, engine)
+
+app.include_router(sectors_router)
+app.include_router(companies_router)
+app.include_router(reports_router)
+app.include_router(dividends_router)
+app.include_router(catalysts_router)
+app.include_router(prices_router)
+app.include_router(snapshots_router)
+app.include_router(orderbook_router)
+app.include_router(intraday_router)
+app.include_router(jobs_router)
+app.include_router(analytics_router)
+
+
+@app.get("/health")
+async def health(db: AsyncSession = Depends(get_db)):
+    """Health check with DB connectivity verification."""
+    try:
+        await db.execute(text("SELECT 1"))
+        return {"status": "ok", "database": "connected"}
+    except Exception as e:
+        logger.error("Health check failed: %s", e)
+        return JSONResponse(
+            status_code=503,
+            content={"status": "degraded", "database": "disconnected"},
+        )

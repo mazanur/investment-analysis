@@ -6,7 +6,7 @@ updated: 2026-02-19
 # Корпоративные события: Сургутнефтегаз (SNGS)
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER=SNGS && make fill-events TICKER=SNGS`.
+Таблицы событий обновляются автоматически: `make events TICKER=SNGS && make fill-events TICKER=SNGS`.
 
 ## Последние события (12 месяцев)
 

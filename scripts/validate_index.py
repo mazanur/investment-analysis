@@ -53,7 +53,7 @@ def validate_company(company_path: str, company_name: str) -> list:
     index_file = os.path.join(company_path, '_index.md')
 
     if not os.path.exists(index_file):
-        return [f"Нет _index.md"], []
+        return ["Нет _index.md"], []
 
     with open(index_file, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -62,7 +62,7 @@ def validate_company(company_path: str, company_name: str) -> list:
     meta = parse_yaml_frontmatter(content)
 
     if not meta:
-        return [f"Нет YAML frontmatter"], []
+        return ["Нет YAML frontmatter"], []
 
     # Проверяем обязательные поля
     for field in REQUIRED_FIELDS:

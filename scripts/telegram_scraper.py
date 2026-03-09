@@ -142,7 +142,7 @@ def scrape_channel(channel: str, start_year: int = 2022, end_year: int = 2026) -
                         if start_year <= dt.year <= end_year:
                             all_posts[post_id] = post
                             new_count += 1
-                    except Exception as e:
+                    except Exception:
                         # Если не удалось распарсить дату, всё равно сохраняем
                         all_posts[post_id] = post
                         new_count += 1

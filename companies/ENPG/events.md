@@ -6,7 +6,7 @@ updated: 2026-02-05
 # Корпоративные события: Полное название компании (ENPG)
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER=ENPG && make fill-events TICKER=ENPG`.
+Таблицы событий обновляются автоматически: `make events TICKER=ENPG && make fill-events TICKER=ENPG`.
 
 ## Последние события (6 месяцев)
 

@@ -1,4 +1,5 @@
 ---
+type: company
 ticker: AKRN
 name: Акрон
 sector: agro

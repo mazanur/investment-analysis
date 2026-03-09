@@ -12,7 +12,7 @@ make download-moex TICKER=TICKER     # скачать для одной комп
 make download-moex                   # скачать для всех
 ```
 
-Файл сохраняется в `data/moex_market.json` и содержит:
+Данные доступны через `GET /companies/HEAD` и содержат:
 - Текущая цена (last, bid, offer, open, high, low)
 - Объём торгов и ADV за 30 дней (в рублях)
 - Bid-ask спред (%)

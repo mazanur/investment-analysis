@@ -7,18 +7,17 @@ auto_fetch: true
 
 # Финансовые данные: Название (TICKER)
 
-**Данные загружаются автоматически** в `data/` через скрипт:
+**Данные загружаются автоматически** в Investment API через job endpoints:
 
 ```bash
-make download TICKER=TICKER          # скачать для одной компании
-make download                        # скачать для всех
+curl -X POST "$API_URL/jobs/fetch-smartlab/HEAD" -H "X-API-Key: $API_KEY"
 ```
 
-Файлы сохраняются в:
-- `data/smartlab_yearly.csv` — годовые МСФО
-- `data/smartlab_quarterly.csv` — квартальные МСФО
+Данные доступны через:
+- `GET /companies/HEAD/reports?period_type=yearly` — годовые МСФО
+- `GET /companies/HEAD/reports?period_type=quarterly` — квартальные МСФО
 
-Claude при анализе читает CSV из `data/`, а не ходит на smart-lab каждый раз.
+Claude при анализе читает данные из API, а не ходит на smart-lab каждый раз.
 
 ## Пометки о разовых статьях
 

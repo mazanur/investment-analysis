@@ -6,7 +6,7 @@ updated: 2026-02-19
 # Корпоративные события: Совкомбанк (SVCB)
 
 IR-материалы, пресс-релизы и предстоящие катализаторы.
-Таблицы событий обновляются автоматически: `make download-events TICKER=SVCB && make fill-events TICKER=SVCB`.
+Таблицы событий обновляются автоматически: `make events TICKER=SVCB && make fill-events TICKER=SVCB`.
 
 ## Последние события (6 месяцев)
 

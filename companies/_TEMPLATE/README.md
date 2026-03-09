@@ -9,8 +9,12 @@
 cp -r companies/_TEMPLATE companies/TICKER
 # Заменить TICKER на реальный тикер во всех файлах
 
-# Скачать все данные (smart-lab финансы + MOEX рыночные)
-make download-all TICKER=TICKER
+# Загрузить данные в API
+curl -X POST "$API_URL/jobs/fetch-smartlab/TICKER" -H "X-API-Key: $API_KEY"
+curl -X POST "$API_URL/jobs/fetch-moex?tickers=TICKER" -H "X-API-Key: $API_KEY"
+curl -X POST "$API_URL/jobs/fetch-prices?tickers=TICKER" -H "X-API-Key: $API_KEY"
+curl -X POST "$API_URL/jobs/fetch-events/TICKER" -H "X-API-Key: $API_KEY"
+curl -X POST "$API_URL/jobs/fetch-ir-calendar" -H "X-API-Key: $API_KEY"
 ```
 
 ## Структура файлов
@@ -23,63 +27,69 @@ companies/{TICKER}/
 ├── consensus.md       # Прогнозы аналитиков (заполняет ПОЛЬЗОВАТЕЛЬ)
 ├── governance.md      # Корпоративное управление (СКРИПТ + ПОЛЬЗОВАТЕЛЬ)
 ├── events.md          # События и катализаторы (СКРИПТ + ПОЛЬЗОВАТЕЛЬ)
-├── data/              # Автоматически скачиваемые данные
-│   ├── smartlab_yearly.csv     # Годовые МСФО (smart-lab)
-│   ├── smartlab_quarterly.csv  # Квартальные МСФО (smart-lab)
-│   ├── moex_market.json        # Цена, объём, ADV, спред (MOEX ISS)
-│   ├── moex_events.json        # Дивиденды, IR-календарь (MOEX ISS)
-│   └── sanctions.json          # Санкционный скрининг (OpenSanctions)
 ├── opinions.md        # Внешние мнения (автогенерация скриптом)
-├── trend.json         # Вероятности для API (автогенерация скриптом)
-└── data/
-    └── trade_signals.json  # Торговые сигналы на новости (Claude)
+└── trend.json         # Вероятности для API (автогенерация скриптом)
 ```
+
+> **Данные компании** (финансы, цены, новости, дивиденды, торговые сигналы) хранятся в **Investment API**, а не в локальных файлах. Доступ через `GET /companies/{TICKER}/...` endpoints.
 
 ## Кто что заполняет
 
-| Файл | Кто | Источник |
-|------|-----|----------|
-| `data/smartlab_*.csv` | **Скрипт** (`make download`) | smart-lab.ru CSV |
-| `data/moex_market.json` | **Скрипт** (`make download-moex`) | MOEX ISS API |
-| `data/moex_events.json` | **Скрипт** (`make download-events`) | MOEX ISS API |
-| `data/sanctions.json` | **Скрипт** (`make download-governance`) | OpenSanctions API |
+| Файл / Данные | Кто | Источник |
+|----------------|-----|----------|
+| **Investment API** (финансы) | **Job** (`POST /jobs/fetch-smartlab/{TICKER}`) | smart-lab.ru |
+| **Investment API** (рыночные данные) | **Job** (`POST /jobs/fetch-moex`) | MOEX ISS API |
+| **Investment API** (дивиденды) | **Job** (`POST /jobs/fetch-events/{TICKER}`) | MOEX ISS API |
+| **Investment API** (IR-календарь) | **Job** (`POST /jobs/fetch-ir-calendar`) | MOEX ISS API |
+| **Investment API** (цены) | **Job** (`POST /jobs/fetch-prices`) | MOEX ISS API |
+| **RSS Feeder** (новости, сигналы) | **Автопайплайн** | `http://feeder.zagirnur.dev/api/impact/articles?company={id}` |
 | `consensus.md` | Пользователь | Прогнозы брокеров (за пейволлом) |
 | `governance.md` | **Скрипт** + Пользователь (`make fill-governance`) | Авто: дивидендная история, санкции. Вручную: акционеры, менеджмент, buyback |
-| `events.md` | **Скрипт** + Пользователь (`make fill-events`) | Авто: события MOEX. Вручную: guidance, IR-презентации |
+| `events.md` | **Скрипт** + Пользователь (`make events && make fill-events`) | Авто: IR-календарь из API. Вручную: guidance, IR-презентации |
 | `market_snapshot.md` | Пользователь (опц.) | Только казначейские/преф. акции |
 | `financials.md` | Пользователь (опц.) | Только пометки о разовых статьях |
 | `_index.md` | **Claude** | Анализ на основе всех данных выше |
 | `opinions.md` | **Скрипт** | Генерируется из Telegram-каналов |
 | `trend.json` | **Скрипт** | Генерируется из _index.md |
-| `data/trade_signals.json` | **Claude** | Генерируется при анализе новостей (`NEWS_REACTION_GUIDE.md`) |
 
-## Что скачивается автоматически
+## Что хранит API
 
-### Smart-lab CSV (`make download`)
+### Финансовые отчёты (`GET /companies/{TICKER}/reports`)
 - Выручка, EBITDA, ЧП, FCF, OCF, CAPEX
 - Долг, чистый долг, Net Debt/EBITDA
 - EPS, ROE, ROA, P/E, EV/EBITDA, P/BV
 - Дивиденды на акцию, payout ratio
 - Цена акции, капитализация, free-float, число акций
 - Отраслевые метрики (добыча, число магазинов и т.д.)
+- Источник: smart-lab.ru. Загрузка: `POST /jobs/fetch-smartlab/{TICKER}`
 
-### MOEX ISS API (`make download-moex`)
-- Текущая цена (last, bid, offer)
-- Объём торгов (сегодня + ADV за 30 дней)
-- Bid-ask спред (%)
-- Капитализация и число акций
-- 52-недельный диапазон (high/low)
-- Уровень листинга
+### Рыночные данные (`GET /companies/{TICKER}`)
+- Текущая цена (current_price)
+- Объём торгов (ADV за 30 дней — adv_rub_mln)
+- Капитализация (market_cap) и число акций (shares_out)
+- Free-float
+- Источник: MOEX ISS API. Загрузка: `POST /jobs/fetch-moex`
 
-## Trade Signals (`data/trade_signals.json`)
+### История цен (`GET /companies/{TICKER}/prices`)
+- OHLCV дневные данные
+- Источник: MOEX ISS API. Загрузка: `POST /jobs/fetch-prices`
 
-Файл содержит торговые сигналы, сгенерированные при анализе новостей из `data/news.json`. Генерируется Claude по инструкции из `NEWS_REACTION_GUIDE.md`.
+### Дивиденды (`GET /companies/{TICKER}/dividends`)
+- Дивидендная история и ближайшие выплаты
+- Источник: MOEX ISS API. Загрузка: `POST /jobs/fetch-events/{TICKER}`
 
-**Как сгенерировать:**
+### IR-календарь (`GET /companies/{TICKER}/catalysts?type=event`)
+- Публикации отчётности (РПБУ, МСФО), конференц-звонки, ГОСА, IR-события
+- Источник: MOEX ISS API. Загрузка: `POST /jobs/fetch-ir-calendar`
 
-```bash
-make news-reaction TICKER=EUTR
-```
+## Новости и торговые реакции
+
+Новости и impact-анализ доступны через RSS Feeder (`http://feeder.zagirnur.dev/`):
+1. Найди company_id: `GET /api/companies` → по полю `ticker` (ID в feeder ≠ ID в investment API!)
+2. Новости: `GET /api/impact/articles?company={feeder_id}`
+3. Сигналы: `GET /api/signals/items?company={feeder_id}`
+
+Реакции на новости записывай в `events.md` по инструкции из `NEWS_REACTION_GUIDE.md`.
 
 **Как читать сигнал:**
 
@@ -108,13 +118,14 @@ make news-reaction TICKER=EUTR
 ## Порядок работы
 
 1. Пользователь копирует `_TEMPLATE` → `companies/TICKER`
-2. `make download-all TICKER=TICKER` — скачать финансы + рыночные данные + санкции
-3. `make fill-events TICKER=TICKER` — сгенерировать events.md (авто-секции)
+2. Загрузить данные в API через job endpoints (см. «Быстрый старт»)
+3. `make events TICKER=TICKER && make fill-events TICKER=TICKER` — загрузить события в API и сгенерировать events.md
 4. `make fill-governance TICKER=TICKER` — сгенерировать governance.md (авто-секции)
 5. По возможности заполняет ручные секции: `consensus.md`, `governance.md`, `events.md`
 6. Просит Claude провести анализ
-7. Claude читает данные из `data/` и заполняет `_index.md`
-8. Скрипты генерируют `opinions.md` и `trend.json`
+7. Claude читает данные из API и заполняет `_index.md`
+8. `make sync TICKER=TICKER` — синхронизировать анализ в API
+9. Скрипты генерируют `opinions.md` и `trend.json`
 
 ## Приоритет файлов для пользователя
 
@@ -122,13 +133,13 @@ make news-reaction TICKER=EUTR
 |-----------|------|----------|
 | **1 (желателен)** | `consensus.md` | Нет forward-оценки, только trailing |
 | **2 (желателен)** | `governance.md` | Авто-часть через `make fill-governance`. Для точного GOD нужно заполнить акционеров и менеджмент вручную |
-| **3 (желателен)** | `events.md` | Авто-часть через `make fill-events`. Для катализаторов нужен guidance вручную |
-| — | `data/` | Скачивается через `make download-all` |
-| — | `market_snapshot.md` | Основное уже в moex_market.json |
+| **3 (желателен)** | `events.md` | Авто-часть через `make events && make fill-events`. Для катализаторов нужен guidance вручную |
+| — | API данные | Загружаются через job endpoints |
+| — | `market_snapshot.md` | Основные рыночные данные уже в API |
 | — | `financials.md` | Только для пометок о разовых статьях |
 
 ## Минимальный набор для анализа
 
-**Без заполнения пользователем** (только `make download-all`): Claude может провести полный trailing-анализ — финансы, мультипликаторы, ликвидность, текущая цена, upside. Не хватает forward-прогнозов, деталей корпоративного управления и катализаторов.
+**Без заполнения пользователем** (только загрузка данных в API через job endpoints): Claude может провести полный trailing-анализ — финансы, мультипликаторы, ликвидность, текущая цена, upside. Не хватает forward-прогнозов, деталей корпоративного управления и катализаторов.
 
 **С полным заполнением:** точная forward-оценка, корректный GOD-дисконт, понятные катализаторы, обоснованный position (buy vs watch).

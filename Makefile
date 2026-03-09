@@ -11,7 +11,7 @@
 #
 # Автор: AlmazNurmukhametov
 
-.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events download-all daily update-prices check-reports catalysts news-reaction
+.PHONY: help status check next research speculative trends opinions dashboard update-macro sector clean portfolio top export validate download download-moex events fill-events download-all daily update-prices check-reports catalysts news-reaction sync sync-all deploy deploy-build deploy-logs deploy-restart deploy-ssh deploy-migrate
 
 # Цвета для вывода
 GREEN  := \033[0;32m
@@ -46,11 +46,14 @@ help:
 	@echo "  make download      — скачать финансы со smart-lab"
 	@echo "  make download-moex — скачать рыночные данные с MOEX"
 	@echo "  make download TICKER=SBER — скачать для конкретной компании"
-	@echo "  make events        — скачать события с MOEX IR-календаря (медленно)"
+	@echo "  make events        — загрузить IR-календарь MOEX в API"
+	@echo "  make fill-events   — сгенерировать events.md из API"
 	@echo "  make trends        — сгенерировать trend.json для всех компаний"
 	@echo "  make catalysts     — сгенерировать catalysts.json для всех компаний"
 	@echo "  make opinions      — сгенерировать opinions.md из Telegram"
 	@echo "  make dashboard     — сгенерировать GitHub Pages дашборд"
+	@echo "  make sync TICKER=SBER — синхронизировать компанию в Investment API"
+	@echo "  make sync-all      — синхронизировать все компании в API"
 	@echo ""
 	@echo "$(GREEN)Аналитика:$(NC)"
 	@echo "  make portfolio     — показать компании с position=buy"
@@ -61,6 +64,14 @@ help:
 	@echo "  make daily         — обновить цены + trends + дашборд + коммит + пуш"
 	@echo "  make update-prices — обновить цены с MOEX"
 	@echo "  make check-reports — проверить новые отчёты + скачать + запустить анализ"
+	@echo ""
+	@echo "$(GREEN)Деплой (investment-api → сервер):$(NC)"
+	@echo "  make deploy        — залить код и пересобрать на сервере"
+	@echo "  make deploy-build  — пересобрать образ без заливки"
+	@echo "  make deploy-restart— перезапустить контейнеры"
+	@echo "  make deploy-logs   — показать логи приложения"
+	@echo "  make deploy-migrate— применить миграции"
+	@echo "  make deploy-ssh    — подключиться к серверу"
 	@echo ""
 	@echo "$(GREEN)Прочее:$(NC)"
 	@echo "  make validate      — проверить валидность _index.md"
@@ -140,12 +151,15 @@ news-reaction:
 ifndef TICKER
 	@echo "$(RED)Ошибка: укажи тикер$(NC)"
 	@echo "Использование: make news-reaction TICKER=EUTR"
+	@echo "  С новостью: make news-reaction TICKER=EUTR NEWS_JSON='{...}'"
 	@exit 1
 endif
-	@echo "$(CYAN)Обновление цены $(TICKER)...$(NC)"
-	@python3 scripts/update_prices.py $(TICKER)
+	@echo "$(CYAN)Обновление цены $(TICKER) через API...$(NC)"
+	@curl -s -X POST "$(API_URL)/jobs/fetch-moex?tickers=$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" > /dev/null
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices?tickers=$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" > /dev/null
 	@echo ""
-	@PROMPT=$$(python3 scripts/prepare_news_context.py $(TICKER) $(CURDIR)); \
+	@PROMPT=$$(FEEDER_URL=$(FEEDER_URL) API_URL=$(API_URL) python3 scripts/prepare_news_context.py $(TICKER) $(CURDIR) \
+		$(if $(NEWS_JSON),--news-json '$(NEWS_JSON)',)); \
 	if [ "$$PROMPT" = "SKIP" ]; then \
 		echo "$(YELLOW)Skipped $(TICKER) (pre-filter)$(NC)"; \
 	else \
@@ -189,13 +203,22 @@ else
 	@python3 scripts/download_moex.py
 endif
 
+API_URL ?= https://investment-api.zagirnur.dev
+FEEDER_URL ?= https://feeder.zagirnur.dev
+API_KEY_VAL := $(shell grep '^API_KEY=' .env | head -1 | cut -d= -f2-)
+
 events:
+	@echo "$(CYAN)Загрузка IR-календаря MOEX в API...$(NC)"
 ifdef TICKER
-	@echo "$(CYAN)Загрузка событий с MOEX для $(TICKER)...$(NC)"
-	@python3 scripts/download_moex_events.py $(TICKER)
+	@curl -s -X POST "$(API_URL)/jobs/fetch-events/$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool 2>/dev/null || true
+endif
+	@curl -s -X POST "$(API_URL)/jobs/fetch-ir-calendar" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool 2>/dev/null || true
+
+fill-events:
+ifdef TICKER
+	@python3 scripts/fill_events.py $(TICKER)
 else
-	@echo "$(CYAN)Загрузка событий с MOEX для всех компаний (медленно)...$(NC)"
-	@python3 scripts/download_moex_events.py
+	@python3 scripts/fill_events.py
 endif
 
 download-all:
@@ -238,6 +261,23 @@ dashboard:
 	@echo "$(GREEN)Готово: открой docs/index.html в браузере$(NC)"
 
 # ============================================================================
+# API SYNC
+# ============================================================================
+
+sync:
+ifndef TICKER
+	@echo "$(RED)Ошибка: укажи тикер$(NC)"
+	@echo "Использование: make sync TICKER=SBER"
+	@exit 1
+endif
+	@echo "$(CYAN)Синхронизация $(TICKER) в Investment API...$(NC)"
+	@python3 scripts/sync_analysis.py $(TICKER)
+
+sync-all:
+	@echo "$(CYAN)Синхронизация всех компаний в Investment API...$(NC)"
+	@python3 scripts/sync_analysis.py --all
+
+# ============================================================================
 # АНАЛИТИКА
 # ============================================================================
 
@@ -277,16 +317,19 @@ export:
 # ============================================================================
 
 update-prices:
-	@echo "$(CYAN)Обновление цен с MOEX...$(NC)"
-	@python3 scripts/update_prices.py
+	@echo "$(CYAN)Обновление цен через API...$(NC)"
+	@curl -s -X POST "$(API_URL)/jobs/fetch-moex" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
 
 daily:
 	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
 	@echo "$(CYAN)  Ежедневное обновление ($(TODAY))$(NC)"
 	@echo "$(CYAN)═══════════════════════════════════════════════════════════════$(NC)"
 	@echo ""
-	@echo "$(CYAN)[1/5] Обновление цен с MOEX...$(NC)"
-	@python3 scripts/update_prices.py
+	@echo "$(CYAN)[1/5] Обновление цен через API...$(NC)"
+	@curl -s -X POST "$(API_URL)/jobs/fetch-moex" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices?tickers=IMOEX" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool
 	@echo ""
 	@echo "$(CYAN)[2/5] Генерация trend.json...$(NC)"
 	@python3 scripts/generate_trend_json.py
@@ -298,7 +341,7 @@ daily:
 	@python3 scripts/generate_dashboard.py
 	@echo ""
 	@echo "$(CYAN)[5/5] Коммит и пуш...$(NC)"
-	@git add companies/*/data/price_history.csv companies/*/_index.md companies/*/trend.json companies/*/data/catalysts.json docs/
+	@git add companies/*/_index.md companies/*/trend.json companies/*/data/catalysts.json docs/
 	@git commit -m "daily: update prices and dashboard ($(TODAY))" || echo "$(YELLOW)Нет изменений для коммита$(NC)"
 	@git push || echo "$(RED)Пуш не удался$(NC)"
 	@echo ""
@@ -323,6 +366,52 @@ check-reports:
 	else \
 		echo "$(GREEN)Новых отчётов нет, анализ не требуется.$(NC)"; \
 	fi
+
+# ============================================================================
+# ДЕПЛОЙ (investment-api → сервер)
+# ============================================================================
+
+# Настройки сервера (из .env)
+SSH_HOST := $(shell grep '^SSH_HOST=' .env | head -1 | cut -d= -f2-)
+SSH_USER := $(shell grep '^SSH_USER=' .env | head -1 | cut -d= -f2-)
+SSH_PASS := $(shell grep '^SSH_PASSWORD=' .env | head -1 | cut -d= -f2-)
+REMOTE_DIR := /opt/investment-api
+SSH_CMD := SSHPASS='$(SSH_PASS)' sshpass -e ssh -o StrictHostKeyChecking=accept-new $(SSH_USER)@$(SSH_HOST)
+SCP_CMD := SSHPASS='$(SSH_PASS)' sshpass -e scp -o StrictHostKeyChecking=accept-new
+
+deploy:
+	@echo "$(CYAN)Заливка investment-api на сервер...$(NC)"
+	@echo ""
+	@echo "$(CYAN)[1/3] Копирование файлов...$(NC)"
+	@$(SCP_CMD) -r investment-api/app investment-api/alembic investment-api/alembic.ini investment-api/pyproject.toml investment-api/Dockerfile investment-api/entrypoint.sh investment-api/docker-compose.yml $(SSH_USER)@$(SSH_HOST):$(REMOTE_DIR)/
+	@echo "$(GREEN)Файлы скопированы$(NC)"
+	@echo ""
+	@echo "$(CYAN)[2/3] Пересборка образа...$(NC)"
+	@$(SSH_CMD) 'cd $(REMOTE_DIR) && docker compose build app'
+	@echo ""
+	@echo "$(CYAN)[3/3] Перезапуск...$(NC)"
+	@$(SSH_CMD) 'cd $(REMOTE_DIR) && docker compose up -d app'
+	@echo ""
+	@echo "$(GREEN)Деплой завершён!$(NC)"
+	@$(SSH_CMD) 'docker ps --filter name=investment-api --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
+
+deploy-build:
+	@echo "$(CYAN)Пересборка образа на сервере...$(NC)"
+	@$(SSH_CMD) 'cd $(REMOTE_DIR) && docker compose build app && docker compose up -d app'
+
+deploy-restart:
+	@echo "$(CYAN)Перезапуск контейнеров...$(NC)"
+	@$(SSH_CMD) 'cd $(REMOTE_DIR) && docker compose restart'
+
+deploy-logs:
+	@$(SSH_CMD) 'docker logs investment-api-app-1 --tail 50'
+
+deploy-migrate:
+	@echo "$(CYAN)Применение миграций...$(NC)"
+	@$(SSH_CMD) 'docker exec investment-api-app-1 alembic upgrade head'
+
+deploy-ssh:
+	@SSHPASS='$(SSH_PASS)' sshpass -e ssh -o StrictHostKeyChecking=accept-new $(SSH_USER)@$(SSH_HOST)
 
 # ============================================================================
 # ПРОЧЕЕ

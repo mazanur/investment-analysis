@@ -12,7 +12,6 @@ import os
 import re
 from collections import defaultdict
 from datetime import datetime
-from html import unescape
 
 # Базовые пути
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -210,7 +209,7 @@ def generate_opinions_md(ticker: str, posts: list) -> str:
         "",
         f"# Внешние мнения: {company_name} ({ticker})",
         "",
-        f"Агрегированные мнения из Telegram-канала [@investopit](https://t.me/investopit).",
+        "Агрегированные мнения из Telegram-канала [@investopit](https://t.me/investopit).",
         "",
         f"**Всего упоминаний:** {len(posts)}",
         "",

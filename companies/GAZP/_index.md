@@ -1,4 +1,5 @@
 ---
+type: company
 ticker: GAZP
 name: Газпром
 sector: oil-gas
