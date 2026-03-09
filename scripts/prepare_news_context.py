@@ -531,19 +531,22 @@ def extract_scenarios(index_path: str) -> str:
 
 # --- Formatting helpers ---
 
+def _normalize_trigger(text: str) -> str:
+    """Normalize trigger text for dedup: lowercase, strip punctuation, collapse spaces."""
+    t = text.lower().strip()
+    t = re.sub(r"[^\w\s]", "", t)
+    t = re.sub(r"\s+", " ", t)
+    return t[:80]
+
+
 def _dedup_signals(with_signal: list) -> list:
-    """Deduplicate signals by article link (stable ID) or fallback to date+signal."""
+    """Deduplicate signals by normalized trigger text (ignores link differences)."""
     seen = set()
     result = []
     for imp in with_signal:
         ts = imp["trade_signal"]
-        # Prefer article link as stable dedup key
-        link = imp.get("link") or ts.get("trigger_url", "")
-        if link:
-            key = (ts.get("signal", ""), link)
-        else:
-            key = (ts.get("date", ""), ts.get("signal", ""),
-                   ts.get("trigger", imp.get("title", ""))[:60])
+        trigger = ts.get("trigger", imp.get("title", ""))
+        key = (ts.get("signal", ""), _normalize_trigger(trigger))
         if key not in seen:
             seen.add(key)
             result.append(imp)
@@ -1122,15 +1125,16 @@ def main():
 3. **short-negative**: НЕГАТИВ + price_move < 2% + фундаментал сломан/ухудшен → шорт до реакции
 4. **short-overbought**: ПОЗИТИВ + price_move > 5% ВВЕРХ + upside small → шорт перекупленности
 
-**Target (горизонт 1-2 дня):**
-- long-positive: +3–7% от entry
+**Target (горизонт 1-2 дня) — ТОЛЬКО % от entry:**
+- long-positive: entry × 1.03–1.07 (+3–7%)
 - long-oversold: частичный возврат к pre_news_price (30-50% от падения)
-- short-negative: −3–7% от entry
+- short-negative: entry × 0.93–0.97 (−3–7%)
 - short-overbought: частичный возврат к pre_news_price (30-50% от роста)
+**ЗАПРЕЩЕНО** использовать fair value, сценарии оценки или upside как target. Target = краткосрочное ценовое движение за 1-2 дня, а не фундаментальная переоценка.
 
 **Stop-loss (2-4% от entry):**
-- long: −2–4% от entry (или минимум дня для long-oversold, если он ближе)
-- short: +2–4% от entry (или максимум дня для short-overbought, если он ближе)
+- long: entry × 0.96–0.98 (или минимум дня для long-oversold, если он ближе)
+- short: entry × 1.02–1.04 (или максимум дня для short-overbought, если он ближе)
 
 **Обязательные условия (любое нарушение → skip):**
 - risk_reward ≥ 1.5
@@ -1169,12 +1173,14 @@ Sector: {sector} | Sentiment: {sentiment} | Upside: {upside_cat}
 ## Катализаторы
 {catalysts_str}
 
-## Новость
-*(Оцени ПРЯМОЕ влияние именно этой новости на {ticker}. Косвенное макро ≠ прямое событие.)*
+## Новость (только заголовок — для оценки релевантности на Шаге 0)
 {news.get('published_at', news_date)} | {news.get('title', '')}
-{news_summary}
-Impact: {impact_summary}
 Strength: {strength} | URL: {news.get('link', '')}
+
+## Детали новости (читай ТОЛЬКО после прохождения Шага 0)
+*(Оцени ПРЯМОЕ влияние именно этой новости на {ticker}. Косвенное макро ≠ прямое событие.)*
+{news_summary}
+Impact-анализ (мнение LLM-фильтра, может быть неточным): {impact_summary}
 
 ## Движение цены
 {price_section}
@@ -1192,13 +1198,19 @@ Strength: {strength} | URL: {news.get('link', '')}
 
 Проведи анализ по шагам в блоке <analysis>. **Если шаг 0 или 1 дал skip — ОСТАНОВИСЬ, напиши reasoning и сразу выведи skip JSON.**
 
-0. **Релевантность (СТОП-ФИЛЬТР):** Новость называет компанию по имени, или описывает событие ВНУТРИ компании, или касается регулятора/закона адресно меняющего правила для этой компании? Если нужна цепочка рассуждений длиннее 1 шага (напр. "цены на нефть → объёмы прокачки → тарифная выручка") — это КОСВЕННОЕ влияние → skip.
+0. **Релевантность (СТОП-ФИЛЬТР):** Прочитай ТОЛЬКО заголовок новости (секция «Новость»). НЕ читай секцию «Детали новости» на этом шаге. Новость называет компанию по имени, или описывает событие ВНУТРИ компании, или касается регулятора/закона адресно меняющего правила для этой компании? Если нужна цепочка рассуждений длиннее 1 шага (напр. "цены на нефть → объёмы прокачки → тарифная выручка") — это КОСВЕННОЕ влияние → skip.
 1. **Дубликат драйвера:** Есть ли в «Предыдущих сигналах» buy/sell с тем же БАЗОВЫМ ДРАЙВЕРОМ? Базовый драйвер = корневая причина влияния на цену. Пример: "Brent упал на 3%" и "Франция продаёт нефтяные запасы" — один драйвер (цена нефти). "МСФО отчёт" и "дивиденды" — разные драйверы. Если тот же драйвер → skip.
-2. **Классификация:** тип новости, сила, направление
+2. **Классификация:** (теперь прочитай «Детали новости») тип новости, сила, направление
 3. **"Уже в цене?":** price_move + volume_ratio → вердикт по матрице
 4. **Фундаментал:** новость ломает/усиливает/временная/шум?
 5. **Сценарий:** какой из 4 подходит? Если ни один → skip
 6. **Trade setup + решение:** entry, target (1-2 дня), stop-loss (2-4%), R/R, signal, confidence, position_size
+7. **Самопроверка (обязательно):** Перед выводом JSON проверь:
+   - Если новость негативная → signal НЕ может быть buy (кроме long-oversold при падении >5%)
+   - Если новость позитивная → signal НЕ может быть sell (кроме short-overbought при росте >5%)
+   - target находится в пределах ±3-7% от entry (или 30-50% возврата для oversold/overbought)
+   - stop_loss в пределах 2-4% от entry
+   - Если проверка не пройдена → исправь или переведи в skip
 
 <analysis>
 Шаг 0: Релевантность —
