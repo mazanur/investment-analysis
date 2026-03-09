@@ -591,8 +591,23 @@ def format_financials(company: dict | None, reports: list) -> str:
     """Format key financial metrics from company data and reports."""
     lines = []
 
+    # Market cap
+    market_cap = 0.0
     if company and company is not _API_ERROR:
         parts = []
+        # Market cap
+        mc = company.get("market_cap")
+        if mc:
+            try:
+                market_cap = float(mc)
+                if market_cap >= 1_000_000_000_000:
+                    parts.append(f"Cap: {market_cap / 1_000_000_000_000:.1f} трлн ₽")
+                elif market_cap >= 1_000_000_000:
+                    parts.append(f"Cap: {market_cap / 1_000_000_000:.0f} млрд ₽")
+                else:
+                    parts.append(f"Cap: {market_cap / 1_000_000:.0f} млн ₽")
+            except (TypeError, ValueError):
+                pass
         for key, label in [("p_e", "P/E"), ("p_bv", "P/BV"), ("roe", "ROE"),
                            ("gov_ownership", "Гос.доля")]:
             val = company.get(key)
@@ -609,22 +624,45 @@ def format_financials(company: dict | None, reports: list) -> str:
 
         report_parts = [f"Период: {period}"]
         for key, label in [("revenue", "Выручка"), ("net_income", "ЧП"),
-                           ("net_debt", "Чистый долг"), ("equity", "Капитал")]:
+                           ("total_debt", "Общий долг"), ("net_debt", "Чистый долг"),
+                           ("equity", "Капитал")]:
             val = r.get(key)
             if val is not None:
                 report_parts.append(f"{label}: {val} млрд ₽")
 
         ebitda = extra.get("ebitda")
         fcf = extra.get("fcf")
+        capex = extra.get("capex")
         if ebitda:
             report_parts.append(f"EBITDA: {ebitda} млрд ₽")
         if fcf:
             report_parts.append(f"FCF: {fcf} млрд ₽")
+        if capex:
+            report_parts.append(f"CAPEX: {capex} млрд ₽")
 
+        # Calculated ratios (reports in млрд ₽, market_cap in ₽)
+        market_cap_bln = market_cap / 1_000_000_000 if market_cap > 0 else 0
         net_debt = r.get("net_debt")
-        if net_debt and ebitda and float(ebitda) > 0:
-            nd_ebitda = float(net_debt) / float(ebitda)
-            report_parts.append(f"Net Debt/EBITDA: {nd_ebitda:.1f}x")
+        if net_debt and ebitda:
+            try:
+                ebitda_f = float(ebitda)
+                nd_f = float(net_debt)
+                if ebitda_f > 0:
+                    report_parts.append(f"Net Debt/EBITDA: {nd_f / ebitda_f:.1f}x")
+                # EV/EBITDA = (market_cap_bln + net_debt) / ebitda
+                if market_cap_bln > 0 and ebitda_f > 0:
+                    ev = market_cap_bln + nd_f
+                    report_parts.append(f"EV/EBITDA: {ev / ebitda_f:.1f}x")
+            except (TypeError, ValueError):
+                pass
+
+        # FCF yield = fcf / market_cap_bln * 100
+        if fcf and market_cap_bln > 0:
+            try:
+                fcf_yield = float(fcf) / market_cap_bln * 100
+                report_parts.append(f"FCF Yield: {fcf_yield:.1f}%")
+            except (TypeError, ValueError):
+                pass
 
         lines.append(" | ".join(report_parts))
 
