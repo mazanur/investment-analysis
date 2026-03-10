@@ -269,8 +269,17 @@ ifndef TICKER
 	@echo "Использование: make sync TICKER=SBER"
 	@exit 1
 endif
-	@echo "$(CYAN)Синхронизация $(TICKER) в Investment API...$(NC)"
+	@echo "$(CYAN)[1/4] Загрузка отчётов со smart-lab...$(NC)"
+	@curl -s -X POST "$(API_URL)/jobs/fetch-smartlab/$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool 2>/dev/null || true
+	@echo "$(CYAN)[2/4] Загрузка рыночных данных с MOEX...$(NC)"
+	@curl -s -X POST "$(API_URL)/jobs/fetch-moex?tickers=$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool 2>/dev/null || true
+	@curl -s -X POST "$(API_URL)/jobs/fetch-prices?tickers=$(TICKER)" -H "X-API-Key: $(API_KEY_VAL)" | python3 -m json.tool 2>/dev/null || true
+	@echo "$(CYAN)[3/4] Синхронизация анализа...$(NC)"
 	@API_KEY=$(API_KEY_VAL) python3 scripts/sync_analysis.py $(TICKER)
+	@echo "$(CYAN)[4/4] Генерация trend.json и catalysts.json...$(NC)"
+	@python3 scripts/generate_trend_json.py $(TICKER) 2>/dev/null || python3 scripts/generate_trend_json.py
+	@python3 scripts/generate_catalysts.py $(TICKER) 2>/dev/null || true
+	@echo "$(GREEN)Синхронизация $(TICKER) завершена$(NC)"
 
 sync-all:
 	@echo "$(CYAN)Синхронизация всех компаний в Investment API...$(NC)"
