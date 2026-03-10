@@ -1,6 +1,6 @@
 {
-  "ticker": "IRAO",
-  "company_name": "IRAO",
+  "ticker": "RAGR",
+  "company_name": "RAGR",
   "generated": "2026-03-10",
   "catalysts": [
     {
@@ -8,7 +8,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Кэш на балансе (~432 млрд) превышает капитализацию (347 млрд) — экстремальная недооценка",
+      "description": "Рекордная выручка 396 млрд, EBITDA растёт (+11%)",
       "source": "index"
     },
     {
@@ -16,7 +16,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Операционный бизнес улучшается: генерация +28.7%, трейдинг +30.8% EBITDA за 9М 2025",
+      "description": "Завершение инвестцикла (МЭЗ, хранение свеклы) → нормализация FCF в 2026-2027",
       "source": "index"
     },
     {
@@ -24,7 +24,15 @@
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Дивидендная доходность ~12% при консервативном payout 25%",
+      "description": "Снижение ставки ЦБ до 10-14% к концу 2026 → снижение процентных расходов",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Возобновление дивидендов → переоценка акции +15-20%",
       "source": "index"
     },
     {
@@ -32,15 +40,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Потенциальное гашение казначейского пакета увеличит EPS на ~42%",
-      "source": "index"
-    },
-    {
-      "type": "opportunity",
-      "impact": "positive",
-      "magnitude": "medium",
-      "date": null,
-      "description": "Лидер ДПМ-2/КОММод — 4.95 ГВт мощностей к модернизации с гарантированным возвратом",
+      "description": "Лидерство по экспорту масла в Азию, рейтинг AA-(RU)",
       "source": "index"
     },
     {
@@ -48,7 +48,15 @@
       "impact": "negative",
       "magnitude": "high",
       "date": null,
-      "description": "Снижение ставки ЦБ сокращает процентный доход с кубышки (~2/3 прибыли)",
+      "description": "Арест Мошковича (~49%) и экс-CEO Басова + национализация Агро-Белогорье",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "high",
+      "date": null,
+      "description": "Высокий долг (Net Debt/EBITDA 3.25x) при высокой ставке ЦБ",
       "source": "index"
     },
     {
@@ -56,7 +64,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "FCF отрицательный все 3 квартала 2025 из-за масштабного капекса по ДПМ-2/КОММод",
+      "description": "FCF глубоко отрицательный (-49.4 млрд) из-за инвестцикла",
       "source": "index"
     },
     {
@@ -64,7 +72,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Маржа EBITDA снижается 4 года подряд: 14.9% → 11.2%",
+      "description": "ROE 7.7% — ниже стоимости капитала, бизнес разрушает стоимость",
       "source": "index"
     },
     {
@@ -72,15 +80,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Консервативная дивполитика (payout 25%) — рынок не верит в unlock value кубышки",
-      "source": "index"
-    },
-    {
-      "type": "risk",
-      "impact": "negative",
-      "magnitude": "medium",
-      "date": null,
-      "description": "Неопределённость по казначейскому пакету 29.56% (гашение, продажа или M&A)",
+      "description": "Маржа EBITDA снижается (18.8% → 14.1% за 4 года)",
       "source": "index"
     },
     {

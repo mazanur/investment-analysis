@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПАО «Группа «Русагро» (RAGR) — Инвестиционный дашборд</title>
+<style>
+/* Тёмная тема (по умолчанию) */
+:root {
+    --bg: #0d1117; --bg-card: #161b22; --bg-input: #161b22; --bg-metric: #0d1117;
+    --border: #30363d; --border-light: #21262d;
+    --text: #e6edf3; --text-secondary: #8b949e; --text-strong: #f0f6fc;
+    --link: #388bfd;
+    --green: #238636; --yellow: #d29922; --red: #da3633; --blue: #388bfd;
+    --positive: #3fb950; --negative: #f85149;
+    --badge-watch-bg: #484f58; --badge-watch-text: #e6edf3;
+    --badge-stub-bg: #30363d; --badge-stub-text: #8b949e;
+    --stub-banner-bg: #2d1b00; --stub-banner-border: #d29922;
+    --forecast-flat-bg: #30363d; --forecast-flat-text: #8b949e;
+    --stub-row-text: #484f58;
+    --code-bg: #0d1117;
+}
+/* Светлая тема */
+[data-theme="light"] {
+    --bg: #ffffff; --bg-card: #f6f8fa; --bg-input: #f6f8fa; --bg-metric: #ffffff;
+    --border: #d0d7de; --border-light: #e1e4e8;
+    --text: #1f2328; --text-secondary: #656d76; --text-strong: #1f2328;
+    --link: #0969da;
+    --green: #1a7f37; --yellow: #9a6700; --red: #cf222e; --blue: #0969da;
+    --positive: #1a7f37; --negative: #cf222e;
+    --badge-watch-bg: #d0d7de; --badge-watch-text: #1f2328;
+    --badge-stub-bg: #e1e4e8; --badge-stub-text: #656d76;
+    --stub-banner-bg: #fff8c5; --stub-banner-border: #d4a72c;
+    --forecast-flat-bg: #d0d7de; --forecast-flat-text: #656d76;
+    --stub-row-text: #a1a9b1;
+    --code-bg: #f6f8fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+/* Шапка */
+header {
+    border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header-left h1 { font-size: 24px; font-weight: 600; }
+.header-left .updated { color: var(--text-secondary); font-size: 14px; margin-top: 4px; }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 18px;
+    line-height: 1; transition: background 0.2s;
+}
+.theme-toggle:hover { border-color: var(--link); }
+
+/* Статистика */
+.stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; flex: 1; min-width: 140px;
+}
+.stat-card .label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+.stat-card .value.green { color: var(--green); }
+.stat-card .value.blue { color: var(--blue); }
+
+/* Фильтры */
+.filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.filters select, .filters input {
+    background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: inherit;
+}
+.filters select:focus, .filters input:focus { border-color: var(--link); outline: none; }
+.filters input { min-width: 200px; }
+
+/* Таблица */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+    background: var(--bg-card); color: var(--text-secondary); font-weight: 600; text-align: left;
+    padding: 10px 12px; border-bottom: 2px solid var(--border);
+    cursor: pointer; user-select: none; white-space: nowrap;
+}
+th:hover { color: var(--text); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+tr:hover { background: var(--bg-card); }
+tr.stub td { color: var(--stub-row-text); }
+
+/* Бейджи */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 12px; font-weight: 500;
+}
+.badge-bullish { background: var(--green); color: #fff; }
+.badge-neutral { background: var(--yellow); color: #fff; }
+.badge-bearish { background: var(--red); color: #fff; }
+.badge-buy { background: var(--green); color: #fff; }
+.badge-hold { background: var(--blue); color: #fff; }
+.badge-sell { background: var(--red); color: #fff; }
+.badge-watch { background: var(--badge-watch-bg); color: var(--badge-watch-text); }
+.badge-avoid { background: var(--red); color: #fff; }
+.badge-stub { background: var(--badge-stub-bg); color: var(--badge-stub-text); }
+
+/* Положительный/отрицательный upside */
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.muted { color: var(--text-secondary); }
+
+/* Навигация */
+.back { display: inline-block; margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
+.back:hover { color: var(--text); }
+
+/* Карточка компании */
+.company-header {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.company-header h1 { font-size: 28px; margin-bottom: 8px; }
+.company-header .ticker { color: var(--text-secondary); font-size: 16px; }
+.badges { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-top: 16px;
+}
+.metric {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px;
+}
+.metric .label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+.metric .value { font-size: 18px; font-weight: 600; margin-top: 2px; }
+
+/* Прогноз-бар */
+.forecast { margin-bottom: 24px; }
+.forecast h3 { margin-bottom: 8px; font-size: 16px; }
+.forecast-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    font-size: 12px; font-weight: 600;
+}
+.forecast-bar .growth { background: var(--green); display: flex; align-items: center; justify-content: center; color: #fff; }
+.forecast-bar .flat { background: var(--forecast-flat-bg); display: flex; align-items: center; justify-content: center; color: var(--forecast-flat-text); }
+.forecast-bar .decline { background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+/* Баннер заглушки */
+.stub-banner {
+    background: var(--stub-banner-bg); border: 1px solid var(--stub-banner-border); border-radius: 8px;
+    padding: 16px; margin-bottom: 24px; color: var(--stub-banner-border);
+}
+
+/* Контент анализа */
+.analysis { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.analysis h1, .analysis h2, .analysis h3, .analysis h4 { margin-top: 24px; margin-bottom: 12px; }
+.analysis h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.analysis h2 { font-size: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 6px; }
+.analysis h3 { font-size: 16px; }
+.analysis h4 { font-size: 14px; color: var(--text-secondary); }
+.analysis p { margin-bottom: 12px; }
+.analysis ul, .analysis ol { margin: 8px 0 12px 24px; }
+.analysis li { margin-bottom: 4px; }
+.analysis table { margin: 12px 0; }
+.analysis blockquote {
+    border-left: 3px solid var(--border); padding: 8px 16px;
+    color: var(--text-secondary); margin: 12px 0;
+}
+.analysis code {
+    background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+    font-size: 13px; font-family: ui-monospace, monospace;
+}
+.analysis hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.analysis strong { color: var(--text-strong); }
+.analysis input[type="checkbox"] { margin-right: 6px; }
+
+/* История цен */
+.price-history {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-bottom: 24px;
+}
+.price-history h3 { margin-bottom: 12px; font-size: 16px; }
+.period-btns { display: flex; gap: 6px; margin-bottom: 16px; }
+.period-btn {
+    background: var(--bg-metric); border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 12px; cursor: pointer; color: var(--text-secondary); font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+}
+.period-btn:hover { border-color: var(--link); color: var(--text); }
+.period-btn.active { background: var(--link); color: #fff; border-color: var(--link); }
+.price-chart-wrap { margin-bottom: 16px; position: relative; }
+.price-chart { width: 100%; height: auto; }
+.price-tooltip {
+    display: none; position: absolute; pointer-events: none;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 14px; white-space: nowrap; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.cmp-badge {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    padding: 8px 12px; margin-top: 6px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; cursor: pointer;
+}
+.cmp-badge:hover { border-color: var(--link); }
+.price-table-wrap { max-height: 400px; overflow-y: auto; }
+.price-table { font-size: 13px; }
+.price-table th { position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container { padding: 12px; }
+    .stats { flex-direction: column; }
+    .stat-card { min-width: auto; }
+    .filters { flex-direction: column; }
+    .filters input { min-width: auto; width: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<a href="../index.html" class="back" style="margin-bottom:0">&larr; Назад к дашборду</a>
+<button class="theme-toggle" id="theme-toggle" title="Переключить тему">&#9790;</button>
+</div>
+
+<div class="company-header">
+<h1>ПАО «Группа «Русагро»</h1>
+<div class="ticker">RAGR &middot; Агросектор</div>
+<div class="badges">
+<span class="badge badge-neutral">neutral</span>
+<span class="badge badge-watch">watch</span>
+</div>
+<div class="metrics-grid"><div class="metric"><div class="label">Цена</div><div class="value">120.2</div></div><div class="metric"><div class="label">Цель</div><div class="value">161</div></div><div class="metric"><div class="label">Upside</div><div class="value">+34%</div></div><div class="metric"><div class="label">P/E</div><div class="value">6.16</div></div><div class="metric"><div class="label">Див. дох.</div><div class="value">0</div></div><div class="metric"><div class="label">ROE</div><div class="value">7.7</div></div><div class="metric"><div class="label">Капитализация</div><div class="value">115</div></div><div class="metric"><div class="label">P/BV</div><div class="value">0.50</div></div><div class="metric"><div class="label">EV/EBITDA</div><div class="value">5.29</div></div><div class="metric"><div class="label">NetDebt/EBITDA</div><div class="value">3.25</div></div></div>
+</div>
+
+
+
+<div class="forecast">
+<h3>Прогноз</h3>
+<div class="forecast-bar">
+<div class="growth" style="width:45%">&#x25B2; 45%</div>
+<div class="flat" style="width:15%">15%</div>
+<div class="decline" style="width:40%">&#x25BC; 40%</div>
+</div>
+</div>
+
+
+<div class="analysis">
+<h1>ПАО «Группа «Русагро» (RAGR)</h1>
+<h2>Бизнес-модель</h2>
+<p>Крупнейший диверсифицированный агрохолдинг России с вертикальной интеграцией — от посева до переработки и экспорта. Активы в 15 регионах, продукция поставляется в 42 страны. 30 000 сотрудников. Кредитный рейтинг AA-(RU) от АКРА.</p>
+<p><strong>Основные направления:</strong></p>
+<ul><li><strong>Масложировой бизнес</strong> (~56% выручки): №1 по маргарину/майонезу, №1 по подсолнечному маслу. Экстракция, производство потребительской и промышленной продукции. Лидер по экспорту масла в Азию и Ближний Восток</li><li><strong>Мясной бизнес</strong> (~24% выручки): №2 по свинине в РФ. Полный цикл от комбикормов до убоя. Рост +71% г/г благодаря интеграции Агро-Белогорье</li><li><strong>Агро бизнес</strong> (~14% выручки): растениеводство (зерновые, масличные), №4 банк с/х земель. Рекорд по экспорту зерна ~700 тыс. тонн</li><li><strong>Сахарный бизнес</strong> (~7% выручки): №2 производитель сахара в РФ. Запуск хранения свеклы на 1 млн тонн</li></ul>
+<p><strong>Драйверы роста:</strong></p>
+<ol><li>Модернизированный Аткарский МЭЗ (+56% мощности, запуск январь 2026)</li><li>Полная интеграция Агро-Белогорье (синергии в мясном бизнесе)</li><li>Экспансия экспорта масел через новые терминалы (Петербургский НТ, порт Оля)</li><li>Площадки хранения свеклы → +120 тыс. тонн сахара/год</li></ol>
+<h2>Конкурентные преимущества</h2>
+<ul><li><strong>Вертикальная интеграция</strong>: контроль цепочки от поля до полки снижает зависимость от посредников и волатильность маржи</li><li><strong>Лидерские позиции</strong>: №1-2 в ключевых сегментах (масло, маргарин, сахар, свинина)</li><li><strong>Диверсификация</strong>: 4 сегмента компенсируют циклы друг друга (сахар vs масло vs мясо)</li><li><strong>Экспортная инфраструктура</strong>: собственная логистика, порты, лидерство на рынках Азии/Ближнего Востока (28.5% выручки — экспорт)</li><li><strong>Доступ к льготному кредитованию</strong>: субсидированные ставки АПК снижают реальную стоимость долга</li></ul>
+<h2>Риски</h2>
+<h3>Макро-риски</h3>
+<ul><li>Высокая ставка ЦБ (15.5%) → процентные расходы удвоились до 17.4 млрд (31% EBITDA)</li><li>Укрепление рубля → отрицательные курсовые разницы, снижение конкурентоспособности экспорта</li></ul>
+<h3>Операционные риски</h3>
+<ul><li>FCF глубоко отрицательный 4 из 5 лет — бизнес не генерирует кэш</li><li>Маржа EBITDA в нисходящем тренде: 18.8% → 14.1% за 4 года</li><li>ROE 7.7% — значительно ниже стоимости капитала (~20%), бизнес разрушает стоимость</li><li>Агрессивный CAPEX (35.5 млрд, 9% от выручки) — инвестцикл ещё не завершён полностью</li></ul>
+<h3>Регуляторные / корпоративные риски</h3>
+<ul><li><strong>Арест Мошковича</strong> (~49% акций) и экс-CEO Басова — ключевой governance-риск. Неясно, кто принимает стратегические решения</li><li><strong>Национализация Агро-Белогорье</strong>: активы мясного бизнеса (~24% выручки) под госуправлением — риск потери</li><li>4 года без дивидендов — нет возврата капитала акционерам</li><li>Экспортные пошлины и квоты на зерно ограничивают маржу агробизнеса</li><li>Изменение условий субсидирования АПК → рост стоимости кредитов</li></ul>
+<h2>Финансовые показатели</h2>
+<h3>Годовые (МСФО)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>LTM</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>218.6</td><td>237.0</td><td>276.1</td><td>340.1</td><td>396.5</td><td>396.5</td></tr><tr><td>EBITDA, млрд ₽</td><td>41.1</td><td>37.3</td><td>56.3</td><td>53.0</td><td>56.0</td><td>56.0</td></tr><tr><td>Маржа EBITDA, %</td><td>18.8</td><td>15.7</td><td>20.4</td><td>15.6</td><td>14.1</td><td>14.1</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>30.0</td><td>22.3</td><td>34.4</td><td>36.1</td><td>18.5</td><td>18.5</td></tr><tr><td>OCF, млрд ₽</td><td>8.2</td><td>3.4</td><td>33.6</td><td>15.2</td><td>-9.5</td><td>-9.5</td></tr><tr><td>FCF, млрд ₽</td><td>-6.5</td><td>-7.1</td><td>11.8</td><td>-9.4</td><td>-49.4</td><td>-49.4</td></tr><tr><td>Net Debt, млрд ₽</td><td>126.4</td><td>212.9</td><td>103.1</td><td>127.7</td><td>182.1</td><td>182.1</td></tr><tr><td>Net Debt/EBITDA</td><td>3.08</td><td>5.71</td><td>1.83</td><td>2.41</td><td>3.25</td><td>3.25</td></tr><tr><td>Процентные расходы, млрд ₽</td><td>5.5</td><td>7.9</td><td>7.2</td><td>9.6</td><td>17.4</td><td>17.4</td></tr><tr><td>EPS, ₽</td><td>219.5*</td><td>163.2*</td><td>251.7*</td><td>37.7</td><td>19.3</td><td>19.3</td></tr><tr><td>ROE, %</td><td>27.4</td><td>20.1</td><td>19.7</td><td>16.3</td><td>7.7</td><td>7.7</td></tr><tr><td>P/E</td><td>5.34</td><td>4.05</td><td>5.36</td><td>4.10</td><td>5.78</td><td>6.16</td></tr><tr><td>EV/EBITDA</td><td>6.97</td><td>8.13</td><td>5.11</td><td>5.20</td><td>5.17</td><td>5.29</td></tr><tr><td>P/BV</td><td>1.51</td><td>0.84</td><td>1.13</td><td>0.71</td><td>0.47</td><td>0.50</td></tr></tbody></table></div>
+<p>*EPS 2021-2023 на старые акции (136.7 млн), с 2024 — на новые (958.8 млн)</p>
+<h3>Квартальные (2024-2025)</h3>
+<div class="table-wrap"><table><thead><tr><th>Показатель</th><th>Q3&#x27;24</th><th>Q4&#x27;24</th><th>H1&#x27;25</th><th>H2&#x27;25</th><th>FY2025</th></tr></thead><tbody><tr><td>Выручка, млрд ₽</td><td>76.2*</td><td>~124.9*</td><td>~171.3**</td><td>~225.2**</td><td>396.5</td></tr><tr><td>EBITDA, млрд ₽</td><td>—</td><td>—</td><td>—</td><td>—</td><td>56.0</td></tr><tr><td>Маржа EBITDA, %</td><td>—</td><td>—</td><td>—</td><td>—</td><td>14.1</td></tr><tr><td>Чистая прибыль, млрд ₽</td><td>14.6*</td><td>10.8*</td><td>~6.0**</td><td>~12.5**</td><td>18.5</td></tr></tbody></table></div>
+<p><em>Данные smart-lab (кумулятивные/квартальные). </em>*Расчётные.</p>
+<p><strong>Тренд:</strong> Выручка стабильно растёт каждый квартал. ЧП во втором полугодии 2025 выше первого (~12.5 vs ~6.0) — частичное восстановление. Маржа EBITDA стабилизировалась у 14%.</p>
+<h2>Дивиденды</h2>
+<p>Дивидендная политика и история — см. <a href="governance.md" target="_blank">governance.md</a>.</p>
+<div class="table-wrap"><table><thead><tr><th>Прогноз</th><th>DPS, ₽</th><th>Доходность</th><th>Payout</th></tr></thead><tbody><tr><td><strong>2025E</strong></td><td><strong>0</strong></td><td><strong>0%</strong></td><td><strong>0%</strong></td></tr></tbody></table></div>
+<p><strong>Ближайшая выплата:</strong> Маловероятна. 4 года без дивидендов, высокий долг, отрицательный FCF. Если решение будет принято — сильный позитив.</p>
+<h2>Оценка</h2>
+<div class="table-wrap"><table><thead><tr><th>Метрика</th><th>LTM</th><th>Среднее 5Y</th><th>Сектор (GCHE)</th></tr></thead><tbody><tr><td>P/E</td><td>6.16</td><td>4.93</td><td>~5.5</td></tr><tr><td>EV/EBITDA</td><td>5.29</td><td>6.12</td><td>~5.0</td></tr><tr><td>P/BV</td><td>0.50</td><td>0.93</td><td>~1.0</td></tr><tr><td>Div Yield</td><td>0%</td><td>2.2%*</td><td>~5%</td></tr><tr><td>ROE</td><td>7.7%</td><td>18.2%</td><td>~20%</td></tr></tbody></table></div>
+<p>*С учётом последнего дивиденда 2021 года.</p>
+<p>Торгуется с дисконтом к балансовой стоимости (P/BV 0.50) и ниже исторических средних по P/E и EV/EBITDA. Причины дисконта: governance-риск (Мошкович), отсутствие дивидендов, высокий долг, отрицательный FCF.</p>
+<h2>Мой тезис</h2>
+<p>Русагро — качественный агрохолдинг с рекордной выручкой и лидерскими позициями, торгующийся с глубоким дисконтом к балансовой стоимости (P/BV 0.50). Однако текущая ситуация — <strong>watch</strong>, не buy: арест Мошковича создаёт governance-неопределённость, 4 года без дивидендов отсекают основной аргумент для покупки, FCF глубоко отрицательный из-за агрессивного CAPEX-цикла, а ROE (7.7%) значительно ниже стоимости капитала. Ключевой апсайд — в разрешении ситуации с Мошковичем + возобновлении дивидендов + завершении инвестцикла. До реализации хотя бы одного из этих катализаторов компания остаётся «ловушкой стоимости» (value trap).</p>
+<p><strong>Ключевые катализаторы</strong> (полный список — <a href="events.md" target="_blank">events.md</a>):</p>
+<ol><li>Возобновление дивидендов (H1 2026?)</li><li>Снижение ставки ЦБ до 10-14% → снижение процентных расходов</li><li>Разрешение ситуации с Мошковичем</li></ol>
+<h2>Целевая цена</h2>
+<h3>Исходные данные</h3>
+<p>``<code> EPS (LTM) = 19.3 ₽ EBITDA = 56.0 млрд, EBITDA per share = 58.4 ₽ Net Debt = 182.1 млрд, Net Debt per share = 189.9 ₽ BV per share = 236.4 ₽ Текущая цена = 120.2 ₽ Ставка ЦБ текущая = 15.5%, прогноз конец 2026 = 10-14% ERP = 5% </code>``</p>
+<h3>Выбор метода</h3>
+<p>Net Debt/EBITDA = 3.25x → диапазон 2.5-3.5x → <strong>EV/EBITDA основной метод</strong>.</p>
+<p>P/E — перекрёстная проверка (с поправкой -25% за долг).</p>
+<h3>Метод EV/EBITDA (основной)</h3>
+<p><strong>Параметры:</strong></p>
+<ul><li>g = 5% (циклический агробизнес, маржа падает, рост выручки частично M&amp;A)</li><li>CAGR выручки 4Y: 16.1% → но включает M&amp;A Агро-Белогорье</li><li>CAGR EBITDA 4Y: 8.1% → маржа сжимается</li><li>Устойчивый g = 5% (≈ инфляция + скромный реальный рост)</li><li>tax = 25%</li><li>D/(D+E) = 182.1/296.2 = 61.5%, E/(D+E) = 38.5%</li><li>r_debt = ставка ЦБ + 2% (кредитный спред для AA-)</li></ul>
+<p><strong>WACC и целевой EV/EBITDA:</strong></p>
+<div class="table-wrap"><table><thead><tr><th></th><th>Пессимистичный</th><th>Базовый</th><th>Оптимистичный</th></tr></thead><tbody><tr><td>Ставка ЦБ</td><td>15.5% (текущая)</td><td>12%</td><td>10%</td></tr><tr><td>r_equity</td><td>20.5%</td><td>17%</td><td>15%</td></tr><tr><td>r_debt</td><td>17.5%</td><td>14%</td><td>12%</td></tr><tr><td>WACC</td><td>15.97%</td><td>13.0%</td><td>11.31%</td></tr><tr><td>WACC - g</td><td>10.97%</td><td>8.0%</td><td>6.31%</td></tr><tr><td>Базовый EV/EBITDA</td><td>6.84x</td><td>9.38x</td><td>11.89x</td></tr></tbody></table></div>
+<p><strong>Поправка за качество:</strong></p>
+<ul><li>Лидер по масштабу (#1-2 в сегментах): +10%</li><li>Рост выручки &gt; сектора (17% vs 2-5%): +10%</li><li>Маржа EBITDA падает (18.8% → 14.1%): -10%</li><li>Governance-риск (арест Мошковича, 4 года без дивидендов): -10%</li><li><strong>Итого: 0%, множитель = 1.00</strong></li></ul>
+<p><em>Примечание: долговая нагрузка уже учтена в WACC через capital structure, не дублируется.</em></p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Целевой EV/EBITDA</th><th>Целевой EV, млрд</th><th>Целевая цена, ₽</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>6.84x</td><td>383</td><td>209</td><td>+74%</td></tr><tr><td><strong>Базовый</strong></td><td><strong>9.38x</strong></td><td><strong>525</strong></td><td><strong>358</strong></td><td><strong>+198%</strong></td></tr><tr><td>Оптимистичный</td><td>11.89x</td><td>666</td><td>504</td><td>+320%</td></tr></tbody></table></div>
+<p>Формула: Целевая цена = (EBITDA × EV/EBITDA − Net Debt) / Кол-во акций</p>
+<p><strong>Проблема:</strong> Формула даёт значения далеко выше рыночных. Причина — рынок закладывает в цену фундаментальные дисконты, не захваченные стандартными поправками:</p>
+<ol><li>Governance-риск (арест основного акционера) → рынок ставит -40-50%</li><li>FCF отрицательный 4/5 лет → нет возврата капитала</li><li>ROE &lt; CoE → бизнес разрушает стоимость</li><li>Субсидированные кредиты могут быть отменены</li></ol>
+<p><strong>Рыночно-скорректированный расчёт:</strong></p>
+<p>Применяю дополнительный дисконт -40% к базовому EV/EBITDA за совокупность факторов (governance + FCF + ROE):</p>
+<div class="table-wrap"><table><thead><tr><th>Сценарий</th><th>Скорр. EV/EBITDA</th><th>Целевая цена, ₽</th><th>Upside</th></tr></thead><tbody><tr><td>Пессимистичный</td><td>4.10x</td><td>48</td><td>-60%</td></tr><tr><td><strong>Базовый</strong></td><td><strong>5.63x</strong></td><td><strong>139</strong></td><td><strong>+16%</strong></td></tr><tr><td>Оптимистичный</td><td>7.13x</td><td>222</td><td>+85%</td></tr></tbody></table></div>
+<p>При таком подходе базовый сценарий даёт upside ~16% — соответствует position <strong>hold/watch</strong>.</p>
+<p><strong>Альтернативный расчёт (от текущего рыночного мультипликатора):</strong></p>
+<p>Текущий EV/EBITDA = 5.29x. Целевой = 6.0x (умеренное re-rating при снижении ставки и частичном разрешении рисков):</p>
+<p>Целевая цена = (56.0 × 6.0 − 182.1) / 958.8 = <strong>161 ₽</strong> → Upside <strong>34%</strong></p>
+<h3>Чувствительность к g (базовый сценарий, EV/EBITDA 6.0x)</h3>
+<div class="table-wrap"><table><thead><tr><th>g</th><th>Целевой EV/EBITDA</th><th>Цена</th><th>Upside</th></tr></thead><tbody><tr><td>2% (g-3)</td><td>5.5x</td><td>117</td><td>-3%</td></tr><tr><td><strong>5% (базовый)</strong></td><td><strong>6.0x</strong></td><td><strong>161</strong></td><td><strong>+34%</strong></td></tr><tr><td>7% (g+2)</td><td>6.5x</td><td>188</td><td>+56%</td></tr></tbody></table></div>
+<p>При g-3п.п. upside уходит в минус → <strong>тезис хрупкий</strong>.</p>
+<h3>Метод P/E (перекрёстная проверка)</h3>
+<p>r = 17% (базовый), g = 5% Базовый P/E = 1/(0.17 − 0.05) = 8.33x</p>
+<p>Поправки: лидер +10%, рост +10%, маржа -10%, governance -10%, долг 2.5-3.5x -25% = -25% Целевой P/E = 8.33 × 0.75 = <strong>6.25x</strong></p>
+<p>EPS (LTM) = 19.3 ₽ → Цена = 19.3 × 6.25 = <strong>121 ₽</strong> (≈ текущая) EPS (Forward 2026E ≈ 25 ₽) → Цена = 25 × 6.25 = <strong>156 ₽</strong> → Upside 30%</p>
+<h3>Перекрёстная проверка</h3>
+<div class="table-wrap"><table><thead><tr><th>Метод</th><th>Цена</th><th>Upside</th><th>Комментарий</th></tr></thead><tbody><tr><td>EV/EBITDA (целевой 6.0x)</td><td>161</td><td>+34%</td><td>Основной — умеренное re-rating</td></tr><tr><td>P/E (trailing 6.25x)</td><td>121</td><td>0%</td><td>Подтверждает текущую оценку</td></tr><tr><td>P/E (forward 6.25x)</td><td>156</td><td>+30%</td><td>При нормализации прибыли</td></tr><tr><td>P/BV (justified 0.64x)</td><td>151</td><td>+26%</td><td>ROE/(r-g) = 7.7%/12%</td></tr><tr><td>DCF</td><td>N/A</td><td>—</td><td>Не применим при отрицательном FCF</td></tr><tr><td>Дивидендный</td><td>N/A</td><td>—</td><td>Не применим (0 дивидендов)</td></tr></tbody></table></div>
+<p>Расхождение между методами &lt; 30% (121-161 ₽). Оценка устойчива.</p>
+<p><strong>my_fair_value = 161 ₽</strong> — на основе EV/EBITDA 6.0x (умеренное re-rating с 5.3x при снижении ставки и стабилизации маржи). Подтверждается P/BV и forward P/E.</p>
+<h2>Чеклист перед buy</h2>
+<ul><li><input type="checkbox" checked disabled> <strong>Upside &gt; 30%</strong> — 34%, пограничное значение</li><li><input type="checkbox" disabled> <strong>Катализатор есть</strong> — снижение ставки ЦБ (дата известна), но возобновление дивидендов и разрешение Мошковича — неопределённость</li><li><input type="checkbox" checked disabled> <strong>Тезис записан</strong> — да</li><li><input type="checkbox" disabled> <strong>Net Debt/EBITDA &lt; 2,5x</strong> — 3.25x, НЕТ</li><li><input type="checkbox" disabled> <strong>Маржа стабильна</strong> — падает: 18.8% → 14.1% за 4 года, НЕТ</li><li><input type="checkbox" checked disabled> <strong>Ликвидность</strong> — ADV ~200 млн ₽, ДА</li><li><input type="checkbox" disabled> <strong>Качество прибыли</strong> — OCF/NI = -9.5/18.5 = отрицательный, НЕТ</li><li><input type="checkbox" checked disabled> <strong>Геополитика учтена</strong> — не под санкциями</li><li><input type="checkbox" checked disabled> <strong>Госуправление учтено</strong> — GOD 0% (частная)</li><li><input type="checkbox" disabled> <strong>Нет value trap</strong> — высокий долг + падающая маржа + 0 дивидендов = признаки value trap</li></ul>
+<p><strong>Результат: 4/10</strong> — НЕ buy. Position = <strong>watch</strong>.</p>
+<h2>История решений</h2>
+<div class="table-wrap"><table><thead><tr><th>Дата</th><th>Действие</th><th>Цена</th><th>Причина</th></tr></thead><tbody><tr><td>2026-03-10</td><td>watch</td><td>120.2 ₽</td><td>Дешёвая по мультипликаторам, но governance-риск (Мошкович), высокий долг (3.25x), 0 дивидендов 4 года, отрицательный FCF. Ждём катализатор</td></tr></tbody></table></div>
+<h2>Источники</h2>
+<ul><li><a href="https://smart-lab.ru/q/RAGR/f/y/" target="_blank">Smart-lab: RAGR финансы</a></li><li><a href="https://www.moex.com/ru/issue.aspx?board=TQBR&amp;code=RAGR" target="_blank">MOEX: RAGR</a></li><li><a href="https://smartlab.news/read/180870" target="_blank">Smartlab News: МСФО 2025</a></li><li><a href="https://www.rusagrogroup.ru/fileadmin/files/presentations/12m25_RUS_InvestorsPresentation_RA.pdf" target="_blank">IR-презентация 12М 2025</a></li><li><a href="../sectors/agro/_index.md" target="_blank">Секторальный анализ Агро</a></li></ul>
+</div>
+
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('theme-toggle');
+    var saved = localStorage.getItem('theme') || 'dark';
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    btn.textContent = saved === 'light' ? '\u2600' : '\u263E';
+    btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        if (next === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        btn.textContent = next === 'light' ? '\u2600' : '\u263E';
+        localStorage.setItem('theme', next);
+    });
+})();
+</script>
+</body>
+</html>
