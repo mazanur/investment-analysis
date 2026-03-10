@@ -243,7 +243,10 @@ class SyncClient:
                 slug = sector_slug.lower()
                 sector_resp = self._get(f"/sectors/{slug}")
                 if sector_resp and sector_resp.status_code == 200:
-                    payload["sector_id"] = sector_resp.json()["id"]
+                    try:
+                        payload["sector_id"] = sector_resp.json()["id"]
+                    except Exception:
+                        pass
                 elif sector_resp and sector_resp.status_code == 404:
                     # Auto-create the sector
                     create_resp = self._post(
@@ -372,7 +375,7 @@ def main():
     )
     parser.add_argument(
         "--api-url",
-        default=os.environ.get("API_URL", "http://localhost:8000"),
+        default=os.environ.get("API_URL", "https://investment-api.zagirnur.dev"),
     )
     parser.add_argument(
         "--api-key",

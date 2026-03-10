@@ -270,11 +270,11 @@ ifndef TICKER
 	@exit 1
 endif
 	@echo "$(CYAN)Синхронизация $(TICKER) в Investment API...$(NC)"
-	@python3 scripts/sync_analysis.py $(TICKER)
+	@API_KEY=$(API_KEY_VAL) python3 scripts/sync_analysis.py $(TICKER)
 
 sync-all:
 	@echo "$(CYAN)Синхронизация всех компаний в Investment API...$(NC)"
-	@python3 scripts/sync_analysis.py --all
+	@API_KEY=$(API_KEY_VAL) python3 scripts/sync_analysis.py --all
 
 # ============================================================================
 # АНАЛИТИКА
