@@ -1,6 +1,6 @@
 ---
 type: root
-updated: 2026-02-26
+updated: 2026-03-10
 author: AlmazNurmukhametov
 ---
 
@@ -121,4 +121,5 @@ author: AlmazNurmukhametov
 | companies/AFKS/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/UGLD/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/CNRU/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
+| companies/RAGR/_index.md | заполнен | 2026-03-10 | 2026-06-10 | ежеквартально |
 | companies/GCHE/_index.md | заполнен | 2026-02-25 | 2026-05-25 | ежеквартально |

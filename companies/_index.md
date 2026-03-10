@@ -1,6 +1,6 @@
 ---
 type: companies-index
-updated: 2026-02-05
+updated: 2026-03-10
 ---
 
 # Компании
@@ -108,6 +108,7 @@ updated: 2026-02-05
 ### Агросектор
 | Тикер | Компания | Sentiment | Position | Мнений |
 |-------|----------|-----------|----------|--------|
+| [RAGR](RAGR/) | Русагро | neutral | watch | 0 |
 | [GCHE](GCHE/) | Черкизово | bullish | buy | 0 |
 | [AQUA](AQUA/) | Инарктика | neutral | watch | 0 |
 
