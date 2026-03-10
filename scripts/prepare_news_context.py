@@ -345,6 +345,80 @@ def find_cluster_start(news_list: list, current_date: str, window_days: int = 7)
     return earliest
 
 
+# --- Pre-news move detection (insider activity) ---
+
+def detect_pre_news_move(snapshots: list, candles: list, news_published_at: str,
+                         pre_close: float | None) -> str:
+    """Detect suspicious price move BEFORE news publication.
+
+    Compares intraday price just before news timestamp with previous day's close.
+    If move > 2% without prior news → flag as potential insider activity.
+    Returns warning string or empty.
+    """
+    if not pre_close or pre_close <= 0:
+        return ""
+    if not news_published_at:
+        return ""
+
+    # Parse news publication time
+    try:
+        clean = news_published_at.replace("Z", "+00:00")
+        news_dt = datetime.fromisoformat(clean)
+        if news_dt.tzinfo is None:
+            news_dt = news_dt.replace(tzinfo=timezone.utc)
+        news_msk = news_dt.astimezone(MSK)
+    except (ValueError, TypeError):
+        return ""
+
+    news_ts_str = news_msk.strftime("%Y-%m-%dT%H:%M")
+
+    # Find price just before news publication from snapshots or candles
+    pre_news_intraday_price = None
+    pre_news_ts = ""
+
+    # Try snapshots first (hourly, more reliable)
+    if snapshots and snapshots is not _API_ERROR:
+        for s in snapshots:
+            ts = s.get("timestamp", "")
+            if ts and ts[:16] < news_ts_str:
+                try:
+                    pre_news_intraday_price = float(s.get("price", 0))
+                    pre_news_ts = ts[:16]
+                except (TypeError, ValueError):
+                    pass
+                break  # snapshots are newest-first, take the first one before news
+
+    # Try candles if no snapshot found
+    if not pre_news_intraday_price and candles and candles is not _API_ERROR:
+        for c in candles:
+            ts = c.get("timestamp", "")
+            if ts and ts[:16] < news_ts_str:
+                try:
+                    pre_news_intraday_price = float(c.get("close", 0))
+                    pre_news_ts = ts[:16]
+                except (TypeError, ValueError):
+                    pass
+                break
+
+    if not pre_news_intraday_price or pre_news_intraday_price <= 0:
+        return ""
+
+    move_pct = (pre_news_intraday_price - pre_close) / pre_close * 100
+
+    if abs(move_pct) < 2.0:
+        return ""
+
+    direction = "рост" if move_pct > 0 else "падение"
+    return (
+        f"\u26a0\ufe0f ВНИМАНИЕ: Обнаружено движение цены {direction} {move_pct:+.1f}% "
+        f"ДО публикации новости!\n"
+        f"Пред. закрытие: {pre_close:.2f} ₽ → Цена до новости ({pre_news_ts}): "
+        f"{pre_news_intraday_price:.2f} ₽\n"
+        f"Возможна инсайдерская активность — рынок мог отыграть новость заранее. "
+        f"Покупка на публикации = покупка на вершине → вероятен skip или осторожный вход."
+    )
+
+
 # --- Index / market context ---
 
 def build_index_context(news_date: str, pre_price: float | None, last_close: float) -> str:
@@ -957,6 +1031,13 @@ def main():
                 except (TypeError, ValueError):
                     pass
 
+    # Pre-news move detection (insider activity)
+    pre_news_move_warning = detect_pre_news_move(
+        snapshots, candles,
+        news.get("published_at", ""),
+        pre_price,
+    )
+
     # Catalysts, reports, dividends
     catalysts = fetch_catalysts(ticker)
     catalysts_str = format_catalysts(catalysts)
@@ -1038,12 +1119,17 @@ def main():
                 pass
             break
 
+    pre_news_move_section = ""
+    if pre_news_move_warning:
+        pre_news_move_section = f"\n{pre_news_move_warning}\n"
+
     price_section = (
         f"Цена закрытия ({last_close_date}): {last_close:.2f} ₽{snapshot_line}"
         f"{pre_news_line}\n"
         f"Price move (close-to-close): {price_move:+.1f}% "
         f"(от {pre_price_str} до {last_close:.2f} ₽){intraday_ohlc_line}\n"
         f"Volume ratio: {vol_ratio:.1f}x ADV | ADV: {adv_mln:.0f}M ₽"
+        f"{pre_news_move_section}"
     )
 
     # Business model + Thesis section
@@ -1114,6 +1200,9 @@ def main():
 | 2–5% | Нет | Частично в цене |
 | 2–5% | Да | В цене → skip (позитив) или ищи перепроданность (негатив) |
 | > 5% | — | Сильная реакция → перепроданность/перекупленность |
+
+**Инсайдерская активность (pre-news move):**
+Если в секции «Движение цены» есть предупреждение о движении ДО публикации новости (⚠️ ВНИМАНИЕ) — это значит цена двигалась до выхода новости. На российском рынке это частое явление (инсайдеры). Если pre-news move > 2% в направлении новости → считай что новость УЖЕ В ЦЕНЕ → skip для long-positive/short-negative. Покупка на публикации = покупка на вершине.
 
 **4 сценария (СТРОГО по направлению новости):**
 - Позитивная новость → ТОЛЬКО long-positive или short-overbought. НИКОГДА short-negative.
