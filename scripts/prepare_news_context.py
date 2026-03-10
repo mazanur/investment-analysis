@@ -1137,8 +1137,8 @@ def main():
 - short: entry × 1.02–1.04 (или максимум дня для short-overbought, если он ближе)
 
 **Обязательные условия (любое нарушение → skip):**
-- confidence = high (medium и low → skip)
-- risk_reward ≥ 2.5
+- confidence ≥ medium (low → skip)
+- risk_reward ≥ 1.5
 - ADV ≥ 50M ₽ (для шортов: ADV > 200M)
 - Strength ≥ medium (pre-filtered)
 - Новость ≤ 2 торговых дней (pre-filtered)
@@ -1157,7 +1157,8 @@ expected_return = (entry - target) / entry; risk = (stop_loss - entry) / entry
 
 **Размер позиции:**
 - high confidence (R/R > 2.5): full (до 5% портфеля)
-- medium или low confidence: skip (не торгуем)
+- medium confidence (R/R 1.5-2.5): half (до 3% портфеля)
+- low confidence (R/R < 1.5): skip
 
 ---
 
@@ -1206,8 +1207,8 @@ Impact-анализ (мнение LLM-фильтра, может быть нет
 5. **Сценарий:** какой из 4 подходит? Если ни один → skip
 6. **Trade setup + решение:** entry, target (1-2 дня), stop-loss (2-4%), R/R, signal, confidence, position_size
 7. **Самопроверка (обязательно):** Перед выводом JSON проверь:
-   - confidence = high? Если нет → skip
-   - risk_reward ≥ 2.5? Если нет → skip
+   - confidence ≥ medium? Если low → skip
+   - risk_reward ≥ 1.5? Если нет → skip
    - Если новость негативная → signal НЕ может быть buy (кроме long-oversold при падении >5%)
    - Если новость позитивная → signal НЕ может быть sell (кроме short-overbought при росте >5%)
    - target находится в пределах ±3-7% от entry (или 30-50% возврата для oversold/overbought)
