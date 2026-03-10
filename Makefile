@@ -163,7 +163,7 @@ endif
 		echo "$(YELLOW)Skipped $(TICKER) (pre-filter)$(NC)"; \
 	else \
 		echo "$(CYAN)Запуск Claude (sonnet) для анализа $(TICKER)...$(NC)"; \
-		cd /tmp && claude --model sonnet $(CLAUDE_FLAGS) -p "$$PROMPT"; \
+		cd /tmp && claude --model sonnet --effort high $(CLAUDE_FLAGS) -p "$$PROMPT"; \
 	fi
 
 
