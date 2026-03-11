@@ -14,6 +14,7 @@ class CatalystCreate(BaseModel):
     date: Optional[dt.date] = None
     description: str
     source: Optional[str] = None
+    trigger_tags: Optional[list[str]] = None
     is_active: bool = True
 
 
@@ -24,6 +25,7 @@ class CatalystUpdate(BaseModel):
     date: Optional[dt.date] = None
     description: Optional[str] = None
     source: Optional[str] = None
+    trigger_tags: Optional[list[str]] = None
     is_active: Optional[bool] = None
 
 
@@ -38,6 +40,7 @@ class CatalystResponse(BaseModel):
     date: Optional[dt.date] = None
     description: str
     source: Optional[str] = None
+    trigger_tags: Optional[list[str]] = None
     is_active: bool
     expired_at: Optional[dt.datetime] = None
     created_at: dt.datetime
