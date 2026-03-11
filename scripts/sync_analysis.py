@@ -41,8 +41,23 @@ SECTORS_DIR = PROJECT_ROOT / "sectors"
 # YAML frontmatter parser (shared with migrate_all.py)
 # ---------------------------------------------------------------------------
 
+def _parse_inline_list(s: str) -> list[str]:
+    """Parse inline YAML list like [a, b, c]."""
+    s = s.strip()
+    if s.startswith("[") and s.endswith("]"):
+        return [item.strip().strip("'\"") for item in s[1:-1].split(",") if item.strip()]
+    return []
+
+
 def parse_frontmatter(text: str) -> dict:
-    """Parse YAML frontmatter between --- delimiters."""
+    """Parse YAML frontmatter between --- delimiters.
+
+    Supports both simple lists and structured list items:
+      key_risks:
+        - Simple string item
+        - text: Structured item with sub-fields
+          trigger_tags: [tag1, tag2]
+    """
     match = re.match(r"^---\s*\n(.*?)\n---", text, re.DOTALL)
     if not match:
         return {}
@@ -50,13 +65,35 @@ def parse_frontmatter(text: str) -> dict:
     result = {}
     current_key = None
     current_list = None
+    current_item = None  # dict for structured list items
 
     for line in raw.split("\n"):
+        # Sub-field of a structured list item (e.g. "    trigger_tags: [...]")
+        if current_item is not None:
+            sub_m = re.match(r"^\s{4,}(\w+)\s*:\s*(.*)", line)
+            if sub_m:
+                sub_key = sub_m.group(1)
+                sub_val = sub_m.group(2).strip()
+                if sub_val.startswith("["):
+                    current_item[sub_key] = _parse_inline_list(sub_val)
+                else:
+                    current_item[sub_key] = _parse_value(sub_val)
+                continue
+            else:
+                current_item = None  # end of sub-fields
+
+        # List item: "  - ..."
         if current_list is not None and re.match(r"^\s+-\s+", line):
-            item = re.sub(r"^\s+-\s+", "", line).strip()
-            current_list.append(item)
+            item_text = re.sub(r"^\s+-\s+", "", line).strip()
+            # Check if it's a structured item: "- text: ..."
+            text_m = re.match(r"^text:\s*(.*)", item_text)
+            if text_m:
+                current_item = {"text": text_m.group(1).strip()}
+                current_list.append(current_item)
+            else:
+                current_list.append(item_text)
             continue
-        elif current_list is not None:
+        elif current_list is not None and not re.match(r"^\s{4,}", line):
             result[current_key] = current_list
             current_list = None
             current_key = None
@@ -156,6 +193,13 @@ def parse_company_frontmatter(ticker_dir: Path) -> dict | None:
     return {k: v for k, v in payload.items() if v is not None}
 
 
+def _extract_item(item) -> tuple[str, list[str] | None]:
+    """Extract description and trigger_tags from a list item (str or dict)."""
+    if isinstance(item, dict):
+        return item.get("text", ""), item.get("trigger_tags")
+    return item, None
+
+
 def extract_catalysts_from_frontmatter(ticker_dir: Path) -> list[dict]:
     """Extract catalysts from key_risks and key_opportunities in _index.md."""
     index_file = ticker_dir / "_index.md"
@@ -168,24 +212,32 @@ def extract_catalysts_from_frontmatter(ticker_dir: Path) -> list[dict]:
     catalysts = []
 
     for opp in fm.get("key_opportunities", []):
-        catalysts.append({
+        desc, tags = _extract_item(opp)
+        cat = {
             "type": "opportunity",
             "impact": "positive",
             "magnitude": "medium",
-            "description": opp,
+            "description": desc,
             "source": "index",
             "is_active": True,
-        })
+        }
+        if tags:
+            cat["trigger_tags"] = tags
+        catalysts.append(cat)
 
     for risk in fm.get("key_risks", []):
-        catalysts.append({
+        desc, tags = _extract_item(risk)
+        cat = {
             "type": "risk",
             "impact": "negative",
             "magnitude": "medium",
-            "description": risk,
+            "description": desc,
             "source": "index",
             "is_active": True,
-        })
+        }
+        if tags:
+            cat["trigger_tags"] = tags
+        catalysts.append(cat)
 
     return catalysts
 

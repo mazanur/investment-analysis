@@ -20,6 +20,7 @@ gov_ownership: 0
 gov_discount: 0
 key_risks: []
 key_opportunities: []
+trigger_tags: []
 my_fair_value: 0
 current_price: 0
 upside: 0

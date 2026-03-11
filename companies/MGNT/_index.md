@@ -13,6 +13,12 @@ p_bv: 12.0
 ev_ebitda: 4.28
 dividend_yield: 0%
 roe: 13.9%
+my_fair_value: 4100
+current_price: 3184.5
+upside: +23%
+position: watch
+gov_ownership: 0
+gov_discount: 0
 key_risks:
   - EBITDA-маржа снижается 5 лет подряд: 7.2% → 5.1% (H1 2025)
   - Чистая прибыль обвалилась на 70% (H1 2025), процентные расходы съедают прибыль
@@ -25,12 +31,6 @@ key_opportunities:
   - E-commerce растёт ~2x г/г, GMV 77.6 млрд за H1 2025
   - Приобретение Азбуки Вкуса добавляет 171 премиальный магазин
   - Доля СТМ >25% — маржинальность на 5-15 п.п. выше брендов
-my_fair_value: 4100
-current_price: 3184.5
-upside: +23%
-position: watch
-gov_ownership: 0
-gov_discount: 0
 ---
 
 # Магнит (MGNT)

@@ -123,6 +123,7 @@ class CatalystAdmin(ModelView, model=Catalyst):
         Catalyst.magnitude,
         Catalyst.date,
         Catalyst.description,
+        Catalyst.trigger_tags,
         Catalyst.is_active,
     ]
     column_select_related_list = ["company"]

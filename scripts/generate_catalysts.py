@@ -41,12 +41,22 @@ HIGH_MAGNITUDE_KEYWORDS = [
 ]
 
 
+def _parse_inline_list(s: str) -> list[str]:
+    """Parse inline YAML list like [a, b, c]."""
+    s = s.strip()
+    if s.startswith("[") and s.endswith("]"):
+        return [item.strip().strip("'\"") for item in s[1:-1].split(",") if item.strip()]
+    return []
+
+
 def parse_yaml_frontmatter_with_lists(content: str) -> dict:
     """
     Парсит YAML frontmatter с поддержкой list-значений.
 
-    Возвращает dict, где list-ключи (key_risks, key_opportunities)
-    содержат list[str], а простые ключи — str.
+    Поддерживает два формата элементов списка:
+      - Простая строка
+      - text: Описание
+        trigger_tags: [тег1, тег2]
     """
     match = re.match(r"^---\s*\n(.*?)\n---", content, re.DOTALL)
     if not match:
@@ -55,17 +65,41 @@ def parse_yaml_frontmatter_with_lists(content: str) -> dict:
     yaml_content = match.group(1)
     result = {}
     current_list_key = None
+    current_item = None  # dict for structured list items
 
     for line in yaml_content.split("\n"):
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
+            current_item = None
             current_list_key = None
             continue
+
+        # Sub-field of a structured list item (e.g. "    trigger_tags: [...]")
+        if current_item is not None:
+            sub_m = re.match(r"^\s{4,}(\w+)\s*:\s*(.*)", line)
+            if sub_m:
+                sub_key = sub_m.group(1)
+                sub_val = sub_m.group(2).strip()
+                if sub_val.startswith("["):
+                    current_item[sub_key] = _parse_inline_list(sub_val)
+                else:
+                    current_item[sub_key] = sub_val
+                continue
+            else:
+                current_item = None
 
         # Элемент списка: "  - value"
         list_match = re.match(r"^\s+-\s+(.+)$", line)
         if list_match and current_list_key:
-            result[current_list_key].append(list_match.group(1).strip())
+            item_text = list_match.group(1).strip()
+            # Check if structured: "- text: ..."
+            text_m = re.match(r"^text:\s*(.*)", item_text)
+            if text_m:
+                current_item = {"text": text_m.group(1).strip()}
+                result[current_list_key].append(current_item)
+            else:
+                current_item = None
+                result[current_list_key].append(item_text)
             continue
 
         # Пара key: value
@@ -73,6 +107,7 @@ def parse_yaml_frontmatter_with_lists(content: str) -> dict:
         if kv_match:
             key = kv_match.group(1)
             value = kv_match.group(2).strip()
+            current_item = None
 
             # Убираем кавычки
             if value.startswith('"') and value.endswith('"'):
@@ -81,13 +116,13 @@ def parse_yaml_frontmatter_with_lists(content: str) -> dict:
                 value = value[1:-1]
 
             if not value:
-                # Пустое значение → начало списка
                 result[key] = []
                 current_list_key = key
             else:
                 result[key] = value
                 current_list_key = None
         else:
+            current_item = None
             current_list_key = None
 
     return result
@@ -205,27 +240,51 @@ def extract_index_catalysts(index_file: str) -> list[dict]:
 
     # key_opportunities → positive
     for item in meta.get("key_opportunities", []):
-        if isinstance(item, str) and item.strip():
-            catalysts.append({
-                "type": "opportunity",
-                "impact": "positive",
-                "magnitude": classify_magnitude(item),
-                "date": None,
-                "description": item.strip(),
-                "source": "index",
-            })
+        if isinstance(item, dict):
+            desc = item.get("text", "").strip()
+            tags = item.get("trigger_tags")
+        elif isinstance(item, str):
+            desc = item.strip()
+            tags = None
+        else:
+            continue
+        if not desc:
+            continue
+        cat = {
+            "type": "opportunity",
+            "impact": "positive",
+            "magnitude": classify_magnitude(desc),
+            "date": None,
+            "description": desc,
+            "source": "index",
+        }
+        if tags:
+            cat["trigger_tags"] = tags
+        catalysts.append(cat)
 
     # key_risks → negative
     for item in meta.get("key_risks", []):
-        if isinstance(item, str) and item.strip():
-            catalysts.append({
-                "type": "risk",
-                "impact": "negative",
-                "magnitude": classify_magnitude(item),
-                "date": None,
-                "description": item.strip(),
-                "source": "index",
-            })
+        if isinstance(item, dict):
+            desc = item.get("text", "").strip()
+            tags = item.get("trigger_tags")
+        elif isinstance(item, str):
+            desc = item.strip()
+            tags = None
+        else:
+            continue
+        if not desc:
+            continue
+        cat = {
+            "type": "risk",
+            "impact": "negative",
+            "magnitude": classify_magnitude(desc),
+            "date": None,
+            "description": desc,
+            "source": "index",
+        }
+        if tags:
+            cat["trigger_tags"] = tags
+        catalysts.append(cat)
 
     return catalysts
 
