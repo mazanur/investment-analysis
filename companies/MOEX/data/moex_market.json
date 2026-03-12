@@ -1,0 +1,38 @@
+{
+  "ticker": "MOEX",
+  "date": "2026-03-12",
+  "shortname": "МосБиржа",
+  "secname": "ПАО Московская Биржа",
+  "price": {
+    "last": 174.28,
+    "open": 173.99,
+    "high": 174.49,
+    "low": 173.54,
+    "waprice": 174.04,
+    "prev_close": 173.81
+  },
+  "volume": {
+    "shares_today": 774650,
+    "value_today_rub": 134819620,
+    "num_trades_today": 4562
+  },
+  "liquidity": {
+    "adv_30d_rub": 587294081,
+    "adv_30d_mln_rub": 587.3,
+    "bid_ask_spread_pct": 0.0402
+  },
+  "capitalization": {
+    "market_cap_rub": 396981650260.62,
+    "market_cap_bln_rub": 397.0,
+    "shares_outstanding": 2276401458
+  },
+  "range_52w": {
+    "high": 219.2,
+    "low": 154.1
+  },
+  "listing": {
+    "board": "TQBR",
+    "list_level": 1,
+    "lot_size": 10
+  }
+}
