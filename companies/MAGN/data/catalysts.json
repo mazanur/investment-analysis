@@ -1,7 +1,7 @@
 {
   "ticker": "MAGN",
   "company_name": "MAGN",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Чистая денежная позиция 82 млрд ₽ (улучшилась с 75.5 млрд) — финансовая устойчивость",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк",
+        "денежная позиция"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "P/BV 0.53x — ниже половины балансовой стоимости",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +32,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "EBITDA стабилизировалась ~20 млрд/кв — подтверждение операционного дна",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк",
+        "производство стали",
+        "прокат"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +45,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF положительный за 2025 (+5.1 млрд), Q4 сильный (+9.2 млрд)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк",
+        "оборотный капитал"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +57,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ до 15.5%, прогноз 10-14% к концу 2026",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк",
+        "спрос на сталь"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +69,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Первый годовой убыток с 2014 (-14.1 млрд ₽, обесценение угольного сегмента -28 млрд)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк",
+        "обесценение",
+        "угольный сегмент",
+        "малый куйбас"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +83,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "P/E неприменим (убыток), нормализованная прибыль 14 млрд — минимум за 5 лет",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +94,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды за 2025 не будут выплачены (убыточный год)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +105,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Внутренний спрос на сталь продолжает снижаться при ставке 15.5%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "арматура"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +116,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "CAPEX/выручка вырос до 15% — давит на FCF",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ммк",
+        "модернизация"
+      ]
     },
     {
       "type": "cb_meeting",

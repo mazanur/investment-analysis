@@ -1,7 +1,7 @@
 {
   "ticker": "OZON",
   "company_name": "OZON",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Гайденс 2026: EBITDA ~200 млрд (+28%), чистая прибыль, GMV +25-30%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "озон",
+        "гайденс",
+        "прогноз менеджмента"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Финтех как второй двигатель роста (выручка +120% YoY, 41,7 млн клиентов)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ozon bank",
+        "озон банк",
+        "финтех"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ до 15,5% → переоценка growth-акций продолжается",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "озон"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +46,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Первые облигации → снижение стоимости долга (замена банковских кредитов)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "озон",
+        "размещение"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +58,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Досрочное погашение 62 млрд ₽ внешнего долга в 2025 — укрепление баланса",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "озон",
+        "погашение долга"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +70,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Замедление роста выручки до +43% в Q4 (vs +69% в Q3) — эффект высокой базы",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "озон",
+        "gmv",
+        "оборот"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +83,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Программа облигаций ₽100 млрд (новый долг для логистики и рефинансирования $750 млн)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "озон"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +94,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Конкуренция с Wildberries и Яндекс Маркетом за долю рынка",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "wildberries",
+        "яндекс маркет",
+        "маркетплейс"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +107,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Регуляторное давление на маркетплейсы (закон о маркетплейсах)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "маркетплейс",
+        "закон о маркетплейсах"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +119,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Отрицательный собственный капитал (de-jure ограничивает дивиденды)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "озон",
+        "собственный капитал"
+      ]
     },
     {
       "type": "risk",
@@ -89,7 +131,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Годовой чистый убыток -0,9 млрд — формально не достигнута годовая прибыль",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "озон"
+      ]
     },
     {
       "type": "cb_meeting",

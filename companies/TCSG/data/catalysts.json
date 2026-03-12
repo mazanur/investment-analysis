@@ -1,7 +1,7 @@
 {
   "ticker": "TCSG",
-  "company_name": "Т-Технологии (Т-Банк)",
-  "generated": "2026-03-11",
+  "company_name": "TCSG",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "ROE 29% при P/BV 1.4x — значительная недооценка для growth-банка",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "т-банк рентабельность",
+        "tcs roe",
+        "т-технологии прибыль"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Интеграция Росбанка — синергии ~20 млрд руб/год",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "росбанк синергии",
+        "т-банк росбанк",
+        "корпоративное кредитование"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Байбэк до 5% капитала — поддерживает EPS и котировки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "т-технологии байбэк",
+        "обратный выкуп",
+        "tcsg buyback"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +48,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ → переоценка всего финансового сектора",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "т-банк кредитование",
+        "финтех ставка",
+        "банковский сектор переоценка"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +61,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Высокая ставка ЦБ сжимает NIM",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "т-банк маржа",
+        "tcs nim",
+        "процентная маржа тинькофф"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +74,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Интеграция Росбанка — риски исполнения, временное давление на ROE",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "росбанк",
+        "т-банк интеграция",
+        "росбанк присоединение"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +87,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокая конкуренция с Сбером в брокерском бизнесе",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "т-инвестиции",
+        "брокерский бизнес",
+        "тинькофф инвестиции"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +100,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокий P/BV (1.4x) vs сектор — риск переоценки при разочаровании",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "т-технологии оценка",
+        "tcsg мультипликаторы"
+      ]
     },
     {
       "type": "cb_meeting",

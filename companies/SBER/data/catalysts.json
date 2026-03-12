@@ -1,7 +1,7 @@
 {
   "ticker": "SBER",
-  "company_name": "Сбербанк",
-  "generated": "2026-03-11",
+  "company_name": "SBER",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ 15.5% -> 10-14% к концу 2026 — переоценка мультипликаторов",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сбербанк кредитование",
+        "ипотека сбер",
+        "кредитный портфель"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды 50% прибыли МСФО (~39.5 руб) — доходность 12.4%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сбербанк госа",
+        "собрание акционеров сбер",
+        "дивиденды сбербанк"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "NIM рекордные 6.46% в Q4, NII +18.5% за 2025 год",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "процентная маржа сбер",
+        "nim сбербанк",
+        "процентные доходы"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +48,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "CoR стабилизируется: 0.9% в Q4 против 1.3% FY — качество портфеля улучшается",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сбербанк резервы",
+        "стоимость риска сбер",
+        "просрочка сбербанк"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +61,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Под полными блокирующими санкциями США/ЕС с 2022 года",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сбербанк санкции",
+        "сбер ограничения",
+        "блокирующие санкции сбер"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +74,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост резервов в 1.5x за 2025 год, NPL вырос до 4.8%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сбербанк просрочка",
+        "npl сбер",
+        "резервы сбербанк",
+        "кредитное качество"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +88,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "ROE снизился до 22.7% (с 24.0%), Q4 ROE 19.9%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сбербанк рентабельность",
+        "roe сбер"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +100,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "CIR ухудшился до 30.3% (с 26.9% в 2024)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сбербанк расходы",
+        "операционная эффективность сбер",
+        "cost-to-income"
+      ]
     },
     {
       "type": "cb_meeting",

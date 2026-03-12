@@ -1,7 +1,7 @@
 {
   "ticker": "SFIN",
-  "company_name": "SFI Holding",
-  "generated": "2026-03-11",
+  "company_name": "SFIN",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "ВСК — крупная страховая (5-е место в России) с рейтингом ruAA",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "вск страхование",
+        "рейтинг вск",
+        "эксперт ра вск"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Низкий долг на уровне холдинга после продажи Европлана",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сфи долг",
+        "sfi баланс",
+        "европлан выручка"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Возможность реинвестирования при нахождении нового качественного актива для поглощения",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "sfi поглощение",
+        "сфи m&a",
+        "инвестиции холдинг"
+      ]
     },
     {
       "type": "risk",
@@ -33,7 +48,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Потеря якорного актива Европлан (ROE 30%+) — холдинг стал shell-компанией",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "европлан",
+        "альфа-банк европлан",
+        "лизинг"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +61,10 @@
       "magnitude": "high",
       "date": null,
       "description": "ВСК под санкциями ЕС и UK — ограничения на перестрахование и международные расчёты",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "страхование"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +72,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "М.Видео — токсичный актив с долгом 159,7 млрд и убытком -25,2 млрд за 1П 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "м.видео",
+        "электроника"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +84,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Нет понятной стратегии реинвестирования, менеджмент опроверг продажу ВСК",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "вск продажа",
+        "сфи стратегия",
+        "sfi холдинг"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +97,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Free-float 10,71% — низкая ликвидность и манипулируемость цены",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сфи ликвидность",
+        "sfin free-float"
+      ]
     },
     {
       "type": "cb_meeting",

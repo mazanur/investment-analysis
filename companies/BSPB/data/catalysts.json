@@ -9,7 +9,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "P/BV 0.68x при годовом ROE 18.1% — рынок закладывает ROE 10-11%, что чрезмерно пессимистично",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "бспб"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Цикл снижения ставки ЦБ (15.5% → 10-14% к концу 2026) — позитив для всего банковского сектора",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "банковский сектор"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +33,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Менеджмент гайдит прибыль 2026 >35 млрд — ROE ~16%, подтверждает устойчивость бизнес-модели",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "бспб",
+        "гайденс"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +46,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Активный байбэк: акции снизились с 457.5 до 441.6 млн (-3.5%) — рост BV/share и EPS",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "бспб",
+        "обратный выкуп"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +59,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды ~12.8% при payout ~50%, запас капитала (Н1.2 = 19.7%) обеспечивает устойчивость выплат",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "дивиденд бспб",
+        "достаточность капитала"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +72,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "ROE обвалился до 8% в Q4'25 — нормализация NIM + всплеск операционных расходов (CIR 45%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "бспб",
+        "процентная маржа"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +85,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Покрытие NPL резервами снизилось с 93.4% до 78.6% — при росте портфеля +28% это создаёт кредитный риск",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "просрочка",
+        "резервы бспб"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +98,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Январь 2026 РСБУ: прибыль -29.4% г/г, NII -11.7% — сжатие маржи продолжается",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "бспб",
+        "процентные доходы"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +111,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Концентрация бизнеса на одном регионе (СЗФО)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "банк санкт-петербург",
+        "сзфо",
+        "петербург"
+      ]
     },
     {
       "type": "cb_meeting",

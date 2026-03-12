@@ -1,7 +1,7 @@
 {
   "ticker": "CHMF",
-  "company_name": "Северсталь",
-  "generated": "2026-03-11",
+  "company_name": "CHMF",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -17,7 +17,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Возможное дно цикла в металлургии",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "металлургия",
+        "арматура"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +29,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Качественные активы с низкой себестоимостью",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "северсталь",
+        "череповецкий комбинат"
+      ]
     },
     {
       "type": "risk",
@@ -33,7 +41,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Убыток в Q4 2025 (-17.8 млрд ₽) — первый за много лет",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "северсталь",
+        "череповец",
+        "металлопрокат"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +54,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Маржа EBITDA обвалилась до 13.8% в Q4 (было 29.6% год назад)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "северсталь",
+        "металлургия"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +66,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF отрицательный -30.5 млрд ₽ — компания сжигает кэш",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "северсталь"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +77,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "P/E 25x при падающей прибыли — переоценка в 4.8 раза",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "северсталь",
+        "стальной рынок"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +89,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Net cash превратился в Net debt (+21.7 млрд ₽)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "северсталь"
+      ]
     },
     {
       "type": "cb_meeting",

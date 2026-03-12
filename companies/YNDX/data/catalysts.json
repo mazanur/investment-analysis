@@ -1,7 +1,7 @@
 {
   "ticker": "YNDX",
-  "company_name": "Яндекс",
-  "generated": "2026-03-11",
+  "company_name": "YNDX",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Ускорение цикла снижения ставки ЦБ — переоценка всего tech-сектора",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "яндекс",
+        "it-сектор"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост маржи EBITDA продолжается (17.2% → 19.5%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "яндекс"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +32,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рекордная прибыль: скорр. ЧП +40% г/г до 141 млрд",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "яндекс"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +43,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Почти нулевой долг (Net Debt/EBITDA 0.2x)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "яндекс"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +54,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Растущие дивиденды (110 ₽, +37.5%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "яндекс",
+        "дивиденды яндекс"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +66,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Рост инфляции может замедлить цикл снижения ставки ЦБ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "яндекс",
+        "инфляция"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +78,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Регуляторное давление на контент и рекламу",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "реклама"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +89,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Конкуренция с VK за рекламный рынок",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "яндекс директ",
+        "рекламный рынок"
+      ]
     },
     {
       "type": "cb_meeting",

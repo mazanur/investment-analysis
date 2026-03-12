@@ -1,7 +1,7 @@
 {
   "ticker": "VTBR",
   "company_name": "VTBR",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ: +0,44 п.п. к ROE за каждые -1 п.п. ставки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "процентная маржа"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "NIM восстанавливается: 0,70% (Q1'25) → 2,00% (Q4'25) — сильный тренд",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "процентная маржа",
+        "nim"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды за 2025: 25-50% прибыли, потенциальная доходность 10-20%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "дивиденды втб",
+        "костин"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Масштаб: 2-е место по активам в РФ, доступ к крупнейшим корпоративным клиентам",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "банковский сектор"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +59,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Прогноз роста прибыли: 484 млрд (2025) → 600-650 млрд (2026E) = +24-34% YoY",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "прибыль втб"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +71,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "CET1 = 6,3% — по-прежнему низкий уровень достаточности капитала (буфер ~1 п.п. над минимумом)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "достаточность капитала",
+        "cet1"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +84,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Конвертация привилегированных акций до мая 2026 — параметры не раскрыты, разводнение 24-157%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "допэмиссия",
+        "конвертация",
+        "разводнение"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +97,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Полные блокирующие санкции США/ЕС, отключение от SWIFT",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "блокирующие санкции"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +109,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Зависимость от доходов по ценным бумагам (40% операционного дохода в 2025) — волатильный источник",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "портфель ценных бумаг"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +121,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Провизии 200 млрд (+10× YoY) — стоимость риска 1,1% при замедлении кредитования",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "втб",
+        "резервы",
+        "провизии",
+        "просрочка"
+      ]
     },
     {
       "type": "cb_meeting",

@@ -1,7 +1,7 @@
 {
   "ticker": "RUAL",
   "company_name": "RUAL",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Доля 26,39% в Норникеле (~628 млрд ₽) — потенциальные дивиденды от 2П 2026",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "норникель"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +20,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "LME вырос до ~$3 100/т (vs $2 630/т в предыдущем анализе) — улучшит маржу в 2П 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алюминий",
+        "lme",
+        "цены на алюминий"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +33,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "2-й по величине производитель алюминия в мире вне Китая (~4 млн т/год)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "русал",
+        "производство алюминия"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +45,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Низкоуглеродный алюминий ALLOW (90%+ на ГЭС) — премия к цене",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "русал",
+        "allow",
+        "низкоуглеродный алюминий"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +58,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Тайшетский завод (+428 тыс. т/год) — рост низкозатратных мощностей",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "русал",
+        "тайшетский завод",
+        "тайшет"
+      ]
     },
     {
       "type": "opportunity",
@@ -49,7 +71,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ до 15,5% (снизилась с 16%) — улучшает обслуживание долга",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "русал"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +82,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Критический уровень долга (Net Debt/EBITDA ~5,1x LTM), стресс-тест провален: при +3пп ставки → 92% EBITDA на проценты",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алюминий"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +101,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Потеря 42% мощностей по глинозёму (Украина, Австралия) — покупка на спот-рынке съедает маржу",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "глинозём",
+        "алюминий"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +113,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Косвенные санкции ЕС 16-й пакет (запрет импорта алюминия, фев 2025) ограничивают экспорт",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алюминий",
+        "импорт алюминия"
+      ]
     },
     {
       "type": "risk",

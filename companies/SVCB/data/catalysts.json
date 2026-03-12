@@ -1,7 +1,7 @@
 {
   "ticker": "SVCB",
   "company_name": "SVCB",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Owner-operated: основатели владеют 82,8% акций — максимальная alignment с миноритариями",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хотимский",
+        "братья хотимские",
+        "совкомбанк менеджмент"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Цикл снижения ставки ЦБ даст положительную переоценку портфеля облигаций (571 млрд)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомбанк облигации",
+        "переоценка ofz",
+        "портфель совкомбанк"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Интеграция Хоум Банка: 10 млн клиентов, 84 000 точек POS-кредитов, синергии в 2026",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хоум банк",
+        "совкомбанк интеграция",
+        "pos-кредитование",
+        "инлайф"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +49,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Исторический track record: 25 успешных M&A за 10 лет, средняя ROE ~34%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомбанк m&a",
+        "совкомбанк поглощение",
+        "совкомбанк сделка"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +62,11 @@
       "magnitude": "high",
       "date": null,
       "description": "SDN-санкции OFAC — Совкомбанк отключён от SWIFT, ограничены международные операции",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомбанк санкции",
+        "совкомбанк swift"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +74,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Достаточность капитала Н1.0 = 8,7% — ниже порога дивидендной политики (11,5%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомбанк капитал",
+        "н1.0",
+        "достаточность капитала совкомбанк"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +87,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Волатильность прибыли из-за переоценки портфеля облигаций и валютных позиций",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомбанк облигации",
+        "портфель ценных бумаг",
+        "переоценка ofz"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +100,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "CIR ухудшается с 51% до 59,3% — рост расходов после интеграции Хоум Банка",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хоум банк",
+        "совкомбанк интеграция",
+        "совкомбанк расходы"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +113,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост просроченной задолженности (CoR 2,95% LTM, в рознице Q3 = 5,0%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомбанк просрочка",
+        "pos-кредиты",
+        "розничное кредитование совкомбанк"
+      ]
     },
     {
       "type": "cb_meeting",

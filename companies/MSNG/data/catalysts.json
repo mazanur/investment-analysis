@@ -1,7 +1,7 @@
 {
   "ticker": "MSNG",
   "company_name": "MSNG",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Нулевой долг и кэш-подушка ~48 млрд руб, EV существенно ниже капитализации",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосэнерго",
+        "денежная позиция",
+        "депозиты"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Монопольное положение — крупнейший поставщик тепла в Москве (90% потребления)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосэнерго",
+        "теплоснабжение москвы",
+        "отопление"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Индексация тарифов выше инфляции (+11.3% в 2026 году)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "тарифы",
+        "тепло"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды за 2024 утверждены, прогноз на 12 мес ~0.415 руб (~16.4% доходность)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосэнерго",
+        "воса"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +59,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "ROE ~0.5% — бизнес не создаёт стоимость при стоимости капитала 20%+",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосэнерго"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +70,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "EBITDA резко упала с 34.9 до 22.9 млрд LTM (-34%) из-за тёплой зимы 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосэнерго",
+        "отопительный сезон",
+        "тёплая зима",
+        "теплоснабжение"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +84,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Газпром-контроль (53.85%) + Москва (26.45%) = 80% госвладение, кэш может использоваться в интересах Газпрома",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосэнерго",
+        "газпром",
+        "межгрупповые займы"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +97,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Самые старые мощности в российской генерации — половина станций старше 45 лет",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосэнерго",
+        "тэц",
+        "модернизация",
+        "износ оборудования"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +111,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ограниченное раскрытие информации — нет МСФО с 2022 года",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосэнерго",
+        "раскрытие информации"
+      ]
     },
     {
       "type": "cb_meeting",

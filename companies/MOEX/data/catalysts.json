@@ -1,7 +1,7 @@
 {
   "ticker": "MOEX",
   "company_name": "MOEX",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,15 +9,26 @@
       "magnitude": "medium",
       "date": null,
       "description": "Монополия — единственная лицензированная биржа в РФ, конкуренции нет",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосбиржа",
+        "лицензия",
+        "регулятор"
+      ]
     },
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Комиссионные доходы +25% YoY FY2025 (+37% в Q4'25), доля в операционных доходах 61%",
-      "source": "index"
+      "description": "Комиссионные доходы +25% YoY FY2025 (+27% в Q4'25), доля в операционных доходах 61%",
+      "source": "index",
+      "trigger_tags": [
+        "мосбиржа",
+        "комиссионные",
+        "объём торгов",
+        "оборот"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +36,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост числа частных инвесторов до 40,1 млн, 260 акций в листинге",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосбиржа",
+        "брокерские счета",
+        "частные инвесторы",
+        "иис"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +50,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Импортозамещение — компании выходят на IPO на Мосбирже вместо зарубежных площадок",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ipo",
+        "листинг",
+        "размещение акций"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,15 +63,24 @@
       "magnitude": "medium",
       "date": null,
       "description": "Собственные средства 209 млрд рублей, нулевой долг",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосбиржа",
+        "собственный капитал"
+      ]
     },
     {
       "type": "risk",
       "impact": "negative",
       "magnitude": "high",
       "date": null,
-      "description": "Падение процентных доходов при снижении ставки ЦБ — -38% YoY в FY2025, Q4'25 процентные всего 9,4 млрд (минимум)",
-      "source": "index"
+      "description": "Падение процентных доходов при снижении ставки ЦБ — -41% YoY в FY2025 до 48,4 млрд",
+      "source": "index",
+      "trigger_tags": [
+        "мосбиржа",
+        "процентный доход",
+        "клиентские средства"
+      ]
     },
     {
       "type": "risk",
@@ -57,15 +88,22 @@
       "magnitude": "high",
       "date": null,
       "description": "Санкции США на MOEX с июня 2024, прекращены торги USD/EUR, риск ограничений по юаню",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "валютные торги"
+      ]
     },
     {
       "type": "risk",
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Прибыль FY2025 упала на 25% до 59,4 млрд, Q4'25 слабый (14,0 млрд)",
-      "source": "index"
+      "description": "Прибыль FY2025 упала на 25% до 59,3 млрд, Q4'25 слабый (14,1 млрд)",
+      "source": "index",
+      "trigger_tags": [
+        "мосбиржа",
+        "операционные расходы"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +111,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Обсуждается перевод валютных торгов на СПВБ — потеря части комиссий",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мосбиржа",
+        "спвб",
+        "валютные торги",
+        "юань"
+      ]
     },
     {
       "type": "cb_meeting",

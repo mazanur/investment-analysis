@@ -1,7 +1,7 @@
 {
   "ticker": "VKCO",
   "company_name": "VKCO",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Долг сокращён вдвое: 174.3 → 77 млрд ₽ (допэмиссия 112 млрд в июне 2025)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "допэмиссия",
+        "погашение долга"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "EBITDA восстанавливается: 15.5 млрд за 9М 2025, прогноз >20 млрд за год",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "вконтакте"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ: 21% → 15.5%, облегчает долговое бремя",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "вконтакте"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +46,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост MAU ВКонтакте +4%, VK Video просмотры +19% YoY",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "вконтакте",
+        "vk video",
+        "vk видео"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +59,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "VK Tech (B2B) растёт +39% YoY — диверсификация от рекламы",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk tech",
+        "облако vk",
+        "vk cloud"
+      ]
     },
     {
       "type": "opportunity",
@@ -49,7 +72,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "АКРА повысило рейтинг до AA(RU) Stable",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "кредитный рейтинг",
+        "акра"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +85,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Хронические убытки (6 лет подряд, с 2020), путь к прибыльности неочевиден",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "вконтакте"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +97,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Финрасходы H1 2025 ~18 млрд ₽ — поглощают весь EBITDA 10.4 млрд",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "вконтакте"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +109,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Масштабное разводнение: акции выросли с 226 до ~925 млн (в 4.1x за 5 лет)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "допэмиссия",
+        "разводнение"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +122,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Аудиторская оговорка going concern в FY2024",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "аудит",
+        "going concern"
+      ]
     },
     {
       "type": "risk",
@@ -89,7 +135,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Замедление роста выручки: FY2024 +23% → 9М 2025 +10% YoY",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "vk",
+        "вконтакте"
+      ]
     },
     {
       "type": "cb_meeting",

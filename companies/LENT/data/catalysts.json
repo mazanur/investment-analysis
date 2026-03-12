@@ -1,7 +1,7 @@
 {
   "ticker": "LENT",
   "company_name": "LENT",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Выручка 2025: 1,104 трлн ₽ (+24,2% YoY) — лучший рост в food-ритейле",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лента",
+        "монетка",
+        "lfl"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Лучшая маржа EBITDA в секторе (~7,5% LTM vs 5-6% у конкурентов)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лента"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +33,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Ставка ЦБ снижена до 15,5% — цикл смягчения ускоряется, позитив для оценки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лента"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +44,15 @@
       "magnitude": "medium",
       "date": null,
       "description": "Завершение интеграций 2023-2025 → стабилизация FCF в 2026",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лента",
+        "монетка",
+        "улыбка радуги",
+        "obi",
+        "dom лента",
+        "реми"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +60,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Полные данные МСФО 2025 (EBITDA, ЧП) ожидаются в марте 2026 — неопределённость по Q4",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лента",
+        "годовой отчёт"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +72,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF нестабилен из-за агрессивного capex (LTM 20,2 млрд при ЧП 31,2 млрд)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лента",
+        "монетка",
+        "улыбка радуги"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +85,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Нет дивидендов — первые выплаты не ранее 2028 года",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лента"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +96,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Зависимость от мажоритария Севергрупп (81.5%), free-float 18.5%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лента",
+        "севергрупп",
+        "мордашов"
+      ]
     },
     {
       "type": "cb_meeting",

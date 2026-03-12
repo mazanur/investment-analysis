@@ -1,7 +1,7 @@
 {
   "ticker": "PHOR",
-  "company_name": "ФосАгро",
-  "generated": "2026-03-11",
+  "company_name": "PHOR",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ослабление рубля (76 → 85-95 ₽/$) → рост экспортной выручки и маржи",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фосагро",
+        "экспорт",
+        "валютная выручка"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ → переоценка мультипликаторов",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фосагро"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +33,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост цен на удобрения (низкие мировые запасы)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "удобрения",
+        "фосфаты",
+        "dap",
+        "цены на удобрения"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение долга до <1x → рост дивидендов (политика 75% FCF)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фосагро"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +58,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Завершение инвестпрограммы → нормализация FCF",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фосагро",
+        "капекс"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +70,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Снижение мировых цен на удобрения при росте предложения",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "удобрения",
+        "фосфаты",
+        "dap",
+        "цены на удобрения"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +84,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Экспортные пошлины ЕС (до 40%) ограничивают премиальные рынки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "пошлины",
+        "экспорт удобрений"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +96,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Заморозка внутренних цен снижает маржу",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "заморозка цен",
+        "регулирование цен",
+        "удобрения"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +109,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокий капекс давит на FCF (FCF/Net Income = 0,43)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фосагро"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +120,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Маржа EBITDA тренд вниз (45% → 35-38%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фосагро"
+      ]
     },
     {
       "type": "cb_meeting",

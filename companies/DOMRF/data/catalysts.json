@@ -1,7 +1,7 @@
 {
   "ticker": "DOMRF",
   "company_name": "DOMRF",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -17,7 +17,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Монополия в секьюритизации (99.3% рынка) — уникальный небанковский доход",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "секьюритизация",
+        "ипотечные облигации"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +29,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Новая дивполитика 50% прибыли — дивдоходность 12%+ за 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "дом.рф"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +40,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Стратегия удвоения бизнеса к 2030 — активы до 10.3 трлн",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "дом.рф",
+        "стратегия развития",
+        "жилищное строительство"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +53,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Резкий рост просроченной задолженности по ипотеке — доля 90+ дней выросла до 1.2% (с 0.7% на конец 2024)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "просрочка",
+        "дефолт заёмщиков"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +65,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Стоимость риска (CoR) выросла до 1.0% в Q3 2025 — худший показатель за историю компании",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "дом.рф",
+        "резервы",
+        "кредитные риски"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +78,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Низкий free float (10.1%) — ограниченная ликвидность, высокая волатильность",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "дом.рф",
+        "ликвидность",
+        "free float"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +91,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Государство контролирует 89.9% — риск непрозрачных решений, направление прибыли на госзадачи",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "дом.рф",
+        "росимущество",
+        "госкомпания"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +104,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Зависимость от льготной ипотеки — сворачивание программ ударит по банковскому сегменту",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "льготная ипотека",
+        "семейная ипотека",
+        "ипотечные программы"
+      ]
     },
     {
       "type": "cb_meeting",
