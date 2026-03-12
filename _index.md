@@ -78,7 +78,7 @@ author: AlmazNurmukhametov
 | companies/TCSG/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
 | companies/YNDX/_index.md | заполнен | 2026-02-17 | 2026-05-17 | ежеквартально |
 | companies/POSI/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
-| companies/MOEX/_index.md | заполнен | 2026-03-06 | 2026-06-06 | ежеквартально |
+| companies/MOEX/_index.md | заполнен | 2026-03-12 | 2026-06-12 | ежеквартально |
 | companies/GMKN/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
 | companies/LKOH/_index.md | заполнен | 2026-02-18 | 2026-05-18 | ежеквартально |
 | companies/CHMF/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
@@ -88,7 +88,7 @@ author: AlmazNurmukhametov
 | companies/SIBN/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/ALRS/_index.md | заполнен | 2026-03-04 | 2026-06-04 | ежеквартально |
 | companies/FIXP/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
-| companies/HEAD/_index.md | заполнен | 2026-03-06 | 2026-06-06 | ежеквартально |
+| companies/HEAD/_index.md | заполнен | 2026-03-12 | 2026-06-12 | ежеквартально |
 | companies/IRAO/_index.md | заполнен | 2026-02-18 | 2026-05-18 | ежеквартально |
 | companies/HYDR/_index.md | заполнен | 2026-02-18 | 2026-05-18 | ежеквартально |
 | companies/OZON/_index.md | заполнен | 2026-02-26 | 2026-05-26 | ежеквартально |
@@ -100,7 +100,7 @@ author: AlmazNurmukhametov
 | companies/FIVE/_index.md | заполнен | 2026-01-30 | — | делистинг, не требует обновления |
 | companies/YDEX/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/VKCO/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
-| companies/MTSS/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
+| companies/MTSS/_index.md | заполнен | 2026-03-12 | 2026-06-12 | ежеквартально |
 | companies/RTKM/_index.md | заполнен | 2026-02-27 | 2026-05-27 | ежеквартально |
 | companies/NLMK/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/MAGN/_index.md | заполнен | 2026-02-27 | 2026-05-27 | ежеквартально |

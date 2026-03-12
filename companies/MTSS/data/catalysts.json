@@ -1,14 +1,26 @@
 {
   "ticker": "MTSS",
   "company_name": "MTSS",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Цикл снижения ставки ЦБ ускорился: 15.5% (фев 2026), прогноз 10-14% к концу 2026 — резко снизит процентные расходы",
+      "description": "FCF развернулся: 133.6 млрд в 2025 (vs -1.4 в 2024), дивиденды покрыты 2x",
+      "source": "index",
+      "trigger_tags": [
+        "мтс банк",
+        "mts bank"
+      ]
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "high",
+      "date": null,
+      "description": "Цикл снижения ставки ЦБ: 15.5% → прогноз 10-14% к концу 2026, каждые 100 б.п. экономят ~7-8 млрд процентных расходов",
       "source": "index"
     },
     {
@@ -16,15 +28,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Стабильный операционный бизнес с EBITDA ~268 млрд и растущей выручкой (+14% за 9М25)",
-      "source": "index"
-    },
-    {
-      "type": "opportunity",
-      "impact": "positive",
-      "magnitude": "high",
-      "date": null,
-      "description": "Дивидендная доходность 15.4% — одна из высших на рынке; политика гарантирует ≥35 ₽ до 2026",
+      "description": "Операционный бизнес ускоряется: выручка +14.7%, EBITDA +13.5%, рекордная выручка Q4'25 (222.5 млрд)",
       "source": "index"
     },
     {
@@ -33,6 +37,19 @@
       "magnitude": "medium",
       "date": null,
       "description": "Экосистемная трансформация (финтех, облако, AdTech) создаёт новые точки роста",
+      "source": "index",
+      "trigger_tags": [
+        "мтс банк",
+        "kion",
+        "мтс cloud"
+      ]
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Процентные расходы 143 млрд (FY2025), но Q4'25 показал первое снижение (32 млрд/кв. vs 40 в Q3)",
       "source": "index"
     },
     {
@@ -40,15 +57,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Отрицательный капитал и почти нулевой FCF при рекордных процентных расходах (~141 млрд LTM)",
-      "source": "index"
-    },
-    {
-      "type": "risk",
-      "impact": "negative",
-      "magnitude": "high",
-      "date": null,
-      "description": "Дивиденды финансируются долгом (payout 455% LTM), устойчивость под вопросом",
+      "description": "Отрицательный капитал (-11.7 млрд), хотя улучшение с -37.7 в 2024",
       "source": "index"
     },
     {
@@ -56,7 +65,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Маржа EBITDA сжимается 5 лет подряд (43.5% → 34.6%)",
+      "description": "Консолидированный Net Debt/EBITDA вырос до 2.54x (включая МТС Банк); ex-bank оценка ~1.7x",
       "source": "index"
     },
     {
@@ -64,7 +73,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Долг растёт (741 млрд, +73% за 4 года) при отрицательном собственном капитале",
+      "description": "Маржа EBITDA стабилизировалась на 34.7%, но на историческом минимуме (vs 43.5% в 2020)",
       "source": "index"
     },
     {
