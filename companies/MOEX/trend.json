@@ -1,8 +1,8 @@
 {
   "ticker": "MOEX",
   "sentiment": "neutral",
-  "upside": 0.21,
+  "upside": 0.22,
   "growth_probability": 0.4,
   "decline_probability": 0.4,
-  "updated": "2026-03-11"
+  "updated": "2026-03-12"
 }

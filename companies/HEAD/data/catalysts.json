@@ -1,7 +1,7 @@
 {
   "ticker": "HEAD",
   "company_name": "HEAD",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -24,7 +24,7 @@
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Дивиденды 233 руб/акцию (доходность ~7.8%) + полугодовые выплаты",
+      "description": "Дивиденды 466 руб/акцию за 2025 (доходность ~15.5%) + полугодовые выплаты",
       "source": "index"
     },
     {
@@ -41,7 +41,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рынок труда РФ напряжённый (безработица 2.4%) — структурный спрос на рекрутинг",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "безработица",
+        "рынок труда",
+        "найм"
+      ]
     },
     {
       "type": "risk",
@@ -80,7 +85,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Непрозрачность акционерной структуры",
+      "description": "Резкий рост CAPEX до 1.6 млрд (+167% г/г) — давление на FCF",
       "source": "index"
     },
     {

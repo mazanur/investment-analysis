@@ -1,14 +1,14 @@
 {
   "ticker": "BSPB",
   "company_name": "BSPB",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "P/BV 0.69x при годовом ROE 18.1% — рынок закладывает ROE 10-11%, что чрезмерно пессимистично",
+      "description": "P/BV 0.68x при годовом ROE 18.1% — рынок закладывает ROE 10-11%, что чрезмерно пессимистично",
       "source": "index"
     },
     {
@@ -24,7 +24,15 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Активный байбэк: акции снизились с 457.5 до 445.4 млн — рост BV/share и EPS",
+      "description": "Менеджмент гайдит прибыль 2026 >35 млрд — ROE ~16%, подтверждает устойчивость бизнес-модели",
+      "source": "index"
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Активный байбэк: акции снизились с 457.5 до 441.6 млн (-3.5%) — рост BV/share и EPS",
       "source": "index"
     },
     {
@@ -32,7 +40,7 @@
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Дивиденды ~12.7% при payout ~50%, запас капитала (Н1.2 = 19.7%) обеспечивает устойчивость выплат",
+      "description": "Дивиденды ~12.8% при payout ~50%, запас капитала (Н1.2 = 19.7%) обеспечивает устойчивость выплат",
       "source": "index"
     },
     {
@@ -48,15 +56,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Концентрация бизнеса на одном регионе (СЗФО)",
-      "source": "index"
-    },
-    {
-      "type": "risk",
-      "impact": "negative",
-      "magnitude": "high",
-      "date": null,
-      "description": "Санкции могут ограничить ВЭД-операции — ключевой источник комиссионных доходов",
+      "description": "Покрытие NPL резервами снизилось с 93.4% до 78.6% — при росте портфеля +28% это создаёт кредитный риск",
       "source": "index"
     },
     {
@@ -64,7 +64,15 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Агрессивный рост кредитного портфеля (+28%) может привести к росту резервов",
+      "description": "Январь 2026 РСБУ: прибыль -29.4% г/г, NII -11.7% — сжатие маржи продолжается",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Концентрация бизнеса на одном регионе (СЗФО)",
       "source": "index"
     },
     {
@@ -85,8 +93,8 @@
     }
   ],
   "summary": {
-    "total": 10,
-    "positive": 4,
+    "total": 11,
+    "positive": 5,
     "negative": 4,
     "mixed": 2
   }

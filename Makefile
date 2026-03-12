@@ -23,7 +23,7 @@ NC     := \033[0m
 TODAY := $(shell date +%Y-%m-%d)
 
 # Общие флаги для Claude в автоматическом режиме
-CLAUDE_FLAGS := --verbose --allowedTools "Read Write Glob Grep Bash" --output-format stream-json
+CLAUDE_FLAGS := --verbose --dangerously-skip-permissions --allowedTools "Read Write Glob Grep Bash WebSearch WebFetch Agent" --output-format stream-json
 CLAUDE_LOG := python3 scripts/claude_log.py
 
 help:
@@ -368,7 +368,7 @@ check-reports:
 		while IFS= read -r ticker; do \
 			[ -z "$$ticker" ] && continue; \
 			echo "$(CYAN)═══ Анализ $$ticker ═══$(NC)"; \
-		claude $(CLAUDE_FLAGS) -p "Для компании $$ticker вышел новый финансовый отчёт. Обнови анализ компании следуя методологии из companies/RESEARCH_GUIDE.md (фазы 0-8). После обновления запусти make trends && make dashboard." < /dev/null | $(CLAUDE_LOG); \
+		CLAUDECODE= claude $(CLAUDE_FLAGS) -p "Для компании $$ticker вышел новый финансовый отчёт. Обнови анализ компании следуя методологии из companies/RESEARCH_GUIDE.md (фазы 0-8). После обновления запусти make trends && make dashboard." < /dev/null | $(CLAUDE_LOG); \
 			echo ""; \
 		done < reports_new_tickers.txt; \
 	else \
