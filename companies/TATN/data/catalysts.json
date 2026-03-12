@@ -37,7 +37,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "TANECO НПЗ (99,2% глубина переработки) — буфер при низких ценах на сырую нефть",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "танеко",
+        "taneco",
+        "нпз татнефть"
+      ]
     },
     {
       "type": "opportunity",
@@ -63,9 +68,9 @@
       "description": "Падение цен на нефть — Urals ~$58-60/барр. в 2025, риск дальнейшего снижения",
       "source": "index",
       "trigger_tags": [
-        "urals",
-        "brent",
-        "опек"
+        "опек+",
+        "квоты",
+        "добыча нефти"
       ]
     },
     {
@@ -74,7 +79,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Санкции UK (декабрь 2025) + персональные санкции CEO в SDN-списке OFAC",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "маганов",
+        "татарстан санкции"
+      ]
     },
     {
       "type": "risk",
@@ -90,7 +99,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Налог на прибыль 25% с 2025 (vs 20%), снижение дисконта НДПИ в 2026",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ндпи",
+        "демпфер",
+        "налоговая нагрузка нефтяников"
+      ]
     },
     {
       "type": "cb_meeting",
