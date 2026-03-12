@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 from decimal import Decimal
 
-from sqlalchemy import BigInteger, ForeignKey, Numeric, String
+from sqlalchemy import BigInteger, ForeignKey, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -37,6 +37,9 @@ class Company(Base):
     figi: Mapped[str | None] = mapped_column(String(12), nullable=True, index=True)
     tinkoff_uid: Mapped[str | None] = mapped_column(String(50), nullable=True)
     lot_size: Mapped[int | None] = mapped_column(nullable=True)
+    business_model: Mapped[str | None] = mapped_column(Text, nullable=True)
+    thesis: Mapped[str | None] = mapped_column(Text, nullable=True)
+    scenarios: Mapped[str | None] = mapped_column(Text, nullable=True)
     updated_at: Mapped[datetime] = mapped_column(default=_utcnow, onupdate=_utcnow)
 
     sector: Mapped["Sector | None"] = relationship(back_populates="companies")  # noqa: F821

@@ -30,6 +30,9 @@ class CompanyCreate(BaseModel):
     dividend_yield: Optional[Decimal] = None
     roe: Optional[Decimal] = None
     gov_ownership: Optional[Decimal] = None
+    business_model: Optional[str] = None
+    thesis: Optional[str] = None
+    scenarios: Optional[str] = None
 
 
 class CompanyUpdate(BaseModel):
@@ -50,6 +53,9 @@ class CompanyUpdate(BaseModel):
     dividend_yield: Optional[Decimal] = None
     roe: Optional[Decimal] = None
     gov_ownership: Optional[Decimal] = None
+    business_model: Optional[str] = None
+    thesis: Optional[str] = None
+    scenarios: Optional[str] = None
 
 
 class CompanyListResponse(BaseModel):
@@ -99,6 +105,9 @@ class CompanyResponse(BaseModel):
     gov_ownership: Optional[Decimal] = None
     figi: Optional[str] = None
     lot_size: Optional[int] = None
+    business_model: Optional[str] = None
+    thesis: Optional[str] = None
+    scenarios: Optional[str] = None
     updated_at: dt.datetime
 
     latest_price: Optional[PriceResponse] = None

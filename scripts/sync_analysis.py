@@ -154,6 +154,144 @@ def to_decimal(v):
 
 
 # ---------------------------------------------------------------------------
+# Markdown body extractors
+# ---------------------------------------------------------------------------
+
+def extract_business_model(text: str) -> str | None:
+    """Extract 'Бизнес-модель' opening paragraph from _index.md (up to 200 chars)."""
+    m = re.search(r"## Бизнес-модель\s*\n(.*?)(?=\n## |\Z)", text, re.DOTALL)
+    if not m:
+        return None
+    body = m.group(1).strip()
+    lines = body.split("\n")
+    result_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            if result_lines:
+                break
+            continue
+        result_lines.append(stripped)
+    result = " ".join(result_lines)
+    if not result:
+        return None
+    if len(result) > 200:
+        result = result[:197] + "..."
+    return result
+
+
+def extract_thesis(text: str) -> str | None:
+    """Extract 'Мой тезис' / 'Инвестиционный тезис' opening paragraph (up to 500 chars)."""
+    m = re.search(r"## (?:Мой тезис|Инвестиционный тезис)\s*\n(.*?)(?=\n## |\Z)", text, re.DOTALL)
+    if not m:
+        return None
+    body = m.group(1).strip()
+    lines = body.split("\n")
+    result_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            if result_lines:
+                break
+            continue
+        if re.match(r"\*\*Обновлени[ея]", stripped):
+            continue
+        result_lines.append(stripped)
+    result = " ".join(result_lines)
+    if not result:
+        return None
+    if len(result) > 500:
+        result = result[:497] + "..."
+    return result
+
+
+def extract_scenarios(text: str) -> str | None:
+    """Extract fair value scenarios table (pessimistic/base/optimistic).
+
+    Supports two formats:
+    1. Row-based: | Пессимистичный (...) | ... | 2500 руб. | -52% |
+    2. Column-based: header | Пессимистичный | Базовый | Оптимистичный |
+       with price/upside rows below.
+    """
+    # --- Try row-based format first (scenario name in first column) ---
+    # Match scenario names with optional extra text in parentheses and bold markers
+    scenarios = []
+    seen_names = set()
+    for m in re.finditer(
+        r"\|\s*\*{0,2}(Пессимистичн\w*|Базов\w*|Оптимистичн\w*)[^|]*\*{0,2}\s*\|(.+)\|",
+        text,
+    ):
+        raw_name = m.group(1).strip()
+        # Normalize to short name
+        if raw_name.startswith("Пессимистичн"):
+            name = "Пессимистичный"
+        elif raw_name.startswith("Базов"):
+            name = "Базовый"
+        else:
+            name = "Оптимистичный"
+        if name in seen_names:
+            break
+        seen_names.add(name)
+        rest = m.group(2).strip()
+        cells = [c.strip().replace("**", "").strip() for c in rest.split("|")]
+        upside_idx = None
+        for i in range(len(cells) - 1, -1, -1):
+            if "%" in cells[i] and re.search(r"[+-]?\d+", cells[i]):
+                upside_idx = i
+                break
+        if upside_idx is not None and upside_idx > 0:
+            upside = cells[upside_idx].strip()
+            price_raw = cells[upside_idx - 1].strip()
+            price = re.sub(r"[^\d.]", "", price_raw.replace(",", "").replace(" ", "")).strip(".")
+            if price:
+                scenarios.append(f"{name}: {price} ₽ ({upside})")
+    if scenarios:
+        return " | ".join(scenarios)
+
+    # --- Try column-based format (scenario names as column headers) ---
+    # Find header: | ... | Пессимистичный | Базовый | Оптимистичный |
+    header_m = re.search(
+        r"\|[^|]*\|\s*\*{0,2}Пессимистичн\w*\*{0,2}\s*\|\s*\*{0,2}Базов\w*\*{0,2}\s*\|\s*\*{0,2}Оптимистичн\w*\*{0,2}\s*\|",
+        text,
+    )
+    if not header_m:
+        return None
+
+    # Find price and upside rows after the header
+    after_header = text[header_m.end():]
+    lines = after_header.split("\n")
+    price_cells = None
+    upside_cells = None
+    for line in lines:
+        line_clean = line.strip().replace("**", "")
+        if not line_clean.startswith("|"):
+            continue
+        cells = [c.strip() for c in line_clean.strip("|").split("|")]
+        if len(cells) < 4:
+            continue
+        label = cells[0].lower()
+        # Price row: contains "целев" (целевая цена) or "цена" and has numbers
+        if ("целев" in label or "цена" == label) and re.search(r"\d", cells[1]):
+            price_cells = cells[1:4]
+        # Upside row
+        if "upside" in label and re.search(r"[+-]?\d+%", cells[1]):
+            upside_cells = cells[1:4]
+
+    if price_cells:
+        names = ["Пессимистичный", "Базовый", "Оптимистичный"]
+        for i, name in enumerate(names):
+            price = re.sub(r"[^\d.]", "", price_cells[i].replace(",", "").replace(" ", ""))
+            if price:
+                upside = upside_cells[i].strip() if upside_cells else ""
+                if upside:
+                    scenarios.append(f"{name}: {price} ₽ ({upside})")
+                else:
+                    scenarios.append(f"{name}: {price} ₽")
+
+    return " | ".join(scenarios) if scenarios else None
+
+
+# ---------------------------------------------------------------------------
 # Data parsers
 # ---------------------------------------------------------------------------
 
@@ -170,6 +308,11 @@ def parse_company_frontmatter(ticker_dir: Path) -> dict | None:
         return None
     if fm.get("ticker") == "TICKER" or fm.get("sector") == "sector_name":
         return None
+
+    # Extract text sections from markdown body
+    business_model = extract_business_model(text)
+    thesis = extract_thesis(text)
+    scenarios = extract_scenarios(text)
 
     payload = {
         "name": fm.get("name", fm["ticker"]),
@@ -188,6 +331,9 @@ def parse_company_frontmatter(ticker_dir: Path) -> dict | None:
         "dividend_yield": to_decimal(fm.get("dividend_yield")),
         "roe": to_decimal(fm.get("roe")),
         "gov_ownership": to_decimal(fm.get("gov_ownership")),
+        "business_model": business_model,
+        "thesis": thesis,
+        "scenarios": scenarios,
     }
 
     return {k: v for k, v in payload.items() if v is not None}
