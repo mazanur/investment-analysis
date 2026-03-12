@@ -1,7 +1,7 @@
 {
   "ticker": "TATN",
   "company_name": "TATN",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -14,9 +14,21 @@
     {
       "type": "opportunity",
       "impact": "positive",
-      "magnitude": "high",
+      "magnitude": "medium",
       "date": null,
-      "description": "FCF FY 2024: 254 млрд ₽ (+150% г/г), чистый кэш 104 млрд — капитал для дивидендов",
+      "description": "Продажа шинного бизнеса (Ikon Tyres) за 26,3 млрд ₽ (март 2026) — избавление от убыточного сегмента",
+      "source": "index",
+      "trigger_tags": [
+        "ikon tyres",
+        "шинный бизнес"
+      ]
+    },
+    {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Восстановление прибыли в 2П 2025: ЧП 104,4 млрд (vs 54,2 в 1П) — тренд позитивный",
       "source": "index"
     },
     {
@@ -40,7 +52,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Обвал ЧП в 2025: -64% г/г по МСФО за 1П 2025 (54,2 млрд), РСБУ 9М -39%",
+      "description": "ЧП МСФО FY 2025 = 158,6 млрд ₽ (-48% г/г), EPS 70,48 ₽ — кризисный год подтверждён",
       "source": "index"
     },
     {
@@ -48,8 +60,13 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Падение цен на нефть — Urals $59/барр. в 1П 2025 vs $69 в 1П 2024",
-      "source": "index"
+      "description": "Падение цен на нефть — Urals ~$58-60/барр. в 2025, риск дальнейшего снижения",
+      "source": "index",
+      "trigger_tags": [
+        "urals",
+        "brent",
+        "опек"
+      ]
     },
     {
       "type": "risk",
@@ -64,7 +81,15 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Укрепление рубля (86,9 ₽/$ в 1П 2025) — компрессия рублёвой выручки",
+      "description": "Укрепление рубля — основной фактор обвала прибыли, FX-убытки 25,1 млрд ₽ в 2025",
+      "source": "index"
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Налог на прибыль 25% с 2025 (vs 20%), снижение дисконта НДПИ в 2026",
       "source": "index"
     },
     {
@@ -85,9 +110,9 @@
     }
   ],
   "summary": {
-    "total": 10,
-    "positive": 4,
-    "negative": 4,
+    "total": 12,
+    "positive": 5,
+    "negative": 5,
     "mixed": 2
   }
 }
