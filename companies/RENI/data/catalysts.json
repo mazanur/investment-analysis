@@ -1,23 +1,33 @@
 {
   "ticker": "RENI",
   "company_name": "RENI",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Float economics — портфель резервов вырос до 275 млрд ₽ (+35% с начала 2025)",
-      "source": "index"
+      "description": "Float economics — инвестпортфель 286 млрд ₽ (+21,7% за 2025)",
+      "source": "index",
+      "trigger_tags": [
+        "ренессанс страхование",
+        "страховые резервы",
+        "инвестпортфель"
+      ]
     },
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Рост Life-сегмента: НСЖ +83,9% YoY за 9М 2025",
-      "source": "index"
+      "description": "Рост Life-сегмента: премии 130,2 млрд (+35% YoY), доля 64% от всех премий",
+      "source": "index",
+      "trigger_tags": [
+        "нсж",
+        "накопительное страхование жизни",
+        "ренессанс жизнь"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,55 +35,74 @@
       "magnitude": "high",
       "date": null,
       "description": "P/BV expansion при снижении ставки ЦБ (прогноз 10-14% к концу 2026)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ренессанс страхование",
+        "переоценка"
+      ]
     },
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Дивидендная доходность ~10-11% к текущей цене",
-      "source": "index"
+      "description": "Дивиденды за FY 2025 — ожидается ~5,8 ₽ финальных (payout 50% политика)",
+      "source": "index",
+      "trigger_tags": [
+        "ренессанс страхование",
+        "совет директоров"
+      ]
     },
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Guidance менеджмента: прибыль 2025 ≥ 11 млрд (не хуже 2024)",
-      "source": "index"
+      "description": "Free-float увеличен до 30% — улучшение ликвидности и потенциал для индексных фондов",
+      "source": "index",
+      "trigger_tags": [
+        "ренессанс страхование",
+        "free-float",
+        "индексные фонды"
+      ]
     },
     {
       "type": "risk",
       "impact": "negative",
       "magnitude": "high",
       "date": null,
-      "description": "Снижение ставки ЦБ уменьшит инвестиционный доход от резервов (275 млрд ₽ портфель)",
-      "source": "index"
+      "description": "Снижение ставки ЦБ уменьшит инвестиционный доход от резервов (286 млрд ₽ портфель)",
+      "source": "index",
+      "trigger_tags": [
+        "ренессанс страхование",
+        "инвестиционный портфель",
+        "облигации"
+      ]
     },
     {
       "type": "risk",
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Переход на МСФО 17 создал эффект «бумажного» снижения прибыли г/г",
-      "source": "index"
+      "description": "МСФО 17 искажает сравнение г/г — ROE снижается 3 года подряд (23,7% → 20,4% → 19,6%)",
+      "source": "index",
+      "trigger_tags": [
+        "мсфо 17",
+        "страховые стандарты",
+        "ренессанс"
+      ]
     },
     {
       "type": "risk",
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Low free-float ~15% — ограниченная ликвидность",
-      "source": "index"
-    },
-    {
-      "type": "risk",
-      "impact": "negative",
-      "magnitude": "medium",
-      "date": null,
-      "description": "Валютная переоценка (-1,1 млрд за 9М 2025) волатилизирует прибыль",
-      "source": "index"
+      "description": "Валютная переоценка волатилизирует прибыль (эффект ~1 млрд ₽)",
+      "source": "index",
+      "trigger_tags": [
+        "ренессанс страхование",
+        "валютная переоценка"
+      ]
     },
     {
       "type": "cb_meeting",
@@ -93,9 +122,9 @@
     }
   ],
   "summary": {
-    "total": 11,
+    "total": 10,
     "positive": 5,
-    "negative": 4,
+    "negative": 3,
     "mixed": 2
   }
 }

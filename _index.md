@@ -67,7 +67,7 @@ author: AlmazNurmukhametov
 | companies/EUTR/_index.md | заполнен | 2026-01-28 | 2026-04-28 | ежеквартально |
 | companies/BSPB/_index.md | заполнен | 2026-03-12 | 2026-06-12 | ежеквартально |
 | companies/FLOT/_index.md | заполнен | 2026-01-31 | 2026-04-30 | ежеквартально |
-| companies/RENI/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
+| companies/RENI/_index.md | заполнен | 2026-03-12 | 2026-06-12 | ежеквартально |
 | companies/SFIN/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/BELU/_index.md | заполнен | 2026-02-11 | 2026-05-11 | ежеквартально |
 | companies/BANEP/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
@@ -121,5 +121,5 @@ author: AlmazNurmukhametov
 | companies/AFKS/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
 | companies/UGLD/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/CNRU/_index.md | заполнен | 2026-02-05 | 2026-05-05 | ежеквартально |
-| companies/RAGR/_index.md | заполнен | 2026-03-10 | 2026-06-10 | ежеквартально |
+| companies/RAGR/_index.md | заполнен | 2026-03-12 | 2026-06-12 | ежеквартально |
 | companies/GCHE/_index.md | заполнен | 2026-02-25 | 2026-05-25 | ежеквартально |
