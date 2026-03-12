@@ -36,7 +36,7 @@ key_opportunities:
   - text: Минимальный долг (ND/EBITDA 0.3x), нет процентного риска
     trigger_tags: [фикс прайс, fix price]
   - text: Начало регулярных дивидендных выплат с 2026 года (≥50% NI)
-    trigger_tags: [фикс прайс, fix price, дивидендная политика]
+    trigger_tags: [фикс прайс, fix price]
   - text: Уникальная ниша — единственный публичный value-ритейлер в РФ
     trigger_tags: [фикс прайс, fix price, value ритейл, магазины низких цен]
 ---

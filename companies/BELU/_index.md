@@ -19,7 +19,7 @@ upside: 25
 position: watch
 key_risks:
   - text: Падение маржи EBITDA с 17.8% до 14.4% требует внимания
-    trigger_tags: [novabev, белуга, винлаб, маржинальность]
+    trigger_tags: [novabev, белуга, винлаб]
   - text: Конкуренция в off-trade от X5 и Магнита, развивающих алкогольные категории
     trigger_tags: [винлаб, пятерочка, магнит, алкомаркет]
   - text: Повышение акцизов и ограничения на рекламу/продажу алкоголя
@@ -34,7 +34,7 @@ key_opportunities:
   - text: Рост выручки ~15-20% YoY за счёт органической экспансии ВинЛаб
     trigger_tags: [винлаб, novabev, алкогольная розница]
   - text: Высокое качество прибыли: OCF/NI = 4.26, FCF 13 млрд руб
-    trigger_tags: [novabev, белуга групп, денежный поток]
+    trigger_tags: [novabev, белуга групп]
 ---
 
 # Novabev Group (BELU)

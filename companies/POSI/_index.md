@@ -22,9 +22,9 @@ gov_ownership: 0
 gov_discount: 0
 key_risks:
   - text: FCF отрицательный (-6.2 млрд LTM), бизнес пока не генерирует кэш
-    trigger_tags: [positive technologies, денежный поток]
+    trigger_tags: [positive technologies]
   - text: Долговая нагрузка Net Debt/EBITDA 2.61x (LTM), ожидается снижение в Q4 2025
-    trigger_tags: [positive technologies, долг]
+    trigger_tags: [positive technologies]
   - text: Допэмиссия: акции размыты с 66 до 71 млн (+8% за 2024), риск повторения
     trigger_tags: [positive technologies, допэмиссия, размытие]
   - text: Аудированные МСФО за 2025 только 7 апреля 2026 — риск разочарования

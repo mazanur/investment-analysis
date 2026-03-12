@@ -1,14 +1,14 @@
 {
   "ticker": "RAGR",
   "company_name": "RAGR",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Рекордная выручка 396 млрд, EBITDA растёт (+11%)",
+      "description": "Рекордная выручка 396 млрд, EBITDA растёт (+11%), маржа H2 восстановилась до 17%",
       "source": "index"
     },
     {
@@ -17,7 +17,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Завершение инвестцикла (МЭЗ, хранение свеклы) → нормализация FCF в 2026-2027",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "аткарский мэз",
+        "свекла"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +45,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Лидерство по экспорту масла в Азию, рейтинг AA-(RU)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "масло",
+        "подсолнечное масло"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +57,13 @@
       "magnitude": "high",
       "date": null,
       "description": "Арест Мошковича (~49%) и экс-CEO Басова + национализация Агро-Белогорье",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "национализация",
+        "арест",
+        "мошкович",
+        "басов"
+      ]
     },
     {
       "type": "risk",

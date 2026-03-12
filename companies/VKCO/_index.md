@@ -20,15 +20,15 @@ gov_ownership: 0
 gov_discount: 0
 key_risks:
   - text: Хронические убытки (6 лет подряд, с 2020), путь к прибыльности неочевиден
-    trigger_tags: [vk, вконтакте, убыток]
+    trigger_tags: [vk, вконтакте]
   - text: Финрасходы H1 2025 ~18 млрд ₽ — поглощают весь EBITDA 10.4 млрд
-    trigger_tags: [vk, вконтакте, долг]
+    trigger_tags: [vk, вконтакте]
   - text: Масштабное разводнение: акции выросли с 226 до ~925 млн (в 4.1x за 5 лет)
     trigger_tags: [vk, допэмиссия, разводнение]
   - text: Аудиторская оговорка going concern в FY2024
     trigger_tags: [vk, аудит, going concern]
   - text: Замедление роста выручки: FY2024 +23% → 9М 2025 +10% YoY
-    trigger_tags: [vk, вконтакте, выручка]
+    trigger_tags: [vk, вконтакте]
 key_opportunities:
   - text: Долг сокращён вдвое: 174.3 → 77 млрд ₽ (допэмиссия 112 млрд в июне 2025)
     trigger_tags: [vk, допэмиссия, погашение долга]

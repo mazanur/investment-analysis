@@ -21,22 +21,22 @@ gov_ownership: 0
 gov_discount: 0
 key_risks:
   - text: Сжатие маржи ЧП с 15.4% до 8.9% из-за роста процентных расходов (+59% г/г)
-    trigger_tags: [henderson, процентные расходы, маржинальность]
+    trigger_tags: [henderson]
   - text: FCF близок к нулю — высокий CAPEX в фазе экспансии съедает операционный поток
-    trigger_tags: [henderson, капитальные затраты, экспансия]
+    trigger_tags: [henderson, экспансия]
   - text: LFL +5.7% — рост сопоставимых продаж ниже инфляции, реальный рост отрицательный
     trigger_tags: [henderson, lfl, сопоставимые продажи]
   - text: Замедление темпов роста выручки: +14.8% в 2025 vs +24.3% в 2024
-    trigger_tags: [henderson, выручка, замедление роста]
+    trigger_tags: [henderson, замедление роста]
 key_opportunities:
   - text: Уход западных брендов (Zara, H&M, Uniqlo) освободил рынок для Henderson
     trigger_tags: [zara, h&m, одежда, fashion]
   - text: E-commerce растёт на +29% г/г, доля онлайн достигла 23.4%
     trigger_tags: [henderson, интернет-магазин, онлайн-продажи]
   - text: Высокий ROE 30% — эффективный бизнес с хорошей отдачей на капитал
-    trigger_tags: [henderson, рентабельность]
+    trigger_tags: [henderson]
   - text: Снижение ставки ЦБ — главный катализатор восстановления маржи ЧП до 12-15%
-    trigger_tags: [henderson, маржинальность]
+    trigger_tags: [henderson]
   - text: Органическая экспансия — рост площадей с 57 до 69 тыс. м²
     trigger_tags: [henderson, новые магазины, торговая площадь]
 ---
