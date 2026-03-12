@@ -1,7 +1,7 @@
 {
   "ticker": "SGZH",
   "company_name": "SGZH",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Вертикальная интеграция и крупнейший лесопромышленный холдинг РФ — масштаб и лесные участки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лесные участки",
+        "лесозаготовка",
+        "сегежский цбк"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ снизит процентные расходы при рефинансировании долга",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сегежа рефинансирование",
+        "облигации сегежа"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Допэмиссия 2025 сократила чистый долг втрое — устранена непосредственная угроза дефолта",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "допэмиссия",
+        "размывание"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +46,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Диверсификация продукции (бумага, упаковка, пиломатериалы, фанера, CLT)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "крафтовая бумага",
+        "бумажные мешки",
+        "фанера",
+        "clt-панели"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +60,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Хронические убытки 11+ кварталов, OIBDA не покрывает процентные расходы (~4 vs ~11 млрд/год)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сегежа убыток",
+        "сегежа долг",
+        "целлюлоза"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +73,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Net Debt/EBITDA = 27x (LTM) — критический уровень долговой нагрузки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сегежа рефинансирование",
+        "облигации сегежа"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +85,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Допэмиссия 2025 размыла миноритариев в 5 раз, free float снизился до 5%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "допэмиссия",
+        "размывание"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +97,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Полная зависимость от поддержки АФК «Система» — без неё риск дефолта",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "афк система",
+        "система поддержка",
+        "сегежа дефолт"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +110,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Слабый спрос в Китае и укрепление рубля давят на экспортную выручку (~50%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "лес",
+        "пиломатериалы",
+        "древесина",
+        "китай"
+      ]
     },
     {
       "type": "cb_meeting",

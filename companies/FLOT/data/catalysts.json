@@ -1,7 +1,7 @@
 {
   "ticker": "FLOT",
-  "company_name": "Совкомфлот",
-  "generated": "2026-03-11",
+  "company_name": "FLOT",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Отрицательный чистый долг (-13.6 млрд руб) — запас ликвидности для выживания",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фрахт",
+        "танкеры",
+        "морские перевозки",
+        "ставки фрахта"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +23,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Валютная выручка (USD) при рублёвых расходах — защита от девальвации",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомфлот",
+        "валютная выручка",
+        "танкерные перевозки"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +36,12 @@
       "magnitude": "high",
       "date": null,
       "description": "При снятии санкций — upside +49% (возврат к уровню прибыли 2024 года)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомфлот",
+        "снятие санкций",
+        "геополитика"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +49,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Положительный FCF LTM (40 млрд руб) несмотря на убыток",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомфлот",
+        "scf"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +61,10 @@
       "magnitude": "high",
       "date": null,
       "description": "69 судов в SDN-листе OFAC — 3/4 флота под санкционными ограничениями",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "танкеры"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +72,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Выручка -36% YoY, чистый убыток LTM -31.7 млрд руб",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомфлот",
+        "scf",
+        "танкерный флот"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +85,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Госкомпания (82.8%) — правительство блокирует дивиденды при наличии прибыли",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомфлот",
+        "росимущество",
+        "госкомпания"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +98,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Маржа EBITDA сжалась с 72% до 53% из-за санкций",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомфлот",
+        "scf",
+        "теневой флот"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +111,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Обесценение BV/share на 22% за 3 квартала (210.5 → 163.5 руб)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "совкомфлот",
+        "обесценение флота",
+        "списание активов"
+      ]
     },
     {
       "type": "cb_meeting",

@@ -1,7 +1,7 @@
 {
   "ticker": "NVTK",
   "company_name": "NVTK",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рекордный FCF 353 млрд (+115% г/г) — компания генерирует кэш несмотря на бумажные убытки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "новатэк"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +20,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ямал СПГ работает на 110%+ мощности — стабильный генератор кэша",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "спг",
+        "lng",
+        "ямал"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +33,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Низкая себестоимость добычи < $1/mcf благодаря сухому газу ЯНАО",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "новатэк",
+        "янао",
+        "себестоимость добычи"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +46,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Частная компания — менеджмент-владелец заинтересован в росте капитализации",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "михельсон",
+        "тимченко",
+        "новатэк"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +59,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Маржа EBITDA падает третий год подряд (65.2% → 59.4%) — системная потеря эффективности",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "новатэк",
+        "газ"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +71,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Арктик СПГ-2 под санкциями США, отгрузки со скидкой 30-40%, 3-я линия перенесена на 2028",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "арктик спг",
+        "спг"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +83,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Запрет ЕС на СПГ с апреля 2026 (краткосрочные контракты) и с 2027 (долгосрочные)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "спг",
+        "запрет"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +95,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Укрепление рубля обрушило рублёвую прибыль на 63% в 2025 из-за курсовых разниц",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "новатэк",
+        "курсовые разницы"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +107,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Дефицит ледовых танкеров Arc7 ограничивает логистику СПГ по Севморпути",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "танкеры",
+        "севморпуть",
+        "арктика"
+      ]
     },
     {
       "type": "cb_meeting",

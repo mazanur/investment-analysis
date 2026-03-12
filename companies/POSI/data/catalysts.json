@@ -1,7 +1,7 @@
 {
   "ticker": "POSI",
   "company_name": "POSI",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Лидер рынка ИБ в РФ с долей ~15-20%, бенефициар ухода западных вендоров",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "palo alto",
+        "fortinet",
+        "cisco",
+        "импортозамещение"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +23,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Отгрузки 2025 выросли на 45% до 35 млрд — рост вдвое быстрее рынка ИБ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "positive technologies",
+        "отгрузки",
+        "кибербезопасность"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +36,12 @@
       "magnitude": "high",
       "date": null,
       "description": "NIC вернулся в положительную зону — возможны дивиденды в 2026",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "positive technologies",
+        "nic",
+        "чистый процентный доход"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +49,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Обязательная защита критической инфраструктуры до 2030 обеспечивает госзаказ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "кибербезопасность",
+        "информационная безопасность",
+        "импортозамещение"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +62,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "PT NGFW — новый продукт (межсетевой экран) расширяет адресный рынок",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "pt ngfw",
+        "межсетевой экран",
+        "positive technologies"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +75,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF отрицательный (-6.2 млрд LTM), бизнес пока не генерирует кэш",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "positive technologies"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +86,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Долговая нагрузка Net Debt/EBITDA 2.61x (LTM), ожидается снижение в Q4 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "positive technologies"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +97,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Допэмиссия: акции размыты с 66 до 71 млн (+8% за 2024), риск повторения",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "positive technologies",
+        "допэмиссия",
+        "размытие"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +110,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Аудированные МСФО за 2025 только 7 апреля 2026 — риск разочарования",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "positive technologies",
+        "аудит"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +122,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ярко выраженная сезонность: Q4 = 57% годовой выручки, убытки Q1-Q3 — норма",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "positive technologies",
+        "сезонность",
+        "отгрузки"
+      ]
     },
     {
       "type": "cb_meeting",

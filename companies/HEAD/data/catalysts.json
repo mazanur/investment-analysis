@@ -9,7 +9,13 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ (с 21% до 15.5%, прогноз 12-14% к концу 2026) → ускорение найма",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хедхантер",
+        "hh.ru",
+        "найм",
+        "деловая активность"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +23,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Монополия ~75% рынка онлайн-рекрутинга с EBITDA margin >50%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хедхантер",
+        "hh.ru",
+        "рекрутинг",
+        "superjob"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +37,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды 466 руб/акцию за 2025 (доходность ~15.5%) + полугодовые выплаты",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хедхантер",
+        "hh.ru"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +49,14 @@
       "magnitude": "medium",
       "date": null,
       "description": "HRtech выход в прибыль + GenAI продукт — новые драйверы роста",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хедхантер",
+        "hh.ru",
+        "genai",
+        "hrtech",
+        "искусственный интеллект"
+      ]
     },
     {
       "type": "opportunity",
@@ -54,7 +77,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Замедление роста выручки до +4% г/г (ниже инфляции)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хедхантер",
+        "hh.ru",
+        "вакансии",
+        "рекрутинг"
+      ]
     },
     {
       "type": "risk",
@@ -62,7 +91,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение NI на 15% из-за выплаты спецдивиденда и уменьшения процентного дохода",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хедхантер",
+        "hh.ru",
+        "спецдивиденд"
+      ]
     },
     {
       "type": "risk",
@@ -70,7 +104,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Повышение налога на прибыль до 25% с 2026 года",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хедхантер",
+        "hh.ru",
+        "налог на прибыль"
+      ]
     },
     {
       "type": "risk",
@@ -78,7 +117,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Крупнейший акционер (Kismet, 22.7%) под санкциями OFAC SDN",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "kismet",
+        "хедхантер",
+        "hh.ru"
+      ]
     },
     {
       "type": "risk",
@@ -86,7 +130,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Резкий рост CAPEX до 1.6 млрд (+167% г/г) — давление на FCF",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хедхантер",
+        "hh.ru",
+        "genai",
+        "hrtech"
+      ]
     },
     {
       "type": "cb_meeting",

@@ -1,7 +1,7 @@
 {
   "ticker": "AFLT",
-  "company_name": "Аэрофлот",
-  "generated": "2026-03-11",
+  "company_name": "AFLT",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Возобновление дивидендов — первые за 6 лет выплаты в 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "аэрофлот",
+        "дивиденд аэрофлот"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ — улучшение оценки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "аэрофлот",
+        "лизинг самолетов",
+        "авиакомпании"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост внутреннего туризма — 76% выручки от ВВЛ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "туризм",
+        "авиаперевозки",
+        "пассажиропоток"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Монопольная позиция — 42% рынка авиаперевозок",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "аэрофлот",
+        "победа",
+        "россия авиа",
+        "авиаперевозки"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +61,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Санкции на авиапарк Boeing/Airbus — дефицит запчастей и обслуживания",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "boeing",
+        "airbus",
+        "запчасти"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +74,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост операционных расходов — зарплаты +18%, ТО +18%, обслуживание +14%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "аэрофлот",
+        "техобслуживание",
+        "пилоты",
+        "авиаперсонал"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +88,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Задержки МС-21 — серийное производство сдвигается на 2027+",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мс-21",
+        "самолет",
+        "авиапром"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +101,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокая госдоля 73.8% — риск непрозрачных решений",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "аэрофлот",
+        "росимущество",
+        "госкомпания"
+      ]
     },
     {
       "type": "cb_meeting",

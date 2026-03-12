@@ -1,7 +1,7 @@
 {
   "ticker": "X5",
   "company_name": "X5",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -65,7 +65,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Дефицит кадров: номинальная зарплата +14,3% при безработице 2,1%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "зарплаты",
+        "дефицит кадров",
+        "безработица"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +78,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Угроза заморозки цен на социально значимые товары (ст. 8 ФЗ-381)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "заморозка цен",
+        "регулирование цен"
+      ]
     },
     {
       "type": "cb_meeting",

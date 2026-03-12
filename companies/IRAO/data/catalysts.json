@@ -1,7 +1,7 @@
 {
   "ticker": "IRAO",
   "company_name": "IRAO",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Кэш на балансе (~432 млрд) превышает капитализацию (347 млрд) — экстремальная недооценка",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "кубышка"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +20,14 @@
       "magnitude": "medium",
       "date": null,
       "description": "Операционный бизнес улучшается: генерация +28.7%, трейдинг +30.8% EBITDA за 9М 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао",
+        "мосэнерго",
+        "огк-2",
+        "тгк-11",
+        "башкирская генерация"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивидендная доходность ~12% при консервативном payout 25%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +46,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Потенциальное гашение казначейского пакета увеличит EPS на ~42%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао",
+        "казначейские акции",
+        "гашение акций",
+        "байбэк"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +60,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Лидер ДПМ-2/КОММод — 4.95 ГВт мощностей к модернизации с гарантированным возвратом",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао",
+        "дпм-2",
+        "коммод",
+        "модернизация мощностей"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +74,13 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ сокращает процентный доход с кубышки (~2/3 прибыли)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао",
+        "кубышка",
+        "процентный доход",
+        "депозиты"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +88,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF отрицательный все 3 квартала 2025 из-за масштабного капекса по ДПМ-2/КОММод",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао",
+        "дпм-2",
+        "коммод",
+        "модернизация"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +102,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Маржа EBITDA снижается 4 года подряд: 14.9% → 11.2%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +113,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Консервативная дивполитика (payout 25%) — рынок не верит в unlock value кубышки",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао",
+        "payout"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +125,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Неопределённость по казначейскому пакету 29.56% (гашение, продажа или M&A)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "интер рао",
+        "казначейские акции",
+        "байбэк",
+        "гашение акций"
+      ]
     },
     {
       "type": "cb_meeting",

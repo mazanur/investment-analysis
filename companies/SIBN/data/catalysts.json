@@ -1,7 +1,7 @@
 {
   "ticker": "SIBN",
   "company_name": "SIBN",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Низкая себестоимость добычи (<$5/барр.) на зрелых западносибирских месторождениях",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "хмао",
+        "западная сибирь",
+        "ямал",
+        "газпром нефть добыча"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +23,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокая глубина переработки (>95%) даёт премию к марже",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "омский нпз",
+        "московский нпз",
+        "глубина переработки"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +36,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Доступ к инфраструктуре Газпрома — трубопроводы и экспортные терминалы",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром инфраструктура",
+        "трубопровод",
+        "экспортный терминал"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +49,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Технологическое лидерство в ГРП и горизонтальном бурении",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "грп",
+        "горизонтальное бурение",
+        "триз",
+        "трудноизвлекаемые запасы"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +63,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Сильный ритейл-сегмент: 1 900+ АЗС с устойчивым внутренним спросом",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпромнефть азс",
+        "опти",
+        "топливо розница"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +76,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Санкции SDN ограничивают международные операции и создают дисконт к оценке",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром нефть санкции",
+        "танкерный флот",
+        "теневой флот"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +89,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Мажоритарий Газпром (95,7%) может использовать дочку как источник кэша",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром дивиденды",
+        "газпром нефть дочка",
+        "внутригрупповые операции"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +102,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Падение прибыли (-32% YoY) и сжатие маржи EBITDA с 41,5% до 28,9%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "переработка"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +113,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Free-float ~4,3% — крайне низкая ликвидность для институциональных инвесторов",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром нефть free-float",
+        "ликвидность sibn"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +125,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ценовой потолок ЕС $44/барр. и сокращение дисконта НДПИ давят на маржинальность",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ценовой потолок",
+        "price cap",
+        "ндпи нефтяники",
+        "демпфер"
+      ]
     },
     {
       "type": "cb_meeting",

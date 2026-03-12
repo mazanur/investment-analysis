@@ -1,7 +1,7 @@
 {
   "ticker": "EUTR",
-  "company_name": "ЕвроТранс",
-  "generated": "2026-03-11",
+  "company_name": "EUTR",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Результаты 2025: выручка +34%, EBITDA +43%, маржа EBITDA 9.6% (+0.5п.п.)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "евротранс",
+        "трасса",
+        "азс"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Net Debt/EBITDA улучшился с 2.97x до 2.4x — делевередж при росте бизнеса",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "евротранс",
+        "делевередж"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ к 13% → экономия 2-3 млрд/год на процентах",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "евротранс"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +45,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Операционный леверидж работает — маржа растёт при масштабировании",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "евротранс",
+        "трасса",
+        "азс москва"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +58,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды 2025: 20.35 ₽ за 9М, ожидается 25-28 ₽ за год (доходность 18-20%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "евротранс"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +69,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "90% выручки — оптовый трейдинг ГСМ (низкая маржа, волатильность)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "евротранс",
+        "трасса",
+        "оптовые продажи топлива"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +82,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF требует подтверждения в полном отчёте 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "евротранс",
+        "трасса"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +94,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Бизнес-модель нефтетрейдера — были банкротства в секторе",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "евротранс",
+        "нефтетрейдинг",
+        "топливный рынок"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +107,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост может замедлиться при нормализации рынка ГСМ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "нефтепродукты",
+        "гсм",
+        "топливо",
+        "бензин"
+      ]
     },
     {
       "type": "cb_meeting",

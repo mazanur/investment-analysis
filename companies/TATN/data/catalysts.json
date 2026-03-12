@@ -9,7 +9,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ (15,5% → 10-14% к концу 2026) — рост мультипликаторов",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "татнефть мультипликаторы",
+        "переоценка нефтяников"
+      ]
     },
     {
       "type": "opportunity",
@@ -29,7 +33,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Восстановление прибыли в 2П 2025: ЧП 104,4 млрд (vs 54,2 в 1П) — тренд позитивный",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "татнефть восстановление",
+        "татнефть квартал"
+      ]
     },
     {
       "type": "opportunity",
@@ -50,7 +58,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ослабление рубля к 85-95 ₽/$ к 2П 2026 — восстановление рублёвой прибыли",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "татнефть экспорт",
+        "нефть татарстан валюта"
+      ]
     },
     {
       "type": "risk",
@@ -58,7 +70,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "ЧП МСФО FY 2025 = 158,6 млрд ₽ (-48% г/г), EPS 70,48 ₽ — кризисный год подтверждён",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "татнефть прибыль",
+        "татнефть eps"
+      ]
     },
     {
       "type": "risk",
@@ -91,7 +107,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Укрепление рубля — основной фактор обвала прибыли, FX-убытки 25,1 млрд ₽ в 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "татнефть валютные убытки",
+        "экспорт нефти татарстан"
+      ]
     },
     {
       "type": "risk",

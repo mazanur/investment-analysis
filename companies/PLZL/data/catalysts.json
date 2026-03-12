@@ -1,7 +1,7 @@
 {
   "ticker": "PLZL",
   "company_name": "PLZL",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Сухой Лог — крупнейшее неразработанное месторождение в мире, удвоение добычи к 2030",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "золотодобыча"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +20,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рекордные цены на золото ($3 000+/oz) напрямую увеличивают выручку и прибыль",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "цена золота"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +31,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Маржа EBITDA 77% — одна из самых высоких среди мировых золотодобытчиков",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "полюс"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +42,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Защитный актив: золото растёт при геополитической нестабильности и инфляции",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "цена золота",
+        "спрос на золото"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +54,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Долг снижается: Net Debt/EBITDA = 0.88x — лучший уровень с 2021",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "полюс"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +65,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "TCC вырос до $653/oz в H1 2025 (+54% г/г) — теряется преимущество сверхнизкой себестоимости",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "полюс",
+        "себестоимость добычи",
+        "tcc"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +78,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Снижение добычи 2025-2027: прогноз 2.5-2.6 млн унций vs 3.0 млн в 2024 (-13-17%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "добыча золота"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +89,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "CAPEX на Сухой Лог ~$6 млрд давит на FCF, риски задержки и перерасхода",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "полюс",
+        "сухой лог"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +101,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Концентрация ~50% добычи на одном активе (Олимпиада)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "полюс",
+        "олимпиада",
+        "красноярский край"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +114,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Buyback 2023 за 580 млрд — спорная экономическая целесообразность для миноритариев",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "полюс",
+        "обратный выкуп",
+        "керимов"
+      ]
     },
     {
       "type": "cb_meeting",

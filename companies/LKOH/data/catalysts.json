@@ -1,7 +1,7 @@
 {
   "ticker": "LKOH",
   "company_name": "LKOH",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -17,7 +17,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Байбэк 654 млрд руб. в H1 2025 + погашение ~76 млн акций (~11% капитала)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "байбэк",
+        "выкуп акций"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +45,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Геополитическая разрядка → снятие SDN / продажа LIG",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "геополитика",
+        "переговоры",
+        "мирные"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +74,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Urals ниже потолка G7: $40–43/барр. при новом потолке $44.1 с 01.02.2026",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ценовой потолок"
+      ]
     },
     {
       "type": "risk",

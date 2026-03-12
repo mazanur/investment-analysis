@@ -1,7 +1,7 @@
 {
   "ticker": "UGLD",
   "company_name": "UGLD",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Крупнейшие запасы золота в России (46 млн oz), обеспеченность на 30+ лет",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "запасы золота",
+        "югк"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Снятие судебных претензий (~8 млрд ₽) — существенное улучшение правовой позиции",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "югк",
+        "генпрокуратура",
+        "струков"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Оферта миноритариям при продаже госпакета (ЦБ настаивает) — потенциальный апсайд",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "югк",
+        "оферта",
+        "росимущество"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост добычи к 2028 (12 → 29 т) при сохранении рекордных цен на золото $5000+/oz",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "золотодобыча"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +58,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ до 10-14% к концу 2026 снижает стоимость долга",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "югк",
+        "южуралзолото"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +70,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "AISC ~$1 100/oz — себестоимость в 2,5-3 раза выше Полюса, маржа критически зависит от цен на золото",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "себестоимость добычи"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +81,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Отрицательный FCF пятый год подряд, инвестпрограмма поглощает весь OCF",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "югк",
+        "южуралзолото"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +93,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Неопределённость по новому собственнику (продажа УГМК ожидается 1П 2026), ценовой спор 50 vs 100 млрд ₽",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "угмк",
+        "продажа актива"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +105,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокая долговая нагрузка (ND/EBITDA 2,09x), 56% долга в валюте",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "югк",
+        "южуралзолото"
+      ]
     },
     {
       "type": "cb_meeting",

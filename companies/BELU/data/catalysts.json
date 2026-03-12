@@ -1,7 +1,7 @@
 {
   "ticker": "BELU",
-  "company_name": "Novabev Group (Белуга Групп)",
-  "generated": "2026-03-11",
+  "company_name": "BELU",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Вертикальная интеграция: производство + дистрибуция + розница (ВинЛаб 2175 магазинов)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "novabev",
+        "белуга водка",
+        "винлаб",
+        "беленькая"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +23,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Низкий долг (ND/EBITDA 0.69x) — защита при высокой ставке, первыми выигрывают от снижения",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "novabev",
+        "белуга групп"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост выручки ~15-20% YoY за счёт органической экспансии ВинЛаб",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "винлаб",
+        "novabev",
+        "алкогольная розница"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +48,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокое качество прибыли: OCF/NI = 4.26, FCF 13 млрд руб",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "novabev",
+        "белуга групп"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +60,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Падение маржи EBITDA с 17.8% до 14.4% требует внимания",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "novabev",
+        "белуга",
+        "винлаб"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +73,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Конкуренция в off-trade от X5 и Магнита, развивающих алкогольные категории",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "винлаб",
+        "пятерочка",
+        "магнит",
+        "алкомаркет"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +87,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Повышение акцизов и ограничения на рекламу/продажу алкоголя",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "акцизы",
+        "алкоголь",
+        "регулирование алкоголя"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +100,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Тезис чувствителен к замедлению роста ВинЛаб (при g=7% upside уходит в минус)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "винлаб",
+        "открытие магазинов",
+        "экспансия розницы"
+      ]
     },
     {
       "type": "cb_meeting",

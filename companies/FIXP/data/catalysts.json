@@ -1,7 +1,7 @@
 {
   "ticker": "FIXP",
   "company_name": "FIXP",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Экстремально дешёвая оценка: P/E 4.3x, EV/EBITDA 1.5x при марже 14%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фикс прайс",
+        "fix price",
+        "мультипликаторы"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Антициклическая модель — при ухудшении экономики трафик растёт",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фикс прайс",
+        "fix price",
+        "потребительский спрос"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Минимальный долг (ND/EBITDA 0.3x), нет процентного риска",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фикс прайс",
+        "fix price"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Начало регулярных дивидендных выплат с 2026 года (≥50% NI)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фикс прайс",
+        "fix price"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +59,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Уникальная ниша — единственный публичный value-ритейлер в РФ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фикс прайс",
+        "fix price",
+        "value ритейл",
+        "магазины низких цен"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +73,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "LFL-трафик падает (-4.2%), рост только за счёт инфляции среднего чека",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фикс прайс",
+        "fix price",
+        "трафик магазинов"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +86,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Системное сжатие маржи из-за зарплатной инфляции (+28% YoY в ритейле)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фикс прайс",
+        "fix price",
+        "зарплаты ритейл",
+        "дефицит кадров"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +100,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Рост финансовых расходов в 9 раз за 9М2025 из-за высокой ставки ЦБ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "фикс прайс",
+        "fix price"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +112,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Зависимость от импорта (Китай, Турция) — курсовые и логистические риски",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "импорт",
+        "юань"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +124,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Каннибализация трафика жёсткими дискаунтерами (Чижик, Светофор)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "дискаунтер",
+        "чижик",
+        "светофор"
+      ]
     },
     {
       "type": "cb_meeting",

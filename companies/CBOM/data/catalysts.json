@@ -1,7 +1,7 @@
 {
   "ticker": "CBOM",
   "company_name": "CBOM",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Системно значимый банк (СЗКО) — в случае кризиса вероятна поддержка ЦБ/государства",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мкб",
+        "сзко",
+        "санация банка"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Крупнейший негосударственный банк — стратегический актив для Роснефти",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мкб",
+        "россиум",
+        "авдеев",
+        "роснефть"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +36,12 @@
       "magnitude": "high",
       "date": null,
       "description": "При нормализации NPL и снижении ставки ЦБ возможна переоценка акций",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мкб",
+        "проблемные активы",
+        "реструктуризация"
+      ]
     },
     {
       "type": "risk",
@@ -33,7 +49,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "NPL 28% кредитного портфеля — 668 млрд ₽ просрочки, рост в 8 раз за 2025 год",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "просрочка",
+        "проблемные кредиты"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +61,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Чистый процентный убыток 127 млрд ₽ за 9М 2025, базовый бизнес глубоко убыточен",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мкб",
+        "московский кредитный банк",
+        "процентный убыток"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +74,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Под полными блокирующими санкциями SDN (OFAC), отключён от SWIFT",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мкб",
+        "московский кредитный банк",
+        "блокирующие санкции"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +87,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Достаточность капитала H1.0 на грани — снижение активов на 3% угрожает капиталу",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мкб",
+        "достаточность капитала",
+        "норматив"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +100,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Отсутствие дивидендов за всю историю публичной компании",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мкб",
+        "московский кредитный банк",
+        "дивиденд мкб"
+      ]
     },
     {
       "type": "cb_meeting",

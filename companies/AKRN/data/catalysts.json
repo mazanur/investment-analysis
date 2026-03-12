@@ -1,7 +1,7 @@
 {
   "ticker": "AKRN",
-  "company_name": "Акрон",
-  "generated": "2026-03-11",
+  "company_name": "AKRN",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ → переоценка мультипликаторов",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "акрон",
+        "удобрения",
+        "химическая промышленность"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост цен на удобрения (низкие мировые запасы)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "удобрения",
+        "азотные удобрения",
+        "цены на удобрения"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Слабый рубль — бенефициар девальвации (экспортёр ~70%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "акрон",
+        "экспорт удобрений",
+        "балтика порт"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +48,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Вертикальная интеграция снижает себестоимость",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "олений ручей",
+        "апатит",
+        "талицкий"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +61,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Крайне низкий free-float (5%) — неликвидная бумага",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "акрон",
+        "кантор",
+        "россиум"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +74,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост чистого долга с 25 млрд до 119 млрд ₽ за год",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "акрон",
+        "талицкий гок"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +86,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Снижение прибыли Q3 2025 (6,4 млрд vs 15,7 млрд Q2)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "акрон",
+        "минеральные удобрения",
+        "великий новгород"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +99,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Замораживание внутренних цен на удобрения ограничивает маржу",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "удобрения",
+        "заморозка цен",
+        "регулирование цен"
+      ]
     },
     {
       "type": "cb_meeting",

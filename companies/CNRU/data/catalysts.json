@@ -1,7 +1,7 @@
 {
   "ticker": "CNRU",
   "company_name": "CNRU",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Ускорение роста в Q3'25: +29% YoY после снижения ставки ЦБ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "недвижимость"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +20,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Buyback программа до 3 млрд ₽ (6,8% капитализации) поддержит котировки и сократит акции",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "циан",
+        "обратный выкуп",
+        "buyback"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +33,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Планируемый дивиденд 2026: >50 ₽/акция (8,8% доходность)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "циан",
+        "дивиденды циан"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +45,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Расширение маржи EBITDA: 16% → 27% за год (Q3'24 vs Q3'25)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "циан"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +56,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Лидерство в нише с долей 57-69% в ключевых сегментах",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "циан",
+        "рынок онлайн-недвижимости"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +68,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Конкуренция с Авито, ДомКлик (Сбер) и Яндекс Недвижимостью усиливается",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "циан",
+        "авито недвижимость",
+        "домклик"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +89,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Зависимость от Москвы и СПб (~70% выручки)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "циан",
+        "московский рынок недвижимости"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +101,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост зарплат IT-специалистов (50-70% расходов) при дефиците кадров",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "циан",
+        "it-кадры",
+        "зарплаты разработчиков"
+      ]
     },
     {
       "type": "cb_meeting",

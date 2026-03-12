@@ -1,7 +1,7 @@
 {
   "ticker": "ROSN",
   "company_name": "ROSN",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Восток Ойл — запуск первой очереди (30 млн т/год) в 2026, ресурсная база 7 млрд т нефти",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "восток ойл",
+        "арктика"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Крупнейшая нефтяная компания РФ с масштабом ~40% российской добычи",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "роснефть",
+        "добыча нефти",
+        "нефтедобыча"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ослабление квот ОПЕК+ со 2П 2026 — потенциал роста добычи",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "опек",
+        "опек+",
+        "квоты",
+        "добыча нефти"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +48,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Цикл снижения ставки ЦБ (прогноз 10-14% на конец 2026) улучшает оценку",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "роснефть"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +59,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Падение цен на нефть (Brent <$55) и укрепление рубля сокращают маржинальность",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "роснефть",
+        "цена нефти"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +71,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Санкции США против Восток Ойл и ключевых дочерних компаний — риск задержки запуска проекта",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "восток ойл"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +82,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Снижение ценового потолка ЕС до $44,1/барр. давит на цену реализации экспорта",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ценовой потолок"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +93,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокий капекс (>1,5 трлн руб./год) сдерживает свободный денежный поток",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "роснефть"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +104,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Квоты ОПЕК+ ограничивают добычу и не позволяют реализовать потенциал мощности",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "опек",
+        "опек+",
+        "квоты нефть",
+        "роснефть"
+      ]
     },
     {
       "type": "cb_meeting",

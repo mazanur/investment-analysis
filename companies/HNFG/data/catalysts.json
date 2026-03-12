@@ -1,7 +1,7 @@
 {
   "ticker": "HNFG",
   "company_name": "HNFG",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Уход западных брендов (Zara, H&M, Uniqlo) освободил рынок для Henderson",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "zara",
+        "h&m",
+        "одежда",
+        "fashion"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +23,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "E-commerce растёт на +29% г/г, доля онлайн достигла 23.4%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "henderson",
+        "интернет-магазин",
+        "онлайн-продажи"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +36,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Высокий ROE 30% — эффективный бизнес с хорошей отдачей на капитал",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "henderson"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ — главный катализатор восстановления маржи ЧП до 12-15%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "henderson"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +58,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Органическая экспансия — рост площадей с 57 до 69 тыс. м²",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "henderson",
+        "новые магазины",
+        "торговая площадь"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +71,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Сжатие маржи ЧП с 15.4% до 8.9% из-за роста процентных расходов (+59% г/г)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "henderson"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +82,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF близок к нулю — высокий CAPEX в фазе экспансии съедает операционный поток",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "henderson",
+        "экспансия"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +94,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "LFL +5.7% — рост сопоставимых продаж ниже инфляции, реальный рост отрицательный",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "henderson",
+        "lfl",
+        "сопоставимые продажи"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +107,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Замедление темпов роста выручки: +14.8% в 2025 vs +24.3% в 2024",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "henderson",
+        "замедление роста"
+      ]
     },
     {
       "type": "cb_meeting",

@@ -1,7 +1,7 @@
 {
   "ticker": "GAZP",
-  "company_name": "Газпром",
-  "generated": "2026-03-11",
+  "company_name": "GAZP",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Монополия на транспортировку газа в РФ и крупнейшие запасы газа в мире (15%)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром",
+        "газотранспортная система",
+        "газификация"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рост экспорта в Китай по Силе Сибири до 38.8 млрд куб. м",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сила сибири",
+        "газ",
+        "китай",
+        "экспорт газа"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +36,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Экстремально низкие мультипликаторы (P/E 2.3x, P/BV 0.17x)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Низкая себестоимость добычи на зрелых месторождениях",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром",
+        "надым",
+        "ямал",
+        "добыча газа"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +61,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Потеря европейского рынка без полного замещения (экспорт с 150 до 17.8 млрд куб. м)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газ",
+        "европа",
+        "транзит"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +74,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Отрицательный FCF 2 года подряд (-213 млрд в 2023, -701 млрд в 2024)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром",
+        "газопровод"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +86,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды не выплачиваются 3-й год подряд, государство забирает деньги через НДПИ",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ндпи"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +97,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "«Сила Сибири-2» не подписана — контракт может не состояться",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сила сибири 2",
+        "газпром",
+        "монголия",
+        "китай газ"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +111,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "ROE 7.1% ниже стоимости капитала — бизнес разрушает стоимость",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "газпром"
+      ]
     },
     {
       "type": "cb_meeting",

@@ -1,7 +1,7 @@
 {
   "ticker": "GMKN",
   "company_name": "GMKN",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Уникальная ресурсная база: ~40% мирового палладия, запасы на 50+ лет",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "палладий",
+        "норникель",
+        "автокатализаторы",
+        "платиноиды"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +23,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Низкая себестоимость: побочные металлы фактически покрывают все затраты на добычу никеля",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "норникель",
+        "побочные металлы"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +35,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF восстановился до 74 млрд LTM (×3 за год), долг снизился на 51 млрд",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "норникель",
+        "делевередж"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ожидаемый дефицит меди и рост цен (медь +42% YTD)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "медь",
+        "цены на медь"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +59,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Профицит никеля 209-261 тыс. т в 2025-2026 из-за давления Индонезии",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "никель",
+        "индонезия",
+        "lme"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +72,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Прибыль стагнирует 2 года (123 млрд ₽ — в 4 раза ниже пика 2021)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "норникель",
+        "norilsk nickel"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +84,13 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды отменены до 2027 года, новая политика не утверждена",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "норникель",
+        "потанин",
+        "русал",
+        "акционерное соглашение"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +98,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Санкции LME/CME ограничивают торговлю российскими металлами с дисконтом",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "lme",
+        "металлы"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +110,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Снижение производства: никель -3%, медь -2% в 2025 из-за перехода на вкрапленные руды",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "норникель",
+        "таймыр",
+        "полярный дивизион",
+        "вкрапленные руды"
+      ]
     },
     {
       "type": "cb_meeting",

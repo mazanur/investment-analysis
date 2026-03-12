@@ -1,7 +1,7 @@
 {
   "ticker": "SNGS",
   "company_name": "SNGS",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Нулевой долг и кубышка $44 млрд — полная финансовая независимость",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "кубышка"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +20,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Экстремально дёшевая оценка: P/BV ~0,14, P/E <1x, кубышка превышает капитализацию в 5 раз",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сургутнефтегаз",
+        "кубышка"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +32,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Девальвация рубля даст положительную переоценку кубышки и высокие дивиденды по префам",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сургутнефтегаз",
+        "кубышка",
+        "курсовая переоценка"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +45,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Низкая себестоимость добычи на зрелых месторождениях с развитой инфраструктурой",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сургутнефтегаз",
+        "западная сибирь",
+        "кинеф"
+      ]
     },
     {
       "type": "risk",
@@ -41,7 +58,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Укрепление рубля вызывает убытки от переоценки кубышки (9М 2025: убыток ~-9 млрд РСБУ)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "укрепление рубля"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +69,11 @@
       "magnitude": "high",
       "date": null,
       "description": "SDN-санкции США и ЕС ограничивают международные операции и банкинг",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сургутнефтегаз",
+        "богданов"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +81,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Структура собственности неизвестна (~70% через НПФ и оффшоры), крайне низкая прозрачность",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сургутнефтегаз",
+        "богданов",
+        "нпф"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +94,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Минимальный payout по обыкновенным акциям (2-3% от прибыли) — value trap",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "сургутнефтегаз",
+        "дивиденды сургутнефтегаз"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +106,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Снижение добычи (-4,8% нефть, -11,9% газ в 2024) на зрелых месторождениях",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "добыча нефти"
+      ]
     },
     {
       "type": "cb_meeting",

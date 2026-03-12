@@ -1,7 +1,7 @@
 {
   "ticker": "GCHE",
   "company_name": "GCHE",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,11 @@
       "magnitude": "high",
       "date": null,
       "description": "ND/EBITDA снизился до 2.36x — ниже порога 2.5x дивполитики, возобновление дивидендов вероятно",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "черкизово",
+        "дивиденды черкизово"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "EBITDA рекордная 56.5 млрд ₽ (+22% г/г), маржа 19.6% — подтверждение ценовой силы",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "черкизово",
+        "мясопереработка"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +33,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF стал положительным (4.9 млрд ₽) после сокращения CAPEX на 34%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "черкизово"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +44,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Лидер российского мясного рынка (#1 по птице, топ-5 по свинине) с CAGR выручки 16.6%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "черкизово",
+        "птицеводство",
+        "свиноводство",
+        "петелинка"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +58,10 @@
       "magnitude": "high",
       "date": null,
       "description": "Снижение ставки ЦБ (15.5% → 10-13% к концу 2026) резко увеличит чистую прибыль",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "черкизово"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +69,10 @@
       "magnitude": "medium",
       "date": null,
       "description": "Процентные расходы 28.8 млрд ₽ — 51% от EBITDA, ROE упал до 13%",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "черкизово"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +80,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Free-float 2.5% — крайне низкая ликвидность, листинг 3-го уровня, ADV 9.8 млн ₽",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "черкизово",
+        "ликвидность",
+        "free-float"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +93,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Ветеринарные риски: вспышка гриппа птиц на Васильевской птицефабрике в 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "грипп птиц",
+        "ветеринария",
+        "птицеводство"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +106,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Насыщение внутреннего рынка мяса (82-83 кг/чел — рекорд)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "мясо",
+        "птица",
+        "свинина"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +119,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Семья Михайловых контролирует ~87% — key-man risk, только 1 из 12 брокеров рекомендует",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "черкизово",
+        "михайлов"
+      ]
     },
     {
       "type": "cb_meeting",

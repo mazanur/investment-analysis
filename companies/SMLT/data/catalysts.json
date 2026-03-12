@@ -1,7 +1,7 @@
 {
   "ticker": "SMLT",
   "company_name": "SMLT",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Крупнейший земельный банк в РФ (~41,5 млн кв. м) — стратегический актив при восстановлении рынка",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "самолёт земельный банк",
+        "участки под застройку"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +21,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Опцион на снижение ставки ЦБ: при ставке <14% оживёт рыночная ипотека и маржа восстановится",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ипотечная ставка",
+        "рыночная ипотека",
+        "кредитование жилья"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Крупнейший девелопер РФ по текущему строительству, №1 по вводу в 2025",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "самолёт ввод жилья",
+        "самолёт строительство",
+        "новостройки"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Семейная ипотека 6% до 2030 поддерживает базовый спрос",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "семейная ипотека",
+        "льготная ипотека"
+      ]
     },
     {
       "type": "opportunity",
@@ -41,7 +59,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Q4 2025: денежные поступления +83% г/г — признаки оживления",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "самолёт продажи",
+        "самолёт денежные поступления",
+        "эскроу"
+      ]
     },
     {
       "type": "risk",
@@ -49,7 +72,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Экстремальная долговая нагрузка: Net Debt/EBITDA 3,2x, отрицательный собственный капитал",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "самолёт долг",
+        "облигации самолёт",
+        "проектное финансирование"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +85,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Чистая прибыль в свободном падении: H1 2025 = 1,84 млрд (-61% г/г)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "самолёт прибыль",
+        "самолёт маржа"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +97,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Уголовные расследования (СК, Бастрыкин) и задержки сдачи объектов",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "застройщик",
+        "обманутые дольщики"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +109,13 @@
       "magnitude": "medium",
       "date": null,
       "description": "Риск частичного огосударствления — просьба о блокпакете государству",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "самолёт господдержка",
+        "блокпакет",
+        "мишустин самолёт",
+        "кенин"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +123,12 @@
       "magnitude": "high",
       "date": null,
       "description": "Рыночная ипотека недоступна при ставке 15,5%, спрос держится только на льготных программах",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "ипотечная ставка",
+        "рыночная ипотека",
+        "спрос на жильё"
+      ]
     },
     {
       "type": "cb_meeting",

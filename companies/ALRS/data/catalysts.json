@@ -1,7 +1,7 @@
 {
   "ticker": "ALRS",
   "company_name": "ALRS",
-  "generated": "2026-03-11",
+  "generated": "2026-03-12",
   "catalysts": [
     {
       "type": "opportunity",
@@ -9,7 +9,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Крупнейший производитель алмазов (~30% мировой добычи) с низкой себестоимостью",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алроса",
+        "кимберлитовая трубка",
+        "мирный"
+      ]
     },
     {
       "type": "opportunity",
@@ -17,7 +22,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Цикл снижения ставки ЦБ (15.5% → 10-14%) снизит процентные расходы на 6-8 млрд ₽/год",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алроса",
+        "алмазная отрасль"
+      ]
     },
     {
       "type": "opportunity",
@@ -25,7 +34,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Алмазный рынок на многолетних минимумах — потенциал циклического recovery",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алмазы",
+        "de beers",
+        "бриллианты"
+      ]
     },
     {
       "type": "opportunity",
@@ -33,7 +47,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "P/BV 0.72x — ниже балансовой стоимости, поддержка активами",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алроса",
+        "капитализация алроса"
+      ]
     },
     {
       "type": "opportunity",
@@ -49,7 +67,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "EBITDA маржа обвалилась до 24.6% — исторический минимум, падает 5+ полугодий подряд",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алроса",
+        "алмазодобыча",
+        "якутия"
+      ]
     },
     {
       "type": "risk",
@@ -57,7 +80,12 @@
       "magnitude": "medium",
       "date": null,
       "description": "Процентные расходы удвоились до 19.1 млрд ₽ при Net Debt/EBITDA 1.53x",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алроса",
+        "долг алроса",
+        "облигации алроса"
+      ]
     },
     {
       "type": "risk",
@@ -65,7 +93,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "FCF отрицательный 2-й год подряд (-30 млрд ₽ за 2025)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "алроса",
+        "дегдекан"
+      ]
     },
     {
       "type": "risk",
@@ -73,7 +105,11 @@
       "magnitude": "medium",
       "date": null,
       "description": "Синтетические алмазы заняли >20% ювелирного рынка и продолжают рост",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "синтетические алмазы",
+        "лабораторные алмазы"
+      ]
     },
     {
       "type": "risk",
@@ -81,7 +117,11 @@
       "magnitude": "high",
       "date": null,
       "description": "Санкции G7 закрыли >50% традиционных рынков сбыта (ЕС, США)",
-      "source": "index"
+      "source": "index",
+      "trigger_tags": [
+        "g7",
+        "алмазы"
+      ]
     },
     {
       "type": "cb_meeting",
