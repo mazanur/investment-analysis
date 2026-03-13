@@ -1073,6 +1073,19 @@ def main():
     impact_summary = news.get("impact_summary", "")
     news_summary = news.get("summary", "")
 
+    # Staleness: similar earlier articles (from export_worker)
+    staleness_section = ""
+    similar_earlier = news.get("similar_earlier_news")
+    if similar_earlier and isinstance(similar_earlier, list):
+        lines_st = ["## ⚠️ Похожие более ранние публикации"]
+        lines_st.append("Следующие статьи на ту же тему вышли РАНЬШЕ текущей новости.")
+        lines_st.append("Если рынок уже отреагировал на них — текущая новость может быть stale (повторная публикация).")
+        for item in similar_earlier:
+            sim_pct = int(item.get("similarity", 0) * 100)
+            lines_st.append(f"- [{item.get('source', '?')}] {item.get('published_at', '?')[:16]} — {item.get('title', '?')} (similarity: {sim_pct}%)")
+        lines_st.append("**Учти это при оценке \"Уже в цене?\" — если первоисточник вышел часы назад, рынок мог уже отреагировать.**")
+        staleness_section = "\n" + "\n".join(lines_st) + "\n"
+
     # --- Build prompt ---
     # Price section (close-to-close)
     snapshot_line = ""
@@ -1184,14 +1197,17 @@ def main():
 ## Правила (прочитай ПЕРЕД анализом данных)
 
 **Классификация новости:**
-| Тип | Примеры | Влияние |
-|-----|---------|---------|
-| results | Квартальный/годовой отчёт | Сильное, если расхождение с ожиданиями |
-| dividends | Объявление дивидендов, payout | Среднее-сильное |
-| regulation | Санкции, налоги, тарифы | Сильное |
-| corporate | M&A, buyback, допэмиссия | Сильное |
-| macro | Ставка ЦБ, курс | Среднее |
-| noise | Мнения, пересказ старого | Слабое → skip |
+| Тип | Примеры | Влияние | Реалистичный TP (1-2 дня) |
+|-----|---------|---------|--------------------------|
+| results | Квартальный/годовой отчёт с beat/miss | Сильное | +2–5% |
+| results-routine | Ежемесячный РПБУ, операционные данные | Слабое-среднее | +1–2% |
+| dividends | Решение о дивидендах, размер, дата | Среднее-сильное | +2–4% |
+| regulation | Санкции, налоги, тарифы, законы | Сильное | +2–5% |
+| corporate | M&A, buyback, допэмиссия, крупные контракты | Сильное | +3–7% |
+| macro | Ставка ЦБ, курс, геополитика | Среднее | +1–3% |
+| noise | Мнения аналитиков, пересказ старого, прогнозы | Слабое → **skip** |  |
+
+**Маркеры noise (→ skip):** заголовок содержит "МНЕНИЕ:", "Ожидаем", "Прогноз:", "Обзор:", аналитик прогнозирует без новых фактов, пересказ вчерашней новости другими словами.
 
 **"Уже в цене?" — матрица:**
 | price_move (абс.) | volume > 2× ADV | Вердикт |
@@ -1214,16 +1230,22 @@ def main():
 3. **short-negative**: НЕГАТИВ + price_move < 2% + фундаментал сломан/ухудшен → шорт до реакции
 4. **short-overbought**: ПОЗИТИВ + price_move > 5% ВВЕРХ + upside small → шорт перекупленности
 
-**Target (горизонт 1-2 дня) — ТОЛЬКО % от entry:**
-- long-positive: entry × 1.03–1.07 (+3–7%)
+**Target (горизонт 1-2 дня) — КАЛИБРУЙ ПО ТИПУ НОВОСТИ:**
+- long-positive: используй "Реалистичный TP" из таблицы классификации выше (НЕ 3-7% для всех)
+  - results-routine (РПБУ, операционные): +1–2%
+  - macro/commodity: +1–3%
+  - results (квартальный beat): +2–5%
+  - corporate (M&A, buyback): +3–7%
 - long-oversold: частичный возврат к pre_news_price (30-50% от падения)
-- short-negative: entry × 0.93–0.97 (−3–7%)
+- short-negative: аналогично long-positive, но вниз
 - short-overbought: частичный возврат к pre_news_price (30-50% от роста)
 **ЗАПРЕЩЕНО** использовать fair value, сценарии оценки или upside как target. Target = краткосрочное ценовое движение за 1-2 дня, а не фундаментальная переоценка.
+**МАКСИМУМ TP: ±10% от entry.** Если ты считаешь что upside больше — это позиционный трейд, а не news-reaction → skip.
 
-**Stop-loss (2-4% от entry):**
-- long: entry × 0.96–0.98 (или минимум дня для long-oversold, если он ближе)
-- short: entry × 1.02–1.04 (или максимум дня для short-overbought, если он ближе)
+**Stop-loss (1.5-3% от entry):**
+- long: entry × 0.97–0.985 (или минимум дня для long-oversold, если он ближе)
+- short: entry × 1.015–1.03 (или максимум дня для short-overbought, если он ближе)
+- **МАКСИМУМ SL: 5% от entry.** SL > 5% = позиционный трейд → skip.
 
 **Обязательные условия (любое нарушение → skip):**
 - confidence ≥ medium (low → skip)
@@ -1271,7 +1293,7 @@ Strength: {strength} | URL: {news.get('link', '')}
 *(Оцени ПРЯМОЕ влияние именно этой новости на {ticker}. Косвенное макро ≠ прямое событие.)*
 {news_summary}
 Impact-анализ (мнение LLM-фильтра, может быть неточным): {impact_summary}
-
+{staleness_section}
 ## Движение цены
 {price_section}
 
@@ -1303,8 +1325,12 @@ Impact-анализ (мнение LLM-фильтра, может быть нет
    - risk_reward ≥ 1.5? Если нет → skip
    - Если новость негативная → signal НЕ может быть buy (кроме long-oversold при падении >5%)
    - Если новость позитивная → signal НЕ может быть sell (кроме short-overbought при росте >5%)
-   - target находится в пределах ±3-7% от entry (или 30-50% возврата для oversold/overbought)
-   - stop_loss в пределах 2-4% от entry
+   - **TP калиброван по типу новости?** Ежемесячный РПБУ не может давать TP +5%. Commodity news не может давать TP +7%. Сверься с таблицей классификации.
+   - **TP ≤ 10% от entry?** Если больше — это не news-reaction, а позиционный трейд → skip.
+   - **SL ≤ 5% от entry?** Если больше → skip.
+   - stop_loss в пределах 1.5-3% от entry
+   - **Есть ли staleness warning?** Если да — усиль оценку "Уже в цене?". Новость вышла часы назад → вероятно уже отыграна.
+   - Если news_type = noise → signal ОБЯЗАН быть skip. "МНЕНИЕ:", "Прогноз:", аналитические обзоры без новых фактов = noise.
    - Если проверка не пройдена → исправь или переведи в skip
 
 <analysis>
