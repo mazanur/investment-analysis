@@ -37,18 +37,45 @@ BLACKLIST = {
     "облигации", "недооценка", "балансовая стоимость",
     # Sector tags — sector matcher already handles these
     "строительство", "сталь", "электроэнергия", "золото", "ипотека",
+    "металлургия", "банковский сектор", "it-сектор", "застройщик",
+    "медицина",
     # Generic reporting periods
     "полугодие",
     # Sanctions — too broad (23 companies), sector matching handles this
-    "санкции", "sdn", "ofac",
+    "санкции", "sdn", "ofac", "блокирующие санкции",
     # Currency — too broad (8+ companies), sector matching handles FX exposure
-    "доллар", "курс валют", "рубль", "девальвация",
+    "доллар", "курс валют", "рубль", "девальвация", "юань",
     # Oil — too broad (6 companies), sector matching handles oil price impact
     "нефть", "brent", "urals",
     # EU — too broad (6 companies)
     "ес",
     # Swift — too broad for trigger matching
     "swift",
+    # Generic corporate events — match any company doing this
+    "допэмиссия", "обратный выкуп", "байбэк", "buyback",
+    "размещение акций", "совет директоров", "поглощение", "ipo",
+    # Generic banking metrics — match all banks
+    "просрочка", "процентная маржа", "достаточность капитала",
+    "резервы", "депозиты", "портфель ценных бумаг",
+    "ликвидность", "казначейские акции", "free-float",
+    # Generic financial terms
+    "денежная позиция", "погашение долга", "валютная выручка",
+    "проектное финансирование", "модернизация",
+    # Taxes/regulation — sector-wide
+    "ндпи", "регулирование цен", "заморозка цен",
+    # Government programs — sector-wide
+    "семейная ипотека", "льготная ипотека", "росимущество",
+    "импортозамещение", "госкомпания",
+    # Macro/labor terms
+    "дефицит кадров", "безработица", "рынок труда",
+    "инфляция", "найм", "геополитика",
+    # Ambiguous: "система" = generic word "system", false-matches everything;
+    # "афк система" is specific enough for AFK Sistema
+    "система",
+    # Generic trade terms
+    "импорт", "экспорт", "квоты",
+    # Generic market terms
+    "коммод", "lme", "маркетплейс",
 }
 
 # Regex patterns for temporal tags

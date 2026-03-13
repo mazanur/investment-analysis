@@ -26,20 +26,20 @@ key_risks:
   - text: Долговая нагрузка Net Debt/EBITDA 2.61x (LTM), ожидается снижение в Q4 2025
     trigger_tags: [positive technologies]
   - text: Допэмиссия: акции размыты с 66 до 71 млн (+8% за 2024), риск повторения
-    trigger_tags: [positive technologies, допэмиссия, размытие]
+    trigger_tags: [positive technologies, размытие]
   - text: Аудированные МСФО за 2025 только 7 апреля 2026 — риск разочарования
     trigger_tags: [positive technologies, аудит]
   - text: Ярко выраженная сезонность: Q4 = 57% годовой выручки, убытки Q1-Q3 — норма
     trigger_tags: [positive technologies, сезонность, отгрузки]
 key_opportunities:
   - text: Лидер рынка ИБ в РФ с долей ~15-20%, бенефициар ухода западных вендоров
-    trigger_tags: [palo alto, fortinet, cisco, импортозамещение]
+    trigger_tags: [palo alto, fortinet, cisco]
   - text: Отгрузки 2025 выросли на 45% до 35 млрд — рост вдвое быстрее рынка ИБ
     trigger_tags: [positive technologies, отгрузки, кибербезопасность]
   - text: NIC вернулся в положительную зону — возможны дивиденды в 2026
     trigger_tags: [positive technologies, nic, чистый процентный доход]
   - text: Обязательная защита критической инфраструктуры до 2030 обеспечивает госзаказ
-    trigger_tags: [кибербезопасность, информационная безопасность, импортозамещение]
+    trigger_tags: [кибербезопасность, информационная безопасность]
   - text: PT NGFW — новый продукт (межсетевой экран) расширяет адресный рынок
     trigger_tags: [pt ngfw, межсетевой экран, positive technologies]
 ---
