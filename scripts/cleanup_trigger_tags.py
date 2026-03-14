@@ -76,6 +76,9 @@ BLACKLIST = {
     "импорт", "экспорт", "квоты",
     # Generic market terms
     "коммод", "lme", "маркетплейс",
+    # Substring false positives — match unrelated words/contexts
+    "оборот", "пилоты", "европа", "якутия", "энергетика", "туризм",
+    "доставка", "запрет", "ограничения", "лицензия", "риски", "2026",
 }
 
 # Regex patterns for temporal tags
