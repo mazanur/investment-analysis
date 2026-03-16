@@ -1,7 +1,7 @@
 {
   "ticker": "HYDR",
   "company_name": "HYDR",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -104,9 +104,7 @@
       "description": "Риск допэмиссии для финансирования инвестпрограммы",
       "source": "index",
       "trigger_tags": [
-        "русгидро",
-        "допэмиссия",
-        "размещение акций"
+        "русгидро"
       ]
     },
     {

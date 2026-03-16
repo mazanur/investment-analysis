@@ -1,7 +1,7 @@
 {
   "ticker": "GAZP",
   "company_name": "GAZP",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -64,7 +64,6 @@
       "source": "index",
       "trigger_tags": [
         "газ",
-        "европа",
         "транзит"
       ]
     },
@@ -86,10 +85,7 @@
       "magnitude": "high",
       "date": null,
       "description": "Дивиденды не выплачиваются 3-й год подряд, государство забирает деньги через НДПИ",
-      "source": "index",
-      "trigger_tags": [
-        "ндпи"
-      ]
+      "source": "index"
     },
     {
       "type": "risk",

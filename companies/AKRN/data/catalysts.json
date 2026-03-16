@@ -1,7 +1,7 @@
 {
   "ticker": "AKRN",
   "company_name": "AKRN",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -101,9 +101,7 @@
       "description": "Замораживание внутренних цен на удобрения ограничивает маржу",
       "source": "index",
       "trigger_tags": [
-        "удобрения",
-        "заморозка цен",
-        "регулирование цен"
+        "удобрения"
       ]
     },
     {

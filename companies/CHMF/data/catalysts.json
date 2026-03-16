@@ -1,7 +1,7 @@
 {
   "ticker": "CHMF",
   "company_name": "CHMF",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -19,7 +19,6 @@
       "description": "Возможное дно цикла в металлургии",
       "source": "index",
       "trigger_tags": [
-        "металлургия",
         "арматура"
       ]
     },
@@ -56,8 +55,7 @@
       "description": "Маржа EBITDA обвалилась до 13.8% в Q4 (было 29.6% год назад)",
       "source": "index",
       "trigger_tags": [
-        "северсталь",
-        "металлургия"
+        "северсталь"
       ]
     },
     {

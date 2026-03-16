@@ -1,7 +1,7 @@
 {
   "ticker": "NVTK",
   "company_name": "NVTK",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -85,8 +85,7 @@
       "description": "Запрет ЕС на СПГ с апреля 2026 (краткосрочные контракты) и с 2027 (долгосрочные)",
       "source": "index",
       "trigger_tags": [
-        "спг",
-        "запрет"
+        "спг"
       ]
     },
     {

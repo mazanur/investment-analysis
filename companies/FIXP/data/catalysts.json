@@ -1,7 +1,7 @@
 {
   "ticker": "FIXP",
   "company_name": "FIXP",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -90,8 +90,7 @@
       "trigger_tags": [
         "фикс прайс",
         "fix price",
-        "зарплаты ритейл",
-        "дефицит кадров"
+        "зарплаты ритейл"
       ]
     },
     {
@@ -112,11 +111,7 @@
       "magnitude": "medium",
       "date": null,
       "description": "Зависимость от импорта (Китай, Турция) — курсовые и логистические риски",
-      "source": "index",
-      "trigger_tags": [
-        "импорт",
-        "юань"
-      ]
+      "source": "index"
     },
     {
       "type": "risk",

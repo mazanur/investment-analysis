@@ -1,7 +1,7 @@
 {
   "ticker": "RTKM",
   "company_name": "RTKM",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -47,7 +47,6 @@
       "description": "IPO дочерних компаний (ЦОД, кибербезопасность) в 2026-2027",
       "source": "index",
       "trigger_tags": [
-        "ipo",
         "цод",
         "кибербезопасность"
       ]

@@ -1,7 +1,7 @@
 {
   "ticker": "POSI",
   "company_name": "POSI",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -13,8 +13,7 @@
       "trigger_tags": [
         "palo alto",
         "fortinet",
-        "cisco",
-        "импортозамещение"
+        "cisco"
       ]
     },
     {
@@ -52,8 +51,7 @@
       "source": "index",
       "trigger_tags": [
         "кибербезопасность",
-        "информационная безопасность",
-        "импортозамещение"
+        "информационная безопасность"
       ]
     },
     {
@@ -100,7 +98,6 @@
       "source": "index",
       "trigger_tags": [
         "positive technologies",
-        "допэмиссия",
         "размытие"
       ]
     },

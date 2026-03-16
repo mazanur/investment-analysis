@@ -1,7 +1,7 @@
 {
   "ticker": "HEAD",
   "company_name": "HEAD",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -13,7 +13,6 @@
       "trigger_tags": [
         "хедхантер",
         "hh.ru",
-        "найм",
         "деловая активность"
       ]
     },
@@ -64,12 +63,7 @@
       "magnitude": "medium",
       "date": null,
       "description": "Рынок труда РФ напряжённый (безработица 2.4%) — структурный спрос на рекрутинг",
-      "source": "index",
-      "trigger_tags": [
-        "безработица",
-        "рынок труда",
-        "найм"
-      ]
+      "source": "index"
     },
     {
       "type": "risk",

@@ -1,7 +1,7 @@
 {
   "ticker": "MAGN",
   "company_name": "MAGN",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -11,8 +11,7 @@
       "description": "Чистая денежная позиция 82 млрд ₽ (улучшилась с 75.5 млрд) — финансовая устойчивость",
       "source": "index",
       "trigger_tags": [
-        "ммк",
-        "денежная позиция"
+        "ммк"
       ]
     },
     {
@@ -118,8 +117,7 @@
       "description": "CAPEX/выручка вырос до 15% — давит на FCF",
       "source": "index",
       "trigger_tags": [
-        "ммк",
-        "модернизация"
+        "ммк"
       ]
     },
     {

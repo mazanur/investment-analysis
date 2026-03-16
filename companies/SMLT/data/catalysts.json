@@ -1,7 +1,7 @@
 {
   "ticker": "SMLT",
   "company_name": "SMLT",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -47,11 +47,7 @@
       "magnitude": "medium",
       "date": null,
       "description": "Семейная ипотека 6% до 2030 поддерживает базовый спрос",
-      "source": "index",
-      "trigger_tags": [
-        "семейная ипотека",
-        "льготная ипотека"
-      ]
+      "source": "index"
     },
     {
       "type": "opportunity",
@@ -75,8 +71,7 @@
       "source": "index",
       "trigger_tags": [
         "самолёт долг",
-        "облигации самолёт",
-        "проектное финансирование"
+        "облигации самолёт"
       ]
     },
     {
@@ -99,7 +94,6 @@
       "description": "Уголовные расследования (СК, Бастрыкин) и задержки сдачи объектов",
       "source": "index",
       "trigger_tags": [
-        "застройщик",
         "обманутые дольщики"
       ]
     },

@@ -1,7 +1,7 @@
 {
   "ticker": "ALRS",
   "company_name": "ALRS",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -70,8 +70,7 @@
       "source": "index",
       "trigger_tags": [
         "алроса",
-        "алмазодобыча",
-        "якутия"
+        "алмазодобыча"
       ]
     },
     {

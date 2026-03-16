@@ -1,7 +1,7 @@
 {
   "ticker": "TCSG",
   "company_name": "TCSG",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -38,7 +38,6 @@
       "source": "index",
       "trigger_tags": [
         "т-технологии байбэк",
-        "обратный выкуп",
         "tcsg buyback"
       ]
     },

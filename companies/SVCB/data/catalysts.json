@@ -1,7 +1,7 @@
 {
   "ticker": "SVCB",
   "company_name": "SVCB",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -90,7 +90,6 @@
       "source": "index",
       "trigger_tags": [
         "совкомбанк облигации",
-        "портфель ценных бумаг",
         "переоценка ofz"
       ]
     },

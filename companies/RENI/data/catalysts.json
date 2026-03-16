@@ -1,7 +1,7 @@
 {
   "ticker": "RENI",
   "company_name": "RENI",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -48,8 +48,7 @@
       "description": "Дивиденды за FY 2025 — ожидается ~5,8 ₽ финальных (payout 50% политика)",
       "source": "index",
       "trigger_tags": [
-        "ренессанс страхование",
-        "совет директоров"
+        "ренессанс страхование"
       ]
     },
     {
@@ -61,7 +60,6 @@
       "source": "index",
       "trigger_tags": [
         "ренессанс страхование",
-        "free-float",
         "индексные фонды"
       ]
     },

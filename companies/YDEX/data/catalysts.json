@@ -1,7 +1,7 @@
 {
   "ticker": "YDEX",
   "company_name": "YDEX",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -11,8 +11,7 @@
       "description": "Ускорение цикла снижения ставки ЦБ — переоценка tech-сектора",
       "source": "index",
       "trigger_tags": [
-        "яндекс",
-        "it-сектор"
+        "яндекс"
       ]
     },
     {
@@ -81,8 +80,7 @@
       "description": "Рост инфляции может замедлить цикл снижения ставки ЦБ",
       "source": "index",
       "trigger_tags": [
-        "яндекс",
-        "инфляция"
+        "яндекс"
       ]
     },
     {

@@ -1,7 +1,7 @@
 {
   "ticker": "AQUA",
   "company_name": "AQUA",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -24,8 +24,7 @@
       "description": "Импортозамещение — защита от конкуренции иностранного импорта",
       "source": "index",
       "trigger_tags": [
-        "импорт рыбы",
-        "импортозамещение"
+        "импорт рыбы"
       ]
     },
     {

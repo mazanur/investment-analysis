@@ -1,7 +1,7 @@
 {
   "ticker": "VKCO",
   "company_name": "VKCO",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -11,9 +11,7 @@
       "description": "Долг сокращён вдвое: 174.3 → 77 млрд ₽ (допэмиссия 112 млрд в июне 2025)",
       "source": "index",
       "trigger_tags": [
-        "vk",
-        "допэмиссия",
-        "погашение долга"
+        "vk"
       ]
     },
     {
@@ -112,7 +110,6 @@
       "source": "index",
       "trigger_tags": [
         "vk",
-        "допэмиссия",
         "разводнение"
       ]
     },

@@ -1,7 +1,7 @@
 {
   "ticker": "MDMG",
   "company_name": "MDMG",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -11,7 +11,6 @@
       "description": "Рост рынка частной медицины +15% в год — структурный тренд",
       "source": "index",
       "trigger_tags": [
-        "медицина",
         "здравоохранение"
       ]
     },
@@ -25,7 +24,6 @@
       "trigger_tags": [
         "мать и дитя",
         "эксперт",
-        "поглощение",
         "клиники"
       ]
     },
@@ -84,11 +82,7 @@
       "magnitude": "medium",
       "date": null,
       "description": "Дефицит медицинских кадров — конкуренция с госсектором",
-      "source": "index",
-      "trigger_tags": [
-        "медицина",
-        "дефицит кадров"
-      ]
+      "source": "index"
     },
     {
       "type": "risk",

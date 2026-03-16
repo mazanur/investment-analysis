@@ -1,7 +1,7 @@
 {
   "ticker": "MGNT",
   "company_name": "MGNT",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -36,7 +36,6 @@
       "source": "index",
       "trigger_tags": [
         "магнит маркет",
-        "доставка",
         "e-commerce"
       ]
     },
@@ -49,8 +48,7 @@
       "source": "index",
       "trigger_tags": [
         "магнит",
-        "азбука вкуса",
-        "поглощение"
+        "азбука вкуса"
       ]
     },
     {

@@ -1,7 +1,7 @@
 {
   "ticker": "CNRU",
   "company_name": "CNRU",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -22,9 +22,7 @@
       "description": "Buyback программа до 3 млрд ₽ (6,8% капитализации) поддержит котировки и сократит акции",
       "source": "index",
       "trigger_tags": [
-        "циан",
-        "обратный выкуп",
-        "buyback"
+        "циан"
       ]
     },
     {

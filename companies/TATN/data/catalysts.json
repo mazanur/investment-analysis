@@ -1,7 +1,7 @@
 {
   "ticker": "TATN",
   "company_name": "TATN",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -85,7 +85,6 @@
       "source": "index",
       "trigger_tags": [
         "опек+",
-        "квоты",
         "добыча нефти"
       ]
     },
@@ -121,7 +120,6 @@
       "description": "Налог на прибыль 25% с 2025 (vs 20%), снижение дисконта НДПИ в 2026",
       "source": "index",
       "trigger_tags": [
-        "ндпи",
         "демпфер",
         "налоговая нагрузка нефтяников"
       ]

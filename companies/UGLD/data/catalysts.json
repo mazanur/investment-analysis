@@ -1,7 +1,7 @@
 {
   "ticker": "UGLD",
   "company_name": "UGLD",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -37,8 +37,7 @@
       "source": "index",
       "trigger_tags": [
         "югк",
-        "оферта",
-        "росимущество"
+        "оферта"
       ]
     },
     {

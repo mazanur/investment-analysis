@@ -1,7 +1,7 @@
 {
   "ticker": "HHRU",
   "company_name": "HHRU",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -25,13 +25,7 @@
       "magnitude": "medium",
       "date": null,
       "description": "Дефицит кадров (безработица ~2.4%) вынуждает работодателей платить за рекрутмент",
-      "source": "index",
-      "trigger_tags": [
-        "безработица",
-        "рынок труда",
-        "найм",
-        "дефицит кадров"
-      ]
+      "source": "index"
     },
     {
       "type": "opportunity",

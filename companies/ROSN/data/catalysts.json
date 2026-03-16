@@ -1,7 +1,7 @@
 {
   "ticker": "ROSN",
   "company_name": "ROSN",
-  "generated": "2026-03-13",
+  "generated": "2026-03-16",
   "catalysts": [
     {
       "type": "opportunity",
@@ -38,7 +38,6 @@
       "trigger_tags": [
         "опек",
         "опек+",
-        "квоты",
         "добыча нефти"
       ]
     },
