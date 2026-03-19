@@ -1,14 +1,14 @@
 {
   "ticker": "TCSG",
   "company_name": "TCSG",
-  "generated": "2026-03-18",
+  "generated": "2026-03-19",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "ROE 29% при P/BV 1.4x — значительная недооценка для growth-банка",
+      "description": "ROE 29% при P/BV 1.3x — значительная недооценка для growth-банка",
       "source": "index",
       "trigger_tags": [
         "т-банк рентабельность",
@@ -21,12 +21,11 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Интеграция Росбанка — синергии ~20 млрд руб/год",
+      "description": "Q4 ускорение — ROE 33,3%, NIM 11,3%, CoR 4,9% (лучший квартал за год)",
       "source": "index",
       "trigger_tags": [
-        "росбанк синергии",
-        "т-банк росбанк",
-        "корпоративное кредитование"
+        "т-технологии квартал",
+        "tcsg результаты"
       ]
     },
     {
@@ -34,7 +33,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Байбэк до 5% капитала — поддерживает EPS и котировки",
+      "description": "Байбэк до 10% free-float с возможным ускорением",
       "source": "index",
       "trigger_tags": [
         "т-технологии байбэк",
@@ -55,11 +54,24 @@
       ]
     },
     {
+      "type": "opportunity",
+      "impact": "positive",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Сплит 1:10 в апреле 2026 — повышение доступности для розничных инвесторов",
+      "source": "index",
+      "trigger_tags": [
+        "т-технологии сплит",
+        "tcsg split",
+        "дробление акций"
+      ]
+    },
+    {
       "type": "risk",
       "impact": "negative",
-      "magnitude": "high",
+      "magnitude": "medium",
       "date": null,
-      "description": "Высокая ставка ЦБ сжимает NIM",
+      "description": "Снижение NIM при смягчении ДКП — переход от высокомаржинального кредитования",
       "source": "index",
       "trigger_tags": [
         "т-банк маржа",
@@ -72,12 +84,24 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Интеграция Росбанка — риски исполнения, временное давление на ROE",
+      "description": "NCI-размывание — доля миноритариев забирает 8% прибыли (15,4 млрд в 2025)",
       "source": "index",
       "trigger_tags": [
-        "росбанк",
-        "т-банк интеграция",
-        "росбанк присоединение"
+        "т-технологии миноритарии",
+        "tcsg nci"
+      ]
+    },
+    {
+      "type": "risk",
+      "impact": "negative",
+      "magnitude": "medium",
+      "date": null,
+      "description": "Покупка Авто.ру за заёмные средства — рост долга и интеграционные риски",
+      "source": "index",
+      "trigger_tags": [
+        "авто.ру",
+        "auto.ru",
+        "т-технологии авто"
       ]
     },
     {
@@ -98,11 +122,11 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Высокий P/BV (1.4x) vs сектор — риск переоценки при разочаровании",
+      "description": "Рост стоимости риска при экономическом замедлении",
       "source": "index",
       "trigger_tags": [
-        "т-технологии оценка",
-        "tcsg мультипликаторы"
+        "т-банк просрочка",
+        "tcs credit quality"
       ]
     },
     {
@@ -123,9 +147,9 @@
     }
   ],
   "summary": {
-    "total": 10,
-    "positive": 4,
-    "negative": 4,
+    "total": 12,
+    "positive": 5,
+    "negative": 5,
     "mixed": 2
   }
 }
