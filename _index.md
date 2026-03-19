@@ -75,7 +75,7 @@ author: AlmazNurmukhametov
 | companies/HNFG/_index.md | заполнен | 2026-02-18 | 2026-05-18 | ежеквартально |
 | companies/MSNG/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/GAZP/_index.md | заполнен | 2026-01-29 | 2026-04-29 | ежеквартально |
-| companies/TCSG/_index.md | заполнен | 2026-01-30 | 2026-04-30 | ежеквартально |
+| companies/TCSG/_index.md | заполнен | 2026-03-19 | 2026-06-19 | ежеквартально |
 | companies/YNDX/_index.md | заполнен | 2026-02-17 | 2026-05-17 | ежеквартально |
 | companies/POSI/_index.md | заполнен | 2026-02-19 | 2026-05-19 | ежеквартально |
 | companies/MOEX/_index.md | заполнен | 2026-03-12 | 2026-06-12 | ежеквартально |
