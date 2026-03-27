@@ -1,14 +1,14 @@
 {
   "ticker": "CNRU",
   "company_name": "CNRU",
-  "generated": "2026-03-20",
+  "generated": "2026-03-27",
   "catalysts": [
     {
       "type": "opportunity",
       "impact": "positive",
-      "magnitude": "high",
+      "magnitude": "medium",
       "date": null,
-      "description": "Ускорение роста в Q3'25: +29% YoY после снижения ставки ЦБ",
+      "description": "FY2025 выручка +17% YoY (в рамках guidance), ЧП +56% YoY — подтверждение роста",
       "source": "index",
       "trigger_tags": [
         "недвижимость"
@@ -19,7 +19,7 @@
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Buyback программа до 3 млрд ₽ (6,8% капитализации) поддержит котировки и сократит акции",
+      "description": "Buyback программа до 3 млрд ₽ (6,3% капитализации) поддержит котировки и сократит акции",
       "source": "index",
       "trigger_tags": [
         "циан"
@@ -30,7 +30,7 @@
       "impact": "positive",
       "magnitude": "high",
       "date": null,
-      "description": "Планируемый дивиденд 2026: >50 ₽/акция (8,8% доходность)",
+      "description": "Планируемый дивиденд за FY2026: >50 ₽/акция (~8% доходность)",
       "source": "index",
       "trigger_tags": [
         "циан",
@@ -42,7 +42,7 @@
       "impact": "positive",
       "magnitude": "medium",
       "date": null,
-      "description": "Расширение маржи EBITDA: 16% → 27% за год (Q3'24 vs Q3'25)",
+      "description": "FCF 4,13 млрд ₽ (FCF yield 8,7%) — отличная конвертация прибыли в кэш",
       "source": "index",
       "trigger_tags": [
         "циан"
@@ -78,7 +78,7 @@
       "impact": "negative",
       "magnitude": "high",
       "date": null,
-      "description": "Зависимость от ипотечного рынка — высокая ставка ЦБ (16%) угнетает лидогенерацию",
+      "description": "Зависимость от ипотечного рынка — ставка ЦБ 15,5% угнетает лидогенерацию",
       "source": "index"
     },
     {
@@ -98,7 +98,7 @@
       "impact": "negative",
       "magnitude": "medium",
       "date": null,
-      "description": "Рост зарплат IT-специалистов (50-70% расходов) при дефиците кадров",
+      "description": "Рост зарплат IT-специалистов (50-70% расходов) при дефиците кадров — Q4'25 OpEx +26% YoY",
       "source": "index",
       "trigger_tags": [
         "циан",
@@ -110,23 +110,15 @@
       "type": "cb_meeting",
       "impact": "mixed",
       "magnitude": "high",
-      "date": "2026-03-20",
-      "description": "Заседание ЦБ по ключевой ставке",
-      "source": "macro"
-    },
-    {
-      "type": "cb_meeting",
-      "impact": "mixed",
-      "magnitude": "high",
       "date": "2026-04-24",
       "description": "Заседание ЦБ по ключевой ставке",
       "source": "macro"
     }
   ],
   "summary": {
-    "total": 11,
+    "total": 10,
     "positive": 5,
     "negative": 4,
-    "mixed": 2
+    "mixed": 1
   }
 }
