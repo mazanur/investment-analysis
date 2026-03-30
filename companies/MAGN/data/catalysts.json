@@ -1,7 +1,7 @@
 {
   "ticker": "MAGN",
   "company_name": "MAGN",
-  "generated": "2026-03-20",
+  "generated": "2026-03-30",
   "catalysts": [
     {
       "type": "opportunity",
@@ -124,23 +124,15 @@
       "type": "cb_meeting",
       "impact": "mixed",
       "magnitude": "high",
-      "date": "2026-03-20",
-      "description": "Заседание ЦБ по ключевой ставке",
-      "source": "macro"
-    },
-    {
-      "type": "cb_meeting",
-      "impact": "mixed",
-      "magnitude": "high",
       "date": "2026-04-24",
       "description": "Заседание ЦБ по ключевой ставке",
       "source": "macro"
     }
   ],
   "summary": {
-    "total": 12,
+    "total": 11,
     "positive": 5,
     "negative": 5,
-    "mixed": 2
+    "mixed": 1
   }
 }
