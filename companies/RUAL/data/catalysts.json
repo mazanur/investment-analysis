@@ -1,7 +1,7 @@
 {
   "ticker": "RUAL",
   "company_name": "RUAL",
-  "generated": "2026-04-24",
+  "generated": "2026-04-27",
   "catalysts": [
     {
       "type": "opportunity",
@@ -125,20 +125,12 @@
       "date": null,
       "description": "Процентные расходы LTM 57,5 млрд ₽ (по 1П 2025: $472 млн/полугодие → ~$944 млн/год = ~94 млрд ₽ ann.)",
       "source": "index"
-    },
-    {
-      "type": "cb_meeting",
-      "impact": "mixed",
-      "magnitude": "high",
-      "date": "2026-04-24",
-      "description": "Заседание ЦБ по ключевой ставке",
-      "source": "macro"
     }
   ],
   "summary": {
-    "total": 12,
+    "total": 11,
     "positive": 6,
     "negative": 5,
-    "mixed": 1
+    "mixed": 0
   }
 }

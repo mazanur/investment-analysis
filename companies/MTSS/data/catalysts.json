@@ -1,7 +1,7 @@
 {
   "ticker": "MTSS",
   "company_name": "MTSS",
-  "generated": "2026-04-24",
+  "generated": "2026-04-27",
   "catalysts": [
     {
       "type": "opportunity",
@@ -75,20 +75,12 @@
       "date": null,
       "description": "Маржа EBITDA стабилизировалась на 34.7%, но на историческом минимуме (vs 43.5% в 2020)",
       "source": "index"
-    },
-    {
-      "type": "cb_meeting",
-      "impact": "mixed",
-      "magnitude": "high",
-      "date": "2026-04-24",
-      "description": "Заседание ЦБ по ключевой ставке",
-      "source": "macro"
     }
   ],
   "summary": {
-    "total": 9,
+    "total": 8,
     "positive": 4,
     "negative": 4,
-    "mixed": 1
+    "mixed": 0
   }
 }

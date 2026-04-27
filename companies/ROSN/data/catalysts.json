@@ -1,7 +1,7 @@
 {
   "ticker": "ROSN",
   "company_name": "ROSN",
-  "generated": "2026-04-24",
+  "generated": "2026-04-27",
   "catalysts": [
     {
       "type": "opportunity",
@@ -110,20 +110,12 @@
         "квоты нефть",
         "роснефть"
       ]
-    },
-    {
-      "type": "cb_meeting",
-      "impact": "mixed",
-      "magnitude": "high",
-      "date": "2026-04-24",
-      "description": "Заседание ЦБ по ключевой ставке",
-      "source": "macro"
     }
   ],
   "summary": {
-    "total": 10,
+    "total": 9,
     "positive": 4,
     "negative": 5,
-    "mixed": 1
+    "mixed": 0
   }
 }

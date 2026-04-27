@@ -1,7 +1,7 @@
 {
   "ticker": "CBOM",
   "company_name": "CBOM",
-  "generated": "2026-04-24",
+  "generated": "2026-04-27",
   "catalysts": [
     {
       "type": "opportunity",
@@ -103,20 +103,12 @@
         "московский кредитный банк",
         "дивиденд мкб"
       ]
-    },
-    {
-      "type": "cb_meeting",
-      "impact": "mixed",
-      "magnitude": "high",
-      "date": "2026-04-24",
-      "description": "Заседание ЦБ по ключевой ставке",
-      "source": "macro"
     }
   ],
   "summary": {
-    "total": 9,
+    "total": 8,
     "positive": 3,
     "negative": 5,
-    "mixed": 1
+    "mixed": 0
   }
 }

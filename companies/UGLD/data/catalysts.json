@@ -1,7 +1,7 @@
 {
   "ticker": "UGLD",
   "company_name": "UGLD",
-  "generated": "2026-04-24",
+  "generated": "2026-04-27",
   "catalysts": [
     {
       "type": "opportunity",
@@ -109,20 +109,12 @@
         "югк",
         "южуралзолото"
       ]
-    },
-    {
-      "type": "cb_meeting",
-      "impact": "mixed",
-      "magnitude": "high",
-      "date": "2026-04-24",
-      "description": "Заседание ЦБ по ключевой ставке",
-      "source": "macro"
     }
   ],
   "summary": {
-    "total": 10,
+    "total": 9,
     "positive": 5,
     "negative": 4,
-    "mixed": 1
+    "mixed": 0
   }
 }
